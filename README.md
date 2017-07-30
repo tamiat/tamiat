@@ -1,21 +1,28 @@
-# core
+<div align="center">
+<p><img src="https://github.com/tamiat/tamiat/blob/master/tamiatlogo.png"></p>
 
-> Tamiat Core
+<h1>Tamiat CMS</h1>
 
-## Build Setup
+<p>
+  <strong>Tamiat headless CMS</strong>
+</p>
 
-``` bash
-# install dependencies
-npm install
+<p>
+  <strong>Vue Admin Panel Framework</strong>,
+  <a href="https://admin.vuebulma.com">Live Demo</a>
+</p>
 
-# serve with hot reload at localhost:8080
-npm run dev
+<p>
+  <sub>Made with ❤︎ by
+    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and
+    <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
+  </sub>
+</p>
 
-# build for production with minification
-npm run build
+## Features
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+* Front end focused CMS.
+* Powered by [Vue][] **2.0** & [Firebase]
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+[Vue]: http://vuejs.org/
+[Firebase]: https://firebase.google.com/

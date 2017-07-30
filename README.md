@@ -7,10 +7,6 @@
   <strong>Tamiat headless CMS</strong>
 </p>
 
-<p>
-  <strong>Vue Admin Panel Framework</strong>,
-  <a href="https://admin.vuebulma.com">Live Demo</a>
-</p>
 
 <p>
   <sub>Made with ❤︎ by

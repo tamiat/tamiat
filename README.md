@@ -18,7 +18,7 @@
     <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
   </sub>
 </p>
-
+</div>
 ## Features
 
 * Front end focused CMS.

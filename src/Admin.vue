@@ -1,9 +1,16 @@
 <template>
-    <div>
-        <h1>this is the admin section</h1>
-    </div>
+  <div>
+    <navbar></navbar>
+  </div>
 </template>
 
 <script>
-    export default {}
+  import Navbar from './components/Navbar'
+
+  export default {
+    components: {
+      'navbar': Navbar
+    }
+  }
+
 </script>

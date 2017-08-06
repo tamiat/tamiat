@@ -23,19 +23,19 @@
       return {
         menu: [
           {
-            name: 'general',
-            path: '/',
-            icon: 'fa-home'
-          },
-          {
             name: 'posts',
             path: '/',
-            icon: 'fa-edit'
+            icon: 'fa-file-text'
           },
           {
             name: 'users',
             path: '/',
             icon: 'fa-users'
+          },
+          {
+            name: 'Settings',
+            path: '/admin/settings',
+            icon: 'fa-gear'
           },
         ]
       }

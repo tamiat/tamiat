@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import Home from '../Home'
 import Admin from '../Admin'
 
+import Settings from '../components/Settings'
+
 Vue.use(Router)
 
 export default new Router({
@@ -16,7 +18,13 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin
+      component: Admin,
+      children: [
+        {
+          path: 'settings',
+          component: Settings
+        }
+      ]
     },
     {
       path: '*',

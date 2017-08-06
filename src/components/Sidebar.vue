@@ -24,7 +24,7 @@
         menu: [
           {
             name: 'posts',
-            path: '/',
+            path: '/admin/posts',
             icon: 'fa-file-text'
           },
           {

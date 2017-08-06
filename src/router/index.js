@@ -5,6 +5,7 @@ import Home from '../Home'
 import Admin from '../Admin'
 
 import Settings from '../components/Settings'
+import Posts from '../components/Posts'
 
 Vue.use(Router)
 
@@ -23,6 +24,10 @@ export default new Router({
         {
           path: 'settings',
           component: Settings
+        },
+        {
+          path: 'posts',
+          component: Posts
         }
       ]
     },

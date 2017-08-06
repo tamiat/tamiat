@@ -34,7 +34,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   h3 {
     font-size: 1.7em;
     margin: 1em 0em;

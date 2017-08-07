@@ -2,18 +2,21 @@
   <div class="container">
 
     <h3>General settings</h3>
+    <div class="box">
+      <div class="columns">
 
-    <div class="columns is-multiline">
+        <div class="column is-multiline">
 
-      <div v-for="item in settings" class="column is-10 is-offset-1">
-        <div class="field">
-          <label class="label">{{item | capitalize}}</label>
-          <div class="control">
-            <input class="input" type="text" :placeholder="item">
+          <div v-for="field in fields" class="field columns">
+            <div class="column is-one-third">
+              <label class="label is-capitalized">{{field.label}}</label>
+            </div>
+            <div class="control column is-two-thirds">
+              <input :type="field.type" class="input" :name="field.label">
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -22,12 +25,16 @@
   export default {
     data() {
       return {
-        settings: ['site name', 'site description']
-      }
-    },
-    filters: {
-      capitalize(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+        fields: [
+          {
+            label: 'site title',
+            type: 'text'
+          },
+          {
+            label: 'site description',
+            type: 'text'
+          }
+        ]
       }
     }
   }

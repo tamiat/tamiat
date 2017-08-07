@@ -44,10 +44,9 @@
     justify-content: baseline;
     align-content: center;
     align-items: center;
-  }
-
-  h3 {
-    margin: 1em 1em 1em 0em;
+    h3 {
+      margin: 1em 1em 1em 0em;
+    }
   }
 
 </style>

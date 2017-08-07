@@ -4,8 +4,10 @@ import Router from 'vue-router'
 import Home from '../Home'
 import Admin from '../Admin'
 
-import Settings from '../components/Settings'
 import Posts from '../components/Posts'
+import Users from '../components/Users'
+import UserNew from '../components/UserNew'
+import Settings from '../components/Settings'
 
 Vue.use(Router)
 
@@ -22,12 +24,22 @@ export default new Router({
       component: Admin,
       children: [
         {
-          path: 'settings',
-          component: Settings
-        },
-        {
           path: 'posts',
           component: Posts
+        },
+        {
+          path: 'users',
+          component: Users,
+          children: [
+            {
+              path: 'new',
+              component: UserNew
+            }
+          ]
+        },
+        {
+          path: 'settings',
+          component: Settings
         }
       ]
     },

@@ -29,7 +29,7 @@
           },
           {
             name: 'users',
-            path: '/',
+            path: '/admin/users',
             icon: 'fa-users'
           },
           {

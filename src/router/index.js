@@ -5,6 +5,7 @@ import Home from '../Home'
 import Admin from '../Admin'
 
 import Posts from '../components/Posts'
+import PostNew from '../components/PostNew'
 import Users from '../components/Users'
 import UserNew from '../components/UserNew'
 import Settings from '../components/Settings'
@@ -25,7 +26,13 @@ export default new Router({
       children: [
         {
           path: 'posts',
-          component: Posts
+          component: Posts,
+          children: [
+            {
+              path: 'new',
+              component: PostNew
+            }
+          ]
         },
         {
           path: 'users',

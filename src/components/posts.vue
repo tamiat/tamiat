@@ -2,37 +2,15 @@
   <div>
     <div class="container">
 
-      <h3>Write a new post</h3>
-
-      <div class="columns">
-
-        <div class="column is-10 is-offset-1">
-          <div class="box">
-
-            <div class="field">
-              <label class="label">Post's title</label>
-              <div class="control">
-                <input type="text" class="input">
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Post's body</label>
-              <div class="control">
-                <textarea type="text" class="textarea"></textarea>
-              </div>
-            </div>
-            <button type="submit" class="button is-primary">Publish</button>
-
-          </div>
-        </div>
+      <div class="content-heading is-flex">
+        <h3 class="is-size-3">Posts</h3>
+        <router-link to="/admin/posts/new" class="button is-info">Add New</router-link>
       </div>
 
-      <h3>Old Posts</h3>
+      <router-view></router-view>
 
       <div class="columns">
-        <div class="column is-10 is-offset-1">
-
+        <div v-for="i in 2" class="column">
 
           <div class="box">
             <article class="media">

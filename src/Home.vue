@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
     <header>
-      <h2><a href="#">Website Logo</a></h2>
+      <h2 class=" is-title is-size-4"><a href="#">Website Logo</a></h2>
       <nav>
         <li><a href="#">Home</a></li>
         <li><a href="#">Products</a></li>
@@ -10,18 +10,22 @@
         <li><a href="#">Contacts</a></li>
       </nav>
     </header>
+
     <section class="hero">
       <div class="background-image" :style="{'background-image': `url(${require('./assets/img/hero.jpg')})`}"></div>
       <h1 v-for="pconf in pconfig">
         {{pconfig[0].title}}
       </h1>
       <h3>{{pconfig[0].desc}}</h3>
-      <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn">Download it Here</a>
+      <div class="cta">
+        <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn">Download it Here</a>
+      </div>
     </section>
 
     <section class="our-work">
       <h3 class="title">Some of our work</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar
+        velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
 
       <ul class="grid">
@@ -34,42 +38,53 @@
 
     <section class="features">
       <h3 class="title">Features and services</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar
+        velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
 
       <ul class="grid">
         <li>
           <i class="fa fa-camera-retro"></i>
           <h4>Photography</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar
+            velit.
+          </p>
         </li>
         <li>
           <i class="fa fa-cubes"></i>
           <h4>Web Development</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar
+            velit.
+          </p>
         </li>
         <li>
           <i class="fa fa-newspaper-o"></i>
           <h4>Content Editing</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar
+            velit.
+          </p>
         </li>
       </ul>
     </section>
     <section class="reviews">
       <h3 class="title">What others say:</h3>
 
-      <p class="quote">Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+      <p class="quote">Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per
+        conubia nostra, per inceptos himenaeos.</p>
       <p class="author">— Patrick Farrell</p>
 
-      <p class="quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+      <p class="quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar
+        velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <p class="author">— George Smith</p>
 
-      <p class="quote">Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi pulvinar ornare. Integer eu iaculis metus.</p>
+      <p class="quote">Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi pulvinar ornare. Integer eu
+        iaculis metus.</p>
       <p class="author">— Kevin Blake</p>
     </section>
     <section class="contact">
       <h3 class="title">Join our newsletter</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar
+        velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
 
       <form>
@@ -83,9 +98,10 @@
         <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
         <li><a href="#"><i class="fa fa-snapchat-square"></i></a></li>
         <li><a href="#"><i class="fa fa-pinterest-square"></i></a></li>
-        <li><a href="#"><i class="fa fa-github-square""></i></a></li>
+        <li><a href="#"><i class="fa fa-github-square"></i></a></li>
       </ul>
-      <p>Made by <a href="http://tutorialzine.com/" target="_blank">tutorialzine</a>. images courtesy to <a href="http://unsplash.com/" target="_blank">unsplash</a>.</p>
+      <p>Made by <a href="http://tutorialzine.com/" target="_blank">tutorialzine</a>. images courtesy to <a href="http://unsplash.com/"
+          target="_blank">unsplash</a>.</p>
       <p>No attribution required. you can remove this footer.</p>
     </footer>
   </div>
@@ -113,41 +129,40 @@
       pconfig: publicConfig
     }
   }
+
 </script>
 
 <style>
-  #app {
+  #app {}
 
-  }
-
-  *{
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
-  html{
+  html {
     font: normal 16px sans-serif;
     color: #555;
   }
 
-  ul, nav{
+  ul,
+  nav {
     list-style: none;
   }
 
-  a{
+  a {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
-
     opacity: 0.9;
   }
 
-  a:hover{
+  a:hover {
     opacity: 1;
   }
 
-  a.btn{
+  a.btn {
     color: #fff;
     border-radius: 4px;
     text-transform: uppercase;
@@ -156,7 +171,7 @@
     text-align: center;
   }
 
-  hr{
+  hr {
     width: 150px;
     height: 2px;
     background-color: #2196F3;
@@ -164,7 +179,7 @@
     margin-bottom: 80px;
   }
 
-  section{
+  section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,23 +187,21 @@
     padding: 125px 100px;
   }
 
-  @media (max-width: 1000px){
+  @media (max-width: 1000px) {
 
-    section{
+    section {
       padding: 100px 50px;
     }
-
   }
 
-  @media (max-width: 600px){
+  @media (max-width: 600px) {
 
-    section{
+    section {
       padding: 80px 30px;
     }
-
   }
 
-  section h3.title{
+  section h3.title {
     color: #414a4f;
     text-transform: capitalize;
     font: bold 32px 'Open Sans', sans-serif;
@@ -196,7 +209,7 @@
     text-align: center;
   }
 
-  section p{
+  section p {
     max-width: 800px;
     text-align: center;
     margin-bottom: 35px;
@@ -204,17 +217,17 @@
     line-height: 2;
   }
 
-  ul.grid{
+  ul.grid {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
-
   /*-------------
        Header
   -------------*/
-  header{
+
+  header {
     position: absolute;
     top: 0;
     left: 0;
@@ -224,50 +237,55 @@
     justify-content: space-between;
     align-items: center;
     color: #fff;
-    padding: 35px 100px 0;
+    padding: 30px 100px 0;
   }
 
-  header h2{
+  header h2 {
     font-family: 'Quicksand', sans-serif;
   }
 
-  header nav{
+  header nav {
     display: flex;
   }
 
-  header nav li{
+  header a,
+  header a:hover {
+    color: white;
+  }
+
+  header nav li {
     margin: 0 15px;
   }
 
-  header nav li:first-child{
+  header nav li:first-child {
     margin-left: 0;
   }
 
-  header nav li:last-child{
+  header nav li:last-child {
     margin-right: 0;
   }
-  @media (max-width: 1000px){
-    header{
+
+  @media (max-width: 1000px) {
+    header {
       padding: 20px 50px;
     }
   }
 
 
-  @media (max-width: 700px){
-    header{
+  @media (max-width: 700px) {
+    header {
       flex-direction: column;
     }
 
-    header h2{
+    header h2 {
       margin-bottom: 15px;
     }
   }
-
   /*----------------
        Hero Section
   ----------------*/
 
-  .hero{
+  .hero {
     position: relative;
     justify-content: center;
     min-height: 100vh;
@@ -275,7 +293,7 @@
     text-align: center;
   }
 
-  .hero .background-image{
+  .hero .background-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -286,7 +304,7 @@
     z-index: -1;
   }
 
-  .hero .background-image:after{
+  .hero .background-image:after {
     content: '';
     position: absolute;
     top: 0;
@@ -297,49 +315,51 @@
     opacity: 0.75;
   }
 
-  .hero h1{
+  .hero h1 {
     font: bold 60px 'Open Sans', sans-serif;
     margin-bottom: 15px;
   }
 
-  .hero h3{
+  .hero h3 {
     font: normal 28px 'Open Sans', sans-serif;
     margin-bottom: 40px;
   }
 
-  .hero a.btn{
-    padding: 20px 46px;
+  .cta {
+    padding-top: 15px;
   }
 
-  @media (max-width: 800px){
+  .hero a.btn {
+    padding: 20px 48px;
+  }
 
-    .hero{
+  @media (max-width: 800px) {
+
+    .hero {
       min-height: 600px;
     }
 
-    .hero h1{
+    .hero h1 {
       font-size: 48px;
     }
 
-    .hero h3{
+    .hero h3 {
       font-size: 24px;
     }
 
-    .hero a.btn{
+    .hero a.btn {
       padding: 15px 40px;
     }
-
   }
-
   /*--------------------
        Our Work Section
   ---------------------*/
 
-  .оur-work{
+  .оur-work {
     background-color: #fff;
   }
 
-  .our-work .grid li{
+  .our-work .grid li {
     padding: 20px;
     height: 350px;
     border-radius: 3px;
@@ -350,85 +370,80 @@
     background-color: #333;
   }
 
-  .our-work .grid li.small{
+  .our-work .grid li.small {
     flex-basis: 40%;
   }
 
-  .our-work .grid li.large{
+  .our-work .grid li.large {
     flex-basis: 60%;
   }
 
 
-  @media (max-width: 1000px){
+  @media (max-width: 1000px) {
 
     .our-work .grid li.small,
-    .our-work .grid li.large{
+    .our-work .grid li.large {
       flex-basis: 100%;
     }
-
   }
-
   /*----------------------
        Features Section
   ----------------------*/
 
-  .features{
+  .features {
     background-color: #f7f7f7;
   }
 
-  .features .grid li{
+  .features .grid li {
     padding: 0 30px;
     flex-basis: 33%;
     text-align: center;
   }
 
-  .features .grid li i{
+  .features .grid li i {
     font-size: 50px;
     color: #2196F3;
     margin-bottom: 25px;
   }
 
-  .features .grid li h4{
+  .features .grid li h4 {
     color: #555;
     font-size: 20px;
     margin-bottom: 25px;
   }
 
-  .features .grid li p{
+  .features .grid li p {
     margin: 0;
   }
 
-  @media (max-width: 1000px){
+  @media (max-width: 1000px) {
 
-    .features .grid li{
+    .features .grid li {
       flex-basis: 70%;
       margin-bottom: 65px;
     }
 
-    .features .grid li:last-child{
+    .features .grid li:last-child {
       margin-bottom: 0;
     }
-
   }
 
 
-  @media (max-width: 600px){
+  @media (max-width: 600px) {
 
-    .features .grid li{
+    .features .grid li {
       flex-basis: 100%;
     }
-
   }
-
   /*--------------------
        Reviews Section
   --------------------*/
 
-  .reviews{
+  .reviews {
     background-color: #fff;
   }
 
-  .reviews .quote{
+  .reviews .quote {
     text-align: center;
     width: 80%;
     font-size: 22px;
@@ -438,36 +453,34 @@
     padding: 0;
   }
 
-  .reviews .author{
+  .reviews .author {
     font-size: 18px;
     margin-bottom: 50px;
   }
 
-  .reviews .author:last-child{
+  .reviews .author:last-child {
     margin-bottom: 0;
   }
 
-  @media (max-width: 1000px){
+  @media (max-width: 1000px) {
 
-    .reviews .quote{
+    .reviews .quote {
       font-size: 20px;
     }
 
-    .reviews .author{
+    .reviews .author {
       font-size: 16px;
     }
-
   }
-
   /*---------------------
        Contact Section
   ---------------------*/
 
-  .contact{
+  .contact {
     background-color: #f7f7f7;
   }
 
-  .contact form{
+  .contact form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -477,7 +490,7 @@
     width: 80%;
   }
 
-  .contact form input{
+  .contact form input {
     padding: 15px;
     flex: 1;
     margin-right: 30px;
@@ -485,24 +498,23 @@
     color: #555;
   }
 
-  .contact form .btn{
+  .contact form .btn {
     padding: 18px 42px;
   }
 
 
-  @media (max-width: 800px){
+  @media (max-width: 800px) {
 
-    .contact form input{
+    .contact form input {
       flex-basis: 100%;
       margin: 0 0 20px 0;
     }
-
   }
   /*-------------
        Footer
   -------------*/
 
-  footer{
+  footer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -512,47 +524,47 @@
     padding: 60px 0;
   }
 
-  footer ul{
+  footer ul {
     display: flex;
     margin-bottom: 25px;
     font-size: 32px;
   }
 
-  footer ul li{
+  footer ul li {
     margin: 0 8px;
   }
 
-  footer ul li:first-child{
+  footer ul li:first-child {
     margin-left: 0;
   }
 
-  footer ul li:last-child{
+  footer ul li:last-child {
     margin-right: 0;
   }
 
-  footer p{
+  footer p {
     text-transform: uppercase;
     font-size: 14px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     margin-bottom: 10px;
   }
 
-  footer p a{
+  footer p a {
     color: #fff;
   }
 
-  @media (max-width: 700px){
+  @media (max-width: 700px) {
 
-    footer{
+    footer {
       padding: 80px 15px;
     }
-
   }
-
-
   /* -- Demo ads -- */
 
   @media (max-width: 1200px) {
-    #bsaHolder{ display:none;}
+    #bsaHolder {
+      display: none;
+    }
   }
+
 </style>

@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-=======
->>>>>>> admin
 
     <header>
       <h2 class=" is-title is-size-4"><a href="#">Website Logo</a></h2>
@@ -18,7 +14,7 @@
     <section class="hero">
       <div class="background-image" :style="{'background-image': `url(${require('./assets/img/hero.jpg')})`}"></div>
       <h1 v-for="pconf in pconfig">
-         {{pconfig[0].title}} 
+        {{pconfig[0].title}}
       </h1>
       <h3>{{pconfig[0].desc}}</h3>
       <div class="cta">
@@ -68,7 +64,7 @@
         </li>
       </ul>
     </section>
-    
+
     <section class="reviews">
       <h3 class="title">What others say:</h3>
 
@@ -84,7 +80,7 @@
         iaculis metus.</p>
       <p class="author">— Kevin Blake</p>
     </section>
-    
+
     <section class="contact">
       <h3 class="title">Join our newsletter</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar
@@ -124,12 +120,9 @@
 </script>
 
 <style>
-<<<<<<< HEAD
-=======
-  #app {}
->>>>>>> admin
+  <<<<<<< HEAD=======#app {}
 
-  * {
+  >>>>>>>admin * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

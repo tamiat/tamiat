@@ -5,6 +5,10 @@ import VueFire from 'vuefire'
 import App from './App'
 import router from './router'
 
+// import external stylesheets
+import fontAwesome from '../node_modules/font-awesome/css/font-awesome.css'
+import bulma from '../node_modules/bulma/css/bulma.css'
+
 Vue.config.productionTip = false
 
 Vue.use(VueFire);

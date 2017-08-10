@@ -1,3 +1,5 @@
+/* This is the Firebase configuration file*/
+
 import Firebase from 'firebase';
 
 let config = {

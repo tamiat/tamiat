@@ -1,16 +1,18 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import Home from '../Home'
-import Admin from '../Admin'
+// import app pages 
+import Home from '../Home';
+import Admin from '../Admin';
 
-import Posts from '../components/Posts'
-import PostNew from '../components/PostNew'
-import Users from '../components/Users'
-import UserNew from '../components/UserNew'
-import Settings from '../components/Settings'
+// import admin page components
+import Posts from '../components/content/Posts';
+import PostNew from '../components/content/PostNew';
+import Users from '../components/content/Users';
+import UserNew from '../components/content/UserNew';
+import Settings from '../components/content/Settings';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -56,4 +58,4 @@ export default new Router({
       component: Home
     }
   ]
-})
+});

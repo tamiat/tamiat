@@ -11,11 +11,14 @@
             <div class="column is-one-third">
               <label class="label is-capitalized">{{field.label}}</label>
             </div>
+
             <div class="control column is-two-thirds">
               <input :type="field.type" class="input" :name="field.label">
             </div>
           </div>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -25,6 +28,7 @@
   export default {
     data() {
       return {
+        // this array contains settings fields
         fields: [
           {
             label: 'site title',

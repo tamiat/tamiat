@@ -6,6 +6,7 @@
 
       <div class="column">
 
+        <!-- the new post title -->
         <div class="field">
           <label class="label">Post's title</label>
           <div class="control">
@@ -13,6 +14,7 @@
           </div>
         </div>
 
+        <!-- the new post body -->
         <div class="field">
           <label class="label">Post's body</label>
           <div class="control">
@@ -20,6 +22,7 @@
           </div>
         </div>
 
+        <!-- the form buttons -->
         <button type="submit" class="button is-info">Add</button>
         <router-link to="/admin/posts" class="button is-danger">Cancel</router-link>
       </div>

@@ -21,6 +21,7 @@
 
     data() {
       return {
+        // this array contains the all the links in the sidebar
         menu: [
           {
             name: 'posts',

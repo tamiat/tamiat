@@ -18,10 +18,10 @@
         </div>
 
         <!-- submit button -->
-        <button type="submit" class="button is-info is is-fullwidth">Login</button>
+        <button type="submit" class="button is-info is is-fullwidth">Sign Up</button>
         <p>
-          Don't have an account
-          <router-link to="/signup">Sign Up</router-link>
+          You already have an account
+          <router-link to="/login">Login</router-link>
         </p>
 
       </div>
@@ -38,6 +38,10 @@
           {
             label: 'username',
             type: 'text'
+          },
+          {
+            label: 'email',
+            type: 'email'
           },
           {
             label: 'password',

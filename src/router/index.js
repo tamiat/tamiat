@@ -4,6 +4,7 @@ import Router from 'vue-router';
 // import app pages 
 import Home from '../Home';
 import Admin from '../Admin';
+import Login from '../components/Login';
 
 // import admin page components
 import Posts from '../components/content/Posts';
@@ -20,6 +21,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/admin',

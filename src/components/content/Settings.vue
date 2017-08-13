@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import settingsRef from '../../config';
+  import { settingsRef } from '../../config';
 
   export default {
     data() {
@@ -57,10 +57,10 @@
     },
     methods: {
       saveSettings() {
-        // generate the new settings
+        // generate the new settings without updating the empty fields
         let updatedSettings = {
-          title: this.fields[0].value,
-          description: this.fields[1].value
+          title: this.fields[0].value || this.settings.title,
+          description: this.fields[1].value || this.settings.description,
         }
         // save the new settings to firebase
         this.$firebaseRefs.settings.set(updatedSettings)

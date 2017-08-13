@@ -109,14 +109,14 @@
 </template>
 
 <script>
-  import settings from './config';
+  import { settingsRef } from './config';
 
   export default {
     name: 'app',
     firebase: {
       // load settings as object instead of array (default)
       settings: {
-        source: settings,
+        source: settingsRef,
         asObject: true
       }
     }

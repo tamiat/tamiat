@@ -15,6 +15,6 @@ let app = Firebase.initializeApp(config);
 let db = app.database();
 
 // create a refrence to settings
-const settings = db.ref('settings');
+const settingsRef = db.ref('settings');
 
-export default settings;
+export default settingsRef;

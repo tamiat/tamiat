@@ -13,6 +13,8 @@ let config = {
 
 let app = Firebase.initializeApp(config);
 let db = app.database();
-let publicConfig = db.ref('publicconfig');
 
-export default publicConfig;
+// create a refrence to settings
+const settings = db.ref('settings');
+
+export default settings;

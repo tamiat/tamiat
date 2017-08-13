@@ -13,10 +13,10 @@
 
     <section class="hero">
       <div class="background-image" :style="{'background-image': `url(${require('./assets/img/hero.jpg')})`}"></div>
-      <h1 v-for="pconf in pconfig">
-        {{pconfig[0].title}}
+      <h1>
+        {{settings.title}}
       </h1>
-      <h3>{{pconfig[0].desc}}</h3>
+      <h3>{{settings.description}}</h3>
       <div class="cta">
         <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn">Download it Here</a>
       </div>
@@ -109,11 +109,16 @@
 </template>
 
 <script>
-  import publicConfig from './config';
+  import settings from './config';
+
   export default {
     name: 'app',
     firebase: {
-      pconfig: publicConfig
+      // load settings as object instead of array (default)
+      settings: {
+        source: settings,
+        asObject: true
+      }
     }
   }
 

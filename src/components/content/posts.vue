@@ -8,7 +8,7 @@
     </div>
 
     <!-- the new post form loaded via vue router -->
-    <router-view :add-post="addPost"></router-view>
+    <router-view :add-post="addPost" :update-post="updatePost" :posts="posts"></router-view>
 
     <!-- posts list -->
     <div class="box">
@@ -23,10 +23,15 @@
         <tbody>
           <tr v-for="post in posts">
             <td>
-              <div>{{post.title}}</div>
+              <router-link :to="'/admin/posts/edit/' + post['.key']">
+                <div>{{post.title}}</div>
+              </router-link>
+
               <div class="actions">
-                <span class="fa fa-pencil"></span>
-                <span class="fa fa-trash" @click="deletePost(post)"></span>
+                <router-link :to="'/admin/posts/edit/' + post['.key']">
+                  <span>Edit</span>
+                </router-link>
+                <span @click="deletePost(post)">Delete</span>
               </div>
             </td>
             <td>{{post.author}}</td>
@@ -61,6 +66,22 @@
       deletePost(post) {
         // delete post form firebase
         this.$firebaseRefs.posts.child(post['.key']).remove();
+      },
+      updatePost(post) {
+        // check if all fields are filled
+        let allFilled = true;
+        for (let key in post) {
+          allFilled = allFilled && post[key];
+        }
+        // If there is no empty fields, save the post to firebase
+        if (allFilled) {
+          console.log(post['.key'])
+          // create a copy of the item
+          let tempPost = { ...post }
+          // remove the .key attribute
+          delete tempPost['.key']
+          this.$firebaseRefs.posts.child(post['.key']).set(tempPost)
+        }
       }
     }
   }

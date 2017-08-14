@@ -10,6 +10,7 @@ import Signup from '../components/Signup';
 // import admin page components
 import Posts from '../components/content/Posts';
 import PostNew from '../components/content/PostNew';
+import PostEdit from '../components/content/PostEdit';
 import Users from '../components/content/Users';
 import UserNew from '../components/content/UserNew';
 import Settings from '../components/content/Settings';
@@ -45,6 +46,10 @@ export default new Router({
             {
               path: 'new',
               component: PostNew
+            },
+            {
+              path: 'edit/:key',
+              component: PostEdit
             }
           ]
         },

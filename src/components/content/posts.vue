@@ -8,40 +8,77 @@
     </div>
 
     <!-- the new post form loaded via vue router -->
-    <router-view></router-view>
+    <router-view :add-post="addPost"></router-view>
 
     <!-- posts list -->
-    <div class="columns">
-      <div v-for="i in 2" class="column">
-
-        <div class="box">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-                  <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla
-                  egestas. Nullam condimentum luctus turpis.
-                </p>
+    <div class="box">
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="post in posts">
+            <td>
+              <div>{{post.title}}</div>
+              <div class="actions">
+                <span class="fa fa-pencil"></span>
+                <span class="fa fa-trash" @click="deletePost(post)"></span>
               </div>
-            </div>
-          </article>
-        </div>
-      </div>
+            </td>
+            <td>{{post.author}}</td>
+            <td>{{post.tags}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
   </div>
+
 </template>
+
+<script>
+  import { postsRef } from '../../config';
+
+  export default {
+    firebase: {
+      posts: postsRef
+    },
+    methods: {
+      addPost(post) {
+        // check if all fields are filled
+        let allFilled = true;
+        for (let key in post) {
+          allFilled = allFilled && post[key];
+        }
+        // If there is no empty fields, save the post to firebase
+        if (allFilled) {
+          this.$firebaseRefs.posts.push(post);
+        }
+      },
+      deletePost(post) {
+        // delete post form firebase
+        this.$firebaseRefs.posts.child(post['.key']).remove();
+      }
+    }
+  }
+
+</script>
 
 <style lang="scss">
   h3 {
     font-size: 1.7em;
     margin: 1em 0em;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  tr:hover .actions {
+    display: block;
   }
 
 </style>

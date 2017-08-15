@@ -10,23 +10,53 @@
     <!-- the new user form loaded via vue loader -->
     <router-view></router-view>
 
-    <!-- the users table -->
+    <h4>Guests' requests</h4>
+    <!-- guests' requests table -->
     <div class="box">
       <table class="table is-fullwidth is-striped">
         <thead>
           <tr>
-            <th>name</th>
+            <th>username</th>
             <th>email</th>
             <th>role</th>
-            <th>posts</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in 6">
-            <td>name</td>
-            <td>email</td>
-            <td>role</td>
-            <td>posts</td>
+          <tr v-for="user in guests">
+            <td>
+              {{user.username}}
+              <div class="actions">
+                <span @click="approve(user)" class="approve has-text-success">Approve</span>
+              </div>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Administrators</h4>
+    <!-- the administrators table -->
+    <div class="box">
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>username</th>
+            <th>email</th>
+            <th>role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in admins">
+            <td>
+              {{user.username}}
+              <div class="actions">
+                <span @click="ban(user)" class="ban has-text-danger">Ban</span>
+              </div>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
           </tr>
         </tbody>
       </table>
@@ -36,7 +66,43 @@
 </template>
 
 <script>
-  export default {}
+  import { usersRef } from '../../config';
+
+  export default {
+    firebase() {
+      return {
+        users: usersRef
+      }
+    },
+    methods: {
+      approve(user) {
+        this.$firebaseRefs.users.child(user['.key']).set({
+          username: user.username,
+          email: user.email,
+          role: 'admin'
+        })
+      },
+      ban(user) {
+        this.$firebaseRefs.users.child(user['.key']).set({
+          username: user.username,
+          email: user.email,
+          role: 'guest'
+        })
+      }
+    },
+    computed: {
+      admins() {
+        return this.users.filter((user) => {
+          return user.role === 'admin';
+        })
+      },
+      guests() {
+        return this.users.filter((user) => {
+          return user.role === 'guest';
+        })
+      }
+    }
+  }
 
 </script>
 

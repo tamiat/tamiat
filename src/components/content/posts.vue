@@ -87,19 +87,3 @@
   }
 
 </script>
-
-<style lang="scss">
-  h3 {
-    font-size: 1.7em;
-    margin: 1em 0em;
-  }
-
-  .actions {
-    display: none;
-  }
-
-  tr:hover .actions {
-    display: block;
-  }
-
-</style>

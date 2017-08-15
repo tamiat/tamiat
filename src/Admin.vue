@@ -48,6 +48,17 @@
         }
       }
     }
+
+    .actions {
+      display: none;
+      span {
+        cursor: pointer;
+      }
+    }
+
+    tr:hover .actions {
+      display: block;
+    }
   }
 
 </style>

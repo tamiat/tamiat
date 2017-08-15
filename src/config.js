@@ -17,5 +17,6 @@ let db = app.database();
 // create a database references
 const settingsRef = db.ref('settings');
 const postsRef = db.ref('posts');
+const usersRef = db.ref('users');
 
-export { postsRef, settingsRef };
+export { postsRef, usersRef, settingsRef };

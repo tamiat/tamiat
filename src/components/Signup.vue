@@ -10,7 +10,8 @@
 
         <!-- warning notification -->
         <div v-if="userUID" class="notification is-success">
-          <button class="delete" @click="hideNotif"></button> You have signed up successfully
+          <button class="delete" @click="hideNotif"></button> You have successfully signed up. You will have access to the
+          admin page once your account has been approved.
         </div>
 
         <!-- tamiat CMS logo -->

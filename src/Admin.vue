@@ -15,11 +15,36 @@
 <script>
   import Navbar from './components/layout/Navbar';
   import Sidebar from './components/layout/Sidebar';
+  import firebase from 'firebase';
 
   export default {
     components: {
       'navbar': Navbar,
       'sidebar': Sidebar
+    },
+    // prevent unauthenticated users from accessing the admin area
+    // and direct them to the login page
+    beforeRouteEnter(to, from, next) {
+      // get the current logged in user
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          firebase.database().ref('users/' + user.uid).once('value')
+            // check if the current user is an admin
+            .then((snapshot) => {
+              let user = snapshot.val();
+              if (user.role === 'admin') {
+                // continue to /admin
+                next();
+              } else {
+                // redirect to /login if the logged in user is not an admin
+                next('/login');
+              }
+            })
+        } else {
+          // redirect to /login if no user is logged in
+          next('/login');
+        }
+      })
     }
   };
 

@@ -16,23 +16,44 @@
     <!-- the navbar right menu -->
     <div class="navbar-menu">
       <div class="navbar-end">
-        <router-link class="navbar-item" to="/">
-          login
-        </router-link>
-        <router-link class="navbar-item" to="/">
+        <span class="navbar-item sign-out" @click="signOut">
           logout
-        </router-link>
+        </span>
       </div>
     </div>
 
   </nav>
 </template>
 
+<script>
+  import firebase from 'firebase';
+
+  export default {
+    methods: {
+      signOut() {
+        // sign the current user out
+        firebase.auth().signOut()
+          .then(() => {
+            this.$router.push('/');
+          })
+          .catch(() => {
+            console.log('sign out fails');
+          })
+      }
+    }
+  }
+
+</script>
+
 <style>
   .navbar {
     position: fixed;
     z-index: 1024;
     width: 100%;
+  }
+
+  .sign-out {
+    cursor: pointer;
   }
 
 </style>

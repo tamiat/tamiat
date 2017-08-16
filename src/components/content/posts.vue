@@ -29,9 +29,9 @@
 
               <div class="actions">
                 <router-link :to="'/admin/posts/edit/' + post['.key']">
-                  <span>Edit</span>
+                  <span class="has-text-info">Edit</span>
                 </router-link>
-                <span @click="deletePost(post)">Delete</span>
+                <span @click="deletePost(post)" class="has-text-danger">Delete</span>
               </div>
             </td>
             <td>{{post.author}}</td>

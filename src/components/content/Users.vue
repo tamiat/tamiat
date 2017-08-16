@@ -48,11 +48,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in admins">
+          <tr v-for="user in admins" :class="{'logged-in' : currentUser.uid === user['.key']}">
             <td>
               {{user.username}}
               <div class="actions">
-                <span @click="ban(user)" class="ban has-text-danger">Ban</span>
+                <!-- display a delete button below the current logged in user -->
+                <span v-if="currentUser.uid === user['.key']" @click="deleteCurrentUser" class=" has-text-danger">Delete</span>
+                <span v-else @click="ban(user)" class="ban has-text-danger">Ban</span>
               </div>
             </td>
             <td>{{user.email}}</td>
@@ -66,15 +68,22 @@
 </template>
 
 <script>
+  import firebase from 'firebase';
   import { usersRef } from '../../config';
 
   export default {
+    data() {
+      return {
+        currentUser: firebase.auth().currentUser
+      }
+    },
     firebase() {
       return {
         users: usersRef
       }
     },
     methods: {
+      // approve a new user method
       approve(user) {
         this.$firebaseRefs.users.child(user['.key']).set({
           username: user.username,
@@ -82,12 +91,28 @@
           role: 'admin'
         })
       },
+      // ban an existing admin
       ban(user) {
         this.$firebaseRefs.users.child(user['.key']).set({
           username: user.username,
           email: user.email,
           role: 'guest'
         })
+      },
+      // delete the current user
+      deleteCurrentUser() {
+        let vm = this;
+        // delete the current user from the firebase auth
+        this.currentUser.delete()
+          .then(function () {
+            // delete the current user from the real time database
+            vm.$firebaseRefs.users.child(vm.currentUser.uid).remove();
+            console.log('user deleted successfuly');
+          })
+          .catch(function (error) {
+            console.log(error.message);
+          });
+
       }
     },
     computed: {
@@ -114,6 +139,10 @@
     h3 {
       margin: 1em 1em 1em 0em;
     }
+  }
+
+  .logged-in {
+    background-color: #C1FFD7 !important;
   }
 
 </style>

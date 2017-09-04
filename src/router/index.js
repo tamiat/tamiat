@@ -18,6 +18,7 @@ import Settings from '../components/content/Settings';
 Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: '/',

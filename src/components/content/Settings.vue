@@ -7,7 +7,7 @@
 
         <div class="column is-multiline">
 
-          <div v-for="(field, index) in fields" class="field columns">
+          <div v-for="(field, index) in fields" class="field columns" :key="index">
             <div class="column is-one-third">
               <label class="label is-capitalized">{{field.label}}</label>
             </div>
@@ -28,52 +28,69 @@
 </template>
 
 <script>
-  import { settingsRef } from '../../config';
+import { settingsRef } from '../../config';
 
-  export default {
-    data() {
-      return {
-        // this array contains settings form fields
-        fields: [
-          {
-            label: 'Site Title',
-            name: 'title',
-            value: ''
-          },
-          {
-            label: 'Site Description',
-            name: 'description',
-            value: ''
-          }
-        ]
-      }
-    },
-    firebase: {
-      // load settings as an object instead of array (default)
-      settings: {
-        source: settingsRef,
-        asObject: true
-      }
-    },
-    methods: {
-      saveSettings() {
-        // generate the new settings without updating the empty fields
-        let updatedSettings = {
-          title: this.fields[0].value || this.settings.title,
-          description: this.fields[1].value || this.settings.description,
+export default {
+  data() {
+    return {
+      updatesCounter: 0,
+      // this array contains settings form fields
+      fields: [
+        {
+          label: 'Site Title',
+          name: 'title',
+          value: ''
+        },
+        {
+          label: 'Site Description',
+          name: 'description',
+          value: ''
         }
-        // save the new settings to firebase
-        this.$firebaseRefs.settings.set(updatedSettings)
+      ]
+    }
+  },
+  firebase: {
+    // load settings as an object instead of array (default)
+    settings: {
+      source: settingsRef,
+      asObject: true
+    }
+  },
+  methods: {
+    saveSettings() {
+      // generate the new settings without updating the empty fields
+      let updatedSettings = {
+        title: this.fields[0].value || this.settings.title,
+        description: this.fields[1].value || this.settings.description,
+      }
+      // save the new settings to firebase
+      this.$firebaseRefs.settings.set(updatedSettings)
+    },
+    // display the loaded settings
+    displaySettings() {
+      for (let key in this.settings) {
+        this.fields.map((field) => {
+          if (field.name === key) {
+            return field.value = this.settings[key];
+          }
+        })
       }
     }
+  },
+  updated() {
+    // run the loaded settings once
+    if (this.updatesCounter === 0) {
+      this.displaySettings();
+    }
+    this.updatesCounter++;
   }
+}
 
 </script>
 
 <style lang="scss">
-  h3 {
-    font-size: 1.7em;
-    margin: 1em 0em;
-  }
-
+h3 {
+  font-size: 1.7em;
+  margin: 1em 0em;
+}
 </style>

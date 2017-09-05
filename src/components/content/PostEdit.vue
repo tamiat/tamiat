@@ -14,13 +14,10 @@
           </div>
         </div>
 
-        <!-- edit post body -->
-        <div class="field">
-          <label class="label">Post's body</label>
-          <div class="control">
-            <textarea type="text" class="textarea" v-model="post.body"></textarea>
-          </div>
-        </div>
+        <!-- rich text vue-quill-editor plugin -->
+        <quill-editor v-model="post.body" :options="editorOptions">
+        </quill-editor>
+
       </div>
 
       <!-- post right sidebar -->
@@ -53,26 +50,31 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        /* Here we are filtering out the post containing the provided key in the router params
-         * we are using Object.assign to copy the post by value not by reference
-         * to prevent updating the poste when typing */
-        post: Object.assign(
-          {},
-          (this.posts.filter((post) => {
-            return (post['.key'] === this.$route.params.key);
-          }))[0])
-      }
-    },
-    props: ['posts', 'update-post'],
-    methods: {
-      // call the updatePost method passed through props
-      update() {
-        this.updatePost(this.post)
-      }
+import VueQuillEditor from 'vue-quill-editor';
+import editorOptions from './editor-options';
+
+export default {
+  data() {
+    return {
+      /* Here we are filtering out the post containing the provided key in the router params
+       * we are using Object.assign to copy the post by value not by reference
+       * to prevent updating the poste when typing */
+      post: Object.assign(
+        {},
+        (this.posts.filter((post) => {
+          return (post['.key'] === this.$route.params.key);
+        }))[0]
+      ),
+      editorOptions
+    }
+  },
+  props: ['posts', 'update-post'],
+  methods: {
+    // call the updatePost method passed through props
+    update() {
+      this.updatePost(this.post)
     }
   }
+}
 
 </script>

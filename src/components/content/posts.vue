@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="post in posts">
+          <tr v-for="(post, index) in posts" :key="index">
             <td>
               <router-link :to="'/admin/posts/edit/' + post['.key']">
                 <div>{{post.title}}</div>
@@ -41,49 +41,37 @@
       </table>
     </div>
   </div>
-
 </template>
 
 <script>
-  import { postsRef } from '../../config';
+import { postsRef } from '../../config';
 
-  export default {
-    firebase: {
-      posts: postsRef
+export default {
+  firebase: {
+    posts: postsRef
+  },
+  methods: {
+    addPost(post) {
+      // add a new post if the title is not empty
+      if (post.title) {
+        this.$firebaseRefs.posts.push(post);
+      }
     },
-    methods: {
-      addPost(post) {
-        // check if all fields are filled
-        let allFilled = true;
-        for (let key in post) {
-          allFilled = allFilled && post[key];
-        }
-        // If there is no empty fields, save the post to firebase
-        if (allFilled) {
-          this.$firebaseRefs.posts.push(post);
-        }
-      },
-      deletePost(post) {
-        // delete post form firebase
-        this.$firebaseRefs.posts.child(post['.key']).remove();
-      },
-      updatePost(post) {
-        // check if all fields are filled
-        let allFilled = true;
-        for (let key in post) {
-          allFilled = allFilled && post[key];
-        }
-        // If there is no empty fields, save the post to firebase
-        if (allFilled) {
-          console.log(post['.key'])
-          // create a copy of the item
-          let tempPost = { ...post }
-          // remove the .key attribute
-          delete tempPost['.key']
-          this.$firebaseRefs.posts.child(post['.key']).set(tempPost)
-        }
+    deletePost(post) {
+      // delete post form firebase
+      this.$firebaseRefs.posts.child(post['.key']).remove();
+    },
+    updatePost(post) {
+      // update the post if the title is not empty
+      if (post.title) {
+        // create a copy of the item
+        let tempPost = { ...post };
+        // remove the .key attribute
+        delete tempPost['.key'];
+        this.$firebaseRefs.posts.child(post['.key']).set(tempPost);
       }
     }
   }
+}
 
 </script>

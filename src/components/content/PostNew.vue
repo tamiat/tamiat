@@ -14,13 +14,10 @@
           </div>
         </div>
 
-        <!-- the new post body -->
-        <div class="field">
-          <label class="label">Post's body</label>
-          <div class="control">
-            <textarea type="text" class="textarea" v-model="body"></textarea>
-          </div>
-        </div>
+        <!-- rich text vue-quill-editor plugin -->
+        <quill-editor v-model="body" :options="editorOptions">
+        </quill-editor>
+
       </div>
 
       <!-- new post right sidebar -->
@@ -53,28 +50,31 @@
 </template>
 
 <script>
-  import { postsRef } from '../../config';
+import { postsRef } from '../../config';
+import VueQuillEditor from 'vue-quill-editor';
+import editorOptions from './editor-options';
 
-  export default {
-    data() {
-      return {
-        title: '',
-        body: '',
-        author: '',
-        tags: ''
-      }
-    },
-    props: ['add-post'],
-    methods: {
-      add() {
-        this.addPost({
-          title: this.title,
-          body: this.body,
-          author: this.author,
-          tags: this.tags
-        })
-      }
+export default {
+  data() {
+    return {
+      title: '',
+      body: '',
+      author: '',
+      tags: '',
+      editorOptions
+    }
+  },
+  props: ['add-post'],
+  methods: {
+    add() {
+      this.addPost({
+        title: this.title,
+        body: this.body,
+        author: this.author,
+        tags: this.tags
+      })
     }
   }
+}
 
 </script>

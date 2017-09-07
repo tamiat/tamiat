@@ -17,6 +17,7 @@
         <!-- rich text vue-quill-editor plugin -->
         <quill-editor v-model="post.body" :options="editorOptions">
         </quill-editor>
+        <input type="file" id="getImage" style="display: none;" @change="uploadImage">
 
       </div>
 
@@ -52,6 +53,7 @@
 <script>
 import VueQuillEditor from 'vue-quill-editor';
 import editorOptions from './editor-options';
+import imageLoader from '../../mixins/image-loader';
 
 export default {
   data() {
@@ -69,6 +71,7 @@ export default {
     }
   },
   props: ['posts', 'update-post'],
+  mixins: [imageLoader],
   methods: {
     // call the updatePost method passed through props
     update() {

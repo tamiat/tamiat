@@ -7,7 +7,7 @@ let config = {
   authDomain: "tamiat-demo.firebaseapp.com",
   databaseURL: "https://tamiat-demo.firebaseio.com/",
   projectId: "tamiat-demo",
-  storageBucket: "",
+  storageBucket: "gs://tamiat-demo.appspot.com/",
   messagingSenderId: "188459960333"
 };
 

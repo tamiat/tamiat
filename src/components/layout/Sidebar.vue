@@ -45,7 +45,7 @@ export default {
 $sidebarBg: #384A5C;
 $sidebarColor: #B7B7B7;
 
-.sidebar {
+#sidebar {
   position: fixed;
   top: 0px;
   left: 0;

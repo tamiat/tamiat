@@ -1,5 +1,5 @@
 <template>
-  <div class="admin">
+  <div class="admin" id="admin">
     <!-- The admin page layout -->
     <navbar></navbar>
     <sidebar></sidebar>
@@ -54,9 +54,12 @@ export default {
 html,
 body,
 #app,
-.admin {
+#admin {
   background-color: #F1F1F1;
+  height: 100%;
+}
 
+#admin {
   .wrapper {
     width: calc(100% - 110px);
     position: absolute;
@@ -86,6 +89,14 @@ body,
     span {
       padding: 0px 0px 0px 10px;
     }
+  }
+
+  .notification {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    z-index: 2000;
+    max-width: 90%;
   }
 }
 </style>

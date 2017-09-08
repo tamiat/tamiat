@@ -1,5 +1,10 @@
 <template>
-  <div class="container settings">
+  <div class="container settings" id="settings">
+
+    <!-- notification -->
+    <div v-if="notification.message" :class="'notification is-' + notification.type">
+      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
+    </div>
 
     <h3 class="is-size-3">General settings</h3>
     <div class="box">
@@ -29,6 +34,7 @@
 
 <script>
 import { settingsRef } from '../../config';
+import notifier from '../../mixins/notifier';
 
 export default {
   data() {
@@ -56,6 +62,7 @@ export default {
       asObject: true
     }
   },
+  mixins: [notifier],
   methods: {
     saveSettings() {
       // generate the new settings without updating the empty fields
@@ -64,7 +71,9 @@ export default {
         description: this.fields[1].value || this.settings.description,
       }
       // save the new settings to firebase
-      this.$firebaseRefs.settings.set(updatedSettings)
+      this.$firebaseRefs.settings.set(updatedSettings).then(() => {
+        this.showNotification('success', 'Settings Successfully saved');
+      })
     },
     // display the loaded settings
     displaySettings() {
@@ -75,8 +84,6 @@ export default {
           }
         })
       }
-      // save the new settings to firebase
-      this.$firebaseRefs.settings.set(updatedSettings)
     }
   },
   updated() {
@@ -91,7 +98,9 @@ export default {
 </script>
 
 <style lang="scss">
-h3 {
-  margin: 1em 1em 1em 0em;
+#settings {
+  h3 {
+    margin: 1em 1em 1em 0em;
+  }
 }
 </style>

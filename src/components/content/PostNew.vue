@@ -44,6 +44,12 @@
       </div>
 
     </div>
+
+    <!-- notification -->
+    <div v-if="notification.message" :class="'notification is-' + notification.type">
+      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
+    </div>
+
     <!-- the form buttons -->
     <button type="submit" class="button is-info" @click="add">Add</button>
     <router-link to="/admin/posts" class="button is-danger">Cancel</router-link>
@@ -54,6 +60,7 @@
 import VueQuillEditor from 'vue-quill-editor';
 import editorOptions from './editor-options';
 import imageLoader from '../../mixins/image-loader';
+import notifier from '../../mixins/notifier';
 
 export default {
   data() {
@@ -66,15 +73,20 @@ export default {
     }
   },
   props: ['add-post'],
-  mixins: [imageLoader],
+  mixins: [imageLoader, notifier],
   methods: {
     add() {
-      this.addPost({
-        title: this.title,
-        body: this.body,
-        author: this.author,
-        tags: this.tags
-      })
+      if (this.title) {
+        this.addPost({
+          title: this.title,
+          body: this.body,
+          author: this.author,
+          tags: this.tags
+        })
+      } else {
+        this.showNotification('warning', 'The title field can not be empty');
+      }
+
     }
   }
 }

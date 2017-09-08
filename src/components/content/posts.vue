@@ -1,10 +1,15 @@
 <template>
-  <div class="container posts">
+  <div class="container posts" id="posts">
 
     <!-- posts page title -->
     <div class="content-heading is-flex">
       <h3 class="is-size-3">Posts</h3>
       <router-link to="/admin/posts/new" class="button is-info">Add New</router-link>
+    </div>
+
+    <!-- notification -->
+    <div v-if="notification.message" :class="'notification is-' + notification.type">
+      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
     </div>
 
     <!-- the new post form loaded via vue router -->
@@ -34,6 +39,7 @@
                 <span @click="deletePost(post)" class="has-text-danger">Delete</span>
               </div>
             </td>
+
             <td class="post-author-cell">{{post.author}}</td>
             <td class="post-tags-cell">{{post.tags}}</td>
           </tr>
@@ -45,39 +51,43 @@
 
 <script>
 import { postsRef } from '../../config';
+import notifier from '../../mixins/notifier';
 
 export default {
   firebase: {
     posts: postsRef
   },
+  mixins: [notifier],
   methods: {
     addPost(post) {
-      // add a new post if the title is not empty
-      if (post.title) {
-        this.$firebaseRefs.posts.push(post);
-      }
+      this.$firebaseRefs.posts.push(post).then(() => {
+        this.showNotification('success', 'Post added successfully');
+      })
     },
     deletePost(post) {
       // delete post form firebase
-      this.$firebaseRefs.posts.child(post['.key']).remove();
+      if (confirm("Do you really want to delete this post ?")) {
+        this.$firebaseRefs.posts.child(post['.key']).remove().then(() => {
+          this.showNotification('success', 'Post deleted successfully');
+        })
+      }
     },
     updatePost(post) {
-      // update the post if the title is not empty
-      if (post.title) {
-        // create a copy of the item
-        let tempPost = { ...post };
-        // remove the .key attribute
-        delete tempPost['.key'];
-        this.$firebaseRefs.posts.child(post['.key']).set(tempPost);
-      }
+      // create a copy of the item
+      let tempPost = { ...post };
+      // remove the .key attribute
+      delete tempPost['.key'];
+      this.$firebaseRefs.posts.child(post['.key']).set(tempPost).then(() => {
+        this.showNotification('success', 'Post updated successfully');
+      });
     }
   }
 }
 
 </script>
 
-<style lang="scss" scoped>
-.posts {
+<style lang="scss">
+#posts {
   .post-title-cell {
     width: 50%;
   }

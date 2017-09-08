@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container posts">
 
     <!-- posts page title -->
     <div class="content-heading is-flex">
@@ -21,10 +21,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="post in posts">
-            <td>
+          <tr v-for="(post, index) in posts" :key="index">
+            <td class="post-title-cell">
               <router-link :to="'/admin/posts/edit/' + post['.key']">
-                <div>{{post.title}}</div>
+                {{post.title}}
               </router-link>
 
               <div class="actions">
@@ -34,56 +34,69 @@
                 <span @click="deletePost(post)" class="has-text-danger">Delete</span>
               </div>
             </td>
-            <td>{{post.author}}</td>
-            <td>{{post.tags}}</td>
+            <td class="post-author-cell">{{post.author}}</td>
+            <td class="post-tags-cell">{{post.tags}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
 </template>
 
 <script>
-  import { postsRef } from '../../config';
+import { postsRef } from '../../config';
 
-  export default {
-    firebase: {
-      posts: postsRef
+export default {
+  firebase: {
+    posts: postsRef
+  },
+  methods: {
+    addPost(post) {
+      // check if all fields are filled
+      let allFilled = true;
+      for (let key in post) {
+        allFilled = allFilled && post[key];
+      }
+      // If there is no empty fields, save the post to firebase
+      if (allFilled) {
+        this.$firebaseRefs.posts.push(post);
+      }
     },
-    methods: {
-      addPost(post) {
-        // check if all fields are filled
-        let allFilled = true;
-        for (let key in post) {
-          allFilled = allFilled && post[key];
-        }
-        // If there is no empty fields, save the post to firebase
-        if (allFilled) {
-          this.$firebaseRefs.posts.push(post);
-        }
-      },
-      deletePost(post) {
-        // delete post form firebase
-        this.$firebaseRefs.posts.child(post['.key']).remove();
-      },
-      updatePost(post) {
-        // check if all fields are filled
-        let allFilled = true;
-        for (let key in post) {
-          allFilled = allFilled && post[key];
-        }
-        // If there is no empty fields, save the post to firebase
-        if (allFilled) {
-          console.log(post['.key'])
-          // create a copy of the item
-          let tempPost = { ...post }
-          // remove the .key attribute
-          delete tempPost['.key']
-          this.$firebaseRefs.posts.child(post['.key']).set(tempPost)
-        }
+    deletePost(post) {
+      // delete post form firebase
+      this.$firebaseRefs.posts.child(post['.key']).remove();
+    },
+    updatePost(post) {
+      // check if all fields are filled
+      let allFilled = true;
+      for (let key in post) {
+        allFilled = allFilled && post[key];
+      }
+      // If there is no empty fields, save the post to firebase
+      if (allFilled) {
+        console.log(post['.key'])
+        // create a copy of the item
+        let tempPost = { ...post }
+        // remove the .key attribute
+        delete tempPost['.key']
+        this.$firebaseRefs.posts.child(post['.key']).set(tempPost)
       }
     }
   }
+}
 
 </script>
+
+<style lang="scss" scoped>
+.posts {
+  .post-title-cell {
+    width: 50%;
+  }
+  .post-author-cell {
+    width: 25%;
+  }
+  .post-tags-cell {
+    width: 25%;
+  }
+}
+</style>

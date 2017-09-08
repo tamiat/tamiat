@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container settings">
 
-    <h3>General settings</h3>
+    <h3 class="is-size-3">General settings</h3>
     <div class="box">
       <div class="columns">
 
@@ -28,52 +28,50 @@
 </template>
 
 <script>
-  import { settingsRef } from '../../config';
+import { settingsRef } from '../../config';
 
-  export default {
-    data() {
-      return {
-        // this array contains settings form fields
-        fields: [
-          {
-            label: 'Site Title',
-            name: 'title',
-            value: ''
-          },
-          {
-            label: 'Site Description',
-            name: 'description',
-            value: ''
-          }
-        ]
-      }
-    },
-    firebase: {
-      // load settings as an object instead of array (default)
-      settings: {
-        source: settingsRef,
-        asObject: true
-      }
-    },
-    methods: {
-      saveSettings() {
-        // generate the new settings without updating the empty fields
-        let updatedSettings = {
-          title: this.fields[0].value || this.settings.title,
-          description: this.fields[1].value || this.settings.description,
+export default {
+  data() {
+    return {
+      // this array contains settings form fields
+      fields: [
+        {
+          label: 'Site Title',
+          name: 'title',
+          value: ''
+        },
+        {
+          label: 'Site Description',
+          name: 'description',
+          value: ''
         }
-        // save the new settings to firebase
-        this.$firebaseRefs.settings.set(updatedSettings)
+      ]
+    }
+  },
+  firebase: {
+    // load settings as an object instead of array (default)
+    settings: {
+      source: settingsRef,
+      asObject: true
+    }
+  },
+  methods: {
+    saveSettings() {
+      // generate the new settings without updating the empty fields
+      let updatedSettings = {
+        title: this.fields[0].value || this.settings.title,
+        description: this.fields[1].value || this.settings.description,
       }
+      // save the new settings to firebase
+      this.$firebaseRefs.settings.set(updatedSettings)
     }
   }
+}
 
 </script>
 
 <style lang="scss">
-  h3 {
-    font-size: 1.7em;
-    margin: 1em 0em;
-  }
-
+h3 {
+  margin: 1em 1em 1em 0em;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container users">
 
     <!-- users page title -->
     <div class="content-heading is-flex">
@@ -10,7 +10,7 @@
     <!-- the new user form loaded via vue loader -->
     <router-view></router-view>
 
-    <h4>Guests' requests</h4>
+    <h5 class="is-size-5">New Users</h5>
     <!-- guests' requests table -->
     <div class="box">
       <table class="table is-fullwidth is-striped">
@@ -22,21 +22,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in guests">
-            <td>
+          <tr v-for="(user, index) in guests" :key="index">
+            <td class="username-cell">
               {{user.username}}
               <div class="actions">
                 <span @click="approve(user)" class="approve has-text-success">Approve</span>
               </div>
             </td>
-            <td>{{user.email}}</td>
-            <td>{{user.role}}</td>
+            <td class="email-cell">{{user.email}}</td>
+            <td class="role-cell">{{user.role}}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h4>Administrators</h4>
+    <h5 class="is-size-5">Administrators</h5>
     <!-- the administrators table -->
     <div class="box">
       <table class="table is-fullwidth is-striped">
@@ -48,8 +48,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in admins" :class="{'logged-in' : currentUser.uid === user['.key']}">
-            <td>
+          <tr v-for="(user, index) in admins" :key="index" :class="{'logged-in' : currentUser.uid === user['.key']}">
+            <td class="username-cell">
               {{user.username}}
               <div class="actions">
                 <!-- display a delete button below the current logged in user -->
@@ -57,10 +57,11 @@
                 <span v-else @click="ban(user)" class="ban has-text-danger">Ban</span>
               </div>
             </td>
-            <td>{{user.email}}</td>
-            <td>{{user.role}}</td>
+            <td class="email-cell">{{user.email}}</td>
+            <td class="role-cell">{{user.role}}</td>
           </tr>
         </tbody>
+
       </table>
     </div>
 
@@ -68,70 +69,72 @@
 </template>
 
 <script>
-  import firebase from 'firebase';
-  import { usersRef } from '../../config';
+import firebase from 'firebase';
+import { usersRef } from '../../config';
 
-  export default {
-    data() {
-      return {
-        currentUser: firebase.auth().currentUser
-      }
+export default {
+  data() {
+    return {
+      currentUser: firebase.auth().currentUser
+    }
+  },
+  firebase() {
+    return {
+      users: usersRef
+    }
+  },
+  methods: {
+    // approve a new user method
+    approve(user) {
+      this.$firebaseRefs.users.child(user['.key']).set({
+        username: user.username,
+        email: user.email,
+        role: 'admin'
+      })
     },
-    firebase() {
-      return {
-        users: usersRef
-      }
+    // ban an existing admin
+    ban(user) {
+      this.$firebaseRefs.users.child(user['.key']).set({
+        username: user.username,
+        email: user.email,
+        role: 'guest'
+      })
     },
-    methods: {
-      // approve a new user method
-      approve(user) {
-        this.$firebaseRefs.users.child(user['.key']).set({
-          username: user.username,
-          email: user.email,
-          role: 'admin'
+    // delete the current user
+    deleteCurrentUser() {
+      let vm = this;
+      // delete the current user from the firebase auth
+      this.currentUser.delete()
+        .then(function() {
+          // delete the current user from the real time database
+          vm.$firebaseRefs.users.child(vm.currentUser.uid).remove();
+          console.log('user deleted successfuly');
         })
-      },
-      // ban an existing admin
-      ban(user) {
-        this.$firebaseRefs.users.child(user['.key']).set({
-          username: user.username,
-          email: user.email,
-          role: 'guest'
-        })
-      },
-      // delete the current user
-      deleteCurrentUser() {
-        let vm = this;
-        // delete the current user from the firebase auth
-        this.currentUser.delete()
-          .then(function () {
-            // delete the current user from the real time database
-            vm.$firebaseRefs.users.child(vm.currentUser.uid).remove();
-            console.log('user deleted successfuly');
-          })
-          .catch(function (error) {
-            console.log(error.message);
-          });
+        .catch(function(error) {
+          console.log(error.message);
+        });
 
-      }
+    }
+  },
+  computed: {
+    admins() {
+      return this.users.filter((user) => {
+        return user.role === 'admin';
+      })
     },
-    computed: {
-      admins() {
-        return this.users.filter((user) => {
-          return user.role === 'admin';
-        })
-      },
-      guests() {
-        return this.users.filter((user) => {
-          return user.role === 'guest';
-        })
-      }
+    guests() {
+      return this.users.filter((user) => {
+        return user.role === 'guest';
+      })
     }
   }
+}
 
 </script>
 
 <style lang="scss" scoped>
+.users {
+
   .content-heading {
     justify-content: baseline;
     align-content: center;
@@ -141,8 +144,24 @@
     }
   }
 
+  .username-cell {
+    width: 35%;
+  }
+
+  .email-cell {
+    width: 45%;
+  }
+
+  .role-cell {
+    width: 20%;
+  }
+
+  h5 {
+    padding-bottom: 10px;
+  }
+
   .logged-in {
     background-color: #C1FFD7 !important;
   }
-
+}
 </style>

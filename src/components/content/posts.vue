@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container posts">
 
     <!-- posts page title -->
     <div class="content-heading is-flex">
@@ -22,9 +22,9 @@
         </thead>
         <tbody>
           <tr v-for="(post, index) in posts" :key="index">
-            <td>
+            <td class="post-title-cell">
               <router-link :to="'/admin/posts/edit/' + post['.key']">
-                <div>{{post.title}}</div>
+                {{post.title}}
               </router-link>
 
               <div class="actions">
@@ -34,8 +34,8 @@
                 <span @click="deletePost(post)" class="has-text-danger">Delete</span>
               </div>
             </td>
-            <td>{{post.author}}</td>
-            <td>{{post.tags}}</td>
+            <td class="post-author-cell">{{post.author}}</td>
+            <td class="post-tags-cell">{{post.tags}}</td>
           </tr>
         </tbody>
       </table>
@@ -75,3 +75,17 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+.posts {
+  .post-title-cell {
+    width: 50%;
+  }
+  .post-author-cell {
+    width: 25%;
+  }
+  .post-tags-cell {
+    width: 25%;
+  }
+}
+</style>

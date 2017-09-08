@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container settings">
 
-    <h3>General settings</h3>
+    <h3 class="is-size-3">General settings</h3>
     <div class="box">
       <div class="columns">
 
@@ -75,6 +75,8 @@ export default {
           }
         })
       }
+      // save the new settings to firebase
+      this.$firebaseRefs.settings.set(updatedSettings)
     }
   },
   updated() {
@@ -90,7 +92,6 @@ export default {
 
 <style lang="scss">
 h3 {
-  font-size: 1.7em;
-  margin: 1em 0em;
+  margin: 1em 1em 1em 0em;
 }
 </style>

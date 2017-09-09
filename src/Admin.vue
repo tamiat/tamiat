@@ -28,20 +28,10 @@ export default {
     // get the current logged in user
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        firebase.database().ref('users/' + user.uid).once('value')
-          // check if the current user is an admin
-          .then((snapshot) => {
-            let user = snapshot.val();
-            if (user.role === 'admin') {
-              // continue to /admin
-              next();
-            } else {
-              // redirect to /login if the logged in user is not an admin
-              next('/login');
-            }
-          })
+        // continue to /admin
+        next();
       } else {
-        // redirect to /login if no user is logged in
+        // redirect to /login 
         next('/login');
       }
     })

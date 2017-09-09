@@ -25,10 +25,10 @@
 [Firebase]: https://firebase.google.com/
 
 # Get Started
-To get started with Tamiat CMS there is two options:
+To get started with Tamiat CMS, you have two options:
 
-* **1# option**: integrating your project in Tamiat.
-* **2# option**: integrating Tamiat into your project.
+* **1# option**: Making Tamiat your starting point.
+* **2# option**: integrating Tamiat into an other project.
 
 ## Integrating your project into Tamiat.
 
@@ -73,3 +73,31 @@ npm run dev
 6. sign in with your previous email and password.
 
 7. Enjoy!
+
+## Integrating Tamiat into an existing project
+
+1. Create a new vue.js project based on webpack template.
+
+```bash
+vue init webpack my-project
+# install webpack template dependencies
+npm install
+```
+
+2. Install the required dependencies by Tamiat
+
+```bash
+cd my-project
+
+# install development dependencies
+npm install node-sass sass-loader --save-dev
+
+# install production dependencies
+npm install vue-router bulma firebase vuefire font-awesome vue-quill-editor 
+```
+
+3. delete the default **src** folder and replace it with the **src** folder from Tamiat repository.
+
+4. follow the same instructions as above starting from `step 2`.
+
+5. Enjoy!

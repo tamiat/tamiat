@@ -7,7 +7,6 @@
   <strong>Tamiat headless CMS</strong>
 </p>
 
-
 <p>
   <sub>Made with ❤︎ by
     <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and
@@ -32,7 +31,7 @@ To get started with Tamiat CMS, you have two options:
 
 ## Making Tamiat your starting point.
 
-1. clone the CMS repo and install the dependencies
+1. clone the CMS repository and install the dependencies
 
 ```bash
 # clone the repo
@@ -60,6 +59,19 @@ yarn install
 ```
 
 > These rules mean that everyone can read from the database, but only authenticated users can write to it.
+
+* You can restrict writing to the database to a specific user or a couple of users only by hard coding their `uids` as a value of the `write` property like this:
+
+```js
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth.uid === yourUID || anOtherUID
+  }
+}
+```
+
+> yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
 
 4. Copy your project configurations from WEB SETUP (*in `authentication` section*) and paste them in `config.js` file by replacing the existing ones.
 
@@ -109,7 +121,7 @@ npm install node-sass sass-loader --save-dev
 npm install vue-router bulma firebase vuefire font-awesome vue-quill-editor 
 ```
 
-3. In `main.js` file, import the external stylesheets and the necessary plugins and activate them, also don't forget to add the `router` property to the vue instance.
+3. In `main.js` file, import the external stylesheets and the necessary plugins and activate them.
 
 ```js
 import router from './router'
@@ -122,6 +134,10 @@ import bulma from '../node_modules/bulma/css/bulma.css'
 
 Vue.use(VueFire)  // activate vuefire plugin
 Vue.use(VueQuillEditor)  // activate vue-quill-editor
+```
+
+* also don't forget to add the `router` property to the vue instance.
+```js
 
 new Vue({
   el: '#app',
@@ -163,6 +179,6 @@ Tamiat/src/Home.vue => my-project/src/Home.vue # the default home page
 Tamiat/src/config.js => my-project/src/config.js # the firebase configuration file
 ```
 
-6. Once the above is done, you can just follow the same instructions of the first option above starting from `step 2`.
+6. Once this is done, you can just follow the same instructions of the first option above starting from `step 2`.
 
 7. Enjoy!

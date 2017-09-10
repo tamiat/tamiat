@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <header>
+    <header class="is-flex">
       <h2 class=" is-title is-size-4">
         <a href="#">Website Logo</a>
       </h2>
@@ -94,7 +94,7 @@
       </form>
     </section>
 
-    <footer>
+    <footer class="is-flex">
       <ul>
         <li>
           <a href="#">
@@ -239,6 +239,8 @@ ul.grid {
 
 
 
+
+
 /*-------------
        Header
   -------------*/
@@ -300,13 +302,15 @@ header nav li:last-child {
 
 
 
+
+
 /*----------------
        Hero Section
   ----------------*/
 
 .hero {
   position: relative;
-  justify-content: center;
+  justify-content: center !important;
   min-height: 100vh;
   color: #fff;
   text-align: center;
@@ -375,6 +379,8 @@ header nav li:last-child {
 
 
 
+
+
 /*--------------------
        Our Work Section
   ---------------------*/
@@ -410,6 +416,8 @@ header nav li:last-child {
     flex-basis: 100%;
   }
 }
+
+
 
 
 
@@ -467,6 +475,8 @@ header nav li:last-child {
 
 
 
+
+
 /*--------------------
        Reviews Section
   --------------------*/
@@ -504,6 +514,8 @@ header nav li:last-child {
     font-size: 16px;
   }
 }
+
+
 
 
 
@@ -546,6 +558,8 @@ header nav li:last-child {
     margin: 0 0 20px 0;
   }
 }
+
+
 
 
 
@@ -599,6 +613,8 @@ footer p a {
     padding: 80px 15px;
   }
 }
+
+
 
 
 

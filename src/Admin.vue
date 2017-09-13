@@ -1,5 +1,5 @@
 <template>
-  <div class="admin" id="admin">
+  <div class="admin bulma" id="admin">
     <!-- The admin page layout -->
     <navbar></navbar>
     <sidebar></sidebar>
@@ -40,53 +40,38 @@ export default {
 
 </script>
 
-<style lang="scss">
-html,
-body,
-#app,
-#admin {
-  background-color: #F1F1F1;
-  height: 100%;
-}
+<style lang="sass">
 
-#admin {
-  .wrapper {
-    width: calc(100% - 110px);
-    position: absolute;
-    top: 52px;
-    left: 105px;
-    background-color: #F1F1F1;
+#admin
+  .wrapper
+    width: calc(100% - 110px)
+    position: absolute
+    top: 52px
+    left: 100px
+    background-color: #F1F1F1
 
-    .content-heading {
-      justify-content: baseline;
-      align-content: center;
-      align-items: center;
-      h3 {
-        margin: 1em 1em 1em 0em;
-      }
-    }
-  }
+    .content-heading
+      justify-content: baseline
+      align-content: center
+      align-items: center
+      h3
+        margin: 1em 1em 1em 0em
 
-  .actions {
-    display: none;
-    span {
-      cursor: pointer;
-    }
-  }
+  .actions
+    display: none
+    span
+      cursor: pointer
 
-  tr:hover .actions {
-    display: inline;
-    span {
-      padding: 0px 0px 0px 10px;
-    }
-  }
+  tr:hover .actions
+    display: inline
+    span
+      padding: 0px 0px 0px 10px
 
-  .notification {
-    position: fixed;
-    top: 60px;
-    right: 10px;
-    z-index: 2000;
-    max-width: 90%;
-  }
-}
+  .notification
+    position: fixed
+    top: 60px
+    right: 10px
+    z-index: 2000
+    max-width: 90%
+
 </style>

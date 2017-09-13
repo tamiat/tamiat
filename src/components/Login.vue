@@ -1,5 +1,5 @@
 <template>
-  <div class="container login">
+  <div class="container login bulma">
     <div class="columns is-centered is-vertical-aligned is-fullheight is-flex">
       <div class="column box is-one-third">
 
@@ -68,12 +68,6 @@ export default {
 </script>
 
 <style>
-html,
-body,
-#app {
-  background-color: #F1F1F1;
-}
-
 .is-vertical-aligned {
   align-items: center;
 }

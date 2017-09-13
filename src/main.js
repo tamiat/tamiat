@@ -7,7 +7,6 @@ import router from './router';
 
 // import external stylesheets
 import fontAwesome from '../node_modules/font-awesome/css/font-awesome.css';
-import bulma from '../node_modules/bulma/css/bulma.css';
 
 // import the rich text editor plugin
 import VueQuillEditor from 'vue-quill-editor';

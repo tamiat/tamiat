@@ -66,7 +66,7 @@ yarn install
 {
   "rules": {
     ".read": true,
-    ".write": "auth.uid === yourUID || anOtherUID
+    ".write": "auth.uid === yourUID || anOtherUID"
   }
 }
 ```

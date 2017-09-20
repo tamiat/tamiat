@@ -1,8 +1,8 @@
 <template>
   <div id="app">
 
-    <header class="is-flex">
-      <h2 class=" is-title is-size-4">
+    <header>
+      <h2 class="is-title is-size-4">
         <a href="#">Website Logo</a>
       </h2>
       <nav>
@@ -21,7 +21,7 @@
       </nav>
     </header>
 
-    <section class="is-flex hero">
+    <section class="hero">
       <div class="background-image" :style="{'background-image': `url(${require('./assets/img/hero.jpg')})`}"></div>
       <h1>
         {{settings.title}}
@@ -32,7 +32,7 @@
       </div>
     </section>
 
-    <section class="is-flex our-work">
+    <section class="our-work">
       <h3 class="title">Some of our work</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
@@ -44,7 +44,7 @@
       </ul>
     </section>
 
-    <section class="is-flex features">
+    <section class="features">
       <h3 class="title">Features and services</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
@@ -70,7 +70,7 @@
       </ul>
     </section>
 
-    <section class="is-flex reviews">
+    <section class="reviews">
       <h3 class="title">What others say:</h3>
 
       <p class="quote">Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
@@ -83,7 +83,7 @@
       <p class="author">— Kevin Blake</p>
     </section>
 
-    <section class="is-flex contact">
+    <section class="contact">
       <h3 class="title">Join our newsletter</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
@@ -94,7 +94,7 @@
       </form>
     </section>
 
-    <footer class="is-flex">
+    <footer>
       <ul>
         <li>
           <a href="#">

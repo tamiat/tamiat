@@ -13,7 +13,7 @@
     </div>
 
     <!-- the new post form loaded via vue router -->
-    <router-view :add-post="addPost" :update-post="updatePost" :posts="posts" :key="$route.path"></router-view>
+    <router-view :add-post="addPost" :update-post="updatePost" :posts="posts" :key="$route.name + ($route.params.key || '')"></router-view>
 
     <!-- posts list -->
     <div class="box">

@@ -1,0 +1,33 @@
+{
+  "rules": {
+    ".read": true,
+    "posts": {
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin' ",
+      "$id": {
+        "author": {
+          ".validate": "newData.isString()"
+        },
+        "body": {
+          ".validate": "newData.isString()"
+        },
+        "tags": {
+          ".validate": "newData.isString()"
+        },
+        "title": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "settings": {
+      ".validate": true
+    },
+    "users": {
+      "$uid": {
+        ".write": "auth != null && auth.uid == $uid && root.child('users').child(auth.uid).child('role').val() === 'admin' "
+      }
+    }
+  }
+}

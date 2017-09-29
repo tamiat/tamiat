@@ -73,7 +73,7 @@ yarn install
 
 > yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
 
-4. Copy your project configurations from WEB SETUP (*in `authentication` section*) and paste them in `config.js` file by replacing the existing ones.
+5. Copy your project configurations from WEB SETUP (*in `authentication` section*) and paste them in `config.js` file by replacing the existing ones.
 
 ```js
 // replace the existing config object below
@@ -86,18 +86,19 @@ let config = {
   messagingSenderId: "188459960333"
 };
 ```
+6.Change the default project in the `.firebaserc` file to your own by changing `tamiat-demo` to your project ID.
 
-4. run the local dev server.
+7. run the local dev server.
 
 ```bash
 npm run dev
 ```
 
-5. Access the admin interface by navigating to `localhost:8080/admin`.
+8. Access the admin interface by navigating to `localhost:8080/admin`.
 
-6. sign in with your previous email and password.
+9. sign in with your previous email and password.
 
-7. Enjoy!
+10. Enjoy!
 
 ## Integrating Tamiat into an existing project
 

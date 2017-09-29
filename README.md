@@ -53,19 +53,6 @@ yarn install
 {
   "rules": {
     ".read": true,
-    ".write": "auth != null"
-  }
-}
-```
-
-> These rules mean that everyone can read from the database, but only authenticated users can write to it.
-
-* You can restrict writing to the database to a specific user or a couple of users only by hard coding their `uids` as a value of the `write` property like this:
-
-```js
-{
-  "rules": {
-    ".read": true,
     ".write": "(auth.uid === yourUID) || (auth.uid === anOtherUID)"
   }
 }

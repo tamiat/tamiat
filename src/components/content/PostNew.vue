@@ -81,7 +81,8 @@ export default {
           title: this.title,
           body: this.body,
           author: this.author,
-          tags: this.tags
+          tags: this.tags,
+          created: Date.now()
         })
       } else {
         this.showNotification('warning', 'The title field can not be empty');

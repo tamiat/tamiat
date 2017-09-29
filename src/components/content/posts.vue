@@ -22,6 +22,7 @@
           <tr>
             <th>Title</th>
             <th>Author</th>
+            <th>Created</th>
             <th>tags</th>
           </tr>
         </thead>
@@ -41,6 +42,7 @@
             </td>
 
             <td class="post-author-cell">{{post.author}}</td>
+            <td class="post-tags-cell">{{postDate(post.created)}}</td>
             <td class="post-tags-cell">{{post.tags}}</td>
           </tr>
         </tbody>
@@ -50,6 +52,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 import { postsRef } from '../../config';
 import notifier from '../../mixins/notifier';
 
@@ -80,6 +84,10 @@ export default {
       this.$firebaseRefs.posts.child(post['.key']).set(tempPost).then(() => {
         this.showNotification('success', 'Post updated successfully');
       });
+    },
+    postDate(epoch) {
+      if (!epoch) return // if no time return nothing
+      return moment(epoch).format('MM/DD/YY | hh:mm');
     }
   }
 }

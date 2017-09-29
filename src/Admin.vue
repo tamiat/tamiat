@@ -43,6 +43,7 @@ export default {
 <style lang="sass">
 
 #admin
+  font-family: 'Quicksand', sans-serif
   .wrapper
     width: calc(100% - 110px)
     position: absolute

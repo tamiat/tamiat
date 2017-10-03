@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import { settingsRef } from '../../config';
-import notifier from '../../mixins/notifier';
+import { settingsRef } from '../../../config';
+import notifier from '../../../mixins/notifier';
 
 export default {
   data() {

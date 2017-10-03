@@ -22,7 +22,7 @@
     </header>
 
     <section class="hero">
-      <div class="background-image" :style="{'background-image': `url(${require('./assets/img/hero.jpg')})`}"></div>
+      <div class="background-image" :style="{'background-image': `url(${require('../assets/img/hero.jpg')})`}"></div>
       <h1>
         {{settings.title}}
       </h1>
@@ -37,10 +37,10 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
       <ul class="grid">
-        <li class="small" :style="{'background-image': `url(${require('./assets/img/coast.jpg')})`}"></li>
-        <li class="large" :style="{'background-image': `url(${require('./assets/img/island.jpg')})`}"></li>
-        <li class="large" :style="{'background-image': `url(${require('./assets/img/balloon.jpg')})`}"></li>
-        <li class="small" :style="{'background-image': `url(${require('./assets/img/mountain.jpg')})`}"></li>
+        <li class="small" :style="{'background-image': `url(${require('../assets/img/coast.jpg')})`}"></li>
+        <li class="large" :style="{'background-image': `url(${require('../assets/img/island.jpg')})`}"></li>
+        <li class="large" :style="{'background-image': `url(${require('../assets/img/balloon.jpg')})`}"></li>
+        <li class="small" :style="{'background-image': `url(${require('../assets/img/mountain.jpg')})`}"></li>
       </ul>
     </section>
 
@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef } from './config';
+import { settingsRef, postsRef  } from '../config';
 
 export default {
   name: 'app',

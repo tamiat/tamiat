@@ -11,7 +11,7 @@
         <!-- tamiat CMS logo -->
         <div class="columns is-flex is-centered is-mobile">
           <figure class="column is-half">
-            <router-link to="/"><img src="../assets/logo.png" alt="Tamiat logo"></router-link>
+            <router-link to="/"><img src="/src/assets/logo.png" alt="Tamiat logo"></router-link>
           </figure>
         </div>
 
@@ -39,7 +39,7 @@
 
 <script>
 import firebase from 'firebase';
-import notifier from '../mixins/notifier';
+import notifier from '../../mixins/notifier';
 
 export default {
   data() {

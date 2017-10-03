@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Navbar from './components/layout/Navbar';
-import Sidebar from './components/layout/Sidebar';
+import Navbar from './Admin/layout/Navbar';
+import Sidebar from './Admin/layout/Sidebar';
 import firebase from 'firebase';
 
 export default {

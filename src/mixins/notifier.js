@@ -1,3 +1,5 @@
+// USED BY TAMIAT CMS
+
 export default {
   data () {
     return {

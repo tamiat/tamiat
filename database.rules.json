@@ -17,7 +17,7 @@
           ".validate": "newData.isString()"
         },
         "created": {
-          ".validate": "newData.val() < now"
+          // ".validate": "newData.val() < now"
         },
         "$other": {
           ".validate": false

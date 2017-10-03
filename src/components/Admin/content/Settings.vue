@@ -12,13 +12,15 @@
 
         <div class="column is-multiline">
 
-          <div v-for="(field, index) in fields" class="field columns" :key="index">
+          <div v-for="(field, key) in settings" class="field columns" :key="key" v-if="key !== '.key'">
             <div class="column is-one-third">
-              <label class="label is-capitalized">{{field.label}}</label>
+              <span class="tag">
+                {{key}}
+              </span>
             </div>
 
             <div class="control column is-two-thirds">
-              <input type="text" class="input" :name="field.name" :placeholder="settings[field.name]" v-model="field.value">
+              <input type="text" class="input" :name="field" :placeholder="field" v-model="settings[key]">
             </div>
           </div>
           <!-- Main container -->
@@ -29,6 +31,11 @@
             </div>
             <!-- Right side -->
             <div class="level-right">
+              <div class="level-item">
+                <button type="button" class="button is-pulled-right" @click="addSettingField">
+                  Add Settings field
+                </button>
+              </div>
               <div class="level-item">
                 <button type="button" class="button is-info is-pulled-right" @click="saveSettings">
                   Save Settings
@@ -76,13 +83,8 @@ export default {
   mixins: [notifier],
   methods: {
     saveSettings() {
-      // generate the new settings without updating the empty fields
-      let updatedSettings = {
-        title: this.fields[0].value || this.settings.title,
-        description: this.fields[1].value || this.settings.description,
-      }
-      // save the new settings to firebase
-      this.$firebaseRefs.settings.set(updatedSettings).then(() => {
+      delete this.settings['.key'] // This is a bit weird but no problem
+      this.$firebaseRefs.settings.update(this.settings).then(() => {
         this.showNotification('success', 'Settings Successfully saved');
       })
     },
@@ -95,6 +97,20 @@ export default {
           }
         })
       }
+    },
+    addSettingField() {
+      const newFieldName = prompt("Name for new setting:");
+      if (this.settings.hasOwnProperty(newFieldName)) {
+        alert('This setting already does exist')
+        return
+      }
+      this.$firebaseRefs.settings.update({
+        [newFieldName]: ''
+      }).then(() => {
+        this.showNotification('success', 'Setting Successfully added');
+      }).catch(() => {
+        this.showNotification('error', 'Setting not added');
+      })
     }
   },
   updated() {

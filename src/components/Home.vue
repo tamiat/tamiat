@@ -70,6 +70,33 @@
       </ul>
     </section>
 
+    <section>
+      <h3 class="title">Our blog posts</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+      <hr>
+
+      <div class="wrapper">  		
+    		<div class="card radius shadowDepth1" v-for="post in posts" v-if="post.body">
+    			<div class="card__image border-tlr-radius">
+    				<img :src="post.img" alt="image" class="border-tlr-radius">
+          </div>
+    			<div class="card__content card__padding">
+    				<article class="card__article">
+	    				<h2><a href="#">{{post.title}}</a></h2>
+	    				<p v-html="post.body"></p>
+	    			</article>
+    			</div>
+    			<div class="card__action">	
+    				<div class="card__author">
+    					<div class="card__author-content">
+    						By <a href="#">{{post.author}}</a>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
     <section class="reviews">
       <h3 class="title">What others say:</h3>
 
@@ -131,7 +158,7 @@
 </template>
 
 <script>
-import { settingsRef } from '../config';
+import { settingsRef, postsRef  } from '../config';
 
 export default {
   name: 'app',
@@ -139,6 +166,10 @@ export default {
     // load settings as object instead of array (default)
     settings: {
       source: settingsRef,
+      asObject: true
+    },
+    posts: {
+      source: postsRef,
       asObject: true
     }
   }
@@ -515,6 +546,108 @@ header nav li:last-child {
   }
 }
 
+/**
+ * https://codepen.io/mithicher/pen/azQKNN
+ *
+ * Card Styles
+ */
+ .wrapper {
+   text-align: center;
+ }
+
+.card {
+	background-color: #fff;
+	margin-bottom: 1.6rem;
+  width: 300px;
+  display: inline-block;
+  margin: 30px;
+  box-shadow: 0px 10px 7px 3px lightgray;
+}
+
+.card__padding {
+	padding: 1rem;
+}
+ 
+.card__image {
+	min-height: 100px;
+	background-color: #eee;
+}
+	.card__image img {
+		width: 100%;
+		max-width: 100%;
+		display: block;
+	}
+
+.card__content {
+	position: relative;
+}
+
+/* card meta */
+.card__meta time {
+	font-size: 1.5rem;
+	color: #bbb;
+	margin-left: 0.8rem;
+}
+
+/* card article */
+.card__article p {
+	height: 100px;
+  overflow: hidden;
+  margin-bottom: 0px;
+}
+.card__article a {
+	text-decoration: none;
+	color: #444;
+	transition: all 0.5s ease;
+}
+	.card__article a:hover {
+		color: #2980b9;
+	}
+
+/* card action */
+.card__action {
+	overflow: hidden;
+	padding-right: 1.6rem;
+	padding-left: 1.6rem;
+	padding-bottom: 1.6rem;
+}
+	 
+.card__author {}
+
+	.card__author img,
+	.card__author-content {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.card__author img{
+		border-radius: 50%;
+		margin-right: 0.6em;
+	}
+
+.card__share {
+	float: right;
+	position: relative;
+	margin-top: -42px;
+}
+
+.card__social {
+	position: absolute;
+	top: 0;
+	right: 0;
+	visibility: hidden;
+	width: 160px;
+	transform: translateZ(0);
+  	transform: translateX(0px);
+  	transition: transform 0.35s ease;
+}
+	.card__social--active {
+		visibility: visible;
+		/*z-index: 3;*/
+		transform: translateZ(0);
+ 		transform: translateX(-48px);
+  		transition: transform 0.35s ease;
+	}
 
 
 

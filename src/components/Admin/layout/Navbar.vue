@@ -6,7 +6,7 @@
       <router-link class="navbar-item" to="/">
         <img src="src/assets/logo.png" alt="Tamiat CMS logo">
       </router-link>
-      <div class="navbar-burger burger" data-target="navMenuExample">
+      <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
         <span></span>
         <span></span>
         <span></span>
@@ -14,7 +14,7 @@
     </div>
 
     <!-- the navbar right menu -->
-    <div class="navbar-menu">
+    <div class="navbar-menu" id="navbar" :class="{'is-active': mobileMenuIsActive}">
       <div class="navbar-end">
         <span class="navbar-item">
           {{currentUser.email}}
@@ -37,6 +37,7 @@ import { usersRef } from '../../../config';
 export default {
   data() {
     return {
+      mobileMenuIsActive: false,
       currentUser: firebase.auth().currentUser
     }
   },
@@ -53,6 +54,9 @@ export default {
         .catch(() => {
           console.log('sign out fails');
         })
+    },
+    toggleMenu() {
+      this.mobileMenuIsActive = !this.mobileMenuIsActive;
     }
   }
 }

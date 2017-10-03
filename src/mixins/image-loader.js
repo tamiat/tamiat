@@ -1,3 +1,5 @@
+// USED BY TAMIAT CMS
+
 import firebase from 'firebase';
 
 export default {

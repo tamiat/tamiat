@@ -70,7 +70,7 @@
 
 <script>
 import firebase from 'firebase';
-import { usersRef } from '../../config';
+import { usersRef } from '../../../config';
 
 export default {
   data() {

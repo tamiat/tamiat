@@ -4,7 +4,7 @@
     <!-- the navbar brand -->
     <div class="navbar-brand">
       <router-link class="navbar-item" to="/">
-        <img src="../../assets/logo.png" alt="Tamiat CMS logo">
+        <img src="src/assets/logo.png" alt="Tamiat CMS logo">
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
         <span></span>
@@ -32,7 +32,7 @@
 
 <script>
 import firebase from 'firebase';
-import { usersRef } from '../../config';
+import { usersRef } from '../../../config';
 
 export default {
   data() {

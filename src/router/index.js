@@ -2,15 +2,15 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // import app pages 
-import Home from '../Home';
-import Admin from '../Admin';
-import Login from '../components/Login';
+import Home from '../components/Home';
+import Admin from '../components/Admin';
+import Login from '../components/Admin/Login';
 
 // import admin page components
-import Posts from '../components/content/Posts';
-import PostNew from '../components/content/PostNew';
-import PostEdit from '../components/content/PostEdit';
-import Settings from '../components/content/Settings';
+import Posts from '../components/Admin/content/Posts';
+import PostNew from '../components/Admin/content/PostNew';
+import PostEdit from '../components/Admin/content/PostEdit';
+import Settings from '../components/Admin/content/Settings';
 
 Vue.use(Router);
 

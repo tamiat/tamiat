@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 
 import { postsRef } from '../../../config';
 import notifier from '../../../mixins/notifier';

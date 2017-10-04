@@ -37,7 +37,7 @@
         <div class="field">
           <label class="label">Tags</label>
           <div class="control">
-            <input type="text" class="input" v-model="post.tags">
+            <input type="text" class="input" v-model="tagString">
             <p>Seperate tags with commas</p>
           </div>
         </div>
@@ -86,6 +86,16 @@ export default {
         this.updatePost(this.post)
       } else {
         this.showNotification('warning', 'The title field can not be empty');
+      }
+    }
+  },
+  computed: {
+    tagString: {
+      get: function () {
+        return this.post.tags.join(',');
+      },
+      set: function (newValue) {
+        this.post.tags = newValue.split(',')
       }
     }
   }

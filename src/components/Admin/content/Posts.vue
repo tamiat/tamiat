@@ -43,7 +43,7 @@
 
             <td class="post-author-cell">{{post.author}}</td>
             <td class="post-tags-cell">{{postDate(post.created)}}</td>
-            <td class="post-tags-cell">{{post.tags}}</td>
+            <td class="post-tags-cell">{{joined(post.tags)}}</td>
           </tr>
         </tbody>
       </table>
@@ -77,6 +77,7 @@ export default {
       }
     },
     updatePost(post) {
+      console.log(JSON.stringify(post), post)
       // create a copy of the item
       let tempPost = { ...post };
       // remove the .key attribute
@@ -88,6 +89,9 @@ export default {
     postDate(epoch) {
       if (!epoch) return // if no time return nothing
       return moment(epoch).format('MM/DD/YY | hh:mm');
+    },
+    joined(t) {
+      return Object.values(t).join(',')
     }
   }
 }

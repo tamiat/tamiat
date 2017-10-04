@@ -68,7 +68,7 @@ export default {
       title: '',
       body: '',
       author: '',
-      tags: '',
+      tags: [],
       editorOptions
     }
   },
@@ -81,7 +81,7 @@ export default {
           title: this.title,
           body: this.body,
           author: this.author,
-          tags: this.tags,
+          tags: this.tags.split(','),
           created: Date.now()
         })
       } else {

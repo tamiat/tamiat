@@ -41,8 +41,26 @@
             <p>Seperate tags with commas</p>
           </div>
         </div>
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="control">
+            <img :src="featuredImage">
+            <div class="file">
+              <label class="file-label">
+                <input @change="uploadImage" class="file-input" type="file" name="resume">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Choose a file…
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
 
     <!-- notification -->
@@ -57,6 +75,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 import VueQuillEditor from 'vue-quill-editor';
 import editorOptions from './editor-options';
 import imageLoader from '../../../mixins/image-loader';
@@ -70,6 +90,7 @@ export default {
       body: '',
       author: '',
       tags: [],
+      featuredImage: '',
       editorOptions
     }
   },
@@ -77,18 +98,29 @@ export default {
   mixins: [imageLoader, notifier],
   methods: {
     add() {
+      console.log(this.featuredImage)
       if (this.title) {
         this.addPost({
           title: this.title,
           body: this.body,
           author: this.author,
           tags: this.tags.split(','),
+          img: this.featuredImage,
           created: Date.now()
         })
       } else {
         this.showNotification('warning', 'The title field can not be empty');
       }
 
+    },
+    uploadImage (e) {
+      console.log(e)
+      let file = e.target.files[0];
+      let storageRef = firebase.storage().ref('images/' + file.name);
+
+      storageRef.put(file).then((function (snapshot) {
+        this.featuredImage = snapshot.downloadURL;
+      }).bind(this));
     }
   }
 }

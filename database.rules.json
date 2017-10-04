@@ -11,7 +11,7 @@
           ".validate": "newData.isString()"
         },
         "tags": {
-          ".validate": "newData.isString()"
+          ".validate": "newData.hasChildren()"
         },
         "title": {
           ".validate": "newData.isString()"

@@ -19,9 +19,8 @@
 
 <script>
 export default {
-
+  name: 'sidebar',
   data() {
-    name: 'sidebar',
     return {
       // this array contains the all the links in the sidebar
       menu: [

@@ -69,7 +69,7 @@
             <div class="level-right">
               <div class="level-item">
                 <button type="button" class="button is-pulled-right" @click="addPageField">
-                  Add Page field
+                  Add field
                 </button>
               </div>
               <div class="level-item">

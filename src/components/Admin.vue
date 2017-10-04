@@ -18,6 +18,7 @@ import Sidebar from './Admin/layout/Sidebar';
 import firebase from 'firebase';
 
 export default {
+  name: 'admin',
   components: {
     'navbar': Navbar,
     'sidebar': Sidebar

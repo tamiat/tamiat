@@ -73,6 +73,7 @@ import firebase from 'firebase';
 import { usersRef } from '../../../config';
 
 export default {
+  name: 'users',
   data() {
     return {
       currentUser: firebase.auth().currentUser

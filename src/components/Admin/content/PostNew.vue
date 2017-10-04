@@ -63,6 +63,7 @@ import imageLoader from '../../../mixins/image-loader';
 import notifier from '../../../mixins/notifier';
 
 export default {
+  name: 'post-new',
   data() {
     return {
       title: '',

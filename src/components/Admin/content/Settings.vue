@@ -55,6 +55,7 @@ import { settingsRef } from '../../../config';
 import notifier from '../../../mixins/notifier';
 
 export default {
+  name: 'settings',
   data() {
     return {
       updatesCounter: 0,

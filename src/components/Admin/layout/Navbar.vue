@@ -35,6 +35,7 @@ import firebase from 'firebase';
 import { usersRef } from '../../../config';
 
 export default {
+  name: 'navbar',
   data() {
     return {
       mobileMenuIsActive: false,

@@ -40,6 +40,7 @@
 
 <script>
   export default {
+    name: 'user-new',
     data() {
       return {
         // this array contains all the required fields to add a new user

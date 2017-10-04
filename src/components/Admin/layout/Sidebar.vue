@@ -21,6 +21,7 @@
 export default {
 
   data() {
+    name: 'sidebar',
     return {
       // this array contains the all the links in the sidebar
       menu: [

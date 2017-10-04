@@ -48,6 +48,7 @@
             <div class="column is-one-third">
               <span class="tag">
                 {{key}}
+                <button class="delete is-small" @click="deletePageField(key)"></button>
               </span>
             </div>
 
@@ -55,11 +56,11 @@
               <input type="text" class="input" :name="field" :placeholder="field" v-model="currentPage.fields[key]">
             </div>
           </div>
-          <p v-if="!currentPage.fields">
+          <p v-if="!currentPage.fields && currentPage.name">
             Add a property to get started!
           </p>
           <!-- Main container -->
-          <nav class="level">
+          <nav class="level" v-if="currentPage.name">
             <!-- Left side -->
             <div class="level-left">
               <!--<div class="level-item"></div>-->
@@ -74,6 +75,11 @@
               <div class="level-item">
                 <button type="button" class="button is-info is-pulled-right">
                   Save Changes
+                </button>
+              </div>
+              <div class="level-item">
+                <button @click="deletePage" type="button" title="delete" class="button is-danger is-pulled-right">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
@@ -138,6 +144,25 @@ export default {
           this.showNotification('error', 'Property not added');
         })
     },
+    deletePageField(key) {
+      const name = prompt("Type the name of the property to comfirm");
+      if (key != name) {
+        console.log(`${key} was not equal to ${name}`)
+        alert('property name did not match')
+        return
+      }
+      this.currentPageRef
+        .child('fields')
+        .child(key)
+        .remove()
+        .then(() => {
+          this.selectPage(key)
+          this.showNotification('success', 'Property successfully removed');
+        })
+        .catch(() => {
+          this.showNotification('error', 'Property not removed');
+        })
+    },
     addPage() {
       const name = prompt("Name for new page:");
       if (this.pages.hasOwnProperty(name)) {
@@ -154,6 +179,25 @@ export default {
         })
         .catch(() => {
           this.showNotification('error', 'Page not added');
+        })
+    },
+    deletePage() {
+      const key = this.currentPageKey
+      const name = prompt("Type the name of the page to comfirm");
+      if (this.currentPage.name != name) {
+        console.log(`${this.currentPage.name} was not equal to ${name}`)
+        alert('Page name did not match')
+        return
+      }
+      this.$firebaseRefs.pages
+        .child(key)
+        .remove()
+        .then(() => {
+          this.selectPage(key)
+          this.showNotification('success', 'Page successfully removed');
+        })
+        .catch(() => {
+          this.showNotification('error', 'Page not removed');
         })
     }
   }

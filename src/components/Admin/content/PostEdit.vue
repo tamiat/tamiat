@@ -63,6 +63,7 @@ import imageLoader from '../../../mixins/image-loader';
 import notifier from '../../../mixins/notifier';
 
 export default {
+  name: 'post-edit',
   data() {
     return {
       /* Here we are filtering out the post containing the provided key in the router params

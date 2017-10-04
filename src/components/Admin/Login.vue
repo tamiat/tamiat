@@ -42,6 +42,7 @@ import firebase from 'firebase';
 import notifier from '../../mixins/notifier';
 
 export default {
+  name: 'log-in',
   data() {
     return {
       email: '',

@@ -58,6 +58,7 @@
   import firebase from 'firebase';
 
   export default {
+    name: 'sign-up',
     data() {
       return {
         // All the fields required in the login page

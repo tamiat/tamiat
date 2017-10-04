@@ -58,6 +58,7 @@ import { postsRef } from '../../../config';
 import notifier from '../../../mixins/notifier';
 
 export default {
+  name: 'posts',
   firebase: {
     posts: postsRef
   },

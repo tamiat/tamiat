@@ -161,7 +161,7 @@
 import { settingsRef, postsRef  } from '../config';
 
 export default {
-  name: 'app',
+  name: 'home',
   firebase: {
     // load settings as object instead of array (default)
     settings: {

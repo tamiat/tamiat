@@ -96,6 +96,7 @@ import { pagesRef } from '../../../config';
 import notifier from '../../../mixins/notifier';
 
 export default {
+  name: 'pages',
   data() {
     return {
       dropdownActive: false,

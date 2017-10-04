@@ -73,7 +73,7 @@
                 </button>
               </div>
               <div class="level-item">
-                <button type="button" class="button is-info is-pulled-right">
+                <button @click="savePage" type="button" class="button is-info is-pulled-right">
                   Save Changes
                 </button>
               </div>
@@ -125,6 +125,12 @@ export default {
     },
     toggleDropdown () {
       this.dropdownActive = !this.dropdownActive;
+    },
+    savePage() {
+      delete this.currentPage['.key'] // This is a bit weird but no problem
+      this.currentPageRef.update(this.currentPage).then(() => {
+        this.showNotification('success', 'Page successfully saved');
+      })
     },
     addPageField() {
       const newFieldName = prompt("Name for new property:");

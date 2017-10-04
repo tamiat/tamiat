@@ -30,6 +30,11 @@ export default {
           icon: 'fa-file-text'
         },
         {
+          name: 'Pages',
+          path: '/admin/pages',
+          icon: 'fa-archive'
+        },
+        {
           name: 'Settings',
           path: '/admin/settings',
           icon: 'fa-gear'

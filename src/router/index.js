@@ -11,6 +11,7 @@ import Posts from '../components/Admin/content/Posts';
 import PostNew from '../components/Admin/content/PostNew';
 import PostEdit from '../components/Admin/content/PostEdit';
 import Settings from '../components/Admin/content/Settings';
+import Pages from '../components/Admin/content/Pages';
 
 Vue.use(Router);
 
@@ -49,6 +50,10 @@ export default new Router({
         {
           path: 'settings',
           component: Settings
+        },
+        {
+          path: 'pages',
+          component: Pages
         }
       ]
     },

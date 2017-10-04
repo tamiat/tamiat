@@ -6,7 +6,7 @@
       <button class="delete" @click="hideNotifications"></button>{{notification.message}}
     </div>
 
-    <h3 class="is-size-3">Generadl settings</h3>
+    <h3 class="is-size-3">Pages</h3>
     <div class="box">
       <div class="columns">
 
@@ -20,18 +20,31 @@
             <!-- Right side -->
             <div class="level-right">
               <div class="level-item">
-                <button type="button" class="button is-pulled-right" @click="addSettingField">
-                  Add Settings field
-                </button>
-              </div>
-              <div class="level-item">
-                <button type="button" class="button is-info is-pulled-right" @click="saveSettings">
-                  Save Settings
-                </button>
+                <div class="dropdown" :class="{'is-active': dropdownActive}" @click="toggleDropdown">
+                  <div class="dropdown-trigger">
+                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                      <span>{{currentPage.name || dropDownLabel}}</span>
+                      <span class="icon is-small">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <a class="dropdown-item" v-for="page, key in pages" @click="selectPage(key)" v-if="page.name">
+                        {{page.name}}
+                      </a>
+                      <hr class="dropdown-divider">
+                      <a @click="addPage" class="dropdown-item">
+                        New Page
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </nav>
-          <div v-for="(field, key) in settings" class="field columns" :key="key" v-if="key !== '.key'">
+          <div v-for="(field, key) in currentPage.fields" class="field columns" :key="key">
             <div class="column is-one-third">
               <span class="tag">
                 {{key}}
@@ -39,9 +52,12 @@
             </div>
 
             <div class="control column is-two-thirds">
-              <input type="text" class="input" :name="field" :placeholder="field" v-model="settings[key]">
+              <input type="text" class="input" :name="field" :placeholder="field" v-model="currentPage.fields[key]">
             </div>
           </div>
+          <p v-if="!currentPage.fields">
+            Add a property to get started!
+          </p>
           <!-- Main container -->
           <nav class="level">
             <!-- Left side -->
@@ -51,13 +67,13 @@
             <!-- Right side -->
             <div class="level-right">
               <div class="level-item">
-                <button type="button" class="button is-pulled-right" @click="addSettingField">
-                  Add Settings field
+                <button type="button" class="button is-pulled-right" @click="addPageField">
+                  Add Page field
                 </button>
               </div>
               <div class="level-item">
-                <button type="button" class="button is-info is-pulled-right" @click="saveSettings">
-                  Save Settings
+                <button type="button" class="button is-info is-pulled-right">
+                  Save Changes
                 </button>
               </div>
             </div>
@@ -70,74 +86,76 @@
 </template>
 
 <script>
-import { settingsRef } from '../../../config';
+import { pagesRef } from '../../../config';
 import notifier from '../../../mixins/notifier';
 
 export default {
   data() {
     return {
-      updatesCounter: 0,
-      // this array contains settings form fields
-      fields: [
-        {
-          label: 'Site Title',
-          name: 'title',
-          value: ''
-        },
-        {
-          label: 'Site Description',
-          name: 'description',
-          value: ''
-        }
-      ]
+      dropdownActive: false,
+      currentPageKey: '',
+      dropDownLabel: "Select Page"
     }
   },
   firebase: {
     // load settings as an object instead of array (default)
-    settings: {
-      source: settingsRef,
+    pages: {
+      source: pagesRef,
       asObject: true
     }
   },
   mixins: [notifier],
-  methods: {
-    saveSettings() {
-      delete this.settings['.key'] // This is a bit weird but no problem
-      this.$firebaseRefs.settings.update(this.settings).then(() => {
-        this.showNotification('success', 'Settings Successfully saved');
-      })
+  computed: {
+    currentPage() {
+      return this.pages[this.currentPageKey] || {}
     },
-    // display the loaded settings
-    displaySettings() {
-      for (let key in this.settings) {
-        this.fields.map((field) => {
-          if (field.name === key) {
-            return field.value = this.settings[key];
-          }
-        })
-      }
-    },
-    addSettingField() {
-      const newFieldName = prompt("Name for new setting:");
-      if (this.settings.hasOwnProperty(newFieldName)) {
-        alert('This setting already does exist')
-        return
-      }
-      this.$firebaseRefs.settings.update({
-        [newFieldName]: ''
-      }).then(() => {
-        this.showNotification('success', 'Setting Successfully added');
-      }).catch(() => {
-        this.showNotification('error', 'Setting not added');
-      })
+    currentPageRef() {
+      return this.$firebaseRefs.pages.child(this.currentPageKey)
     }
   },
-  updated() {
-    // run the loaded settings once
-    if (this.updatesCounter === 0) {
-      this.displaySettings();
+  methods: {
+    selectPage(key) {
+      this.currentPageKey = key;
+    },
+    toggleDropdown () {
+      this.dropdownActive = !this.dropdownActive;
+    },
+    addPageField() {
+      const newFieldName = prompt("Name for new property:");
+      if (this.currentPage.fields && this.currentPage.fields.hasOwnProperty(newFieldName)) {
+        alert('This property already does exist')
+        return
+      }
+      this.currentPageRef
+        .child('fields')
+        .update({
+          [newFieldName]: ''
+        })
+        .then(() => {
+          this.showNotification('success', 'Property Successfully added');
+        })
+        .catch(() => {
+          this.showNotification('error', 'Property not added');
+        })
+    },
+    addPage() {
+      const name = prompt("Name for new page:");
+      if (this.pages.hasOwnProperty(name)) {
+        alert('This page already does exist')
+        return
+      }
+      const key = this.$firebaseRefs.pages.push().key
+      this.$firebaseRefs.pages
+        .child(key)
+        .update({name})
+        .then(() => {
+          this.selectPage(key)
+          this.showNotification('success', 'Page Successfully added');
+        })
+        .catch(() => {
+          this.showNotification('error', 'Page not added');
+        })
     }
-    this.updatesCounter++;
   }
 }
 

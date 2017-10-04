@@ -16,6 +16,9 @@
         "title": {
           ".validate": "newData.isString()"
         },
+        "img": {
+          ".validate": "newData.isString()"
+        },
         "created": {
           // ".validate": "newData.val() < now"
         },

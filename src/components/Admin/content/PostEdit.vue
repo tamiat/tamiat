@@ -47,7 +47,7 @@
             <img :src="post.img">
             <div class="file">
               <label class="file-label">
-                <input @change="uploadImage" class="file-input" type="file" name="resume">
+                <input @change="uploadFeaturedImage" class="file-input" type="file" name="resume">
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fa fa-upload"></i>
@@ -78,6 +78,7 @@
 <script>
 import firebase from 'firebase'
 
+import { mediaRef } from '../../../config';
 import VueQuillEditor from 'vue-quill-editor';
 import editorOptions from './editor-options';
 import imageLoader from '../../../mixins/image-loader';
@@ -99,6 +100,9 @@ export default {
       editorOptions
     }
   },
+  firebase: {
+    media: mediaRef
+  },
   props: ['posts', 'update-post'],
   mixins: [imageLoader, notifier],
   methods: {
@@ -110,13 +114,17 @@ export default {
         this.showNotification('warning', 'The title field can not be empty');
       }
     },
-    uploadImage (e) {
-      console.log(e)
+    uploadFeaturedImage (e) {
       let file = e.target.files[0];
       let storageRef = firebase.storage().ref('images/' + file.name);
-
       storageRef.put(file).then((function (snapshot) {
         this.post.img = snapshot.downloadURL;
+        if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
+        this.$firebaseRefs.media.push({
+          src: snapshot.downloadURL, 
+          path: snapshot.ref.fullPath,
+          name: snapshot.metadata.name
+        })
       }).bind(this));
     }
   },

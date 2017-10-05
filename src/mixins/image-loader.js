@@ -1,6 +1,7 @@
 // USED BY TAMIAT CMS
 
 import firebase from 'firebase';
+import { mediaRef } from '../config'
 
 export default {
   methods: {
@@ -11,7 +12,24 @@ export default {
 
       storageRef.put(file).then((function (snapshot) {
         console.log('Image uploaded');
-        this.insertImage(snapshot.downloadURL);
+        var that = this
+        mediaRef.once("value")
+          .then(function(media) {
+            const existingEntry = Object.values(media.val()).find(e => e.path === snapshot.ref.fullPath)
+            if (existingEntry) {
+              console.log(existingEntry)
+              that.insertImage(existingEntry.src);
+              return // this prevents duplicate entries in the media object
+            } else {
+              mediaRef.push({
+                src: snapshot.downloadURL, 
+                path: snapshot.ref.fullPath,
+                name: snapshot.metadata.name
+              })
+              that.insertImage(snapshot.downloadURL);
+              return 
+            }
+          });
       }).bind(this))
     },
     // insert the uploaded image as a DOM node in the editor

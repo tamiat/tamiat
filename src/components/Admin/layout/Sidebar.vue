@@ -35,6 +35,11 @@ export default {
           icon: 'fa-archive'
         },
         {
+          name: 'Media',
+          path: '/admin/media',
+          icon: 'fa-picture-o'
+        },
+        {
           name: 'Settings',
           path: '/admin/settings',
           icon: 'fa-gear'

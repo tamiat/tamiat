@@ -16,6 +16,7 @@
             <div class="column is-one-third">
               <span class="tag">
                 {{key}}
+                <button class="delete is-small" @click="deleteSettingsField(key)"></button>
               </span>
             </div>
 
@@ -112,6 +113,23 @@ export default {
       }).catch(() => {
         this.showNotification('error', 'Setting not added');
       })
+    },
+    deleteSettingsField(key) {
+      const name = prompt("Type the name of the setting to comfirm");
+      if (key != name) {
+        console.log(`${key} was not equal to ${name}`)
+        alert('setting name did not match')
+        return
+      }
+      this.$firebaseRefs.settings
+        .child(key)
+        .remove()
+        .then(() => {
+          this.showNotification('success', 'Setting successfully removed');
+        })
+        .catch((e) => {
+          this.showNotification('error', 'Setting not removed');
+        })
     }
   },
   updated() {

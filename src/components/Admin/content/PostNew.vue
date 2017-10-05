@@ -47,7 +47,7 @@
             <img :src="featuredImage">
             <div class="file">
               <label class="file-label">
-                <input @change="uploadImage" class="file-input" type="file" name="resume">
+                <input @change="uploadFeaturedImage" class="file-input" type="file" name="resume">
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fa fa-upload"></i>
@@ -77,6 +77,7 @@
 <script>
 import firebase from 'firebase'
 
+import { mediaRef } from '../../../config';
 import VueQuillEditor from 'vue-quill-editor';
 import editorOptions from './editor-options';
 import imageLoader from '../../../mixins/image-loader';
@@ -93,6 +94,9 @@ export default {
       featuredImage: '',
       editorOptions
     }
+  },
+  firebase: {
+    media: mediaRef
   },
   props: ['add-post'],
   mixins: [imageLoader, notifier],
@@ -113,13 +117,20 @@ export default {
       }
 
     },
-    uploadImage (e) {
+    uploadFeaturedImage (e) {
       console.log(e)
       let file = e.target.files[0];
       let storageRef = firebase.storage().ref('images/' + file.name);
 
       storageRef.put(file).then((function (snapshot) {
+        console.log(snapshot)
         this.featuredImage = snapshot.downloadURL;
+        if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
+        this.$firebaseRefs.media.push({
+          src: snapshot.downloadURL, 
+          path: snapshot.ref.fullPath,
+          name: snapshot.metadata.name
+        })
       }).bind(this));
     }
   }

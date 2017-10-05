@@ -19,5 +19,6 @@ const settingsRef = db.ref('settings');
 const pagesRef = db.ref('pages');
 const postsRef = db.ref('posts');
 const usersRef = db.ref('users');
+const mediaRef = db.ref('media');
 
-export { postsRef, usersRef, settingsRef, pagesRef };
+export { postsRef, usersRef, settingsRef, pagesRef, mediaRef };

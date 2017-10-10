@@ -48,6 +48,11 @@
         // ".write": "auth != null && auth.uid == $uid && root.child('users').child(auth.uid).child('role').val() === 'admin' "
       }
     },
+    "media": {
+      "$id": {
+        // ".write": "auth != null && auth.uid == $uid && root.child('users').child(auth.uid).child('role').val() === 'admin' "
+      }
+    },
     "$other": {
       ".validate": false
     }

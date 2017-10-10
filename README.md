@@ -19,6 +19,11 @@
 
 * Front end focused CMS.
 * Powered by [Vue][] **2.0** & [Firebase]
+<hr>
+<p align="center">
+  <strong>Support Tamiat CMS's development with:</strong>
+  <a href="https://patreon.com/tamiatcms" target="_blank"> Patreon </a>
+</p>
 
 [Vue]: http://vuejs.org/
 [Firebase]: https://firebase.google.com/

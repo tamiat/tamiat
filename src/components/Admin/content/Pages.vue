@@ -31,7 +31,7 @@
                   </div>
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <a class="dropdown-item" v-if="page" v-for="(page, key) in pages" :key="page.name" @click="selectPage(key)">
+                      <a class="dropdown-item" v-if="page && page.name" v-for="(page, key) in pages" :key="page.name" @click="selectPage(key)">
                         {{page.name}}
                       </a>
                       <hr class="dropdown-divider">

@@ -23,6 +23,12 @@
 [Vue]: http://vuejs.org/
 [Firebase]: https://firebase.google.com/
 
+# What it looks like:
+
+![posts section](https://i.imgur.com/Kstbzxu.png)
+![pages section](https://i.imgur.com/XDyOayH.png)
+![media section](https://i.imgur.com/54vjwey.jpg)
+
 # Get Started
 To get started with Tamiat CMS, you have two options:
 
@@ -31,7 +37,7 @@ To get started with Tamiat CMS, you have two options:
 
 ## Making Tamiat your starting point.
 
-1. clone the CMS repository and install the dependencies
+1. Clone the CMS repository and install the dependencies
 
 ```bash
 # clone the repo
@@ -40,27 +46,24 @@ git clone https://github.com/tamiat/tamiat.git
 # install the dependencies
 npm install
 # or
-yarn install
+yarn
 ```
 
 2. Log in to firebase console using your google account and create a new firebase project.
 
 3. In the authentication section, add a new user providing an email and a password.
 
-4. Setup your database basic security rules by going to `database` section and open the `rules` tab. You can set your security rules as you like, but as a starting point you can make it like this:
+4. Setup your database basic security rules by going to the `database.rules.json` file in your project and fil in your UID.
 
 ```js
 {
   "rules": {
-    ".read": true,
-    ".write": "(auth.uid === yourUID) || (auth.uid === anOtherUID)"
-  }
-}
+    ".write": "(auth.uid === yourUID) || (auth.uid === anOtherUID)" // you can chain these together like so
 ```
 
 > yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
 
-5. Copy your project configurations from WEB SETUP (*in `authentication` section*) and paste them in `config.js` file by replacing the existing ones.
+5. Copy your project configurations from WEB SETUP (*in `authentication` section of the firebase console*) and paste them in `config.js` file by replacing the existing ones.
 
 ```js
 // replace the existing config object below
@@ -73,19 +76,17 @@ let config = {
   messagingSenderId: "188459960333"
 };
 ```
-6.Change the default project in the `.firebaserc` file to your own by changing `tamiat-demo` to your project ID.
+6. Run the `firebase init` command (if you haven't installed firebase yet do so), select your project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
 
-7. run the local dev server.
+7. You can now use `firebase deploy` to deploy the security rules you just entered. (to deploy the actual web app you must first use `npm run build` or `yarn build`)
 
-```bash
-npm run dev
-```
+8. Run the local dev server with `npm run dev` or `yarn dev`
 
-8. Access the admin interface by navigating to `localhost:8080/admin`.
+9. Access the admin interface by navigating to `localhost:8080/admin`.
 
-9. sign in with your previous email and password.
+10. sign in with your previous email and password.
 
-10. Enjoy!
+11. Enjoy!
 
 ## Integrating Tamiat into an existing project
 

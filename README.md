@@ -1,6 +1,6 @@
 <div align="center">
 
-<p><img src="https://github.com/tamiat/tamiat/blob/master/tamiatlogo.png" width="55%"></p>
+<p><img src="https://github.com/tamiat/tamiat/blob/master/tamiatlogo.png" width="48%"></p>
 
 <h1>Tamiat CMS</h1>
 
@@ -10,7 +10,7 @@
 
 <p>
   <sub>Made with ❤︎ by
-    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and
+    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and 
     <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
   </sub>
 </p>
@@ -20,9 +20,10 @@
 ---
 
 <p align="center">
-  <strong>Support Tamiat CMS's development with:</strong>
-  <a href="https://patreon.com/tamiatcms" target="_blank"> Patreon </a>
+  <strong>Support our development with </strong>
+  <a href="https://patreon.com/tamiatcms" target="_blank"><img src="https://s3.amazonaws.com/patreon_public_assets/toolbox/patreon.png" target="_blank" alt-text="patreon link" width="15%" margin-left="1.5em"></a>
 </p>
+
 
 [Vue]: http://vuejs.org/
 [Firebase]: https://firebase.google.com/
@@ -30,15 +31,14 @@
 ---
 
 
-
 # Features
 
-* Front end focused CMS.
+* Front end focused CMS
 * Powered by [Vue][] **2.0** & [Firebase]
 
+<br>
 
-
-# What It Looks Like:
+<h1 text-align="center"> What It Looks Like </h1>
 
 ![posts section](https://i.imgur.com/Kstbzxu.png)
 ![pages section](https://i.imgur.com/XDyOayH.png)
@@ -47,7 +47,7 @@
 
 <br>
 
-# Get Started
+# Getting Started
 
 
 To get started with Tamiat CMS, you have two options:
@@ -187,7 +187,7 @@ new Vue({
 
 ##### Folders to be copied:
 
-| Source | Target | Comment |
+| Source | Target | Description |
 |--------|--------|---------|
 | Tamiat/src/components | my-project/src/components | The building blocks components of the admin interface |
 | Tamiat/src/mixins | my-project/src/mixins | The shared functionalities between components |
@@ -196,7 +196,7 @@ new Vue({
 
 ##### Files to be copied:
 
-| Source | Target | Comment |
+| Source | Target | Description |
 |--------|--------|---------|
 | Tamiat/src/Admin.vue | my-project/src/Admin.vue |  The admin's interface main view |
 | Tamiat/src/Home.vue | my-project/src/Home.vue | The default home page |

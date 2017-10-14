@@ -148,7 +148,7 @@ export default {
           this.showNotification('success', 'Property Successfully added');
         })
         .catch(() => {
-          this.showNotification('error', 'Property not added');
+          this.showNotification('danger', 'Property not added');
         })
     },
     deletePageField(key) {
@@ -167,11 +167,15 @@ export default {
           this.showNotification('success', 'Property successfully removed');
         })
         .catch(() => {
-          this.showNotification('error', 'Property not removed');
+          this.showNotification('danger', 'Property not removed');
         })
     },
     addPage() {
       const name = prompt("Name for new page:");
+      
+      if(!name){
+        return
+      }
       if (this.pages.hasOwnProperty(name)) {
         alert('This page already does exist')
         return
@@ -185,7 +189,7 @@ export default {
           this.showNotification('success', 'Page Successfully added');
         })
         .catch(() => {
-          this.showNotification('error', 'Page not added');
+          this.showNotification('danger', 'Page not added');
         })
     },
     deletePage() {
@@ -204,7 +208,7 @@ export default {
           this.showNotification('success', 'Page successfully removed');
         })
         .catch(() => {
-          this.showNotification('error', 'Page not removed');
+          this.showNotification('danger', 'Page not removed');
         })
     }
   }

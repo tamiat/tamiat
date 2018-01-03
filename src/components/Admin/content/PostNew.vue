@@ -29,7 +29,7 @@
           <label class="label">Author</label>
           <div class="control">
             <input type="text" class="input" v-model="author" required>
-            <p>this field is for demo purposes only</p>
+            <p>This field is for demo purposes only</p>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
           <label class="label">Tags</label>
           <div class="control">
             <input type="text" class="input" v-model="tags">
-            <p>Seperate tags with commas</p>
+            <p>Separate tags with commas</p>
           </div>
         </div>
         <div class="field">
@@ -90,7 +90,7 @@ export default {
       title: '',
       body: '',
       author: '',
-      tags: [],
+      tags: '',
       featuredImage: '',
       editorOptions
     }
@@ -127,7 +127,7 @@ export default {
         this.featuredImage = snapshot.downloadURL;
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({
-          src: snapshot.downloadURL, 
+          src: snapshot.downloadURL,
           path: snapshot.ref.fullPath,
           name: snapshot.metadata.name
         })

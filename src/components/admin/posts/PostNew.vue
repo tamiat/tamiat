@@ -118,10 +118,8 @@ export default {
 
     },
     uploadFeaturedImage (e) {
-      console.log(e)
       let file = e.target.files[0];
       let storageRef = firebase.storage().ref('images/' + file.name);
-
       storageRef.put(file).then((function (snapshot) {
         console.log(snapshot)
         this.featuredImage = snapshot.downloadURL;

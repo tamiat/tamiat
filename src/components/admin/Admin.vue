@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Navbar from './Admin/layout/Navbar';
-import Sidebar from './Admin/layout/Sidebar';
+import Navbar from '../admin/layout/Navbar';
+import Sidebar from '../admin/layout/Sidebar';
 import firebase from 'firebase';
 
 export default {
@@ -32,7 +32,7 @@ export default {
         // continue to /admin
         next();
       } else {
-        // redirect to /login 
+        // redirect to /login
         next('/login');
       }
     })

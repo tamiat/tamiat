@@ -1,26 +1,30 @@
 <template>
-  <div>
-    <div class="gallery" v-if="!media.hasOwnProperty('.value')">
-      <a class="img-container" v-for="(img, key) in images" v-if="img.src && img.path">
-        <div @click="deleteImage(img.path, key)" class="delete delete-button"></div>
-        <div class="image-div" :style="{ 'background-image': 'url(' + img.src + ')' }"></div>
-        <div class="info-tab"> {{img.name}} </div>
-      </a>
-    </div>
-  </div> 
+  <v-layout v-if="!media.hasOwnProperty('.value')">
+    <v-flex xs12 sm4>
+      <v-card v-for="(img, key) in images" v-if="img.src && img.path">
+        <v-card-media :src="img.src" height="200px">
+        </v-card-media>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">{{ img.name }}</h3>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn color="indigo darken- white--text" @click="deleteImage(img.path, key)">
+            <v-icon left>delete</v-icon>
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
 import firebase from 'firebase'
-
-import { mediaRef } from '../../../config';
+import { mediaRef } from '../../../config'
 
 export default {
-  name: "Media",
-  data: function () {
-    return {
-    }
-  },
   firebase: {
     // load settings as an object instead of array (default)
     media: {
@@ -55,22 +59,6 @@ export default {
   background-color: white;
   width: 400px;
   height: 400px;
-}
-.delete-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.info-tab {
-  position: absolute;
-  bottom: 0px;
-  height: 28px;
-  width: 100%;
-  padding: 4px;
-  background-color: black;
-  color: white;
-  opacity: 0.71;
 }
 
 .image-div {

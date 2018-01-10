@@ -1,3 +1,5 @@
+import firebase from 'firebase'
+
 // import app pages
 import Home from '../components/home/Home';
 import Admin from '../components/admin/Admin';
@@ -12,52 +14,30 @@ import Pages from '../components/Admin/content/Pages';
 import Media from '../components/Admin/content/Media';
 
 export default [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin,
+  { path: '/', name: 'Home', component: Home },
+  { path: '/login', name: 'Login', component: Login },
+  { path: '/admin', name: 'Admin', component: Admin,
     children: [
-      {
-        path: 'posts',
-        component: Posts,
+      { path: 'posts', component: Posts, beforeEnter: checkAuth,
         children: [
-          {
-            path: 'new',
-            component: PostNew
-          },
-          {
-            path: 'edit/:key',
-            component: PostEdit
-          }
+          { path: 'new', component: PostNew, beforeEnter: checkAuth },
+          { path: 'edit/:key', component: PostEdit, beforeEnter: checkAuth }
         ]
       },
-      {
-        path: 'settings',
-        component: Settings
-      },
-      {
-        path: 'pages',
-        component: Pages
-      },
-      {
-        path: 'media',
-        component: Media
-      }
+      { path: 'settings', component: Settings, beforeEnter: checkAuth },
+      { path: 'pages', component: Pages, beforeEnter: checkAuth },
+      { path: 'media', component: Media, beforeEnter: checkAuth }
     ]
   },
-  {
-    path: '*',
-    name: 'default',
-    component: Home
-  }
+  { path: '*', name: 'default', component: Home }
 ]
+
+function checkAuth(to, from, next) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      next()
+    } else {
+      next({ name: 'Login' })
+    }
+  })
+}

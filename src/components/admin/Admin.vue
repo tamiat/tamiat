@@ -1,79 +1,23 @@
 <template>
-  <div class="admin bulma" id="admin">
-    <!-- The admin page layout -->
-    <navbar></navbar>
+  <div>
     <sidebar></sidebar>
-
-    <!-- The admin page content -->
-    <div class="wrapper">
-      <router-view></router-view>
-    </div>
-
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
   </div>
 </template>
 
 <script>
-import Navbar from '../admin/layout/Navbar';
-import Sidebar from '../admin/layout/Sidebar';
-import firebase from 'firebase';
+import Sidebar from '../sidebar/Sidebar'
+
 
 export default {
-  name: 'admin',
-  components: {
-    'navbar': Navbar,
-    'sidebar': Sidebar
-  },
-  // prevent unauthenticated users from accessing the admin area
-  // and direct them to the login page
-  beforeRouteEnter(to, from, next) {
-    // get the current logged in user
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // continue to /admin
-        next();
-      } else {
-        // redirect to /login
-        next('/login');
-      }
-    })
-  }
-};
+  components: { Sidebar }
+}
 
 </script>
 
-<style lang="sass">
-
-#admin
-  font-family: 'Quicksand', sans-serif
-  .wrapper
-    width: calc(100% - 110px)
-    position: absolute
-    top: 52px
-    left: 100px
-    background-color: #F1F1F1
-
-    .content-heading
-      justify-content: baseline
-      align-content: center
-      align-items: center
-      h3
-        margin: 1em 1em 1em 0em
-
-  .actions
-    display: none
-    span
-      cursor: pointer
-
-  tr:hover .actions
-    display: inline
-    span
-      padding: 0px 0px 0px 10px
-
-  .notification
-    position: fixed
-    top: 60px
-    right: 10px
-    z-index: 2000
-    max-width: 90%
-
+<style lang="scss" scoped>
 </style>

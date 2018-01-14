@@ -1,64 +1,68 @@
 <template>
-  <div class="container posts" id="posts">
-
-    <!-- posts page title -->
-    <div class="content-heading is-flex">
-      <h3 class="is-size-3">Posts</h3>
-      <router-link to="/admin/posts/new" class="button is-info">Add New</router-link>
-    </div>
-
-    <!-- notification -->
-    <div v-if="notification.message" :class="'notification is-' + notification.type">
-      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-    </div>
-
-    <!-- the new post form loaded via vue router -->
-    <router-view :add-post="addPost" :update-post="updatePost" :posts="posts" :key="$route.name + ($route.params.key || '')"></router-view>
-
-    <!-- posts list -->
-    <div class="box">
-      <table class="table is-fullwidth is-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Created</th>
-            <th>tags</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(post, index) in posts" :key="index">
-            <td class="post-title-cell">
-              <router-link :to="'/admin/posts/edit/' + post['.key']">
-                {{post.title}}
-              </router-link>
-
-              <div class="actions">
-                <router-link :to="'/admin/posts/edit/' + post['.key']">
-                  <span class="has-text-info">Edit</span>
-                </router-link>
-                <span @click="deletePost(post)" class="has-text-danger">Delete</span>
-              </div>
-            </td>
-
-            <td class="post-author-cell">{{post.author}}</td>
-            <td class="post-tags-cell">{{postDate(post.created)}}</td>
-            <td class="post-tags-cell">{{joined(post.tags)}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="">
+  <v-toolbar class="blue darken-1 mb-5">
+    <v-toolbar-title class="white--text">Posts</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <router-link to="/admin/posts/new" class="button is-info">
+      <v-btn class="white blue--text">
+        Add post
+      </v-btn>
+    </router-link>
+  </v-toolbar>
+  <!-- notification -->
+  <div v-if="notification.message" :class="'notification is-' + notification.type">
+    <button class="delete" @click="hideNotifications"></button>{{notification.message}}
   </div>
+
+  <v-layout row>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card v-for="(post, index) in posts" :key="index">
+        <v-card-media :src="post.img" height="200px"></v-card-media>
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">
+              <router-link :to="'/admin/posts/edit/' + post['.key']">
+                {{ post.title }}
+              </router-link>
+            </div>
+            <span class="grey--text">1,000 miles of wonder</span>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn flat>
+            <router-link :to="'/admin/posts/edit/' + post['.key']">
+              Edit
+            </router-link>
+          </v-btn>
+          <v-btn @click="deletePost(post)" flat color="purple">Delete</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon @click.native="show = !show">
+            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+          </v-btn>
+        </v-card-actions>
+        <v-slide-y-transition>
+          <v-card-text v-show="show">
+            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+          </v-card-text>
+        </v-slide-y-transition>
+      </v-card>
+    </v-flex>
+  </v-layout>
+</div>
 </template>
 
 <script>
 import moment from 'moment'
 
-import { postsRef } from '../../../config';
-import notifier from '../../../mixins/notifier';
+import { postsRef } from '../../../config'
+import notifier from '../../../mixins/notifier'
 
 export default {
-  name: 'posts',
+  data () {
+    return {
+      show: false
+    }
+  },
   firebase: {
     posts: postsRef
   },
@@ -99,16 +103,5 @@ export default {
 
 </script>
 
-<style lang="scss">
-#posts {
-  .post-title-cell {
-    width: 50%;
-  }
-  .post-author-cell {
-    width: 25%;
-  }
-  .post-tags-cell {
-    width: 25%;
-  }
-}
+<style lang="scss" scoped>
 </style>

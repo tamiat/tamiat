@@ -1,30 +1,27 @@
 <template>
-  <v-navigation-drawer app fixed permanent>
-    <v-toolbar flat>
+  <v-navigation-drawer app fixed permanent class="blue darken-1">
+    <v-toolbar flat class="blue darken-1">
       <v-list>
         <v-list-tile>
-          <v-list-tile-title class="title">
+          <v-list-tile-title class="title white--text">
             Dashboard
           </v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-toolbar>
-    <v-divider></v-divider>
+    <v-divider class="white mb-3"></v-divider>
     <v-list class="pt-0">
       <v-list-tile v-for="item in navItems" :key="item.title"
         @click="$router.push({ path: item.path })"
-        :class="{ 'grey lighten-2': $route.path === item.path }">
+        :class="{ 'blue darken-2': $route.path === item.path }">
         <v-list-tile-action>
-          <v-icon>{{ item.icon }}</v-icon>
+          <v-icon class="white--text">{{ item.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+          <v-list-tile-title class="white--text">{{ item.name }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
-    <v-footer absolute bottom>
-      <p>Some text</p>
-    </v-footer>
   </v-navigation-drawer>
 </template>
 

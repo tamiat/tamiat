@@ -28,6 +28,6 @@ export default {
       }
     }
   },
-  placeholder: 'post body ...',
+  placeholder: 'Event description',
   theme: 'snow'
 }

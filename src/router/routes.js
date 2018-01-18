@@ -7,7 +7,6 @@ import Login from '../components/admin/login/Login'
 
 // import admin page components
 import Posts from '../components/admin/posts/Posts'
-import PostNew from '../components/admin/posts/PostNew'
 import PostEdit from '../components/admin/posts/PostEdit'
 import Settings from '../components/admin/settings/Settings'
 import Pages from '../components/admin/pages/Pages'
@@ -20,8 +19,7 @@ export default [
     children: [
       { path: 'posts', component: Posts, beforeEnter: checkAuth,
         children: [
-          { path: 'new', component: PostNew, beforeEnter: checkAuth },
-          { path: 'edit/:key', component: PostEdit, beforeEnter: checkAuth }
+          { path: 'edit/:key', name: 'PostEdit', component: PostEdit, beforeEnter: checkAuth }
         ]
       },
       { path: 'settings', component: Settings, beforeEnter: checkAuth },

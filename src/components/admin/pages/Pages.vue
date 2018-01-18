@@ -1,12 +1,20 @@
 <template>
-  <div class="container settings" id="settings">
+  <div id="settings">
 
     <!-- notification -->
     <div v-if="notification.message" :class="'notification is-' + notification.type">
       <button class="delete" @click="hideNotifications"></button>{{notification.message}}
     </div>
 
-    <h3 class="is-size-3">Pages</h3>
+    <v-toolbar class="blue darken-1 mb-2">
+      <v-toolbar-title class="white--text">Pages</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <router-link to="#" class="button is-info">
+        <v-btn class="white blue--text">
+          Add page
+        </v-btn>
+      </router-link>
+    </v-toolbar>
     <div class="box">
       <div class="columns">
 
@@ -84,7 +92,7 @@
               </div>
             </div>
           </nav>
-          
+
         </div>
       </div>
     </div>
@@ -172,7 +180,7 @@ export default {
     },
     addPage() {
       const name = prompt("Name for new page:");
-      
+
       if(!name){
         return
       }
@@ -216,10 +224,5 @@ export default {
 
 </script>
 
-<style lang="scss">
-#settings {
-  h3 {
-    margin: 1em 1em 1em 0em;
-  }
-}
+<style lang="scss" scoped>
 </style>

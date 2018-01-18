@@ -1,13 +1,9 @@
 <template>
-<div class="">
-  <v-toolbar class="blue darken-1 mb-5">
+<div>
+  <v-toolbar class="blue darken-1 mb-1">
     <v-toolbar-title class="white--text">Posts</v-toolbar-title>
     <v-spacer></v-spacer>
-    <router-link to="/admin/posts/new" class="button is-info">
-      <v-btn class="white blue--text">
-        Add post
-      </v-btn>
-    </router-link>
+    <v-btn class="white blue--text" @click="$refs.newPost.open()">Add post</v-btn>
   </v-toolbar>
   <!-- notification -->
   <div v-if="notification.message" :class="'notification is-' + notification.type">
@@ -15,24 +11,21 @@
   </div>
 
   <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
+    <post-new ref="newPost"></post-new>
+    <v-flex xs12 sm6 class="pa-3">
       <v-card v-for="(post, index) in posts" :key="index">
         <v-card-media :src="post.img" height="200px"></v-card-media>
         <v-card-title primary-title>
           <div>
             <div class="headline">
-              <router-link :to="'/admin/posts/edit/' + post['.key']">
-                {{ post.title }}
-              </router-link>
+              {{ post.title }}
             </div>
             <span class="grey--text">1,000 miles of wonder</span>
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat>
-            <router-link :to="'/admin/posts/edit/' + post['.key']">
-              Edit
-            </router-link>
+          <v-btn flat router :to="{ name: 'PostEdit', params: { key: post['.key'] } }">
+            Edit
           </v-btn>
           <v-btn @click="deletePost(post)" flat color="purple">Delete</v-btn>
           <v-spacer></v-spacer>
@@ -53,14 +46,17 @@
 
 <script>
 import moment from 'moment'
-
-import { postsRef } from '../../../config'
 import notifier from '../../../mixins/notifier'
+import { postsRef } from '../../../config'
+
+import PostNew from './PostNew'
 
 export default {
+  components: { PostNew },
   data () {
     return {
-      show: false
+      show: false,
+      dialog: false
     }
   },
   firebase: {
@@ -68,11 +64,6 @@ export default {
   },
   mixins: [notifier],
   methods: {
-    addPost(post) {
-      this.$firebaseRefs.posts.push(post).then(() => {
-        this.showNotification('success', 'Post added successfully');
-      })
-    },
     deletePost(post) {
       // delete post form firebase
       if (confirm("Do you really want to delete this post ?")) {
@@ -102,6 +93,12 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+  .ql-container {
+    height: 200px;
+  }
+</style>
 
 <style lang="scss" scoped>
 </style>

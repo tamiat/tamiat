@@ -1,12 +1,15 @@
 <template>
-  <div class="container settings" id="settings">
+  <div id="settings">
 
     <!-- notification -->
     <div v-if="notification.message" :class="'notification is-' + notification.type">
       <button class="delete" @click="hideNotifications"></button>{{notification.message}}
     </div>
 
-    <h3 class="is-size-3">General settings</h3>
+    <v-toolbar class="blue darken-1 mb-2">
+      <v-toolbar-title class="white--text">Setings</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
     <div class="box">
       <div class="columns">
 
@@ -44,7 +47,7 @@
               </div>
             </div>
           </nav>
-          
+
         </div>
       </div>
     </div>

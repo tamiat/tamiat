@@ -38,12 +38,12 @@ export default {
         {
           name: 'Pages',
           path: '/admin/pages',
-          icon: 'folder'
+          icon: 'view_compact'
         },
         {
           name: 'Media',
           path: '/admin/media',
-          icon: 'add_a_photo'
+          icon: 'local_see'
         },
         {
           name: 'Settings',

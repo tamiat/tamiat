@@ -8,8 +8,8 @@
         <v-container grid-list-md>
           <v-layout wrap>
             <v-flex>
-              <v-text-field label="Event name"
-                required v-model="title" @input.native="$v.title.$touch()"
+              <v-text-field label="Post title"
+                required v-model="title" @input="$v.title.$touch()"
                 :rules="[() => ($v.title.$dirty && $v.title.$error)? 'Please enter name' : true ]">
               </v-text-field>
             </v-flex>
@@ -22,7 +22,7 @@
             </v-flex>
             <v-flex xs12>
               <v-text-field label="Tags"
-                required v-model="model" @input.native="$v.model.$touch()"
+                required v-model="model" @input="$v.model.$touch()"
                 :rules="[() => ($v.model.$dirty && $v.model.$error)? 'Invalid tag name' : true ]"
                 @keypress.prevent.tab.enter="addTag">
               </v-text-field>
@@ -35,11 +35,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-        <v-btn color="blue darken-1" flat @click.native="add">Save</v-btn>
+        <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+        <v-btn color="blue darken-1" flat @click="add">Save</v-btn>
       </v-card-actions>
     </v-card>
-
   </v-dialog>
 </template>
 
@@ -96,35 +95,28 @@ export default {
     removeTag (tag) {
       this.tags.splice(this.tags.indexOf(tag), 1)
     },
-    addPost(post) {
-      this.$firebaseRefs.posts.push(post).then(() => {
-
-      })
-    },
     add() {
       if (this.$v.$invalid) {
         this.$v.$touch()
       }
       if (!this.$v.$error) {
-        this.addPost({
+        let post = {
           title: this.title,
           body: this.body,
-          author: this.author,
-          tags: this.tags.split(','),
+          tags: this.tags,
           img: this.featuredImage,
           created: Date.now()
+        }
+        this.$firebaseRefs.posts
+        .push(post).then(() => {
+          this.dialog = false
         })
       }
-      // else {
-      //   this.showNotification('warning', 'The title field can not be empty');
-      // }
-
     },
     uploadFeaturedImage (e) {
       let file = e.target.files[0]
       let storageRef = firebase.storage().ref('images/' + file.name)
       storageRef.put(file).then((function (snapshot) {
-        console.log(snapshot)
         this.featuredImage = snapshot.downloadURL
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({

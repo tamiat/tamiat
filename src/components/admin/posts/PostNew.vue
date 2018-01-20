@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="700px" @close="console.log('close')">
+  <v-dialog v-model="dialog" persistent max-width="700px">
     <v-card>
       <v-card-title>
         <span class="headline">Add post</span>

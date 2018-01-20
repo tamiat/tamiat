@@ -15,7 +15,7 @@ import Media from '../components/admin/media/Media'
 export default [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
-  { path: '/admin', name: 'Admin', component: Admin,
+  { path: '/admin', name: 'Admin', component: Admin, redirect: { path: '/admin/posts' },
     children: [
       { path: 'posts', component: Posts, beforeEnter: checkAuth,
         children: [

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar class="blue darken-1 mb-2">
+    <v-toolbar class="blue darken-1">
       <v-toolbar-title class="white--text">Media</v-toolbar-title>
       <v-spacer></v-spacer>
       <router-link to="#" class="button is-info">
@@ -9,25 +9,27 @@
         </v-btn>
       </router-link>
     </v-toolbar>
-    <v-layout v-if="!media.hasOwnProperty('.value')">
-      <v-flex xs12 sm4 class="pa-3">
-        <v-card v-for="(img, key) in images" :key="key" v-if="img.src && img.path">
-          <v-card-media :src="img.src" height="200px">
-          </v-card-media>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">{{ img.name }}</h3>
-            </div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn color="blue darken-1 white--text" @click="deleteImage(img.path, key)">
-              <v-icon left>delete</v-icon>
-              Delete
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
+    <v-container grid-list-md text-xs-center class="pa-3">
+      <v-layout row wrap v-if="!media.hasOwnProperty('.value')">
+        <v-flex xs6 v-for="(img, key) in images" :key="key" v-if="img.src && img.path">
+          <v-card>
+            <v-card-media :src="img.src" height="200px">
+            </v-card-media>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{ img.name }}</h3>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn color="blue darken-1 white--text" @click="deleteImage(img.path, key)">
+                <v-icon left>delete</v-icon>
+                Delete
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 

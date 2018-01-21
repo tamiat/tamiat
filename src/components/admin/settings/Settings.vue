@@ -1,67 +1,76 @@
 <template>
-  <div id="settings">
-
-    <!-- notification -->
-    <div v-if="notification.message" :class="'notification is-' + notification.type">
-      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-    </div>
-
-    <v-toolbar class="blue darken-1 mb-2">
+  <div>
+    <v-toolbar class="blue darken-1">
       <v-toolbar-title class="white--text">Setings</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn class="white blue--text" @click="dialog = true">Add field</v-btn>
     </v-toolbar>
-    <div class="box">
-      <div class="columns">
-
-        <div class="column is-multiline">
-
-          <div v-for="(field, key) in settings" class="field columns" :key="key" v-if="key !== '.key'">
-            <div class="column is-one-third">
-              <span class="tag">
+    <v-progress-linear v-if="loader" color="orange lighten-2" class="mb-2 mt-0" v-bind:indeterminate="true"></v-progress-linear>
+    <v-container>
+      <v-layout>
+        <div v-for="(field, key) in settings" :key="key" v-if="key !== '.key'">
+          <div>
+              <span>
                 {{key}}
-                <button class="delete is-small" @click="deleteSettingsField(key)"></button>
+                <button @click="deleteSettingsField(key)">Delete</button>
               </span>
-            </div>
-
-            <div class="control column is-two-thirds">
-              <input type="text" class="input" :name="field" :placeholder="field" v-model="settings[key]">
-            </div>
           </div>
-          <!-- Main container -->
-          <nav class="level">
-            <!-- Left side -->
-            <div class="level-left">
-              <!--<div class="level-item"></div>-->
-            </div>
-            <!-- Right side -->
-            <div class="level-right">
-              <div class="level-item">
-                <button type="button" class="button is-pulled-right" @click="addSettingField">
-                  Add Settings field
-                </button>
-              </div>
-              <div class="level-item">
-                <button type="button" class="button is-info is-pulled-right" @click="saveSettings">
-                  Save Settings
-                </button>
-              </div>
-            </div>
-          </nav>
-
+          <div>
+            <input type="text" class="input" :name="field" :placeholder="field" v-model="settings[key]">
+          </div>
         </div>
-      </div>
-    </div>
+        <button type="button" @click="saveSettings">
+          Save Settings
+        </button>
+      </v-layout>
+      <v-dialog v-model="dialog" persistent max-width="500px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Add field</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex>
+                  <v-text-field autofocus label="Field name"
+                                required v-model="setting"
+                                :error-messages="settingErrors"
+                                @input="$v.setting.$touch()">
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" flat @click="addSettingField">Add</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <info-dialog ref="info"></info-dialog>
+      <v-snackbar :timeout="5000" bottom right v-model="snackbar">
+        {{ snackMessage }}
+        <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+      </v-snackbar>
+    </v-container>
   </div>
 </template>
 
 <script>
-import { settingsRef } from '../../../config';
-import notifier from '../../../mixins/notifier';
+import { settingsRef } from '../../../config'
+import snack from '../../../mixins/snack'
+import InfoDialog from '../shared/InfoDialog'
+import { validationMixin } from 'vuelidate'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'settings',
+  components: { InfoDialog },
   data() {
     return {
+      loader: true,
+      setting: '',
+      dialog: false,
       updatesCounter: 0,
       // this array contains settings form fields
       fields: [
@@ -78,19 +87,29 @@ export default {
       ]
     }
   },
-  firebase: {
-    // load settings as an object instead of array (default)
-    settings: {
-      source: settingsRef,
-      asObject: true
+  validations: {
+    setting: { required }
+  },
+  computed: {
+    settingErrors () {
+      if (this.$v.setting.$dirty && this.$v.setting.$error) {
+        return [ 'Invalid field name' ]
+      }
     }
   },
-  mixins: [notifier],
+  firebase: {
+    settings: {
+      source: settingsRef,
+      asObject: true,
+      readyCallback: function () { this.loader = false }
+    }
+  },
+  mixins: [ snack, validationMixin ],
   methods: {
     saveSettings() {
       delete this.settings['.key'] // This is a bit weird but no problem
       this.$firebaseRefs.settings.update(this.settings).then(() => {
-        this.showNotification('success', 'Settings Successfully saved');
+        this.snack('Setting saved.');
       })
     },
     // display the loaded settings
@@ -104,18 +123,21 @@ export default {
       }
     },
     addSettingField() {
-      const newFieldName = prompt("Name for new setting:");
-      if (this.settings.hasOwnProperty(newFieldName)) {
-        alert('This setting already does exist')
-        return
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        if (this.settings.hasOwnProperty(this.setting)) {
+          this.$refs.info.open('Property with this name already exists.')
+          return
+        }
+        this.$firebaseRefs.settings.update({
+          [this.setting]: ''
+        }).then(() => {
+          this.dialog = false
+          this.snack('Setting added.')
+        }).catch(() => {
+          this.snack('Not added.')
+        })
       }
-      this.$firebaseRefs.settings.update({
-        [newFieldName]: ''
-      }).then(() => {
-        this.showNotification('success', 'Setting Successfully added');
-      }).catch(() => {
-        this.showNotification('error', 'Setting not added');
-      })
     },
     deleteSettingsField(key) {
       const name = prompt("Type the name of the setting to comfirm");
@@ -128,10 +150,10 @@ export default {
         .child(key)
         .remove()
         .then(() => {
-          this.showNotification('success', 'Setting successfully removed');
+          this.snack('Setting removed.')
         })
         .catch((e) => {
-          this.showNotification('error', 'Setting not removed');
+          tthis.snack('Not removed.')
         })
     }
   },
@@ -146,10 +168,6 @@ export default {
 
 </script>
 
-<style lang="scss">
-#settings {
-  h3 {
-    margin: 1em 1em 1em 0em;
-  }
-}
+<style lang="scss" scoped>
+
 </style>

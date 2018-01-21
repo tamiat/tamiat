@@ -2,33 +2,32 @@
   <div>
     <v-toolbar class="blue darken-1">
       <v-toolbar-title class="white--text">Media</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <router-link to="#" class="button is-info">
-        <v-btn class="white blue--text">
-          Add media
-        </v-btn>
-      </router-link>
     </v-toolbar>
+    <v-progress-linear v-if="loader" color="orange lighten-2" class="mb-2 mt-0" v-bind:indeterminate="true"></v-progress-linear>
     <v-container grid-list-md text-xs-center class="pa-3">
       <v-layout row wrap v-if="!media.hasOwnProperty('.value')">
-        <v-flex xs6 v-for="(img, key) in images" :key="key" v-if="img.src && img.path">
+        <v-flex xs6 v-for="(img, key) in media" :key="key" v-if="key !== '.key'">
           <v-card>
             <v-card-media :src="img.src" height="200px">
             </v-card-media>
             <v-card-title primary-title>
               <div>
-                <h3 class="headline mb-0">{{ img.name }}</h3>
+                <p class="subheading mb-0">{{ img.name }}</p>
               </div>
             </v-card-title>
             <v-card-actions>
-              <v-btn color="blue darken-1 white--text" @click="deleteImage(img.path, key)">
-                <v-icon left>delete</v-icon>
+              <v-btn color="red darken-1" flat @click="deleteImage(img.path, key)">
                 Delete
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>
+      <prompt-dialog ref="deleteMedia"></prompt-dialog>
+      <v-snackbar :timeout="5000" bottom right v-model="snackbar">
+        {{ snackMessage }}
+        <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+      </v-snackbar>
     </v-container>
   </div>
 </template>
@@ -36,29 +35,42 @@
 <script>
 import firebase from 'firebase'
 import { mediaRef } from '../../../config'
+import PromptDialog from '../shared/PromptDialog'
+import snack from '../../../mixins/snack'
 
 export default {
+  components: { PromptDialog },
+  data () {
+    return {
+      loader: true
+    }
+  },
   firebase: {
-    // load settings as an object instead of array (default)
     media: {
       source: mediaRef,
-      asObject: true
+      asObject: true,
+      readyCallback: function () { this.loader = false }
     }
   },
-  computed: {
-    images () {
-      return this.media;
-    }
-  },
+  mixins: [ snack ],
   methods: {
     deleteImage(path, key) {
-      let storageRef = firebase.storage().ref(path);
-      var that = this;
-      storageRef.delete().then(function() {
-        that.$firebaseRefs.media.child(key).remove()
-      }).catch(function(error) {
-        console.error(error)
-      });
+      this.$refs.deleteMedia.ask('Delete media?', 'This action cannot be restored.')
+        .then(answer => {
+          if (answer) {
+            let storageRef = firebase.storage().ref(path)
+            var that = this
+            storageRef.delete()
+              .then(function() {
+              that.$firebaseRefs.media.child(key).remove()
+                .then(() => {
+                  this.snack('Media deleted.')
+                })
+            }).catch(function(error) {
+              console.error(error)
+            })
+          }
+        })
     }
   }
 }

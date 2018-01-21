@@ -1,6 +1,10 @@
 <template>
-  <v-container text-xs-center class="pt-5">
-    <v-layout class="mb-5">
+  <v-container text-xs-center class="pa-0">
+    <v-alert color="error" icon="error" dismissible v-model="alert" class="mt-0"
+             transition="slide-y-transition">
+      {{ error }}
+    </v-alert>
+    <v-layout class="mb-5 pt-5">
       <v-flex>
         <router-link to="/">
           <img src="/static/img/logo.png" alt="Tamiat logo">
@@ -9,17 +13,19 @@
     </v-layout>
     <v-layout>
       <v-flex md4 offset-md4 xs12>
-        <v-form v-model="valid" @submit.prevent="login">
+        <v-form @submit.prevent="login">
           <v-text-field
             label="E-mail"
             v-model="email"
-            :rules="emailRules"
+            :errorMessages="emailErrors"
+            @input="$v.email.$touch()"
             required
           ></v-text-field>
           <v-text-field
             label="Password"
             v-model="password"
-            :rules="passRules"
+            :errorMessages="passwordErrors"
+            @input="$v.password.$touch()"
             required :type="'password'"
           ></v-text-field>
           <v-btn color="primary" type="submit">Login</v-btn>
@@ -28,45 +34,56 @@
     </v-layout>
   </v-container>
 </template>
-
 <script>
 import firebase from 'firebase'
-import notifier from '../../../mixins/notifier'
+import { validationMixin } from 'vuelidate'
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   data() {
     return {
       email: '',
       password: '',
-      valid: false,
-      emailRules: [
-          (v) => !!v || 'E-mail is required',
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-      ],
-      passRules: [
-        (v) => !!v || 'Password is required'
-      ]
+      alert: false,
+      error: ''
     }
   },
-  mixins: [notifier],
+  validations: {
+    email: { required, email },
+    password: { required }
+  },
+  computed: {
+    emailErrors () {
+      if (this.$v.email.$dirty && this.$v.email.$error) {
+        return [ 'Email is incorrect.' ]
+      }
+    },
+    passwordErrors () {
+      if (this.$v.password.$dirty && this.$v.password.$error) {
+        return [ 'Password is incorrect.' ]
+      }
+    }
+  },
+  mixins: [ validationMixin ],
   methods: {
     login () {
-      // login to firebase with email and password
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
-          // redirect to the admin page
-          this.$router.push('/admin');
-        })
-        .catch((error) => {
-          // display an warning notification
-          this.showNotification('warning', error.message);
-        })
+      this.alert = false
+      this.error = ''
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+          .then((user) => {
+            this.$router.push('/admin/posts')
+          })
+          .catch((error) => {
+            this.error = error.message
+            this.alert = true
+          })
+      }
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -1,74 +1,86 @@
 <template>
 <div>
-  <v-toolbar class="blue darken-1 mb-1">
+  <v-toolbar class="blue darken-1">
     <v-toolbar-title class="white--text">Posts</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn class="white blue--text" @click="$refs.newPost.open()">Add post</v-btn>
   </v-toolbar>
-  <!-- notification -->
-  <div v-if="notification.message" :class="'notification is-' + notification.type">
-    <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-  </div>
-
-  <v-layout row>
-    <post-new ref="newPost"></post-new>
-    <v-flex xs12 sm6 class="pa-3">
-      <v-card v-for="(post, index) in posts" :key="index">
-        <v-card-media :src="post.img" height="200px"></v-card-media>
-        <v-card-title primary-title>
-          <div>
-            <div class="headline">
-              {{ post.title }}
+  <v-progress-linear v-if="loader" color="orange lighten-2" class="mb-2 mt-0" v-bind:indeterminate="true"></v-progress-linear>
+  <v-container grid-list-md class="pa-3">
+    <v-layout row>
+      <post-new ref="newPost"></post-new>
+      <v-flex xs12 sm6 v-for="(post, key) in posts" :key="key" v-if="key !== '.key'">
+        <v-card>
+          <v-card-media :src="post.img" height="250px"></v-card-media>
+          <v-card-title primary-title>
+            <div>
+              <p class="headline ma-0">
+                {{ post.title }}
+              </p>
+              <span class="grey--text"></span>
             </div>
-            <span class="grey--text">1,000 miles of wonder</span>
-          </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat router :to="{ name: 'PostEdit', params: { key: post['.key'] } }">
-            Edit
-          </v-btn>
-          <v-btn @click="deletePost(post)" flat color="purple">Delete</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon @click.native="show = !show">
-            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-          </v-btn>
-        </v-card-actions>
-        <v-slide-y-transition>
-          <v-card-text v-show="show" v-html="post.body"></v-card-text>
-        </v-slide-y-transition>
-      </v-card>
-    </v-flex>
-  </v-layout>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn flat>
+              Edit
+            </v-btn>
+            <v-btn @click="deletePost(key)" flat color="red darken-1">Delete</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn icon @click.native="show = !show">
+              <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+            </v-btn>
+          </v-card-actions>
+          <v-slide-y-transition>
+            <v-card-text v-show="show" v-html="post.body"></v-card-text>
+          </v-slide-y-transition>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <prompt-dialog ref="deleteDialog"></prompt-dialog>
+    <v-snackbar :timeout="5000" bottom right v-model="snackbar">
+      {{ snackMessage }}
+      <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
+  </v-container>
 </div>
 </template>
 
 <script>
 import moment from 'moment'
-import notifier from '../../../mixins/notifier'
 import { postsRef } from '../../../config'
+import snack from '../../../mixins/snack'
 
 import PostNew from './PostNew'
+import PromptDialog from '../shared/PromptDialog'
 
 export default {
-  components: { PostNew },
+  components: { PostNew, PromptDialog },
   data () {
     return {
+      loader: true,
       show: false,
       dialog: false
     }
   },
   firebase: {
-    posts: postsRef
+    posts: {
+      source: postsRef,
+      asObject: true,
+      readyCallback: function () { this.loader = false }
+    }
   },
-  mixins: [notifier],
+  mixins: [ snack ],
   methods: {
-    deletePost(post) {
-      // delete post form firebase
-      if (confirm("Do you really want to delete this post ?")) {
-        this.$firebaseRefs.posts.child(post['.key']).remove().then(() => {
-          this.showNotification('success', 'Post deleted successfully');
+    deletePost(key) {
+      this.$refs.deleteDialog.ask('Delete this post?', 'This action cannot be restored.')
+        .then(answer => {
+          if (answer) {
+            this.$firebaseRefs.posts.child(key).remove()
+              .then(() => {
+                this.snack('Post deleted.')
+            })
+          }
         })
-      }
     },
     updatePost(post) {
       console.log(JSON.stringify(post), post)

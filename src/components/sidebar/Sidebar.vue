@@ -9,7 +9,7 @@
         </v-list-tile>
       </v-list>
     </v-toolbar>
-    <v-divider class="white mb-3"></v-divider>
+    <v-divider class="blue mb-3"></v-divider>
     <v-list class="pt-0">
       <v-list-tile v-for="item in navItems" :key="item.title"
         @click="$router.push({ path: item.path })"

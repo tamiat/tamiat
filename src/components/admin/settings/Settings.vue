@@ -3,36 +3,37 @@
     <v-toolbar class="blue darken-1">
       <v-toolbar-title class="white--text">Setings</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn class="white blue--text" @click="dialog = true">Add field</v-btn>
+      <v-btn class="white blue--text" @click="dialog = true">Add setting</v-btn>
     </v-toolbar>
     <v-progress-linear v-if="loader" color="orange lighten-2" class="mb-2 mt-0" v-bind:indeterminate="true"></v-progress-linear>
-    <v-container>
-      <v-layout>
-        <div v-for="(field, key) in settings" :key="key" v-if="key !== '.key'">
-          <div>
-              <span>
-                {{key}}
-                <button @click="deleteSettingsField(key)">Delete</button>
-              </span>
-          </div>
-          <div>
-            <input type="text" class="input" :name="field" :placeholder="field" v-model="settings[key]">
-          </div>
-        </div>
-        <button type="button" @click="saveSettings">
-          Save Settings
-        </button>
+    <v-container grid-list-md>
+      <v-layout row>
+        <v-flex md3 v-for="(field, key) in settings" :key="key" v-if="key !== '.key'">
+          <v-card>
+            <v-card-title class="headline">{{ key }}</v-card-title>
+            <v-card-actions>
+              <v-btn flat color="blue darken-1"
+                     @click="deleteSettingsField(key)">Delete</v-btn>
+            </v-card-actions>
+            <div>
+              <input :name="field" placeholder="Field" v-model="settings[key]">
+            </div>
+          </v-card>
+        </v-flex>
       </v-layout>
+      <v-btn color="blue darken-1" class="white--text" @click="saveSettings">
+        Save Settings
+      </v-btn>
       <v-dialog v-model="dialog" persistent max-width="500px">
         <v-card>
           <v-card-title>
-            <span class="headline">Add field</span>
+            <span class="headline">Add setting</span>
           </v-card-title>
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex>
-                  <v-text-field autofocus label="Field name"
+                  <v-text-field autofocus label="Setting name"
                                 required v-model="setting"
                                 :error-messages="settingErrors"
                                 @input="$v.setting.$touch()">
@@ -48,6 +49,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <prompt-dialog ref="deleteDialog"></prompt-dialog>
       <info-dialog ref="info"></info-dialog>
       <v-snackbar :timeout="5000" bottom right v-model="snackbar">
         {{ snackMessage }}
@@ -63,9 +65,10 @@ import snack from '../../../mixins/snack'
 import InfoDialog from '../shared/InfoDialog'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
+import PromptDialog from '../shared/PromptDialog'
 
 export default {
-  components: { InfoDialog },
+  components: { InfoDialog, PromptDialog },
   data() {
     return {
       loader: true,
@@ -109,7 +112,7 @@ export default {
     saveSettings() {
       delete this.settings['.key'] // This is a bit weird but no problem
       this.$firebaseRefs.settings.update(this.settings).then(() => {
-        this.snack('Setting saved.');
+        this.snack('Settings saved.');
       })
     },
     // display the loaded settings
@@ -133,27 +136,26 @@ export default {
           [this.setting]: ''
         }).then(() => {
           this.dialog = false
-          this.snack('Setting added.')
+          this.snack('Field added.')
         }).catch(() => {
           this.snack('Not added.')
         })
       }
     },
     deleteSettingsField(key) {
-      const name = prompt("Type the name of the setting to comfirm");
-      if (key != name) {
-        console.log(`${key} was not equal to ${name}`)
-        alert('setting name did not match')
-        return
-      }
-      this.$firebaseRefs.settings
-        .child(key)
-        .remove()
-        .then(() => {
-          this.snack('Setting removed.')
-        })
-        .catch((e) => {
-          tthis.snack('Not removed.')
+      this.$refs.deleteDialog.ask('Delete this field?', 'This action cannot be restored.')
+        .then(answer => {
+          if (answer) {
+            this.$firebaseRefs.settings
+              .child(key)
+              .remove()
+              .then(() => {
+                this.snack('Field deleted.')
+              })
+              .catch((e) => {
+                tthis.snack('Not removed.')
+              })
+          }
         })
     }
   },

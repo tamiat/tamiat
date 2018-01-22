@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
 
     <header>
       <h2 class="is-title is-size-4">
@@ -22,7 +22,7 @@
     </header>
 
     <section class="hero">
-      <div class="background-image" :style="{'background-image': `url(${require('../assets/img/hero.jpg')})`}"></div>
+      <div class="background-image" :style="{'background-image': `url(${require('../../assets/img/hero.jpg')})`}"></div>
       <h1>
         {{settings.title}}
       </h1>
@@ -37,10 +37,10 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
       <ul class="grid">
-        <li class="small" :style="{'background-image': `url(${require('../assets/img/coast.jpg')})`}"></li>
-        <li class="large" :style="{'background-image': `url(${require('../assets/img/island.jpg')})`}"></li>
-        <li class="large" :style="{'background-image': `url(${require('../assets/img/balloon.jpg')})`}"></li>
-        <li class="small" :style="{'background-image': `url(${require('../assets/img/mountain.jpg')})`}"></li>
+        <li class="small" :style="{'background-image': `url(${require('../../assets/img/coast.jpg')})`}"></li>
+        <li class="large" :style="{'background-image': `url(${require('../../assets/img/island.jpg')})`}"></li>
+        <li class="large" :style="{'background-image': `url(${require('../../assets/img/balloon.jpg')})`}"></li>
+        <li class="small" :style="{'background-image': `url(${require('../../assets/img/mountain.jpg')})`}"></li>
       </ul>
     </section>
 
@@ -75,7 +75,7 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
       <hr>
 
-      <div class="wrapper">  		
+      <div class="wrapper">
     		<div class="card radius shadowDepth1" v-for="post in posts" v-if="post.body">
     			<div class="card__image border-tlr-radius">
     				<img :src="post.img" alt="image" class="border-tlr-radius">
@@ -86,7 +86,7 @@
 	    				<p v-html="post.body"></p>
 	    			</article>
     			</div>
-    			<div class="card__action">	
+    			<div class="card__action">
     				<div class="card__author">
     					<div class="card__author-content">
     						By <a href="#">{{post.author}}</a>
@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef  } from '../config';
+import { settingsRef, postsRef  } from '../../config';
 
 export default {
   name: 'home',
@@ -567,7 +567,7 @@ header nav li:last-child {
 .card__padding {
 	padding: 1rem;
 }
- 
+
 .card__image {
 	min-height: 100px;
 	background-color: #eee;
@@ -611,7 +611,7 @@ header nav li:last-child {
 	padding-left: 1.6rem;
 	padding-bottom: 1.6rem;
 }
-	 
+
 .card__author {}
 
 	.card__author img,

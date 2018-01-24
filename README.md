@@ -144,7 +144,7 @@ cd my-project
 npm install node-sass sass-loader --save-dev
 
 # install production dependencies
-npm install vue-router bulma firebase vuefire font-awesome vue-quill-editor 
+npm install moment vue-router bulma firebase vuefire font-awesome vue-quill-editor 
 ```
 
   3. In `main.js` file, import the external stylesheets and the necessary plugins and activate them.

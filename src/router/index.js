@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
 // import app pages 
 import Home from '../components/Home';
@@ -14,7 +14,7 @@ import Settings from '../components/Admin/content/Settings';
 import Pages from '../components/Admin/content/Pages';
 import Media from '../components/Admin/content/Media';
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: "history",
@@ -68,4 +68,4 @@ export default new Router({
       component: Home
     }
   ]
-});
+})

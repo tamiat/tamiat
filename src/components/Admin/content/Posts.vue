@@ -43,7 +43,11 @@
 
             <td class="post-author-cell">{{post.author}}</td>
             <td class="post-tags-cell">{{postDate(post.created)}}</td>
-            <td class="post-tags-cell">{{joined(post.tags)}}</td>
+            <td class="post-tags-cell">
+              <span v-if="post.tags">
+                {{joined(post.tags)}}
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>

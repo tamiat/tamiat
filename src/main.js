@@ -10,6 +10,11 @@ import VueQuillEditor from 'vue-quill-editor'
 import fontAwesome from '../node_modules/font-awesome/css/font-awesome.css'
 import bulma from '../node_modules/bulma/css/bulma.css'
 
+// import vue-quill-editor styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 Vue.use(VueFire)  // activate vuefire plugin
 Vue.use(VueQuillEditor)  // activate vue-quill-editor
 Vue.config.productionTip = false

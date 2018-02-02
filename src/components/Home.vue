@@ -76,7 +76,7 @@
       <hr>
 
       <div class="wrapper">  		
-    		<div class="card radius shadowDepth1" v-for="post in posts" v-if="post.body">
+    		<div class="card radius shadowDepth1" v-if="post" v-for="post in posts" :key="post.created">
     			<div class="card__image border-tlr-radius">
     				<img :src="post.img" alt="image" class="border-tlr-radius">
           </div>

@@ -16,17 +16,20 @@
         <v-form @submit.prevent="login">
           <v-text-field
             label="E-mail"
+            placeholder="E-mail"
             v-model="email"
             :errorMessages="emailErrors"
             @input="$v.email.$touch()"
             required
+            autofocus
           ></v-text-field>
           <v-text-field
             label="Password"
+            placeholder="Password"
             v-model="password"
             :errorMessages="passwordErrors"
             @input="$v.password.$touch()"
-            required :type="'password'"
+            required type="password"
           ></v-text-field>
           <v-btn color="primary" type="submit">Login</v-btn>
         </v-form>
@@ -35,55 +38,58 @@
   </v-container>
 </template>
 <script>
-import firebase from 'firebase'
-import { validationMixin } from 'vuelidate'
-import { required, email } from 'vuelidate/lib/validators'
+import firebase from "firebase"
+import { validationMixin } from "vuelidate"
+import { required, email } from "vuelidate/lib/validators"
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       alert: false,
-      error: ''
+      error: "",
     }
   },
   validations: {
     email: { required, email },
-    password: { required }
+    password: { required },
   },
   computed: {
-    emailErrors () {
+    emailErrors() {
       if (this.$v.email.$dirty && this.$v.email.$error) {
-        return [ 'Email is incorrect.' ]
+        return ["Email is incorrect."]
       }
     },
-    passwordErrors () {
+    passwordErrors() {
       if (this.$v.password.$dirty && this.$v.password.$error) {
-        return [ 'Password is incorrect.' ]
+        return ["Password is incorrect."]
       }
-    }
+    },
   },
-  mixins: [ validationMixin ],
+  mixins: [validationMixin],
   methods: {
-    login () {
+    login() {
       this.alert = false
-      this.error = ''
+      this.error = ""
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-          .then((user) => {
-            this.$router.push('/admin/posts')
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(user => {
+            this.$router.push("/admin/posts")
           })
-          .catch((error) => {
+          .catch(error => {
             this.error = error.message
             this.alert = true
           })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+
 </style>

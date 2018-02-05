@@ -60,119 +60,119 @@
 </template>
 
 <script>
-import { settingsRef } from '../../../config';
-import snack from '../../../mixins/snack';
-import InfoDialog from '../shared/InfoDialog';
-import { validationMixin } from 'vuelidate';
-import { required } from 'vuelidate/lib/validators';
-import PromptDialog from '../shared/PromptDialog';
+import { settingsRef } from "../../../config"
+import snack from "../../../mixins/snack"
+import InfoDialog from "../shared/InfoDialog"
+import { validationMixin } from "vuelidate"
+import { required } from "vuelidate/lib/validators"
+import PromptDialog from "../shared/PromptDialog"
 
 export default {
   components: { InfoDialog, PromptDialog },
   data() {
     return {
       loader: true,
-      setting: '',
+      setting: "",
       dialog: false,
       updatesCounter: 0,
       // this array contains settings form fields
       fields: [
         {
-          label: 'Site Title',
-          name: 'title',
-          value: ''
+          label: "Site Title",
+          name: "title",
+          value: "",
         },
         {
-          label: 'Site Description',
-          name: 'description',
-          value: ''
-        }
-      ]
-    };
+          label: "Site Description",
+          name: "description",
+          value: "",
+        },
+      ],
+    }
   },
   validations: {
-    setting: { required }
+    setting: { required },
   },
   computed: {
     settingErrors() {
       if (this.$v.setting.$dirty && this.$v.setting.$error) {
-        return ['Invalid field name'];
+        return ["Invalid field name"]
       }
-    }
+    },
   },
   firebase: {
     settings: {
       source: settingsRef,
       asObject: true,
       readyCallback: function() {
-        this.loader = false;
-      }
-    }
+        this.loader = false
+      },
+    },
   },
   mixins: [snack, validationMixin],
   methods: {
     saveSettings() {
-      delete this.settings['.key']; // This is a bit weird but no problem
+      delete this.settings[".key"] // This is a bit weird but no problem
       this.$firebaseRefs.settings.update(this.settings).then(() => {
-        this.snack('Settings saved.');
-      });
+        this.snack("Settings saved.")
+      })
     },
     // display the loaded settings
     displaySettings() {
       for (let key in this.settings) {
         this.fields.map(field => {
           if (field.name === key) {
-            return (field.value = this.settings[key]);
+            return (field.value = this.settings[key])
           }
-        });
+        })
       }
     },
     addSettingField() {
-      this.$v.$touch();
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         if (this.settings.hasOwnProperty(this.setting)) {
-          this.$refs.info.open('Property with this name already exists.');
-          return;
+          this.$refs.info.open("Property with this name already exists.")
+          return
         }
         this.$firebaseRefs.settings
           .update({
-            [this.setting]: ''
+            [this.setting]: "",
           })
           .then(() => {
-            this.dialog = false;
-            this.snack('Field added.');
+            this.dialog = false
+            this.snack("Field added.")
           })
           .catch(() => {
-            this.snack('Not added.');
-          });
+            this.snack("Not added.")
+          })
       }
     },
     deleteSettingsField(key) {
       this.$refs.deleteDialog
-        .ask('Delete this field?', 'This action cannot be restored.')
+        .ask("Delete this field?", "This action cannot be restored.")
         .then(answer => {
           if (answer) {
             this.$firebaseRefs.settings
               .child(key)
               .remove()
               .then(() => {
-                this.snack('Field deleted.');
+                this.snack("Field deleted.")
               })
               .catch(e => {
-                tthis.snack('Not removed.');
-              });
+                this.snack("Not removed.")
+              })
           }
-        });
-    }
+        })
+    },
   },
   updated() {
     // run the loaded settings once
     if (this.updatesCounter === 0) {
-      this.displaySettings();
+      this.displaySettings()
     }
-    this.updatesCounter++;
-  }
-};
+    this.updatesCounter++
+  },
+}
 </script>
 
 <style lang="scss" scoped>

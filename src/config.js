@@ -3,12 +3,12 @@
 import Firebase from 'firebase';
 
 let config = {
-  apiKey: "AIzaSyCnxuLX6AgMduDMLtSJVDNJhR8xuMNvs4Y",
-  authDomain: "tamiat-demo.firebaseapp.com",
-  databaseURL: "https://tamiat-demo.firebaseio.com/",
-  projectId: "tamiat-demo",
-  storageBucket: "gs://tamiat-demo.appspot.com/",
-  messagingSenderId: "188459960333"
+  apiKey: "AIzaSyDN6vYIk-89PI1y1gmI8P-33hvZ8NxT3iI",
+  authDomain: "tamiatcms.firebaseapp.com",
+  databaseURL: "https://tamiatcms.firebaseio.com",
+  projectId: "tamiatcms",
+  storageBucket: "tamiatcms.appspot.com",
+  messagingSenderId: "94963392700"
 };
 
 let app = Firebase.initializeApp(config);

@@ -108,7 +108,7 @@ export default {
           title: this.title,
           body: this.body,
           author: this.author,
-          tags: this.tags.split(','),
+          tags: this.tags.length > 0 ? this.tags.split(',') : '',
           img: this.featuredImage,
           created: Date.now()
         })

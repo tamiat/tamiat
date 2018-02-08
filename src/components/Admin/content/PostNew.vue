@@ -90,7 +90,7 @@ export default {
       title: '',
       body: '',
       author: '',
-      tags: [],
+      tags: '',
       featuredImage: '',
       editorOptions
     }

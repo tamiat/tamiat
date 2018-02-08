@@ -2,6 +2,10 @@
 
 <p><img src="https://github.com/tamiat/tamiat/blob/master/tamiatlogo.png" width="48%"></p>
 
+<p align="center">
+  <a href="https://travis-ci.org/tamiat/tamiat"><img src="https://travis-ci.org/tamiat/tamiat.svg?branch=master" alt="Build Status"></a>
+</p>
+
 <h1>Tamiat CMS</h1>
 
 <p>

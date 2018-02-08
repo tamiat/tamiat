@@ -96,7 +96,7 @@ export default {
       return moment(epoch).format('MM/DD/YY | hh:mm');
     },
     joined(t) {
-      return Object.values(t).join(',')
+      return Object.values(t).join(', ')
     }
   }
 }

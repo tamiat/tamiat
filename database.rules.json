@@ -10,9 +10,6 @@
         "body": {
           ".validate": "newData.isString()"
         },
-        "tags": {
-          ".validate": "newData.hasChildren()"
-        },
         "title": {
           ".validate": "newData.isString()"
         },
@@ -21,9 +18,6 @@
         },
         "created": {
           // ".validate": "newData.val() < now"
-        },
-        "$other": {
-          ".validate": false
         }
       }
     },

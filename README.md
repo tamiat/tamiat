@@ -4,7 +4,9 @@
 
 <p align="center">
   <a href="https://travis-ci.org/tamiat/tamiat"><img src="https://travis-ci.org/tamiat/tamiat.svg?branch=master" alt="Build Status"></a>
-  <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"></a>
+  <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
+  <a href="https://www.tamiat.org"><img src="https://img.shields.io/website-up-down-green-red/https/www.tamiat.org.svg?label=tamiat.org" alt="Tamiat.org"></a>
+  <a href="https://demo.tamiat.org"><img src="https://img.shields.io/website-up-down-green-red/https/demo.tamiat.org.svg?label=Online-Demo" alt="Online Demo"></a>
 </p>
 
 <h1>Tamiat CMS</h1>

@@ -7,7 +7,7 @@
         <button class="delete" @click="hideNotifications"></button>{{notification.message}}
       </div>
     </transition>
-    
+
     <!-- modal for page and field -->
     <transition mode="out-in" name="fade">
       <modal @close="showModal = false" :kind="kind" @addField='confirmAddField' @addPage='confirmAddPage' @confirmDeleteField='confirmDeletePageField()' @confirmDeletePage='confirmDeletePage()' v-if="showModal" :header="header"/>
@@ -91,7 +91,7 @@
               </div>
             </div>
           </nav>
-          
+
         </div>
       </div>
     </div>
@@ -99,16 +99,16 @@
 </template>
 
 <script>
-import { pagesRef } from '../../../config';
-import notifier from '../../../mixins/notifier';
+import { pagesRef } from '../../../config'
+import notifier from '../../../mixins/notifier'
 import modal from '@/components/shared/Modal'
 export default {
   name: 'pages',
-  data() {
+  data () {
     return {
       dropdownActive: false,
       currentPageKey: '',
-      dropDownLabel: "Select Page",
+      dropDownLabel: 'Select Page',
       showModal: false,
       deleteKey: '',
       header: '',
@@ -124,10 +124,10 @@ export default {
   },
   mixins: [notifier],
   computed: {
-    currentPage() {
+    currentPage () {
       return this.pages[this.currentPageKey] || {}
     },
-    currentPageRef() {
+    currentPageRef () {
       return this.$firebaseRefs.pages.child(this.currentPageKey)
     }
   },
@@ -135,26 +135,26 @@ export default {
     modal
   },
   methods: {
-    selectPage(key) {
-      this.currentPageKey = key;
+    selectPage (key) {
+      this.currentPageKey = key
     },
     toggleDropdown () {
-      this.dropdownActive = !this.dropdownActive;
+      this.dropdownActive = !this.dropdownActive
     },
-    savePage() {
+    savePage () {
       delete this.currentPage['.key'] // This is a bit weird but no problem
       this.currentPageRef.update(this.currentPage).then(() => {
-        this.showNotification('success', 'Page successfully saved');
+        this.showNotification('success', 'Page successfully saved')
       })
     },
-    addPageField() {
+    addPageField () {
       this.header = 'Name for a new property: '
       this.kind = 'addField'
       this.showModal = true
     },
-    confirmAddField(value) {
+    confirmAddField (value) {
       if (this.currentPage.fields && this.currentPage.fields.hasOwnProperty(value)) {
-        this.showNotification('danger', 'This property already exist');
+        this.showNotification('danger', 'This property already exist')
         return
       }
       this.currentPageRef
@@ -163,26 +163,26 @@ export default {
           [value]: ''
         })
         .then(() => {
-          this.showNotification('success', 'Property Successfully added');
+          this.showNotification('success', 'Property Successfully added')
           this.showModal = false
         })
         .catch(() => {
-          this.showNotification('danger', 'Property not added');
-      })
+          this.showNotification('danger', 'Property not added')
+        })
     },
-    addPage() {
+    addPage () {
       this.header = 'Name for a new page: '
       this.kind = 'addPage'
       this.showModal = true
     },
-    confirmAddPage(value) {
+    confirmAddPage (value) {
       let name = value
       if (name === '') {
-        this.showNotification('danger', 'Please input the name of the page first');
+        this.showNotification('danger', 'Please input the name of the page first')
         return
       }
       if (this.pages.hasOwnProperty(name)) {
-        this.showNotification('danger', 'This page already exist');
+        this.showNotification('danger', 'This page already exist')
         return
       }
 
@@ -192,54 +192,54 @@ export default {
         .update({name})
         .then(() => {
           this.selectPage(key)
-          this.showNotification('success', 'Page Successfully added');
+          this.showNotification('success', 'Page Successfully added')
           this.showModal = false
         })
         .catch(() => {
-          this.showNotification('danger', 'Page not added');
+          this.showNotification('danger', 'Page not added')
         })
     },
-    deletePageField(key) {
+    deletePageField (key) {
       this.header = 'Are you sure you want to delete this field?'
       this.kind = 'deleteField'
       this.showModal = true
       this.deleteKey = key
     },
-    confirmDeletePageField() {
+    confirmDeletePageField () {
       this.currentPageRef
         .child('fields')
         .child(this.deleteKey)
         .remove()
         .then(() => {
           // this.selectPage(this.deleteKey)
-          this.showNotification('success', 'Property successfully removed');
+          this.showNotification('success', 'Property successfully removed')
           this.showModal = false
           this.deleteKey = ''
           this.kind = ''
         })
         .catch(() => {
-          this.showNotification('danger', 'Property not removed');
+          this.showNotification('danger', 'Property not removed')
         })
     },
-    deletePage() {
+    deletePage () {
       this.header = 'Are you sure you want to delete this page?'
       this.kind = 'deletePage'
       this.showModal = true
     },
-    confirmDeletePage() {
+    confirmDeletePage () {
       const key = this.currentPageKey
       this.$firebaseRefs.pages
         .child(key)
         .remove()
         .then(() => {
           this.selectPage(key)
-          this.showNotification('success', 'Page successfully removed');
+          this.showNotification('success', 'Page successfully removed')
           this.showModal = false
           this.header = ''
           this.kind = ''
         })
         .catch(() => {
-          this.showNotification('danger', 'Page not removed');
+          this.showNotification('danger', 'Page not removed')
         })
     }
   }
@@ -253,10 +253,12 @@ export default {
     margin: 1em 1em 1em 0em;
   }
 }
+
 .fade-enter-active, .fade-leave-active {
-		transition: opacity .5s
-	}
-	.fade-enter, .fade-leave-to {
-		opacity: 0
+  transition: opacity .5s
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0
 }
 </style>

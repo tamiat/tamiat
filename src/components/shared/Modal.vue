@@ -23,10 +23,11 @@
   </div>
 </div>
 </template>
+
 <script>
 export default {
   name: 'modal',
-  data() {
+  data () {
     return {
       fieldName: '',
       pageName: '',
@@ -34,35 +35,28 @@ export default {
     }
   },
   methods: {
-    add(event) {
-      if(this.kind === 'addField')
-        this.$emit('addField', this.fieldName)
-      if(this.kind === 'addPage')
-        this.$emit('addPage', this.pageName)
-      if(this.kind === 'addSetting')
-        this.$emit('addSetting', this.settingName)
+    add (event) {
+      if (this.kind === 'addField') { this.$emit('addField', this.fieldName) }
+      if (this.kind === 'addPage') { this.$emit('addPage', this.pageName) }
+      if (this.kind === 'addSetting') { this.$emit('addSetting', this.settingName) }
     },
-    deleteObj() {
-      if(this.kind === 'deleteField')
-        this.$emit('confirmDeleteField')
-      if(this.kind === 'deletePage')
-        this.$emit('confirmDeletePage')
-      if(this.kind === 'deleteSetting')
-        this.$emit('confirmDeleteSetting')
-      if(this.kind === 'deletePost')
-        this.$emit('confirmDeletePost')
+    deleteObj () {
+      if (this.kind === 'deleteField') { this.$emit('confirmDeleteField') }
+      if (this.kind === 'deletePage') { this.$emit('confirmDeletePage') }
+      if (this.kind === 'deleteSetting') { this.$emit('confirmDeleteSetting') }
+      if (this.kind === 'deletePost') { this.$emit('confirmDeletePost') }
     }
   },
   props: {
     header: {
-        type: String,
-        required: true,
-        default: '!Error'
+      type: String,
+      required: true,
+      default: '!Error'
     },
     subHeader: {
-        type: String,
-        required: false,
-        default: '!Error'
+      type: String,
+      required: false,
+      default: '!Error'
     },
     kind: {
       type: String
@@ -70,5 +64,3 @@ export default {
   }
 }
 </script>
-<style>
-</style>

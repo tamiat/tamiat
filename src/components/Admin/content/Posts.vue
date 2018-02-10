@@ -64,12 +64,12 @@
 
 <script>
 import moment from 'moment'
-import { postsRef } from '../../../config';
-import notifier from '../../../mixins/notifier';
+import { postsRef } from '../../../config'
+import notifier from '../../../mixins/notifier'
 import modal from '@/components/shared/Modal'
 export default {
   name: 'posts',
-  data() {
+  data () {
     return {
       showModal: false,
       header: '',
@@ -82,40 +82,40 @@ export default {
   },
   mixins: [notifier],
   methods: {
-    addPost(post) {
+    addPost (post) {
       this.$firebaseRefs.posts.push(post).then(() => {
-        this.showNotification('success', 'Post added successfully');
+        this.showNotification('success', 'Post added successfully')
       })
     },
-    deletePost(post) {
+    deletePost (post) {
       // delete post form firebase
       this.header = 'Are you sure you want to delete this post?'
       this.kind = 'deletePost'
       this.showModal = true
       this.post = post
     },
-    confirmDeletePost() {
+    confirmDeletePost () {
       this.$firebaseRefs.posts.child(this.post['.key']).remove().then(() => {
-        this.showNotification('success', 'Post deleted successfully');
+        this.showNotification('success', 'Post deleted successfully')
         this.showModal = false
         this.post = ''
       })
     },
-    updatePost(post) {
+    updatePost (post) {
       console.log(JSON.stringify(post), post)
       // create a copy of the item
-      let tempPost = { ...post };
+      let tempPost = { ...post }
       // remove the .key attribute
-      delete tempPost['.key'];
+      delete tempPost['.key']
       this.$firebaseRefs.posts.child(post['.key']).set(tempPost).then(() => {
-        this.showNotification('success', 'Post updated successfully');
-      });
+        this.showNotification('success', 'Post updated successfully')
+      })
     },
-    postDate(epoch) {
+    postDate (epoch) {
       if (!epoch) return // if no time return nothing
-      return moment(epoch).format('MM/DD/YY | hh:mm');
+      return moment(epoch).format('MM/DD/YY | hh:mm')
     },
-    joined(t) {
+    joined (t) {
       return Object.values(t).join(', ')
     }
   },

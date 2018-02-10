@@ -78,15 +78,14 @@
 <script>
 import firebase from 'firebase'
 
-import { mediaRef } from '../../../config';
-import VueQuillEditor from 'vue-quill-editor';
-import editorOptions from './editor-options';
-import imageLoader from '../../../mixins/image-loader';
-import notifier from '../../../mixins/notifier';
+import { mediaRef } from '../../../config'
+import editorOptions from './editor-options'
+import imageLoader from '../../../mixins/image-loader'
+import notifier from '../../../mixins/notifier'
 
 export default {
   name: 'post-edit',
-  data() {
+  data () {
     return {
       /* Here we are filtering out the post containing the provided key in the router params
        * we are using Object.assign to copy the post by value not by reference
@@ -94,7 +93,7 @@ export default {
       post: Object.assign(
         {},
         (this.posts.filter((post) => {
-          return (post['.key'] === this.$route.params.key);
+          return (post['.key'] === this.$route.params.key)
         }))[0]
       ),
       editorOptions
@@ -107,31 +106,32 @@ export default {
   mixins: [imageLoader, notifier],
   methods: {
     // call the updatePost method passed through props
-    update() {
+    update () {
       if (this.post.title) {
         this.updatePost(this.post)
       } else {
-        this.showNotification('warning', 'The title field can not be empty');
+        this.showNotification('warning', 'The title field can not be empty')
       }
     },
     uploadFeaturedImage (e) {
-      let file = e.target.files[0];
-      let storageRef = firebase.storage().ref('images/' + file.name);
-      storageRef.put(file).then((function (snapshot) {
-        this.post.img = snapshot.downloadURL;
+      let file = e.target.files[0]
+      let storageRef = firebase.storage().ref('images/' + file.name)
+
+      storageRef.put(file).then((snapshot) => {
+        this.post.img = snapshot.downloadURL
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({
-          src: snapshot.downloadURL, 
+          src: snapshot.downloadURL,
           path: snapshot.ref.fullPath,
           name: snapshot.metadata.name
         })
-      }).bind(this));
+      })
     }
   },
   computed: {
     tagString: {
       get: function () {
-        return this.post.tags && this.post.tags.join(','); // if no tags present join is undefined
+        return this.post.tags && this.post.tags.join(',') // if no tags present join is undefined
       },
       set: function (newValue) {
         this.post.tags = newValue.split(',')

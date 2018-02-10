@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import firebase from 'firebase';
-import { usersRef } from '../../../config';
+import firebase from 'firebase'
+import { usersRef } from '../../../config'
 
 export default {
   name: 'navbar',
-  data() {
+  data () {
     return {
       mobileMenuIsActive: false,
       currentUser: firebase.auth().currentUser
@@ -46,18 +46,18 @@ export default {
     users: usersRef
   },
   methods: {
-    signOut() {
+    signOut () {
       // sign the current user out
       firebase.auth().signOut()
         .then(() => {
-          this.$router.push('/');
+          this.$router.push('/')
         })
         .catch(() => {
-          console.log('sign out fails');
+          console.log('sign out fails')
         })
     },
-    toggleMenu() {
-      this.mobileMenuIsActive = !this.mobileMenuIsActive;
+    toggleMenu () {
+      this.mobileMenuIsActive = !this.mobileMenuIsActive
     }
   }
 }

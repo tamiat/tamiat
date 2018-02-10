@@ -1,22 +1,22 @@
 <template>
   <div>
     <div class="gallery" v-if="!media.hasOwnProperty('.value')">
-      <a class="img-container" v-for="(img, key) in images" v-if="img.src && img.path">
+      <a class="img-container" v-for="(img, key) in images" :key="key" v-if="img.src && img.path">
         <div @click="deleteImage(img.path, key)" class="delete delete-button"></div>
         <div class="image-div" :style="{ 'background-image': 'url(' + img.src + ')' }"></div>
         <div class="info-tab"> {{img.name}} </div>
       </a>
     </div>
-  </div> 
+  </div>
 </template>
 
 <script>
 import firebase from 'firebase'
 
-import { mediaRef } from '../../../config';
+import { mediaRef } from '../../../config'
 
 export default {
-  name: "Media",
+  name: 'Media',
   data: function () {
     return {
     }
@@ -30,18 +30,18 @@ export default {
   },
   computed: {
     images () {
-      return this.media;
+      return this.media
     }
   },
   methods: {
-    deleteImage(path, key) {
-      let storageRef = firebase.storage().ref(path);
-      var that = this;
-      storageRef.delete().then(function() {
+    deleteImage (path, key) {
+      let storageRef = firebase.storage().ref(path)
+      var that = this
+      storageRef.delete().then(function () {
         that.$firebaseRefs.media.child(key).remove()
-      }).catch(function(error) {
+      }).catch(function (error) {
         console.error(error)
-      });
+      })
     }
   }
 }

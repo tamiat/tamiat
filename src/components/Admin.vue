@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import Navbar from './Admin/layout/Navbar';
-import Sidebar from './Admin/layout/Sidebar';
-import firebase from 'firebase';
+import Navbar from './Admin/layout/Navbar'
+import Sidebar from './Admin/layout/Sidebar'
+import firebase from 'firebase'
 
 export default {
   name: 'admin',
@@ -25,19 +25,19 @@ export default {
   },
   // prevent unauthenticated users from accessing the admin area
   // and direct them to the login page
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter (to, from, next) {
     // get the current logged in user
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // continue to /admin
-        next();
+        next()
       } else {
-        // redirect to /login 
-        next('/login');
+        // redirect to /login
+        next('/login')
       }
     })
   }
-};
+}
 
 </script>
 

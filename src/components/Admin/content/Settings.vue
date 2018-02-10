@@ -2,9 +2,15 @@
   <div class="container settings" id="settings">
 
     <!-- notification -->
-    <div v-if="notification.message" :class="'notification is-' + notification.type">
-      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-    </div>
+    <transition mode="out-in" name="fade">
+      <div v-if="notification.message" :class="'notification is-' + notification.type">
+        <button class="delete" @click="hideNotifications"></button>{{notification.message}}
+      </div>
+    </transition>
+    <!-- modal for add setting -->
+    <transition mode="out-in" name="fade">
+      <modal @close="showModal = false" :kind="kind" @addSetting='confirmAddSetting' @confirmDeleteSetting="confirmDeleteSetting()" v-if="showModal" :header="header"/>
+    </transition>
 
     <h3 class="is-size-3">General settings</h3>
     <div class="box">
@@ -54,7 +60,7 @@
 <script>
 import { settingsRef } from '../../../config';
 import notifier from '../../../mixins/notifier';
-
+import modal from '@/components/shared/Modal'
 export default {
   name: 'settings',
   data() {
@@ -72,7 +78,11 @@ export default {
           name: 'description',
           value: ''
         }
-      ]
+      ],
+      showModal: false,
+      header: '',
+      kind: '',
+      deleteKey: ''
     }
   },
   firebase: {
@@ -101,35 +111,48 @@ export default {
       }
     },
     addSettingField() {
-      const newFieldName = prompt("Name for new setting:");
-      if (this.settings.hasOwnProperty(newFieldName)) {
-        alert('This setting already does exist')
+      this.header = 'Name for a new setting: '
+      this.kind = 'addSetting'
+      this.showModal = true
+    },
+    confirmAddSetting(value) {
+      if (value === '') {
+        this.showNotification('danger', 'Please input the name of the setting first');
         return
       }
+      if (this.settings.hasOwnProperty(value)) {
+        this.showNotification('danger', 'This setting already exist');
+        return
+      }
+
       this.$firebaseRefs.settings.update({
-        [newFieldName]: ''
+        [value]: ''
       }).then(() => {
         this.showNotification('success', 'Setting Successfully added');
+        this.showModal = false
       }).catch(() => {
         this.showNotification('error', 'Setting not added');
       })
     },
     deleteSettingsField(key) {
-      const name = prompt("Type the name of the setting to comfirm");
-      if (key != name) {
-        console.log(`${key} was not equal to ${name}`)
-        alert('setting name did not match')
-        return
-      }
-      this.$firebaseRefs.settings
-        .child(key)
-        .remove()
-        .then(() => {
-          this.showNotification('success', 'Setting successfully removed');
-        })
-        .catch((e) => {
-          this.showNotification('error', 'Setting not removed');
-        })
+      this.header = 'Are you sure you want to delete this setting?'
+      this.kind = 'deleteSetting'
+      this.showModal = true
+      this.deleteKey = key
+    },
+    confirmDeleteSetting() {
+    this.$firebaseRefs.settings
+      .child(this.deleteKey)
+      .remove()
+      .then(() => {
+        this.showNotification('success', 'Setting successfully removed');
+        this.showModal = false
+        this.deleteKey = ''
+        this.kind = ''
+      })
+      .catch((e) => {
+        this.showNotification('error', 'Setting not removed');
+      })
     }
   },
   updated() {
@@ -138,6 +161,9 @@ export default {
       this.displaySettings();
     }
     this.updatesCounter++;
+  },
+  components: {
+    modal
   }
 }
 

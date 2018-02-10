@@ -112,6 +112,7 @@ export default {
           img: this.featuredImage,
           created: Date.now()
         })
+        this.$router.push({ path: '/admin/posts' })
       } else {
         this.showNotification('warning', 'The title field can not be empty');
       }

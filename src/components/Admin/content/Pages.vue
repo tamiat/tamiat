@@ -2,9 +2,16 @@
   <div class="container settings" id="settings">
 
     <!-- notification -->
-    <div v-if="notification.message" :class="'notification is-' + notification.type">
-      <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-    </div>
+    <transition mode="out-in" name="fade">
+      <div v-if="notification.message" :class="'notification is-' + notification.type">
+        <button class="delete" @click="hideNotifications"></button>{{notification.message}}
+      </div>
+    </transition>
+    
+    <!-- modal for page and field -->
+    <transition mode="out-in" name="fade">
+      <modal @close="showModal = false" :kind="kind" @addField='confirmAddField' @addPage='confirmAddPage' @confirmDeleteField='confirmDeletePageField()' @confirmDeletePage='confirmDeletePage()' v-if="showModal" :header="header"/>
+    </transition>
 
     <h3 class="is-size-3">Pages</h3>
     <div class="box">
@@ -78,7 +85,7 @@
                 </button>
               </div>
               <div class="level-item">
-                <button @click="deletePage" type="button" title="delete" class="button is-danger is-pulled-right">
+                <button @click="deletePage()" type="button" title="delete" class="button is-danger is-pulled-right">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </div>
@@ -94,14 +101,18 @@
 <script>
 import { pagesRef } from '../../../config';
 import notifier from '../../../mixins/notifier';
-
+import modal from '@/components/shared/Modal'
 export default {
   name: 'pages',
   data() {
     return {
       dropdownActive: false,
       currentPageKey: '',
-      dropDownLabel: "Select Page"
+      dropDownLabel: "Select Page",
+      showModal: false,
+      deleteKey: '',
+      header: '',
+      kind: ''
     }
   },
   firebase: {
@@ -120,6 +131,9 @@ export default {
       return this.$firebaseRefs.pages.child(this.currentPageKey)
     }
   },
+  components: {
+    modal
+  },
   methods: {
     selectPage(key) {
       this.currentPageKey = key;
@@ -134,78 +148,95 @@ export default {
       })
     },
     addPageField() {
-      const newFieldName = prompt("Name for new property:");
-      if (this.currentPage.fields && this.currentPage.fields.hasOwnProperty(newFieldName)) {
-        alert('This property already does exist')
+      this.header = 'Name for a new property: '
+      this.kind = 'addField'
+      this.showModal = true
+    },
+    confirmAddField(value) {
+      if (this.currentPage.fields && this.currentPage.fields.hasOwnProperty(value)) {
+        this.showNotification('danger', 'This property already exist');
         return
       }
       this.currentPageRef
         .child('fields')
         .update({
-          [newFieldName]: ''
+          [value]: ''
         })
         .then(() => {
           this.showNotification('success', 'Property Successfully added');
+          this.showModal = false
         })
         .catch(() => {
           this.showNotification('danger', 'Property not added');
-        })
-    },
-    deletePageField(key) {
-      const name = prompt("Type the name of the property to comfirm");
-      if (key != name) {
-        console.log(`${key} was not equal to ${name}`)
-        alert('property name did not match')
-        return
-      }
-      this.currentPageRef
-        .child('fields')
-        .child(key)
-        .remove()
-        .then(() => {
-          this.selectPage(key)
-          this.showNotification('success', 'Property successfully removed');
-        })
-        .catch(() => {
-          this.showNotification('danger', 'Property not removed');
-        })
+      })
     },
     addPage() {
-      const name = prompt("Name for new page:");
-      
-      if(!name){
+      this.header = 'Name for a new page: '
+      this.kind = 'addPage'
+      this.showModal = true
+    },
+    confirmAddPage(value) {
+      let name = value
+      if (name === '') {
+        this.showNotification('danger', 'Please input the name of the page first');
         return
       }
       if (this.pages.hasOwnProperty(name)) {
-        alert('This page already does exist')
+        this.showNotification('danger', 'This page already exist');
         return
       }
-      const key = this.$firebaseRefs.pages.push().key
+
+      let key = this.$firebaseRefs.pages.push().key
       this.$firebaseRefs.pages
         .child(key)
         .update({name})
         .then(() => {
           this.selectPage(key)
           this.showNotification('success', 'Page Successfully added');
+          this.showModal = false
         })
         .catch(() => {
           this.showNotification('danger', 'Page not added');
         })
     },
+    deletePageField(key) {
+      this.header = 'Are you sure you want to delete this field?'
+      this.kind = 'deleteField'
+      this.showModal = true
+      this.deleteKey = key
+    },
+    confirmDeletePageField() {
+      this.currentPageRef
+        .child('fields')
+        .child(this.deleteKey)
+        .remove()
+        .then(() => {
+          // this.selectPage(this.deleteKey)
+          this.showNotification('success', 'Property successfully removed');
+          this.showModal = false
+          this.deleteKey = ''
+          this.kind = ''
+        })
+        .catch(() => {
+          this.showNotification('danger', 'Property not removed');
+        })
+    },
     deletePage() {
+      this.header = 'Are you sure you want to delete this page?'
+      this.kind = 'deletePage'
+      this.showModal = true
+    },
+    confirmDeletePage() {
       const key = this.currentPageKey
-      const name = prompt("Type the name of the page to comfirm");
-      if (this.currentPage.name != name) {
-        console.log(`${this.currentPage.name} was not equal to ${name}`)
-        alert('Page name did not match')
-        return
-      }
       this.$firebaseRefs.pages
         .child(key)
         .remove()
         .then(() => {
           this.selectPage(key)
           this.showNotification('success', 'Page successfully removed');
+          this.showModal = false
+          this.header = ''
+          this.kind = ''
         })
         .catch(() => {
           this.showNotification('danger', 'Page not removed');
@@ -221,5 +252,11 @@ export default {
   h3 {
     margin: 1em 1em 1em 0em;
   }
+}
+.fade-enter-active, .fade-leave-active {
+		transition: opacity .5s
+	}
+	.fade-enter, .fade-leave-to {
+		opacity: 0
 }
 </style>

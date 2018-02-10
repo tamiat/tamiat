@@ -3,6 +3,7 @@
 <p><img src="https://github.com/tamiat/tamiat/blob/master/tamiatlogo.png" width="48%"></p>
 
 <p align="center">
+  <a href="https://www.tamiat.org"><img src="https://img.shields.io/github/tag/tamiat/tamiat.svg?label=Version" alt="Version"></a>
   <a href="https://travis-ci.org/tamiat/tamiat"><img src="https://travis-ci.org/tamiat/tamiat.svg?branch=master" alt="Build Status"></a>
   <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
   <a href="https://www.tamiat.org"><img src="https://img.shields.io/website-up-down-green-red/https/www.tamiat.org.svg?label=tamiat.org" alt="Tamiat.org"></a>

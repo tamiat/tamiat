@@ -3,7 +3,7 @@
 
     <header>
       <h2 class="is-title is-size-4">
-        <a href="#">Website Logo</a>
+        <a href="#">{{defaults.siteTitle || 'Website Logo'}}</a>
       </h2>
       <nav>
         <li>
@@ -158,392 +158,361 @@
 </template>
 
 <script>
-import { settingsRef, postsRef  } from '../config';
+import { settingsRef, postsRef, defaultsRef } from '../config'
 
 export default {
-  name: 'home',
-  firebase: {
-    // load settings as object instead of array (default)
-    settings: {
-      source: settingsRef,
-      asObject: true
-    },
-    posts: {
-      source: postsRef,
-      asObject: true
-    }
-  }
+	name: 'home',
+	firebase: {
+		// load settings as object instead of array (default)
+		settings: {
+			source: settingsRef,
+			asObject: true,
+		},
+		defaults: {
+			source: defaultsRef,
+			asObject: true,
+		},
+		posts: {
+			source: postsRef,
+			asObject: true,
+		},
+	},
 }
-
 </script>
 
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-  font: normal 16px sans-serif;
-  color: #555;
+	font: normal 16px sans-serif;
+	color: #555;
 }
 
 ul,
 nav {
-  list-style: none;
+	list-style: none;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  opacity: 0.9;
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+	opacity: 0.9;
 }
 
 a:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 a.btn {
-  color: #fff;
-  border-radius: 4px;
-  text-transform: uppercase;
-  background-color: #2196F3;
-  font-weight: 800;
-  text-align: center;
+	color: #fff;
+	border-radius: 4px;
+	text-transform: uppercase;
+	background-color: #2196f3;
+	font-weight: 800;
+	text-align: center;
 }
 
 hr {
-  width: 150px;
-  height: 2px;
-  background-color: #2196F3;
-  border: 0;
-  margin-bottom: 80px;
+	width: 150px;
+	height: 2px;
+	background-color: #2196f3;
+	border: 0;
+	margin-bottom: 80px;
 }
 
 section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-  padding: 125px 100px;
+	padding: 125px 100px;
 }
 
 @media (max-width: 1000px) {
-
-  section {
-    padding: 100px 50px;
-  }
+	section {
+		padding: 100px 50px;
+	}
 }
 
 @media (max-width: 600px) {
-
-  section {
-    padding: 80px 30px;
-  }
+	section {
+		padding: 80px 30px;
+	}
 }
 
 section h3.title {
-  color: #414a4f;
-  text-transform: capitalize;
-  font: bold 32px 'Open Sans', sans-serif;
-  margin-bottom: 35px;
-  text-align: center;
+	color: #414a4f;
+	text-transform: capitalize;
+	font: bold 32px 'Open Sans', sans-serif;
+	margin-bottom: 35px;
+	text-align: center;
 }
 
 section p {
-  max-width: 800px;
-  text-align: center;
-  margin-bottom: 35px;
-  padding: 0 20px;
-  line-height: 2;
+	max-width: 800px;
+	text-align: center;
+	margin-bottom: 35px;
+	padding: 0 20px;
+	line-height: 2;
 }
 
 ul.grid {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
-
-
-
-
-
 
 /*-------------
        Header
   -------------*/
 
 header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  padding: 30px 100px 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #fff;
+	padding: 30px 100px 0;
 }
 
 header h2 {
-  font-family: 'Quicksand', sans-serif;
+	font-family: 'Quicksand', sans-serif;
 }
 
 header nav {
-  display: flex;
+	display: flex;
 }
 
 header a,
 header a:hover {
-  color: white;
+	color: white;
 }
 
 header nav li {
-  margin: 0 15px;
+	margin: 0 15px;
 }
 
 header nav li:first-child {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 header nav li:last-child {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 @media (max-width: 1000px) {
-  header {
-    padding: 20px 50px;
-  }
+	header {
+		padding: 20px 50px;
+	}
 }
-
 
 @media (max-width: 700px) {
-  header {
-    flex-direction: column;
-  }
+	header {
+		flex-direction: column;
+	}
 
-  header h2 {
-    margin-bottom: 15px;
-  }
+	header h2 {
+		margin-bottom: 15px;
+	}
 }
-
-
-
-
 
 /*----------------
        Hero Section
   ----------------*/
 
 .hero {
-  position: relative;
-  justify-content: center !important;
-  min-height: 100vh;
-  color: #fff;
-  text-align: center;
-  z-index: 0;
+	position: relative;
+	justify-content: center !important;
+	min-height: 100vh;
+	color: #fff;
+	text-align: center;
+	z-index: 0;
 }
 
 .hero .background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-color: #2196F3;
-  z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-color: #2196f3;
+	z-index: -1;
 }
 
 .hero .background-image:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #414a4f;
-  opacity: 0.75;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #414a4f;
+	opacity: 0.75;
 }
 
 .hero h1 {
-  font: bold 60px 'Open Sans', sans-serif;
-  margin-bottom: 15px;
+	font: bold 60px 'Open Sans', sans-serif;
+	margin-bottom: 15px;
 }
 
 .hero h3 {
-  font: normal 28px 'Open Sans', sans-serif;
-  margin-bottom: 40px;
+	font: normal 28px 'Open Sans', sans-serif;
+	margin-bottom: 40px;
 }
 
 .cta {
-  padding-top: 15px;
+	padding-top: 15px;
 }
 
 .hero a.btn {
-  padding: 20px 48px;
+	padding: 20px 48px;
 }
 
 @media (max-width: 800px) {
+	.hero {
+		min-height: 600px;
+	}
 
-  .hero {
-    min-height: 600px;
-  }
+	.hero h1 {
+		font-size: 48px;
+	}
 
-  .hero h1 {
-    font-size: 48px;
-  }
+	.hero h3 {
+		font-size: 24px;
+	}
 
-  .hero h3 {
-    font-size: 24px;
-  }
-
-  .hero a.btn {
-    padding: 15px 40px;
-  }
+	.hero a.btn {
+		padding: 15px 40px;
+	}
 }
-
-
-
-
-
 
 /*--------------------
        Our Work Section
   ---------------------*/
 
 .оur-work {
-  background-color: #fff;
+	background-color: #fff;
 }
 
 .our-work .grid li {
-  padding: 20px;
-  height: 350px;
-  border-radius: 3px;
+	padding: 20px;
+	height: 350px;
+	border-radius: 3px;
 
-  background-clip: content-box;
-  background-size: cover;
-  background-position: center;
-  background-color: #333;
+	background-clip: content-box;
+	background-size: cover;
+	background-position: center;
+	background-color: #333;
 }
 
 .our-work .grid li.small {
-  flex-basis: 40%;
+	flex-basis: 40%;
 }
 
 .our-work .grid li.large {
-  flex-basis: 60%;
+	flex-basis: 60%;
 }
-
 
 @media (max-width: 1000px) {
-
-  .our-work .grid li.small,
-  .our-work .grid li.large {
-    flex-basis: 100%;
-  }
+	.our-work .grid li.small,
+	.our-work .grid li.large {
+		flex-basis: 100%;
+	}
 }
-
-
-
-
-
 
 /*----------------------
        Features Section
   ----------------------*/
 
 .features {
-  background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
 
 .features .grid li {
-  padding: 0 30px;
-  flex-basis: 33%;
-  text-align: center;
+	padding: 0 30px;
+	flex-basis: 33%;
+	text-align: center;
 }
 
 .features .grid li i {
-  font-size: 50px;
-  color: #2196F3;
-  margin-bottom: 25px;
+	font-size: 50px;
+	color: #2196f3;
+	margin-bottom: 25px;
 }
 
 .features .grid li h4 {
-  color: #555;
-  font-size: 20px;
-  margin-bottom: 25px;
+	color: #555;
+	font-size: 20px;
+	margin-bottom: 25px;
 }
 
 .features .grid li p {
-  margin: 0;
+	margin: 0;
 }
 
 @media (max-width: 1000px) {
+	.features .grid li {
+		flex-basis: 70%;
+		margin-bottom: 65px;
+	}
 
-  .features .grid li {
-    flex-basis: 70%;
-    margin-bottom: 65px;
-  }
-
-  .features .grid li:last-child {
-    margin-bottom: 0;
-  }
+	.features .grid li:last-child {
+		margin-bottom: 0;
+	}
 }
-
 
 @media (max-width: 600px) {
-
-  .features .grid li {
-    flex-basis: 100%;
-  }
+	.features .grid li {
+		flex-basis: 100%;
+	}
 }
-
-
-
-
-
 
 /*--------------------
        Reviews Section
   --------------------*/
 
 .reviews {
-  background-color: #fff;
+	background-color: #fff;
 }
 
 .reviews .quote {
-  text-align: center;
-  width: 80%;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  padding: 0;
+	text-align: center;
+	width: 80%;
+	font-size: 22px;
+	font-weight: 300;
+	line-height: 1.5;
+	margin-bottom: 20px;
+	padding: 0;
 }
 
 .reviews .author {
-  font-size: 18px;
-  margin-bottom: 50px;
+	font-size: 18px;
+	margin-bottom: 50px;
 }
 
 .reviews .author:last-child {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 @media (max-width: 1000px) {
+	.reviews .quote {
+		font-size: 20px;
+	}
 
-  .reviews .quote {
-    font-size: 20px;
-  }
-
-  .reviews .author {
-    font-size: 16px;
-  }
+	.reviews .author {
+		font-size: 16px;
+	}
 }
 
 /**
@@ -551,32 +520,32 @@ header nav li:last-child {
  *
  * Card Styles
  */
- .wrapper {
-   text-align: center;
- }
+.wrapper {
+	text-align: center;
+}
 
 .card {
 	background-color: #fff;
 	margin-bottom: 1.6rem;
-  width: 300px;
-  display: inline-block;
-  margin: 30px;
-  box-shadow: 0px 10px 7px 3px lightgray;
+	width: 300px;
+	display: inline-block;
+	margin: 30px;
+	box-shadow: 0px 10px 7px 3px lightgray;
 }
 
 .card__padding {
 	padding: 1rem;
 }
- 
+
 .card__image {
 	min-height: 100px;
 	background-color: #eee;
 }
-	.card__image img {
-		width: 100%;
-		max-width: 100%;
-		display: block;
-	}
+.card__image img {
+	width: 100%;
+	max-width: 100%;
+	display: block;
+}
 
 .card__content {
 	position: relative;
@@ -592,17 +561,17 @@ header nav li:last-child {
 /* card article */
 .card__article p {
 	height: 100px;
-  overflow: hidden;
-  margin-bottom: 0px;
+	overflow: hidden;
+	margin-bottom: 0px;
 }
 .card__article a {
 	text-decoration: none;
 	color: #444;
 	transition: all 0.5s ease;
 }
-	.card__article a:hover {
-		color: #2980b9;
-	}
+.card__article a:hover {
+	color: #2980b9;
+}
 
 /* card action */
 .card__action {
@@ -611,19 +580,20 @@ header nav li:last-child {
 	padding-left: 1.6rem;
 	padding-bottom: 1.6rem;
 }
-	 
-.card__author {}
 
-	.card__author img,
-	.card__author-content {
-		display: inline-block;
-		vertical-align: middle;
-	}
+.card__author {
+}
 
-	.card__author img{
-		border-radius: 50%;
-		margin-right: 0.6em;
-	}
+.card__author img,
+.card__author-content {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.card__author img {
+	border-radius: 50%;
+	margin-right: 0.6em;
+}
 
 .card__share {
 	float: right;
@@ -638,125 +608,108 @@ header nav li:last-child {
 	visibility: hidden;
 	width: 160px;
 	transform: translateZ(0);
-  	transform: translateX(0px);
-  	transition: transform 0.35s ease;
+	transform: translateX(0px);
+	transition: transform 0.35s ease;
 }
-	.card__social--active {
-		visibility: visible;
-		/*z-index: 3;*/
-		transform: translateZ(0);
- 		transform: translateX(-48px);
-  		transition: transform 0.35s ease;
-	}
-
-
-
-
+.card__social--active {
+	visibility: visible;
+	/*z-index: 3;*/
+	transform: translateZ(0);
+	transform: translateX(-48px);
+	transition: transform 0.35s ease;
+}
 
 /*---------------------
        Contact Section
   ---------------------*/
 
 .contact {
-  background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
 
 .contact form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
 
-  max-width: 800px;
-  width: 80%;
+	max-width: 800px;
+	width: 80%;
 }
 
 .contact form input {
-  padding: 15px;
-  flex: 1;
-  margin-right: 30px;
-  font-size: 18px;
-  color: #555;
+	padding: 15px;
+	flex: 1;
+	margin-right: 30px;
+	font-size: 18px;
+	color: #555;
 }
 
 .contact form .btn {
-  padding: 18px 42px;
+	padding: 18px 42px;
 }
-
 
 @media (max-width: 800px) {
-
-  .contact form input {
-    flex-basis: 100%;
-    margin: 0 0 20px 0;
-  }
+	.contact form input {
+		flex-basis: 100%;
+		margin: 0 0 20px 0;
+	}
 }
-
-
-
-
-
 
 /*-------------
        Footer
   -------------*/
 
 footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #fff;
-  background-color: #414a4f;
-  padding: 60px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	color: #fff;
+	background-color: #414a4f;
+	padding: 60px 0;
 }
 
 footer ul {
-  display: flex;
-  margin-bottom: 25px;
-  font-size: 32px;
+	display: flex;
+	margin-bottom: 25px;
+	font-size: 32px;
 }
 
 footer ul li {
-  margin: 0 8px;
+	margin: 0 8px;
 }
 
 footer ul li:first-child {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 footer ul li:last-child {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 footer p {
-  text-transform: uppercase;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 10px;
+	text-transform: uppercase;
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.6);
+	margin-bottom: 10px;
 }
 
 footer p a {
-  color: #fff;
+	color: #fff;
 }
 
 @media (max-width: 700px) {
-
-  footer {
-    padding: 80px 15px;
-  }
+	footer {
+		padding: 80px 15px;
+	}
 }
-
-
-
-
-
 
 /* -- Demo ads -- */
 
 @media (max-width: 1200px) {
-  #bsaHolder {
-    display: none;
-  }
+	#bsaHolder {
+		display: none;
+	}
 }
 </style>

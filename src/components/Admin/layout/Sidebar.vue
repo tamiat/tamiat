@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'sidebar',
-  data() {
+  data () {
     return {
       // this array contains the all the links in the sidebar
       menu: [
@@ -43,7 +43,7 @@ export default {
           name: 'Settings',
           path: '/admin/settings',
           icon: 'fa-gear'
-        },
+        }
       ]
     }
   }

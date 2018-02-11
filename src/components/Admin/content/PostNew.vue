@@ -77,15 +77,14 @@
 <script>
 import firebase from 'firebase'
 
-import { mediaRef } from '../../../config';
-import VueQuillEditor from 'vue-quill-editor';
-import editorOptions from './editor-options';
-import imageLoader from '../../../mixins/image-loader';
-import notifier from '../../../mixins/notifier';
+import { mediaRef } from '../../../config'
+import editorOptions from './editor-options'
+import imageLoader from '../../../mixins/image-loader'
+import notifier from '../../../mixins/notifier'
 
 export default {
   name: 'post-new',
-  data() {
+  data () {
     return {
       title: '',
       body: '',
@@ -101,37 +100,37 @@ export default {
   props: ['add-post'],
   mixins: [imageLoader, notifier],
   methods: {
-    add() {
+    add () {
       console.log(this.featuredImage)
       if (this.title) {
         this.addPost({
           title: this.title,
           body: this.body,
           author: this.author,
-          tags: this.tags.replace(/ /g, "").split(","),
+          tags: this.tags.replace(/ /g, '').split(','),
           img: this.featuredImage,
           created: Date.now()
         })
+        this.$router.push({ path: '/admin/posts' })
       } else {
-        this.showNotification('warning', 'The title field can not be empty');
+        this.showNotification('warning', 'The title field can not be empty')
       }
-
     },
     uploadFeaturedImage (e) {
       console.log(e)
-      let file = e.target.files[0];
-      let storageRef = firebase.storage().ref('images/' + file.name);
+      let file = e.target.files[0]
+      let storageRef = firebase.storage().ref('images/' + file.name)
 
-      storageRef.put(file).then((function (snapshot) {
+      storageRef.put(file).then((snapshot) => {
         console.log(snapshot)
-        this.featuredImage = snapshot.downloadURL;
+        this.featuredImage = snapshot.downloadURL
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({
-          src: snapshot.downloadURL, 
+          src: snapshot.downloadURL,
           path: snapshot.ref.fullPath,
           name: snapshot.metadata.name
         })
-      }).bind(this));
+      })
     }
   }
 }

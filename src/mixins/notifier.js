@@ -11,16 +11,16 @@ export default {
   },
   methods: {
     showNotification (type, message) {
-      this.notification.type = type;
-      this.notification.message = message;
+      this.notification.type = type
+      this.notification.message = message
       setTimeout(() => {
-        this.hideNotifications();
-      }, 3000);
+        this.hideNotifications()
+      }, 3000)
     },
     hideNotifications () {
       // hide all notifications
-      this.notification.type = '';
-      this.notification.message = '';
+      this.notification.type = ''
+      this.notification.message = ''
     }
   }
 }

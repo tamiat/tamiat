@@ -22,11 +22,9 @@ body,
   margin: 0px
   padding: 0px
 
-
 .bulma
   @import "../node_modules/bulma/bulma"
   *
-  box-sizing: border-box
-
+    box-sizing: border-box
 
 </style>

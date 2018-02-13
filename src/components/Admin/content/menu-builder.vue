@@ -80,6 +80,7 @@ export default {
   data () {
     return {
       key: '',
+      link: '', // {'.key', name, path}
       name: '',
       path: '',
       action: 'new'
@@ -106,9 +107,14 @@ export default {
       this.path = link.path
       this.action = 'edit'
       this.key = link['.key']
+      this.link = Object.assign({}, link)
     },
     updateLink () {
-      this.$firebaseRefs.menu.child(this.key).set({name: this.name, path: this.path})
+      delete this.link['.key']
+      this.link.name = this.name
+      this.link.path = this.path
+
+      this.$firebaseRefs.menu.child(this.key).set(this.link)
       this.clear()
     },
     removeLink (item) {

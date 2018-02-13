@@ -20,7 +20,10 @@
           </div>
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-info" @click="addLink">Add</button>
+              <button v-if="action === 'new'" class="button is-info" @click="addLink">Add</button>
+              <button v-if="action === 'edit'" class="button is-info" @click="updateLink">
+                Update
+              </button>
             </div>
             <div class="control">
               <button class="button" @click="clear">Cancel</button>
@@ -40,6 +43,11 @@
 
               <!-- move down -->
               <span v-if="index !== menu.length - 1" class="has-text-danger" style="cursor: pointer;" @click="moveDown(item, menu[index + 1])">DOWN</span>
+
+              <!-- edit -->
+              <span class="has-text-info" style="cursor: pointer;" @click="editLink(item)">
+                EDIT
+              </span>
             </li>
           </ul>
         </div>
@@ -55,8 +63,10 @@ import { settingsRef, navRef } from '../../../config'
 export default {
   data () {
     return {
+      key: '',
       name: '',
-      path: ''
+      path: '',
+      action: 'new'
     }
   },
   firebase: {
@@ -75,12 +85,23 @@ export default {
       }
       this.clear()
     },
+    editLink (link) {
+      this.name = link.name
+      this.path = link.path
+      this.action = 'edit'
+      this.key = link['.key']
+    },
+    updateLink () {
+      this.$firebaseRefs.menu.child(this.key).set({name: this.name, path: this.path})
+      this.clear()
+    },
     removeLink (item) {
       this.$firebaseRefs.menu.child(item['.key']).remove()
     },
     clear () {
       this.name = ''
       this.path = ''
+      this.action = 'new'
     },
     moveUp (item, previousItem) {
       let itemCopy = Object.assign({}, item)

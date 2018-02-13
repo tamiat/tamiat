@@ -34,6 +34,12 @@
             <li>
               |__ {{item.name}}: {{item.path}}
               <span class="delete has-text-danger" @click="removeLink(item)">delete</span>
+
+              <!-- move up -->
+              <span v-if="index !== 0" class="has-text-success" style="cursor: pointer;" @click="moveUp(item, menu[index - 1])">UP</span>
+
+              <!-- move down -->
+              <span v-if="index !== menu.length - 1" class="has-text-danger" style="cursor: pointer;" @click="moveDown(item, menu[index + 1])">DOWN</span>
             </li>
           </ul>
         </div>
@@ -75,6 +81,26 @@ export default {
     clear () {
       this.name = ''
       this.path = ''
+    },
+    moveUp (item, previousItem) {
+      let itemCopy = Object.assign({}, item)
+      let previousItemCopy = Object.assign({}, previousItem)
+
+      delete itemCopy['.key']
+      delete previousItemCopy['.key']
+
+      this.$firebaseRefs.menu.child(item['.key']).set(previousItemCopy)
+      this.$firebaseRefs.menu.child(previousItem['.key']).set(itemCopy)
+    },
+    moveDown (item, nextItem) {
+      let itemCopy = Object.assign({}, item)
+      let nextItemCopy = Object.assign({}, nextItem)
+
+      delete itemCopy['.key']
+      delete nextItemCopy['.key']
+
+      this.$firebaseRefs.menu.child(item['.key']).set(nextItemCopy)
+      this.$firebaseRefs.menu.child(nextItem['.key']).set(itemCopy)
     }
   }
 }

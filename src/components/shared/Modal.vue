@@ -11,7 +11,11 @@
        <input type="text" class="input" v-if="kind == 'addPage'" :placeholder="'Page'" v-model="pageName">
        <input type="text" class="input" v-if="kind == 'addSetting'" :placeholder="'Setting'" v-model="settingName">
     </section>
-    <footer class="modal-card-foot">
+    <footer class="modal-card-foot" v-if="kind == 'logout'">
+      <button class="button is-success" @click="$emit('confirmLogout')">Logout</button>
+      <button class="button" @click="$emit('close')">Cancel</button>
+    </footer>
+    <footer class="modal-card-foot" v-else>
       <template v-if="kind == 'deletePage' || kind == 'deleteField' || kind == 'deleteSetting' || kind == 'deletePost'">
         <button class="button is-success" @click="deleteObj()">Confirm</button>
       </template>

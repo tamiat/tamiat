@@ -1,6 +1,11 @@
 <template>
   <nav class="navbar" id="navbar">
 
+  <!-- modal for post delete -->
+    <transition mode="out-in" name="fade">
+      <modal @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header"/>
+    </transition>
+
     <!-- the navbar brand -->
     <div class="navbar-brand">
       <router-link class="navbar-item" to="/">
@@ -33,13 +38,16 @@
 <script>
 import firebase from 'firebase'
 import { usersRef } from '../../../config'
-
+import modal from '@/components/shared/Modal'
 export default {
   name: 'navbar',
   data () {
     return {
       mobileMenuIsActive: false,
-      currentUser: firebase.auth().currentUser
+      currentUser: firebase.auth().currentUser,
+      showModal: false,
+      header: 'Are you sure you want to logout?',
+      kind: 'logout'
     }
   },
   firebase: {
@@ -47,9 +55,13 @@ export default {
   },
   methods: {
     signOut () {
+      this.showModal = true
+    },
+    confirmLogout () {
       // sign the current user out
       firebase.auth().signOut()
         .then(() => {
+          this.showModal = false
           this.$router.push('/')
         })
         .catch(() => {
@@ -59,6 +71,9 @@ export default {
     toggleMenu () {
       this.mobileMenuIsActive = !this.mobileMenuIsActive
     }
+  },
+  components: {
+    modal
   }
 }
 

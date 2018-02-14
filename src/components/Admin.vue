@@ -6,6 +6,24 @@
 
     <!-- The admin page content -->
     <div class="wrapper">
+      <section class="hero is-light is-medium is-bold" v-if="$route.name === 'Admin'">
+        <div class="hero-body ">
+          <div class="container has-text-centered">
+            <div class="titleAdmin">
+              <h1 class="title">
+                Welcome to Tamiat CMS
+              </h1>
+            </div>
+            <h2 class="subtitle">
+              <a href="https://github.com/tamiat/tamiat"> https://github.com/tamiat/tamiat </a>
+            </h2><br><br>
+            <router-link to="/">
+              <img src="/static/img/logo.png" alt="Tamiat CMS logo">
+            </router-link>
+            <p>Version v0.2.2</p>
+          </div>
+        </div>
+      </section>
       <router-view></router-view>
     </div>
 
@@ -76,4 +94,6 @@ export default {
     z-index: 2000
     max-width: 90%
 
+  .titleAdmin
+    padding-bottom: 15px
 </style>

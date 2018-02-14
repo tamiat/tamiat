@@ -28,7 +28,7 @@
         <div class="field">
           <label class="label">Author</label>
           <div class="control">
-            <input type="text" class="input" v-model="author" required>
+            <input type="text" class="input" v-model="author" maxlength="25" required>
             <p>this field is for demo purposes only</p>
           </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="field">
           <label class="label">Tags</label>
           <div class="control">
-            <input type="text" class="input" v-model="tags">
+            <input type="text" class="input" maxlength="25" v-model="tags">
             <p>Seperate tags with commas</p>
           </div>
         </div>

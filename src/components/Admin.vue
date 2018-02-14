@@ -20,7 +20,7 @@
             <router-link to="/">
               <img src="/static/img/logo.png" alt="Tamiat CMS logo">
             </router-link>
-            <p>Version 1.0.0</p>
+            <p>Version v0.2.2</p>
           </div>
         </div>
       </section>

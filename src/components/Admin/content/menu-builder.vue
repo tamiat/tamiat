@@ -5,6 +5,7 @@
     <div class="box">
       <div class="columns">
 
+        <!-- link form -->
         <div class="column">
           <div class="field">
             <label class="label">Name</label>
@@ -34,28 +35,19 @@
           </div>
         </div>
 
+        <!-- menu visualization -->
         <div class="column">
           <p class="is-size-4">menu</p>
           <ul v-for="(item, index) in menu" :key="index">
             <li>
               |__ {{item.name}}: {{item.path}}
 
-              <span class="delete has-text-danger" @click="removeLink(item)">delete</span>
-
-              <!-- move up -->
-              <span v-if="index !== 0" class="has-text-success" style="cursor: pointer;" @click="moveUp(item, menu[index - 1])">UP</span>
-
-              <!-- move down -->
-              <span v-if="index !== menu.length - 1" class="has-text-danger" style="cursor: pointer;" @click="moveDown(item, menu[index + 1])">DOWN</span>
-
-              <!-- edit -->
-              <span class="has-text-info" style="cursor: pointer;" @click="editLink(item)">
-                EDIT
-              </span>
-
-              <!-- add sub link -->
-              <span class="has-text-primary" style="cursor: pointer;" @click="addSubLink(item)">
-                SUB
+              <span class="link-actions">
+                <span class="has-text-danger fa fa-trash" @click="removeLink(item)"></span>
+                <span v-if="index !== 0" class="has-text-success fa fa-arrow-up" @click="moveUp(item, menu[index - 1])"></span>
+                <span v-if="index !== menu.length - 1" class="fa fa-arrow-down" @click="moveDown(item, menu[index + 1])"></span>
+                <span class="has-text-info fa fa-edit" @click="editLink(item)"></span>
+                <span class="has-text-primary fa fa-plus" @click="addSubLink(item)"></span>
               </span>
 
               <!-- render children links -->
@@ -63,8 +55,9 @@
                 <li v-for="(child, key) in item.children" :key="key">
                   |__ {{child.name}}: {{child.path}}
 
-                  <!-- remove sublink -->
-                  <span class="delete has-text-danger" @click="removeSubLink(key, item)">delete</span>
+                  <span class="link-actions">
+                    <span class="has-text-danger fa fa-trash" @click="removeSubLink(key, item)"></span>
+                  </span>
                 </li>
               </ul>
             </li>
@@ -165,3 +158,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+.link-actions {
+  display: none;
+  span {
+    cursor: pointer;
+  }
+}
+
+li:hover .link-actions {
+  display: inline;
+}
+
+</style>

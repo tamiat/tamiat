@@ -60,8 +60,11 @@
 
               <!-- render children links -->
               <ul v-if="item.children" style="padding-left: 30px;">
-                <li v-for="(child, index) in item.children" :key="index">
+                <li v-for="(child, key) in item.children" :key="key">
                   |__ {{child.name}}: {{child.path}}
+
+                  <!-- remove sublink -->
+                  <span class="delete has-text-danger" @click="removeSubLink(key, item)">delete</span>
                 </li>
               </ul>
             </li>
@@ -155,6 +158,9 @@ export default {
         path: this.path
       })
       this.clear()
+    },
+    removeSubLink (key, parent) {
+      this.$firebaseRefs.menu.child(parent['.key']).child('children').child(key).remove()
     }
   }
 }

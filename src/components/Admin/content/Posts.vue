@@ -22,20 +22,60 @@
     <!-- the new post form loaded via vue router -->
       <router-view :add-post="addPost" :update-post="updatePost" :posts="posts" :key="$route.name + ($route.params.key || '')"></router-view>
 
+    <!-- Search posts -->
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <input class="input" type="text" v-model="searchPost" placeholder="Find a post">
+      </p>
+      <p class="control">
+        <a class="button is-info">
+          Search
+        </a>
+      </p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <!-- Categories -->
+      <dropdown :options="postsList" :selectedElement="params.category" />
+      <!-- Bulk actions -->
+      <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()"/>
+    </div>
+
     <!-- posts list -->
     <div class="box">
       <table class="table is-fullwidth is-striped">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Created</th>
+            <th @click="sortBy('title')">
+              Title
+              <span class="icon">
+                <i :class="{ 'fa fa-sort-down': !sortOptions.title.reverse, 'fa fa-sort-up': sortOptions.title.reverse }"></i>
+              </span>
+            </th>
+            <th>
+              Category
+            </th>
+            <th @click="sortBy('author')">
+              Author
+              <span class="icon">
+                <i :class="{ 'fa fa-sort-down': !sortOptions.author.reverse, 'fa fa-sort-up': sortOptions.author.reverse }"></i>
+              </span>
+            </th>
+            <th @click="sortBy('created')">
+              Created
+              <span class="icon">
+                <i :class="{ 'fa fa-sort-down': !sortOptions.created.reverse, 'fa fa-sort-up': sortOptions.created.reverse }"></i>
+              </span>
+            </th>
             <th>tags</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(post, index) in posts" :key="index">
+          <tr v-for="(post, index) in filteredPosts" :key="index">
             <td class="post-title-cell">
+              <checkbox v-model="post.selected" />
+              <!-- <input type="checkbox" v-model="post.selected" /> -->
               <router-link :to="'/admin/posts/edit/' + post['.key']">
                 {{post.title}}
               </router-link>
@@ -47,7 +87,7 @@
                 <span @click="deletePost(post)" class="has-text-danger">Delete</span>
               </div>
             </td>
-
+            <td class="post-category-cell">{{post.category}}</td>
             <td class="post-author-cell">{{post.author}}</td>
             <td class="post-tags-cell">{{postDate(post.created)}}</td>
             <td class="post-tags-cell">
@@ -67,6 +107,9 @@ import moment from 'moment'
 import { postsRef } from '../../../config'
 import notifier from '../../../mixins/notifier'
 import modal from '@/components/shared/Modal'
+import postFilters from '@/mixins/postFilters'
+import dropdown from '@/components/shared/Dropdown'
+import checkbox from '@/components/shared/Checkbox'
 export default {
   name: 'posts',
   data () {
@@ -74,13 +117,14 @@ export default {
       showModal: false,
       header: '',
       kind: '',
-      post: ''
+      post: '',
+      sortKey: 'tittle'
     }
   },
   firebase: {
     posts: postsRef
   },
-  mixins: [notifier],
+  mixins: [notifier, postFilters],
   methods: {
     addPost (post) {
       this.$firebaseRefs.posts.push(post).then(() => {
@@ -120,7 +164,9 @@ export default {
     }
   },
   components: {
-    modal
+    modal,
+    dropdown,
+    checkbox
   }
 }
 
@@ -129,13 +175,28 @@ export default {
 <style lang="scss">
 #posts {
   .post-title-cell {
-    width: 50%;
+    width: 40%;
+  }
+  .post-category-cell {
+    width: 20%;
   }
   .post-author-cell {
-    width: 25%;
+    width: 20%;
   }
   .post-tags-cell {
-    width: 25%;
+    width: 20%;
   }
+}
+th {
+  cursor: pointer
+}
+.icon-centered {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+.filters {
+  padding-bottom: 10px;
+  padding-top: 20px;
 }
 </style>

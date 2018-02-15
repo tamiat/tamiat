@@ -1,7 +1,6 @@
 <template>
   <div class="box">
 
-    <h3>Edit post</h3>
     <div class="columns">
 
       <div class="column is-two-thirds">
@@ -10,7 +9,7 @@
         <div class="field">
           <label class="label">Post's title</label>
           <div class="control">
-            <input type="text" class="input" v-model="post.title">
+            <input type="text" class="input" placeholder="Title" v-model="post.title">
           </div>
         </div>
 
@@ -18,6 +17,15 @@
         <quill-editor v-model="post.body" :options="editorOptions">
         </quill-editor>
         <input type="file" id="getImage" style="display: none;" @change="uploadImage">
+
+        <!-- Category field -->
+        <br>
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <input type="text" class="input" placeholder="Category" v-model="post.category" maxlength="25">
+          </div>
+        </div>
 
       </div>
 
@@ -28,7 +36,7 @@
         <div class="field">
           <label class="label">Author</label>
           <div class="control">
-            <input type="text" class="input" maxlength="25" v-model="post.author">
+            <input type="text" class="input"  placeholder="Author" maxlength="25" v-model="post.author">
             <p>this field is for demo purposes only</p>
           </div>
         </div>

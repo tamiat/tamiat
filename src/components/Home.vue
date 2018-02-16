@@ -6,17 +6,8 @@
         <a href="#">Website Logo</a>
       </h2>
       <nav>
-        <li>
-          <a href="#">Home</a>
-        </li>
-        <li>
-          <a href="#">Products</a>
-        </li>
-        <li>
-          <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Contacts</a>
+        <li v-for="link in nav" :key="link">
+          <router-link :to="link.path">{{link.name}}</router-link>
         </li>
       </nav>
     </header>
@@ -158,7 +149,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef } from '../config'
+import { settingsRef, postsRef, navRef } from '../config'
 
 export default {
   name: 'home',
@@ -171,6 +162,9 @@ export default {
     posts: {
       source: postsRef,
       asObject: true
+    },
+    nav: {
+      source: navRef
     }
   }
 }

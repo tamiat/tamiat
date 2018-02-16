@@ -84,9 +84,9 @@ $navbarBg: #333;
 $navbarColor: #aaaaaa;
 
 #navbar {
-  position: fixed;
+  // position: fixed;
   z-index: 1024;
-  width: 100%;
+  // width: 100%;
   background-color: $navbarBg;
 
   .navbar-item {

@@ -8,6 +8,11 @@
       <nav>
         <li v-for="link in nav" :key="link">
           <router-link :to="link.path">{{link.name}}</router-link>
+          <ul v-if="link.children" class="sub-nav">
+            <li v-for="subLink in link.children" :key="subLink">
+              <router-link :to="subLink.path">{{subLink.name}}</router-link>
+            </li>
+          </ul>
         </li>
       </nav>
     </header>
@@ -186,6 +191,27 @@ html {
 ul,
 nav {
   list-style: none;
+}
+
+ul li,
+nav li {
+  position: relative;
+}
+
+.sub-nav {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  padding-top: 10px;
+}
+
+.sub-nav li {
+  margin-left: 0px;
+}
+
+li:hover .sub-nav, .sub-nav:hover {
+  display: block;
 }
 
 a {

@@ -7,10 +7,13 @@
       </h2>
       <nav>
         <li v-for="link in nav" :key="link">
-          <router-link :to="link.path">{{link.name}}</router-link>
+          <a v-if="link.isAbsolute" :href="link.path">{{link.name}}</a>
+          <router-link v-else :to="link.path">{{link.name}}</router-link>
+
           <ul v-if="link.children" class="sub-nav">
             <li v-for="subLink in link.children" :key="subLink">
-              <router-link :to="subLink.path">{{subLink.name}}</router-link>
+              <a v-if="subLink.isAbsolute" :href="subLink.path">{{subLink.name}}</a>
+              <router-link v-else :to="subLink.path">{{subLink.name}}</router-link>
             </li>
           </ul>
         </li>

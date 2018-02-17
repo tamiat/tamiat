@@ -82,6 +82,11 @@ export default {
       action: 'new'
     }
   },
+  computed: {
+    isAbsolute () {
+      return this.path.startsWith('http')
+    }
+  },
   firebase: {
     settings: {
       source: settingsRef,
@@ -94,7 +99,11 @@ export default {
   methods: {
     addLink () {
       if (this.name && this.path) {
-        this.$firebaseRefs.menu.push({ name: this.name, path: this.path })
+        this.$firebaseRefs.menu.push({
+          name: this.name,
+          path: this.path,
+          isAbsolute: this.isAbsolute
+        })
       }
       this.clear()
     },
@@ -109,6 +118,7 @@ export default {
       delete this.link['.key']
       this.link.name = this.name
       this.link.path = this.path
+      this.link.isAbsolute = this.isAbsolute
 
       this.$firebaseRefs.menu.child(this.key).set(this.link)
       this.clear()
@@ -148,7 +158,8 @@ export default {
     appendSubLink () {
       this.$firebaseRefs.menu.child(this.key).child('children').push({
         name: this.name,
-        path: this.path
+        path: this.path,
+        isAbsolute: this.isAbsolute
       })
       this.clear()
     },

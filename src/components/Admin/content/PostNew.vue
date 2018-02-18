@@ -77,7 +77,8 @@
     </div>
 
     <!-- the form buttons -->
-    <button type="submit" class="button is-info" @click="add">Publish</button>
+    <button type="submit" class="button is-success" @click="add('published')">Publish</button>
+    <button type="submit" class="button is-info" @click="add('saved')">Save Draft</button>
     <router-link to="/admin/posts" class="button is-danger">Cancel</router-link>
   </div>
 </template>
@@ -109,7 +110,7 @@ export default {
   props: ['add-post'],
   mixins: [imageLoader, notifier],
   methods: {
-    add () {
+    add (state) {
       console.log(this.featuredImage)
       if (this.title) {
         this.addPost({
@@ -120,7 +121,8 @@ export default {
           img: this.featuredImage,
           category: this.category,
           created: Date.now(),
-          selected: false
+          selected: false,
+          state: state
         })
         this.$router.push({ path: '/admin/posts' })
       } else {

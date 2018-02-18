@@ -78,7 +78,8 @@
     </div>
 
     <!-- the form buttons -->
-    <button type="submit" class="button is-info" @click="update">Update</button>
+    <button v-if="post.state === 'saved'" type="submit" class="button is-success" @click="update(true)">Update and publish</button>
+    <button type="submit" class="button is-info" @click="update(false)">Update</button>
     <router-link to="/admin/posts" class="button is-danger">Cancel</router-link>
   </div>
 </template>
@@ -114,8 +115,11 @@ export default {
   mixins: [imageLoader, notifier],
   methods: {
     // call the updatePost method passed through props
-    update () {
+    update (publish) {
       if (this.post.title) {
+        if (publish) {
+          this.post.state = 'published'
+        }
         this.updatePost(this.post)
       } else {
         this.showNotification('warning', 'The title field can not be empty')

@@ -33,11 +33,10 @@ export default {
     selectOption (option) {
       this.selectedElement.id = option.id
       this.selectedElement.label = option.label
-      if (option.id === 'all' || option.id === 'none') {
-        this.$emit('selectBulkActions')
-      }
       if (option.id === 'newPage') {
         this.$emit('addNewPage')
+      } else {
+        this.$emit('selectBulkActions')
       }
     }
   },

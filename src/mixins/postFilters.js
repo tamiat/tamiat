@@ -22,10 +22,15 @@ const postFilters = {
         {
           id: 'none',
           label: 'Select none'
+        },
+        {
+          id: 'delete',
+          label: 'Bulk delete'
         }
       ],
       selectedOption: '',
       searchPost: '',
+      selectedState: 'all',
       params: {
         category: {
           id: 'all',
@@ -64,14 +69,26 @@ const postFilters = {
               return post.category === this.params.category.label
           }
         })
+        .filter(post => {
+          switch (this.selectedState) {
+            case 'all':
+              return true
+            case 'saved':
+              return post.state === 'saved'
+            case 'published':
+              return post.state === 'published'
+          }
+        })
     },
     postsList () {
       let list
       list = this.posts.map(post => {
         if (post.hasOwnProperty('category')) {
-          return {
-            id: post.category,
-            label: post.category
+          if (post.category !== '') {
+            return {
+              id: post.category,
+              label: post.category
+            }
           }
         }
       })
@@ -118,11 +135,21 @@ const postFilters = {
       }
     },
     selectBulkActions () {
-      for (var key in this.filteredPosts) {
+      var i = this.filteredPosts.length
+      while (i--) {
         if (this.params.bulkAction.id === 'all') {
-          this.filteredPosts[key].selected = true
-        } else {
-          this.filteredPosts[key].selected = false
+          this.filteredPosts[i].selected = true
+        }
+        if (this.params.bulkAction.id === 'none') {
+          this.filteredPosts[i].selected = false
+        }
+        if (this.params.bulkAction.id === 'delete') {
+          if (this.filteredPosts[i].selected === true) {
+            this.$firebaseRefs.posts.child(this.filteredPosts[i]['.key']).remove().then(() => {
+              // this.showNotification('success', 'Posts deleted successfully')
+              // this.showModal = false
+            })
+          }
         }
       }
     }

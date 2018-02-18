@@ -15,7 +15,12 @@
               </h1>
             </div>
             <h2 class="subtitle">
-              <a href="https://github.com/tamiat/tamiat"> https://github.com/tamiat/tamiat </a>
+              <a class="button is-dark" href="https://github.com/tamiat/tamiat">
+                <span class="icon">
+                  <i class="fa fa-github"></i>
+                </span>
+                <span>GitHub</span>
+              </a>
             </h2><br><br>
             <router-link to="/">
               <img src="/static/img/logo.png" alt="Tamiat CMS logo">

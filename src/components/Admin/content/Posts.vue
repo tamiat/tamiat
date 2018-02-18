@@ -35,11 +35,27 @@
     </div>
 
     <!-- Filters -->
+
+    <!-- States -->
     <div class="filters">
-      <!-- Categories -->
-      <dropdown :options="postsList" :selectedElement="params.category" />
-      <!-- Bulk actions -->
-      <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()"/>
+      <div class="states">
+        <a class="state" @click="setState('all')" :class="{ 'activeState': selectedState === 'all' }">
+          All<span class="stateCnt">({{ allPosts }})</span>
+        </a>|
+        <a class="state" @click="setState('published')" :class="{ 'activeState': selectedState === 'published' }">
+          Published<span class="stateCnt">({{ publishedPosts.length}})</span>
+        </a>|
+        <a class="state" @click="setState('saved')" :class="{ 'activeState': selectedState === 'saved' }">
+          Saved<span class="stateCnt">({{ savedPosts.length}})</span>
+        </a>
+      </div>
+    <!-- Dropdown filters -->
+      <div >
+        <!-- Categories -->
+        <dropdown :options="postsList" :selectedElement="params.category" />
+        <!-- Bulk actions -->
+        <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()"/>
+      </div>
     </div>
 
     <!-- posts list -->
@@ -75,7 +91,6 @@
           <tr v-for="(post, index) in filteredPosts" :key="index">
             <td class="post-title-cell">
               <checkbox v-model="post.selected" />
-              <!-- <input type="checkbox" v-model="post.selected" /> -->
               <router-link :to="'/admin/posts/edit/' + post['.key']">
                 {{post.title}}
               </router-link>
@@ -124,6 +139,27 @@ export default {
   firebase: {
     posts: postsRef
   },
+  computed: {
+    allPosts () {
+      return this.posts.length
+    },
+    savedPosts () {
+      return this.posts
+        .filter(post => {
+          if (post.state === 'saved') {
+            return true
+          }
+        })
+    },
+    publishedPosts () {
+      return this.posts
+        .filter(post => {
+          if (post.state === 'published') {
+            return true
+          }
+        })
+    }
+  },
   mixins: [notifier, postFilters],
   methods: {
     addPost (post) {
@@ -152,7 +188,12 @@ export default {
       // remove the .key attribute
       delete tempPost['.key']
       this.$firebaseRefs.posts.child(post['.key']).set(tempPost).then(() => {
-        this.showNotification('success', 'Post updated successfully')
+        if (post.state === 'saved') {
+          this.showNotification('success', 'Post updated successfully')
+        }
+        if (post.state === 'published') {
+          this.showNotification('success', 'Post updated and published successfully')
+        }
       })
     },
     postDate (epoch) {
@@ -161,6 +202,9 @@ export default {
     },
     joined (t) {
       return Object.values(t).join(', ')
+    },
+    setState (s) {
+      this.selectedState = s
     }
   },
   components: {
@@ -196,7 +240,23 @@ th {
     text-align: center !important;
 }
 .filters {
-  padding-bottom: 10px;
-  padding-top: 20px;
+  padding-bottom: 5px;
+  padding-top: 15px;
+}
+.states {
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+.stateCnt {
+  color: rgb(122, 121, 121);
+  font-size: 14px;
+  padding-left: 3px;
+}
+.state {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.activeState {
+  color: rgb(0, 0, 0) !important;
 }
 </style>

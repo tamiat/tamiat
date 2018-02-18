@@ -1,7 +1,6 @@
 <template>
   <div class="box">
 
-    <h3>Edit post</h3>
     <div class="columns">
 
       <div class="column is-two-thirds">
@@ -10,7 +9,7 @@
         <div class="field">
           <label class="label">Post's title</label>
           <div class="control">
-            <input type="text" class="input" v-model="post.title">
+            <input type="text" class="input" placeholder="Title" v-model="post.title">
           </div>
         </div>
 
@@ -18,6 +17,15 @@
         <quill-editor v-model="post.body" :options="editorOptions">
         </quill-editor>
         <input type="file" id="getImage" style="display: none;" @change="uploadImage">
+
+        <!-- Category field -->
+        <br>
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <input type="text" class="input" placeholder="Category" v-model="post.category" maxlength="25">
+          </div>
+        </div>
 
       </div>
 
@@ -28,7 +36,7 @@
         <div class="field">
           <label class="label">Author</label>
           <div class="control">
-            <input type="text" class="input" maxlength="25" v-model="post.author">
+            <input type="text" class="input"  placeholder="Author" maxlength="25" v-model="post.author">
             <p>this field is for demo purposes only</p>
           </div>
         </div>
@@ -70,7 +78,8 @@
     </div>
 
     <!-- the form buttons -->
-    <button type="submit" class="button is-info" @click="update">Update</button>
+    <button v-if="post.state === 'saved'" type="submit" class="button is-success" @click="update(true)">Update and publish</button>
+    <button type="submit" class="button is-info" @click="update(false)">Update</button>
     <router-link to="/admin/posts" class="button is-danger">Cancel</router-link>
   </div>
 </template>
@@ -106,8 +115,11 @@ export default {
   mixins: [imageLoader, notifier],
   methods: {
     // call the updatePost method passed through props
-    update () {
+    update (publish) {
       if (this.post.title) {
+        if (publish) {
+          this.post.state = 'published'
+        }
         this.updatePost(this.post)
       } else {
         this.showNotification('warning', 'The title field can not be empty')

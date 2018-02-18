@@ -54,6 +54,9 @@
         </div>
       </div>
     </div>
+
+    <!-- nav builder -->
+    <nav-builder></nav-builder>
   </div>
 </template>
 
@@ -61,6 +64,7 @@
 import { settingsRef } from '../../../config'
 import notifier from '../../../mixins/notifier'
 import modal from '@/components/shared/Modal'
+import NavBuilder from './NavBuilder'
 export default {
   name: 'settings',
   data () {
@@ -164,7 +168,8 @@ export default {
     this.updatesCounter++
   },
   components: {
-    modal
+    modal,
+    NavBuilder
   }
 }
 

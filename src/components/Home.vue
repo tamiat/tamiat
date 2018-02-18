@@ -6,17 +6,16 @@
         <a href="#">Website Logo</a>
       </h2>
       <nav>
-        <li>
-          <a href="#">Home</a>
-        </li>
-        <li>
-          <a href="#">Products</a>
-        </li>
-        <li>
-          <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Contacts</a>
+        <li v-for="link in nav" :key="link">
+          <a v-if="link.isAbsolute" :href="link.path">{{link.name}}</a>
+          <router-link v-else :to="link.path">{{link.name}}</router-link>
+
+          <ul v-if="link.children" class="sub-nav">
+            <li v-for="subLink in link.children" :key="subLink">
+              <a v-if="subLink.isAbsolute" :href="subLink.path">{{subLink.name}}</a>
+              <router-link v-else :to="subLink.path">{{subLink.name}}</router-link>
+            </li>
+          </ul>
         </li>
       </nav>
     </header>
@@ -158,7 +157,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef } from '../config'
+import { settingsRef, postsRef, navRef } from '../config'
 
 export default {
   name: 'home',
@@ -171,6 +170,9 @@ export default {
     posts: {
       source: postsRef,
       asObject: true
+    },
+    nav: {
+      source: navRef
     }
   }
 }
@@ -192,6 +194,27 @@ html {
 ul,
 nav {
   list-style: none;
+}
+
+ul li,
+nav li {
+  position: relative;
+}
+
+.sub-nav {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  padding-top: 10px;
+}
+
+.sub-nav li {
+  margin-left: 0px;
+}
+
+li:hover .sub-nav, .sub-nav:hover {
+  display: block;
 }
 
 a {

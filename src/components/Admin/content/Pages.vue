@@ -131,9 +131,6 @@ export default {
       return this.$firebaseRefs.pages.child(this.currentPageKey)
     }
   },
-  components: {
-    modal
-  },
   methods: {
     selectPage (key) {
       this.currentPageKey = key
@@ -242,6 +239,9 @@ export default {
           this.showNotification('danger', 'Page not removed')
         })
     }
+  },
+  components: {
+    modal
   }
 }
 

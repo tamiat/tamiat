@@ -1,7 +1,6 @@
 <template>
   <div class="box">
 
-    <h3>Add new post</h3>
     <div class="columns">
 
       <div class="column is-two-thirds">
@@ -10,7 +9,7 @@
         <div class="field">
           <label class="label">Post's title</label>
           <div class="control">
-            <input type="text" class="input" v-model="title">
+            <input type="text" class="input" placeholder="Title" v-model="title">
           </div>
         </div>
 
@@ -18,6 +17,15 @@
         <quill-editor v-model="body" :options="editorOptions">
         </quill-editor>
         <input type="file" id="getImage" style="display: none;" @change="uploadImage">
+
+        <!-- Category field -->
+        <br>
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <input type="text" class="input" placeholder="Category" v-model="category" maxlength="25">
+          </div>
+        </div>
 
       </div>
 
@@ -28,7 +36,7 @@
         <div class="field">
           <label class="label">Author</label>
           <div class="control">
-            <input type="text" class="input" v-model="author" maxlength="25" required>
+            <input type="text" class="input" placeholder="Author" v-model="author" maxlength="25" required>
             <p>this field is for demo purposes only</p>
           </div>
         </div>
@@ -42,7 +50,7 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Image</label>
+          <label class="label">Featured image</label>
           <div class="control">
             <img :src="featuredImage">
             <div class="file">
@@ -69,7 +77,8 @@
     </div>
 
     <!-- the form buttons -->
-    <button type="submit" class="button is-info" @click="add">Add</button>
+    <button type="submit" class="button is-success" @click="add('published')">Publish</button>
+    <button type="submit" class="button is-info" @click="add('saved')">Save Draft</button>
     <router-link to="/admin/posts" class="button is-danger">Cancel</router-link>
   </div>
 </template>
@@ -91,6 +100,7 @@ export default {
       author: '',
       tags: '',
       featuredImage: '',
+      category: '',
       editorOptions
     }
   },
@@ -100,7 +110,7 @@ export default {
   props: ['add-post'],
   mixins: [imageLoader, notifier],
   methods: {
-    add () {
+    add (state) {
       console.log(this.featuredImage)
       if (this.title) {
         this.addPost({
@@ -109,7 +119,10 @@ export default {
           author: this.author,
           tags: this.tags.replace(/ /g, '').split(','),
           img: this.featuredImage,
-          created: Date.now()
+          category: this.category,
+          created: Date.now(),
+          selected: false,
+          state: state
         })
         this.$router.push({ path: '/admin/posts' })
       } else {

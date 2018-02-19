@@ -3,10 +3,12 @@
 
     <header>
       <h2 class="is-title is-size-4">
-        <figure class="websiteLogo" v-if="loadLogo">
-          <img :src="loadLogo" alt="image">
-        </figure>
-        <a v-else href="#">Website Logo</a>
+        <a href="#">
+          <figure class="websiteLogo" v-if="loadLogo">
+            <img :src="loadLogo" alt="image">
+          </figure>
+        {{ loadLogo ? null : 'Website Logo' }}
+        </a>
       </h2>
 
       <nav>

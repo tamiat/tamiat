@@ -35,6 +35,8 @@ export default {
       this.selectedElement.label = option.label
       if (option.id === 'newPage') {
         this.$emit('addNewPage')
+      } else if (option.id === 'delete') {
+        this.$emit('bulkDelete')
       } else {
         this.$emit('selectBulkActions')
       }

@@ -97,6 +97,13 @@ const postFilters = {
         label: 'All Categories'
       })
       return list
+    },
+    selectedPosts () {
+      return this.filteredPosts.filter(post => {
+        if (post.selected) {
+          return true
+        }
+      })
     }
   },
   methods: {
@@ -152,6 +159,7 @@ const postFilters = {
           }
         }
       }
+      this.showModal = false
     }
   }
 }

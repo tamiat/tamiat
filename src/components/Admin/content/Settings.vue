@@ -16,8 +16,32 @@
     <div class="box">
       <div class="columns">
 
+        <div class="column is-one-third">
+          <div class="field columns">
+            <div class="control column is-two-thirds">
+              <div class="field">
+                <label class="label">Website logo</label>
+                <div class="control">
+                  <img :src="websiteLogo">
+                  <div class="file">
+                    <label class="file-label">
+                      <input @change="uploadWebsiteLogo" class="file-input" type="file" name="resume">
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fa fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                          Choose a file…
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="column is-multiline">
-
           <div v-for="(field, key) in settings" class="field columns" :key="key" v-if="key !== '.key'">
             <div class="column is-one-third">
               <span class="tag">
@@ -50,7 +74,6 @@
               </div>
             </div>
           </nav>
-
         </div>
       </div>
     </div>
@@ -61,10 +84,13 @@
 </template>
 
 <script>
-import { settingsRef } from '../../../config'
+import firebase from 'firebase'
+
+import { mediaRef, settingsRef } from '../../../config'
 import notifier from '../../../mixins/notifier'
 import modal from '@/components/shared/Modal'
 import NavBuilder from './NavBuilder'
+import imageLoader from '../../../mixins/image-loader'
 export default {
   name: 'settings',
   data () {
@@ -86,7 +112,8 @@ export default {
       showModal: false,
       header: '',
       kind: '',
-      deleteKey: ''
+      deleteKey: '',
+      websiteLogo: ''
     }
   },
   firebase: {
@@ -94,9 +121,10 @@ export default {
     settings: {
       source: settingsRef,
       asObject: true
-    }
+    },
+    media: mediaRef
   },
-  mixins: [notifier],
+  mixins: [notifier, imageLoader],
   methods: {
     saveSettings () {
       delete this.settings['.key'] // This is a bit weird but no problem
@@ -158,6 +186,47 @@ export default {
         .catch((e) => {
           this.showNotification('error', 'Setting not removed')
         })
+    },
+    uploadWebsiteLogo (e) {
+      console.log(e)
+      let file = e.target.files[0]
+      let storageRef = firebase.storage().ref('images/' + file.name)
+
+      var i = this.media.length
+      var currentLogo = null
+      while (i--) {
+        if (this.media[i].name === 'WebsiteLogo') {
+          currentLogo = this.media[i]
+        }
+      }
+      storageRef.put(file).then((snapshot) => {
+        console.log(snapshot)
+        this.websiteLogo = snapshot.downloadURL
+
+        var logo = {
+          src: snapshot.downloadURL,
+          path: snapshot.ref.fullPath,
+          name: 'WebsiteLogo'
+        }
+        // let tempLogo = {...currentLogo}
+
+        if (currentLogo) {
+          // delete tempLogo[key]
+          this.$firebaseRefs.media.child(currentLogo['.key']).set(logo)
+            .then(() => {
+              this.showNotification('success', 'Logo uploaded successfully')
+            })
+        } else {
+          if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return
+          this.$firebaseRefs.media.push({
+            src: snapshot.downloadURL,
+            path: snapshot.ref.fullPath,
+            name: 'WebsiteLogo'
+          }).then(() => {
+            this.showNotification('success', 'Logo uploaded successfully')
+          })
+        }
+      })
     }
   },
   updated () {

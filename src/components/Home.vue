@@ -3,8 +3,12 @@
 
     <header>
       <h2 class="is-title is-size-4">
-        <a href="#">Website Logo</a>
+        <figure class="websiteLogo" v-if="loadLogo">
+          <img :src="loadLogo" alt="image">
+        </figure>
+        <a v-else href="#">Website Logo</a>
       </h2>
+
       <nav>
         <li>
           <a href="#">Home</a>
@@ -158,7 +162,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef } from '../config'
+import { settingsRef, postsRef, mediaRef } from '../config'
 
 export default {
   name: 'home',
@@ -171,6 +175,21 @@ export default {
     posts: {
       source: postsRef,
       asObject: true
+    },
+    media: {
+      source: mediaRef
+    }
+  },
+  computed: {
+    loadLogo () {
+      var i = this.media.length
+      var url = null
+      while (i--) {
+        if (this.media[i].name === 'WebsiteLogo') {
+          url = this.media[i].src
+        }
+      }
+      return url
     }
   }
 }
@@ -714,5 +733,10 @@ footer p a {
   #bsaHolder {
     display: none;
   }
+}
+
+.websiteLogo {
+  max-height: 128px;
+  max-width: 128px;
 }
 </style>

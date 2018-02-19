@@ -48,6 +48,10 @@
             <input type="text" class="input" maxlength="25" v-model="tags">
             <p>Seperate tags with commas</p>
           </div>
+          <div class="tags has-addons">
+            <span class="tag is-dark">Alex Smith</span>
+            <a class="tag is-delete"></a>
+          </div>
         </div>
         <div class="field">
           <label class="label">Featured image</label>

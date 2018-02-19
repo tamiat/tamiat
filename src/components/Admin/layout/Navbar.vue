@@ -108,4 +108,18 @@ $navbarColor: #aaaaaa;
     cursor: pointer;
   }
 }
+@media screen and (max-width: 1023px) {
+  #navbar {
+    .navbar-menu {
+      width: auto;
+      right: 0;
+    }
+    .sign-out {
+      text-align: right;
+    }
+    .navbar-burger span {
+      background: #fff;
+    }
+  }
+}
 </style>

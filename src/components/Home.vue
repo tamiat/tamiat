@@ -3,8 +3,12 @@
 
     <header>
       <h2 class="is-title is-size-4">
-        <a href="#">Website Logo</a>
+        <figure class="websiteLogo" v-if="loadLogo">
+          <img :src="loadLogo" alt="image">
+        </figure>
+        <a v-else href="#">Website Logo</a>
       </h2>
+
       <nav>
         <li v-for="link in nav" :key="link">
           <a v-if="link.isAbsolute" :href="link.path">{{link.name}}</a>
@@ -157,7 +161,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef, navRef } from '../config'
+import { settingsRef, postsRef, navRef, mediaRef } from '../config'
 
 export default {
   name: 'home',
@@ -173,6 +177,21 @@ export default {
     },
     nav: {
       source: navRef
+    },
+    media: {
+      source: mediaRef
+    }
+  },
+  computed: {
+    loadLogo () {
+      var i = this.media.length
+      var url = null
+      while (i--) {
+        if (this.media[i].name === 'WebsiteLogo') {
+          url = this.media[i].src
+        }
+      }
+      return url
     }
   }
 }
@@ -737,5 +756,10 @@ footer p a {
   #bsaHolder {
     display: none;
   }
+}
+
+.websiteLogo {
+  max-height: 128px;
+  max-width: 128px;
 }
 </style>

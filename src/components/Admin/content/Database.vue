@@ -56,6 +56,10 @@ export default {
         created: Date.now(),
         selected: false,
         state: 'published'
+      },
+      demoSettings: {
+        title: 'Tamiat CMS',
+        description: 'Firebase & Vue.js based CMS'
       }
     }
   },
@@ -69,12 +73,14 @@ export default {
     addDemoPost () {
       this.$firebaseRefs.posts.push(this.demoPost)
         .then(() => {
-          console.log('post success')
           this.showNotification('success', 'Demo Post added successfully')
         })
     },
     addDemoSettings () {
-
+      this.$firebaseRefs.settings.update(this.demoSettings)
+        .then(() => {
+          this.showNotification('success', 'Demo Settings added successfully')
+        })
     },
     addDemoLogo () {
 

@@ -35,6 +35,13 @@
             </span>
             <span v-else class="has-text-success">Contains data</span>
           </p>
+          <p>
+            Nav:
+            <span v-if="nav.length === 0" class="has-text-danger">
+              Empty <button class="button is-info" @click="addDemoNav">Add Demo Nav</button>
+            </span>
+            <span v-else class="has-text-success">Contains data</span>
+          </p>
         </div>
       </div>
     </div>
@@ -44,7 +51,7 @@
 <script>
 import firebase from 'firebase'
 import notifier from '../../../mixins/notifier'
-import { postsRef, settingsRef, mediaRef } from '../../../config'
+import { postsRef, settingsRef, mediaRef, navRef } from '../../../config'
 export default {
   data () {
     return {
@@ -62,13 +69,29 @@ export default {
         title: 'Tamiat CMS',
         description: 'Firebase & Vue.js based CMS'
       },
-      demoLogoLink: 'https://raw.githubusercontent.com/tamiat/tamiat/master/tamiatlogo.png'
+      demoLogoLink: 'https://raw.githubusercontent.com/tamiat/tamiat/master/tamiatlogo.png',
+      demoNav: [
+        {
+          name: 'Home',
+          path: '/'
+        },
+        {
+          name: 'Admin',
+          path: '/admin'
+        },
+        {
+          name: 'google',
+          path: 'https://www.google.com',
+          isAbsolute: true
+        }
+      ]
     }
   },
   firebase: {
     posts: postsRef,
     settings: settingsRef,
-    media: mediaRef
+    media: mediaRef,
+    nav: navRef
   },
   mixins: [notifier],
   methods: {
@@ -83,6 +106,18 @@ export default {
         .then(() => {
           this.showNotification('success', 'Demo Settings added successfully')
         })
+    },
+    addDemoNav () {
+      let i = this.demoNav.length
+      this.demoNav.forEach(link => {
+        this.$firebaseRefs.nav.push(link)
+          .then(() => {
+            i--
+            if (i === 0) {
+              this.showNotification('success', 'Demo Nav added successfully')
+            }
+          })
+      })
     },
     addDemoLogo () {
       let storageRef = firebase.storage().ref()

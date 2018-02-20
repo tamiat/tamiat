@@ -43,6 +43,11 @@ export default {
           name: 'Settings',
           path: '/admin/settings',
           icon: 'fa-gear'
+        },
+        {
+          name: 'Database',
+          path: '/admin/database',
+          icon: 'fa-database'
         }
       ]
     }

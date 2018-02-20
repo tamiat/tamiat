@@ -8,40 +8,43 @@
       </div>
     </transition>
 
+    <h2 class="is-size-3">Database State</h2>
     <div class="box">
       <div class="columns">
         <div class="column">
-          <h2 class="is-size-3">Database State</h2>
-          <p>
+          <div>
             Posts:
             <span v-if="posts.length === 0" class="has-text-danger">
               Empty
               <button class="button is-info" @click="addDemoPost">Add Demo Post</button>
             </span>
             <span v-else class="has-text-success">Contains data</span>
-          </p>
-          <p>
+          </div>
+
+          <div>
             Settings:
             <span v-if="settings.length === 0" class="has-text-danger">
               Empty
               <button class="button is-info" @click="addDemoSettings">Add Demo Settings</button>
             </span>
             <span v-else class="has-text-success">Contains data</span>
-          </p>
-          <p>
+          </div>
+
+          <div>
             Media:
             <span v-if="media.length === 0" class="has-text-danger">
               Empty <button class="button is-info" @click="addDemoLogo">Add Demo Logo</button>
             </span>
             <span v-else class="has-text-success">Contains data</span>
-          </p>
-          <p>
+          </div>
+
+          <div>
             Nav:
             <span v-if="nav.length === 0" class="has-text-danger">
               Empty <button class="button is-info" @click="addDemoNav">Add Demo Nav</button>
             </span>
             <span v-else class="has-text-success">Contains data</span>
-          </p>
+          </div>
         </div>
       </div>
     </div>
@@ -159,3 +162,21 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+h2 {
+  margin: 15px 0px;
+}
+
+.column > div {
+  margin-top: 15px;
+  &:first-child {
+    margin-top: 0px;
+  }
+}
+
+button {
+  vertical-align: middle !important;
+  margin-left: 30px;
+}
+</style>

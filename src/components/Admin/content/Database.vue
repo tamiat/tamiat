@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import notifier from '../../../mixins/notifier'
 import { postsRef, settingsRef, mediaRef } from '../../../config'
 export default {
@@ -60,7 +61,8 @@ export default {
       demoSettings: {
         title: 'Tamiat CMS',
         description: 'Firebase & Vue.js based CMS'
-      }
+      },
+      demoLogoLink: 'https://raw.githubusercontent.com/tamiat/tamiat/master/tamiatlogo.png'
     }
   },
   firebase: {
@@ -83,7 +85,41 @@ export default {
         })
     },
     addDemoLogo () {
+      let storageRef = firebase.storage().ref()
+      let logoRef = storageRef.child(`images/tamiatlogo.png`)
 
+      this.fetchLogoBlob()
+        .then(blob => {
+          logoRef
+            .put(blob)
+            .then(snapshot => {
+              this.addDemoLogoToDB(snapshot)
+            })
+        })
+    },
+    fetchLogoBlob () {
+      return new Promise((resolve, reject) => {
+        fetch(this.demoLogoLink)
+          .then(res => {
+            return res.blob()
+          })
+          .then(blob => {
+            resolve(blob)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    addDemoLogoToDB (snapshot) {
+      this.$firebaseRefs.media.push({
+        name: 'WebsiteLogo',
+        path: snapshot.ref.fullPath,
+        src: snapshot.downloadURL
+      })
+        .then(() => {
+          this.showNotification('success', 'Demo Logo added successfully')
+        })
     }
   }
 }

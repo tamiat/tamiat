@@ -45,7 +45,10 @@
         <div class="field">
           <label class="label">Tags</label>
           <div class="control">
-            <input type="text" class="input" maxlength="25" v-model="tagString">
+            <div class="tags tagscontainer">
+            <span @click="removeTag(index)" v-for="(tag, index) in tagString" :key="index" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
+            <input placeholder="Tags" @keypress.44.prevent="styleTags" @keyup.enter="styleTags" type="text" class="input" maxlength="25" v-model="inputData">
+            </div>
             <p>Seperate tags with commas</p>
           </div>
         </div>
@@ -99,6 +102,7 @@ export default {
       /* Here we are filtering out the post containing the provided key in the router params
        * we are using Object.assign to copy the post by value not by reference
        * to prevent updating the poste when typing */
+      inputData: '',
       post: Object.assign(
         {},
         (this.posts.filter((post) => {
@@ -138,18 +142,38 @@ export default {
           name: snapshot.metadata.name
         })
       })
+    },
+    styleTags () {
+      if (this.inputData !== '') {
+        this.tagString.push(`${this.inputData.trim()}`)
+        this.inputData = ''
+      }
+    },
+    removeTag (index) {
+      this.tagString.splice(index, 1)
     }
   },
   computed: {
     tagString: {
       get: function () {
-        return this.post.tags && this.post.tags.join(',') // if no tags present join is undefined
+        return this.post.tags // if no tags present join is undefined
       },
       set: function (newValue) {
-        this.post.tags = newValue.split(',')
+        this.post.tags = newValue
       }
     }
   }
 }
 
 </script>
+<style>
+.tagscontainer {
+  border: 2px solid #f2f2f2;
+  border-radius: 5px;
+  padding: 5px;
+}
+.pointer {
+  cursor: pointer;
+}
+
+</style>

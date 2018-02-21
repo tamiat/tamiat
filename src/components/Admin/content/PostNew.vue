@@ -45,7 +45,10 @@
         <div class="field">
           <label class="label">Tags</label>
           <div class="control">
-            <input type="text" class="input" maxlength="25" v-model="tags">
+            <div class="tags tagscontainer">
+            <span @click="removeTag(index)" v-for="(tag, index) in tags" :key="index" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
+            <input placeholder="Tags" @keypress.44.prevent="styleTags" @keyup.enter="styleTags" type="text" class="input" maxlength="25" v-model="inputData">
+            </div>
             <p>Seperate tags with commas</p>
           </div>
         </div>
@@ -98,7 +101,8 @@ export default {
       title: '',
       body: '',
       author: '',
-      tags: '',
+      tags: [],
+      inputData: '',
       featuredImage: '',
       category: '',
       editorOptions
@@ -117,7 +121,7 @@ export default {
           title: this.title,
           body: this.body,
           author: this.author,
-          tags: this.tags.replace(/ /g, '').split(','),
+          tags: this.tags,
           img: this.featuredImage,
           category: this.category,
           created: Date.now(),
@@ -144,8 +148,29 @@ export default {
           name: snapshot.metadata.name
         })
       })
+    },
+    styleTags () {
+      if (this.inputData !== '') {
+        this.tags.push(`${this.inputData.trim()}`)
+        this.inputData = ''
+      }
+    },
+    removeTag (index) {
+      this.tags.splice(index, 1)
     }
   }
 }
 
 </script>
+
+<style>
+.tagscontainer {
+  border: 2px solid #f2f2f2;
+  border-radius: 5px;
+  padding: 5px;
+}
+.pointer {
+  cursor: pointer;
+}
+
+</style>

@@ -1,7 +1,7 @@
 // USED BY TAMIAT CMS
 
 import firebase from 'firebase'
-import { mediaRef } from '../config'
+import { mediaRef } from '@/firebase_config'
 
 export default {
   methods: {

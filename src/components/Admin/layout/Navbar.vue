@@ -37,7 +37,7 @@
 
 <script>
 import firebase from 'firebase'
-import { usersRef } from '../../../config'
+import { usersRef } from '@/firebase_config'
 import modal from '@/components/shared/Modal'
 export default {
   name: 'navbar',

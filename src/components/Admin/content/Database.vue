@@ -69,8 +69,29 @@ export default {
   mixins: [notifier],
   methods: {
     addDemoPost () {
-      this.demoPost.created = Date.now()
-      this.$firebaseRefs.posts.push(this.demoPost)
+      let storageRef = firebase.storage().ref()
+      let postImageRef = storageRef.child('images/demo-post-img.png')
+      let imgDownloadURL = ''
+
+      this.fetchLogoBlob()
+        .then(blob => {
+          return postImageRef.put(blob)
+        })
+        .then(snapshot => {
+          imgDownloadURL = snapshot.downloadURL
+          let demoPost = {...this.demoPost}
+          demoPost.created = Date.now()
+          demoPost.img = imgDownloadURL
+          demoPost.body += `<p><img src="${imgDownloadURL}"></p>`
+          return this.$firebaseRefs.posts.push(demoPost)
+        })
+        .then(() => {
+          return this.$firebaseRefs.media.push({
+            name: 'demo-post-img.png',
+            path: postImageRef.fullPath,
+            src: imgDownloadURL
+          })
+        })
         .then(() => {
           this.showNotification('success', 'Demo Post added successfully')
         })

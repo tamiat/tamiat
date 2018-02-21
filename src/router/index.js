@@ -13,6 +13,7 @@ import PostEdit from '../components/Admin/content/PostEdit'
 import Settings from '../components/Admin/content/Settings'
 import Pages from '../components/Admin/content/Pages'
 import Media from '../components/Admin/content/Media'
+import Database from '../components/Admin/content/Database'
 
 Vue.use(Router)
 
@@ -59,6 +60,10 @@ export default new Router({
         {
           path: 'media',
           component: Media
+        },
+        {
+          path: 'database',
+          component: Database
         }
       ]
     },

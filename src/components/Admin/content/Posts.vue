@@ -119,8 +119,8 @@
 
 <script>
 import moment from 'moment'
-import { postsRef } from '../../../config'
-import notifier from '../../../mixins/notifier'
+import { postsRef } from '@/firebase_config'
+import notifier from '@/mixins/notifier'
 import modal from '@/components/shared/Modal'
 import postFilters from '@/mixins/postFilters'
 import dropdown from '@/components/shared/Dropdown'

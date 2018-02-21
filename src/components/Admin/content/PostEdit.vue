@@ -87,10 +87,10 @@
 <script>
 import firebase from 'firebase'
 
-import { mediaRef } from '../../../config'
+import { mediaRef } from '@/firebase_config'
 import editorOptions from './editor-options'
-import imageLoader from '../../../mixins/image-loader'
-import notifier from '../../../mixins/notifier'
+import imageLoader from '@/mixins/image-loader'
+import notifier from '@/mixins/notifier'
 
 export default {
   name: 'post-edit',

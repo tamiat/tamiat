@@ -53,42 +53,12 @@
 
 <script>
 import firebase from 'firebase'
+import {demoData} from '@/../tamiat.config.json'
 import notifier from '../../../mixins/notifier'
 import { postsRef, settingsRef, mediaRef, navRef } from '../../../config'
 export default {
   data () {
-    return {
-      demoPost: {
-        title: 'Demo post',
-        body: 'this is a demo post',
-        author: 'Some author',
-        tags: ['tag1', 'tag2'],
-        category: 'category1',
-        created: Date.now(),
-        selected: false,
-        state: 'published'
-      },
-      demoSettings: {
-        title: 'Tamiat CMS',
-        description: 'Firebase & Vue.js based CMS'
-      },
-      demoLogoLink: 'https://raw.githubusercontent.com/tamiat/tamiat/master/tamiatlogo.png',
-      demoNav: [
-        {
-          name: 'Home',
-          path: '/'
-        },
-        {
-          name: 'Admin',
-          path: '/admin'
-        },
-        {
-          name: 'google',
-          path: 'https://www.google.com',
-          isAbsolute: true
-        }
-      ]
-    }
+    return {...demoData}
   },
   firebase: {
     posts: postsRef,
@@ -99,6 +69,7 @@ export default {
   mixins: [notifier],
   methods: {
     addDemoPost () {
+      this.demoPost.created = Date.now()
       this.$firebaseRefs.posts.push(this.demoPost)
         .then(() => {
           this.showNotification('success', 'Demo Post added successfully')

@@ -1,0 +1,33 @@
+{
+  "demoData": {
+    "demoPost": {
+      "title": "Demo post",
+      "body": "this is a demo post",
+      "author": "Some author",
+      "tags": ["tag1", "tag2"],
+      "category": "category1",
+      "selected": false,
+      "state": "published"
+    },
+    "demoSettings": {
+      "title": "Tamiat CMS",
+      "description": "Firebase & Vue.js based CMS"
+    },
+    "demoLogoLink": "https://raw.githubusercontent.com/tamiat/tamiat/master/tamiatlogo.png",
+    "demoNav": [
+      {
+        "name": "Home",
+        "path": "/"
+      },
+      {
+        "name": "Admin",
+        "path": "/admin"
+      },
+      {
+        "name": "google",
+        "path": "https://www.google.com",
+        "isAbsolute": true
+      }
+    ]
+  }
+}

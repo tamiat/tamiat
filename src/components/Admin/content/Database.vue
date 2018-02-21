@@ -128,18 +128,10 @@ export default {
         })
     },
     fetchLogoBlob () {
-      return new Promise((resolve, reject) => {
-        fetch(this.demoLogoLink)
-          .then(res => {
-            return res.blob()
-          })
-          .then(blob => {
-            resolve(blob)
-          })
-          .catch(err => {
-            reject(err)
-          })
-      })
+      return fetch(this.demoLogoLink)
+        .then(res => {
+          return res.blob()
+        })
     },
     addDemoLogoToDB (snapshot) {
       this.$firebaseRefs.media.push({

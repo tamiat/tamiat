@@ -70,3 +70,6 @@ typings/
 
 # next.js build output
 .next
+
+# firebaseConfig
+/src/firebase_config/config.js

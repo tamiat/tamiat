@@ -3,15 +3,21 @@
 
     <header>
       <h2 class="is-title is-size-4">
-        <a href="#">Website Logo</a>
+        <a href="#">
+          <figure class="websiteLogo" v-if="loadLogo">
+            <img :src="loadLogo" alt="image">
+          </figure>
+        {{ loadLogo ? null : 'Website Logo' }}
+        </a>
       </h2>
+
       <nav>
-        <li v-for="link in nav" :key="link">
+        <li v-for="(link, index) in nav" :key="index">
           <a v-if="link.isAbsolute" :href="link.path">{{link.name}}</a>
           <router-link v-else :to="link.path">{{link.name}}</router-link>
 
           <ul v-if="link.children" class="sub-nav">
-            <li v-for="subLink in link.children" :key="subLink">
+            <li v-for="(subLink, index) in link.children" :key="index">
               <a v-if="subLink.isAbsolute" :href="subLink.path">{{subLink.name}}</a>
               <router-link v-else :to="subLink.path">{{subLink.name}}</router-link>
             </li>
@@ -157,7 +163,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef, navRef } from '../config'
+import { settingsRef, postsRef, navRef, mediaRef } from '../firebase_config'
 
 export default {
   name: 'home',
@@ -173,6 +179,21 @@ export default {
     },
     nav: {
       source: navRef
+    },
+    media: {
+      source: mediaRef
+    }
+  },
+  computed: {
+    loadLogo () {
+      var i = this.media.length
+      var url = null
+      while (i--) {
+        if (this.media[i].name === 'WebsiteLogo') {
+          url = this.media[i].src
+        }
+      }
+      return url
     }
   }
 }
@@ -737,5 +758,10 @@ footer p a {
   #bsaHolder {
     display: none;
   }
+}
+
+.websiteLogo {
+  max-height: 128px;
+  max-width: 128px;
 }
 </style>

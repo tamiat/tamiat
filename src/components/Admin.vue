@@ -69,12 +69,14 @@ export default {
 #admin
   font-family: 'Quicksand', sans-serif
   .admin-wrapper
-    width: calc(100% - 110px)
+    width: calc(100% - 115px)
     position: absolute
     top: 52px
-    left: 100px
+    left: 115px
     background-color: #F1F1F1
 
+    .container
+      padding: 0 10px
     .content-heading
       justify-content: baseline
       align-content: center

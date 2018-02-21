@@ -16,7 +16,7 @@
 
      <!-- modal for post delete -->
     <transition mode="out-in" name="fade">
-      <modal @close="showModal = false" :kind="kind" @confirmDeletePost='confirmDeletePost()' v-if="showModal" :header="header"/>
+      <modal @close="showModal = false" :kind="kind" @confirmDeletePost='confirmDeletePost()' @selectBulkActions='selectBulkActions()' v-if="showModal" :header="header"/>
     </transition>
 
     <!-- the new post form loaded via vue router -->
@@ -54,7 +54,7 @@
         <!-- Categories -->
         <dropdown :options="postsList" :selectedElement="params.category" />
         <!-- Bulk actions -->
-        <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()"/>
+        <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()" @bulkDelete="bulkDelete()"/>
       </div>
     </div>
 
@@ -119,8 +119,8 @@
 
 <script>
 import moment from 'moment'
-import { postsRef } from '../../../config'
-import notifier from '../../../mixins/notifier'
+import { postsRef } from '@/firebase_config'
+import notifier from '@/mixins/notifier'
 import modal from '@/components/shared/Modal'
 import postFilters from '@/mixins/postFilters'
 import dropdown from '@/components/shared/Dropdown'
@@ -173,6 +173,13 @@ export default {
       this.kind = 'deletePost'
       this.showModal = true
       this.post = post
+    },
+    bulkDelete () {
+      if (this.selectedPosts.length) {
+        this.header = 'Are you sure you want to delete selected posts?'
+        this.kind = 'bulkDeleteSelected'
+        this.showModal = true
+      }
     },
     confirmDeletePost () {
       this.$firebaseRefs.posts.child(this.post['.key']).remove().then(() => {

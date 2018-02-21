@@ -43,6 +43,11 @@ export default {
           name: 'Settings',
           path: '/admin/settings',
           icon: 'fa-gear'
+        },
+        {
+          name: 'Database',
+          path: '/admin/database',
+          icon: 'fa-database'
         }
       ]
     }
@@ -61,7 +66,7 @@ $sidebarColor: #B7B7B7;
   left: 0;
   bottom: 0;
   padding: 20px 0 50px;
-  width: 90px;
+  width: 115px;
   min-width: 45px;
   max-height: 100vh;
   height: calc(100%);

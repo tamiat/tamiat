@@ -8,7 +8,7 @@
 
     <!-- the navbar brand -->
     <div class="navbar-brand">
-      <router-link class="navbar-item" to="/">
+      <router-link class="navbar-item logo" to="/admin">
         <img src="/static/img/logo.png" alt="Tamiat CMS logo">
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
@@ -84,10 +84,18 @@ $navbarBg: #333;
 $navbarColor: #aaaaaa;
 
 #navbar {
-  // position: fixed;
+  position: fixed;
   z-index: 1024;
-  // width: 100%;
+  width: 100%;
   background-color: $navbarBg;
+
+  .logo {
+    z-index: 9999;
+    background: #fff;
+    &:hover {
+      background: whitesmoke;
+    }
+  }
 
   .navbar-item {
     color: $navbarColor;
@@ -98,6 +106,20 @@ $navbarColor: #aaaaaa;
 
   .sign-out {
     cursor: pointer;
+  }
+}
+@media screen and (max-width: 1023px) {
+  #navbar {
+    .navbar-menu {
+      width: auto;
+      right: 0;
+    }
+    .sign-out {
+      text-align: right;
+    }
+    .navbar-burger span {
+      background: #fff;
+    }
   }
 }
 </style>

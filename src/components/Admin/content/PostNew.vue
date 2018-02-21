@@ -47,7 +47,7 @@
           <div class="control">
             <div class="tags tagscontainer">
             <span @click="removeTag(index)" v-for="(tag, index) in tags" :key="index" class="tag is-info pointer">{{tag}}</span>
-            <input placeholder="Tags" v-on:keyup.enter="styleTags" type="text" class="input" maxlength="25" v-model="inputData">
+            <input placeholder="Tags" @keypress.44.prevent="styleTags" @keyup.enter="styleTags" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
             <p>Seperate tags with commas</p>
           </div>
@@ -150,13 +150,13 @@ export default {
       })
     },
     styleTags () {
-            if(this.inputData !== ""){
-            this.tags.push(`${this.inputData} ×`);
-            this.inputData = '';
-            }
+      if (this.inputData !== '') {
+        this.tags.push(`${this.inputData} ×`)
+        this.inputData = ''
+      }
     },
     removeTag (index) {
-            this.tags.splice(index, 1);
+      this.tags.splice(index, 1)
     }
   }
 }
@@ -174,4 +174,3 @@ export default {
 }
 
 </style>
-

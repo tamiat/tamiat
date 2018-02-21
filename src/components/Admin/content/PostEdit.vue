@@ -145,7 +145,7 @@ export default {
     },
     styleTags () {
       if (this.inputData !== '') {
-        this.tagString.push(`${this.inputData}`)
+        this.tagString.push(`${this.inputData.trim()}`)
         this.inputData = ''
       }
     },

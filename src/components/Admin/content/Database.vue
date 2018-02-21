@@ -55,7 +55,7 @@
 import firebase from 'firebase'
 import {demoData} from '@/../tamiat.config.json'
 import notifier from '../../../mixins/notifier'
-import { postsRef, settingsRef, mediaRef, navRef } from '../../../config'
+import { postsRef, settingsRef, mediaRef, navRef } from '@/firebase_config'
 export default {
   data () {
     return {...demoData}

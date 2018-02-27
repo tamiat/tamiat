@@ -86,11 +86,11 @@
 <script>
 import firebase from 'firebase'
 
-import { mediaRef, settingsRef } from '@/firebase_config'
-import notifier from '@/mixins/notifier'
-import modal from '@/components/shared/Modal'
+import { mediaRef, settingsRef } from '@/admin/firebase_config'
+import notifier from '@/admin/mixins/notifier'
+import modal from '@/admin/components/shared/Modal'
 import NavBuilder from './NavBuilder'
-import imageLoader from '@/mixins/image-loader'
+import imageLoader from '@/admin/mixins/image-loader'
 export default {
   name: 'settings',
   data () {

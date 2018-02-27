@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef, navRef, mediaRef } from '../firebase_config'
+import { settingsRef, postsRef, navRef, mediaRef } from '@/admin/firebase_config'
 
 export default {
   name: 'home',

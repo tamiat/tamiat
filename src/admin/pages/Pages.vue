@@ -99,9 +99,9 @@
 </template>
 
 <script>
-import { pagesRef } from '@/firebase_config'
-import notifier from '@/mixins/notifier'
-import modal from '@/components/shared/Modal'
+import { pagesRef } from '@/admin/firebase_config'
+import notifier from '@/admin/mixins/notifier'
+import modal from '@/admin/components/shared/Modal'
 export default {
   name: 'pages',
   data () {

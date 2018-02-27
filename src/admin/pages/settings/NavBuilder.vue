@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { settingsRef, navRef } from '@/firebase_config'
+import { settingsRef, navRef } from '@/admin/firebase_config'
 export default {
   data () {
     return {

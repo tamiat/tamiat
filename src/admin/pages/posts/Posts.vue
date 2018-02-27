@@ -119,12 +119,12 @@
 
 <script>
 import moment from 'moment'
-import { postsRef } from '@/firebase_config'
-import notifier from '@/mixins/notifier'
-import modal from '@/components/shared/Modal'
-import postFilters from '@/mixins/postFilters'
-import dropdown from '@/components/shared/Dropdown'
-import checkbox from '@/components/shared/Checkbox'
+import { postsRef } from '@/admin/firebase_config'
+import notifier from '@/admin/mixins/notifier'
+import modal from '@/admin/components/shared/Modal'
+import postFilters from '@/admin/mixins/postFilters'
+import dropdown from '@/admin/components/shared/Dropdown'
+import checkbox from '@/admin/components/shared/Checkbox'
 export default {
   name: 'posts',
   data () {

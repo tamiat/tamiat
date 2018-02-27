@@ -39,7 +39,7 @@
 
 <script>
 import firebase from 'firebase'
-import notifier from '../../mixins/notifier'
+import notifier from '@/admin/mixins/notifier'
 
 export default {
   name: 'log-in',

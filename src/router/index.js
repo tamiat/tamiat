@@ -2,18 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // import app pages
-import Home from '../components/Home'
-import Admin from '../components/Admin'
-import Login from '../components/Admin/Login'
+import Home from '@/app/pages/Home'
 
 // import admin page components
-import Posts from '../components/Admin/content/Posts'
-import PostNew from '../components/Admin/content/PostNew'
-import PostEdit from '../components/Admin/content/PostEdit'
-import Settings from '../components/Admin/content/Settings'
-import Pages from '../components/Admin/content/Pages'
-import Media from '../components/Admin/content/Media'
-import Database from '../components/Admin/content/Database'
+import Admin from '@/admin/pages/Admin'
+import Login from '@/admin/pages/Login'
+import Posts from '@/admin/pages/posts/Posts'
+import PostNew from '@/admin/pages/posts/PostNew'
+import PostEdit from '@/admin/pages/posts/PostEdit'
+import Settings from '@/admin/pages/settings/Settings'
+import Pages from '@/admin/pages/Pages'
+import Media from '@/admin/pages/Media'
+import Database from '@/admin/pages/Database'
 
 Vue.use(Router)
 

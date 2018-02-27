@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import Navbar from './Admin/layout/Navbar'
-import Sidebar from './Admin/layout/Sidebar'
+import Navbar from '@/admin/components/layout/Navbar'
+import Sidebar from '@/admin/components/layout/Sidebar'
 import firebase from 'firebase'
 
 export default {

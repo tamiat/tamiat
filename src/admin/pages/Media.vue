@@ -13,7 +13,7 @@
 <script>
 import firebase from 'firebase'
 
-import { mediaRef } from '@/firebase_config'
+import { mediaRef } from '@/admin/firebase_config'
 
 export default {
   name: 'Media',

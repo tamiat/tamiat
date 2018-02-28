@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav-builder">
     <!-- navigation menu builder -->
     <h3 class="is-size-3">Navigation Menu Builder</h3>
     <div class="box">
@@ -171,21 +171,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  padding-left: 15px;
-}
-.sub-nav {
-  padding-left: 30px;
-}
-.link-actions {
-  display: none;
-  span {
-    cursor: pointer;
+.nav-builder {
+
+  .nav {
+    padding-left: 15px;
+  }
+
+  .sub-nav {
+    padding-left: 30px;
+  }
+
+  .link-actions {
+    display: none;
+    span {
+      cursor: pointer;
+    }
+  }
+
+  li:hover .link-actions {
+    display: inline;
   }
 }
-
-li:hover .link-actions {
-  display: inline;
-}
-
 </style>

@@ -38,25 +38,27 @@
         <!-- menu visualization -->
         <div class="column">
           <p class="is-size-4">menu</p>
-          <ul v-for="(item, index) in menu" :key="index" class="nav">
+          <ul v-for="(item, index) in menu" :key="index" class="nav-preview">
             <li>
               {{item.name}}: {{item.path}}
 
               <span class="link-actions">
                 <span class="has-text-danger fa fa-trash" @click="removeLink(item)"></span>
-                <span v-if="index !== 0" class="has-text-success fa fa-arrow-up" @click="moveUp(item, menu[index - 1])"></span>
-                <span v-if="index !== menu.length - 1" class="fa fa-arrow-down" @click="moveDown(item, menu[index + 1])"></span>
+                <span v-if="index !== 0" class="has-text-success fa fa-arrow-up" @click="moveLinkUp(item, menu[index - 1])"></span>
+                <span v-if="index !== menu.length - 1" class="fa fa-arrow-down" @click="moveLinkDown(item, menu[index + 1])"></span>
                 <span class="has-text-info fa fa-edit" @click="editLink(item)"></span>
                 <span class="has-text-primary fa fa-plus" @click="addSubLink(item)"></span>
               </span>
 
               <!-- render children links -->
-              <ul v-if="item.children" class="sub-nav">
+              <ul v-if="item.children" class="sub-nav-preview">
                 <li v-for="(child, key) in item.children" :key="key">
                   {{child.name}}: {{child.path}}
 
-                  <span class="link-actions">
+                  <span class="sub-link-actions">
                     <span class="has-text-danger fa fa-trash" @click="removeSubLink(key, item)"></span>
+                    <span class="has-text-success fa fa-arrow-up" @click="moveSubLinkUp(key, item)"></span>
+                    <span class="fa fa-arrow-down" @click="moveSubLinkDown(key, item)"></span>
                   </span>
                 </li>
               </ul>
@@ -131,7 +133,7 @@ export default {
       this.path = ''
       this.action = 'new'
     },
-    moveUp (item, previousItem) {
+    moveLinkUp (item, previousItem) {
       let itemCopy = Object.assign({}, item)
       let previousItemCopy = Object.assign({}, previousItem)
 
@@ -141,7 +143,7 @@ export default {
       this.$firebaseRefs.menu.child(item['.key']).set(previousItemCopy)
       this.$firebaseRefs.menu.child(previousItem['.key']).set(itemCopy)
     },
-    moveDown (item, nextItem) {
+    moveLinkDown (item, nextItem) {
       let itemCopy = Object.assign({}, item)
       let nextItemCopy = Object.assign({}, nextItem)
 
@@ -163,6 +165,57 @@ export default {
       })
       this.clear()
     },
+    moveSubLinkUp (currentKey, parent) {
+      let childrenObject = {}
+      let childrenArray = this.convertFirebaseObjToArray(parent.children)
+      let previousKey = ''
+
+      for (let i = 0; i < childrenArray.length; i++) {
+        if (childrenArray[i]['.key'] === currentKey) {
+          previousKey = childrenArray[i - 1]['.key']
+
+          childrenObject[previousKey] = {...childrenArray[i]}
+          childrenObject[currentKey] = {...childrenArray[i - 1]}
+
+          delete childrenObject[previousKey]['.key']
+          delete childrenObject[currentKey]['.key']
+        } else {
+          childrenObject[childrenArray[i]['.key']] = {...childrenArray[i]}
+          delete childrenObject[childrenArray[i]['.key']]['.key']
+        }
+      }
+
+      this.$firebaseRefs.menu.child(parent['.key']).child('children').set(childrenObject)
+    },
+    moveSubLinkDown (currentKey, parent) {
+      let childrenObject = {}
+      let childrenArray = this.convertFirebaseObjToArray(parent.children)
+      let nextKey = ''
+
+      for (let i = childrenArray.length - 1; i >= 0; i--) {
+        if (childrenArray[i]['.key'] === currentKey) {
+          nextKey = childrenArray[i + 1]['.key']
+
+          childrenObject[nextKey] = {...childrenArray[i]}
+          childrenObject[currentKey] = {...childrenArray[i + 1]}
+
+          delete childrenObject[nextKey]['.key']
+          delete childrenObject[currentKey]['.key']
+        } else {
+          childrenObject[childrenArray[i]['.key']] = {...childrenArray[i]}
+          delete childrenObject[childrenArray[i]['.key']]['.key']
+        }
+      }
+
+      this.$firebaseRefs.menu.child(parent['.key']).child('children').set(childrenObject)
+    },
+    convertFirebaseObjToArray (obj) {
+      let array = []
+      for (let key in obj) {
+        array.push({'.key': key, ...obj[key]})
+      }
+      return array
+    },
     removeSubLink (key, parent) {
       this.$firebaseRefs.menu.child(parent['.key']).child('children').child(key).remove()
     }
@@ -173,23 +226,39 @@ export default {
 <style lang="scss" scoped>
 .nav-builder {
 
-  .nav {
+  .nav-preview {
     padding-left: 15px;
   }
 
-  .sub-nav {
+  .sub-nav-preview {
     padding-left: 30px;
   }
 
-  .link-actions {
+  .link-actions, .sub-link-actions {
     display: none;
     span {
       cursor: pointer;
     }
   }
 
-  li:hover .link-actions {
+  .nav-preview>li:hover .link-actions {
     display: inline;
+  }
+
+  .sub-nav-preview>li:hover .sub-link-actions {
+    display: inline;
+  }
+
+  .sub-nav-preview>li:first-child {
+    .fa-arrow-up {
+      display: none;
+    }
+  }
+
+  .sub-nav-preview>li:last-child {
+    .fa-arrow-down {
+      display: none;
+    }
   }
 }
 </style>

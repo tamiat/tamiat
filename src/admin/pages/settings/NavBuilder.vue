@@ -25,8 +25,11 @@
               <button v-if="action === 'edit'" class="button is-info" @click="updateLink">
                 Update
               </button>
-              <button v-if="action === 'sub'" class="button is-info" @click="appendSubLink">
+              <button v-if="action === 'new-sub'" class="button is-info" @click="appendSubLink">
                 Add sub-link
+              </button>
+              <button v-if="action === 'edit-sub'" class="button is-info" @click="updateSubLink">
+                Edit sub-link
               </button>
             </div>
             <div class="control">
@@ -59,6 +62,7 @@
                     <span class="has-text-danger fa fa-trash" @click="removeSubLink(key, item)"></span>
                     <span class="has-text-success fa fa-arrow-up" @click="moveSubLinkUp(key, item)"></span>
                     <span class="fa fa-arrow-down" @click="moveSubLinkDown(key, item)"></span>
+                    <span class="has-text-info fa fa-edit" @click="editSubLink(key, item)"></span>
                   </span>
                 </li>
               </ul>
@@ -154,7 +158,7 @@ export default {
       this.$firebaseRefs.menu.child(nextItem['.key']).set(itemCopy)
     },
     addSubLink (link) {
-      this.action = 'sub'
+      this.action = 'new-sub'
       this.key = link['.key']
     },
     appendSubLink () {
@@ -218,6 +222,21 @@ export default {
     },
     removeSubLink (key, parent) {
       this.$firebaseRefs.menu.child(parent['.key']).child('children').child(key).remove()
+    },
+    editSubLink (key, parent) {
+      this.name = parent.children[key].name
+      this.path = parent.children[key].path
+      this.action = 'edit-sub'
+      this.key = key
+      this.link = Object.assign({}, parent)
+      console.log(this.link['.key'])
+    },
+    updateSubLink () {
+      this.$firebaseRefs.menu.child(this.link['.key']).child('children').child(this.key).update({
+        name: this.name,
+        path: this.path,
+        isAbsolute: this.isAbsolute
+      })
     }
   }
 }

@@ -8,6 +8,7 @@ import Posts from '@/admin/pages/posts/Posts'
 import PostNew from '@/admin/pages/posts/PostNew'
 import PostEdit from '@/admin/pages/posts/PostEdit'
 import Settings from '@/admin/pages/settings/Settings'
+import Routing from '@/admin/pages/Routing'
 import Pages from '@/admin/pages/Pages'
 import Media from '@/admin/pages/Media'
 import Database from '@/admin/pages/Database'
@@ -45,6 +46,10 @@ const routes = [
       {
         path: 'settings',
         component: Settings
+      },
+      {
+        path: 'routing',
+        component: Routing
       },
       {
         path: 'pages',

@@ -30,6 +30,11 @@ export default {
           icon: 'fa-file-text'
         },
         {
+          name: 'Routing',
+          path: '/admin/routing',
+          icon: 'fa-random'
+        },
+        {
           name: 'Pages',
           path: '/admin/pages',
           icon: 'fa-archive'

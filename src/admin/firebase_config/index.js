@@ -14,5 +14,6 @@ const usersRef = db.ref('users')
 const mediaRef = db.ref('media')
 const navRef = db.ref('nav')
 const templatesRef = db.ref('templates')
+const routesRef = db.ref('routes')
 
-export { postsRef, usersRef, settingsRef, pagesRef, mediaRef, navRef, templatesRef }
+export { postsRef, usersRef, settingsRef, pagesRef, mediaRef, navRef, templatesRef, routesRef }

@@ -15,9 +15,10 @@
 
         <!-- link form -->
         <div class="column">
+
           <div class="field">
             <label class="label">Content</label>
-            <div class="select is-medium">
+            <div class="select is-medium is-fullwidth">
               <select v-model="form.content">
                 <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
                   {{content.title}}
@@ -28,7 +29,7 @@
 
           <div class="field">
             <label class="label">Template</label>
-            <div class="select is-medium">
+            <div class="select is-medium is-fullwidth">
               <select v-model="form.template">
                 <option v-for="(template, i) in templates" :key="i" :value="template">
                   {{template}}

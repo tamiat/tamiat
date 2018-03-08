@@ -21,7 +21,7 @@ export default {
   methods: {
     onLoaded () {
       let filteredRoutes = this.routes.filter((route) => {
-        return route.route === this.$route.path
+        return route.path === this.$route.path
       })
       let contentId = filteredRoutes[0].content
       this.getContentById(contentId)

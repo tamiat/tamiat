@@ -9,7 +9,7 @@ let dynamicRoutes = {
         let routesArr = []
         for (let key in routesObj) {
           routesArr.push({
-            path: routesObj[key]['route'],
+            path: routesObj[key]['path'],
             component: routesObj[key]['template']
           })
         }

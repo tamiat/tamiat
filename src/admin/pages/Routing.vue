@@ -39,9 +39,9 @@
           </div>
 
           <div class="field">
-            <label class="label">Route</label>
+            <label class="label">Path</label>
             <div class="control">
-              <input class="input" type="text" v-model="form.route" placeholder="Ex: /route">
+              <input class="input" type="text" v-model="form.path" placeholder="Ex: /path">
             </div>
           </div>
 
@@ -72,7 +72,7 @@
               </span>
 
               <div class="route-details">
-                <span><b>Path:</b> {{route.route}} | </span>
+                <span><b>Path:</b> {{route.path}} | </span>
                 <span><b>Template:</b> {{route.template}} | </span>
                 <span><b>Content:</b> {{selectContentById(route.content).title}}</span>
               </div>
@@ -94,7 +94,7 @@ export default {
     return {
       form: {
         content: '',
-        route: '/',
+        path: '/',
         template: '',
         action: 'add',
         key: ''
@@ -114,7 +114,7 @@ export default {
     addRoute () {
       this.$firebaseRefs.routes.push({
         content: this.form.content,
-        route: this.form.route.trim(),
+        path: this.form.path.trim(),
         template: this.form.template
       })
         .then((res) => {
@@ -128,14 +128,14 @@ export default {
     editRoute (route) {
       this.form.content = route.content
       this.form.template = route.template
-      this.form.route = route.route
+      this.form.route = route.path
       this.form.action = 'update'
       this.form.key = route['.key']
     },
     updateRoute () {
       this.$firebaseRefs.routes.child(this.form.key).set({
         content: this.form.content,
-        route: this.form.route.trim(),
+        path: this.form.path.trim(),
         template: this.form.template
       })
         .then(() => {
@@ -151,7 +151,7 @@ export default {
     },
     clear () {
       this.form.key = ''
-      this.form.route = '/'
+      this.form.path = '/'
       this.form.content = ''
       this.form.template = ''
       this.form.action = 'add'

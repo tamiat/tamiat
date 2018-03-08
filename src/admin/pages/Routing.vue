@@ -60,6 +60,7 @@
           <ul>
             <li v-for="(route, i) in routes" :key="i">
               <b>Route {{i}}</b>
+              <span class="has-text-danger fa fa-trash" @click="deleteRoute(route['.key'])"></span>
               <div style="padding-left: 20px; margin-bottom: 20px;">
                 <span><b>Path:</b> {{route.route}} | </span>
                 <span><b>Template:</b> {{route.template}} | </span>
@@ -110,6 +111,12 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    deleteRoute (key) {
+      this.$firebaseRefs.routes.child(key).remove()
+        .then(() => {
+          this.showNotification('success', 'Route deleted successfully')
         })
     }
   }

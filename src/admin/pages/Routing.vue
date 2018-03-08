@@ -18,7 +18,7 @@
 
           <div class="field">
             <label class="label">Content</label>
-            <div class="select is-medium is-fullwidth">
+            <div class="select is-fullwidth">
               <select v-model="form.content">
                 <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
                   {{content.title}}
@@ -29,7 +29,7 @@
 
           <div class="field">
             <label class="label">Template</label>
-            <div class="select is-medium is-fullwidth">
+            <div class="select is-fullwidth">
               <select v-model="form.template">
                 <option v-for="(template, i) in templates" :key="i" :value="template">
                   {{template}}
@@ -112,23 +112,31 @@ export default {
       return this.contents.filter(content => content['.key'] === contentId)[0]
     },
     addRoute () {
-      this.$firebaseRefs.routes.push({
-        content: this.form.content,
-        path: this.form.path.trim(),
-        template: this.form.template
+      let existingPaths = this.routes.map(route => {
+        return route.path
       })
-        .then((res) => {
-          this.showNotification('success', 'Route added successfully')
-          this.clear()
+
+      if (!existingPaths.includes(this.form.path.trim())) {
+        this.$firebaseRefs.routes.push({
+          content: this.form.content,
+          path: this.form.path.trim(),
+          template: this.form.template
         })
-        .catch(err => {
-          console.log(err)
-        })
+          .then((res) => {
+            this.showNotification('success', 'Route added successfully')
+            this.clear()
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        this.showNotification('danger', 'A route with the same path already exists')
+      }
     },
     editRoute (route) {
       this.form.content = route.content
       this.form.template = route.template
-      this.form.route = route.path
+      this.form.path = route.path
       this.form.action = 'update'
       this.form.key = route['.key']
     },

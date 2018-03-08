@@ -119,7 +119,12 @@ export default {
           template: this.form.template
         })
           .then((res) => {
+            let template = this.form.template
             this.showNotification('success', 'Route added successfully')
+            this.$router.addRoutes([{
+              path: this.form.path,
+              component: () => import(`@/app/templates/${template}.vue`)
+            }])
             this.clear()
           })
           .catch(err => {
@@ -144,7 +149,12 @@ export default {
           template: this.form.template
         })
           .then(() => {
+            let template = this.form.template
             this.showNotification('success', 'Route Updated successfully')
+            this.$router.addRoutes([{
+              path: this.form.path,
+              component: () => import(`@/app/templates/${template}.vue`)
+            }])
             this.clear()
           })
       } else {

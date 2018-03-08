@@ -56,6 +56,19 @@
           </div>
         </div>
 
+        <div class="column">
+          <ul>
+            <li v-for="(route, i) in routes" :key="i">
+              <b>Route {{i}}</b>
+              <div style="padding-left: 20px; margin-bottom: 20px;">
+                <span><b>Path:</b> {{route.route}} | </span>
+                <span><b>Template:</b> {{route.template}} | </span>
+                <span><b>Content:</b> {{selectContentById(route.content).title}}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
   </div>
@@ -82,6 +95,9 @@ export default {
   },
   mixins: [notifier],
   methods: {
+    selectContentById (contentId) {
+      return this.contents.filter(content => content['.key'] === contentId)[0]
+    },
     addRoute () {
       this.$firebaseRefs.routes.push({
         content: this.form.content,

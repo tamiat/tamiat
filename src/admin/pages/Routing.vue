@@ -112,11 +112,7 @@ export default {
       return this.contents.filter(content => content['.key'] === contentId)[0]
     },
     addRoute () {
-      let existingPaths = this.routes.map(route => {
-        return route.path
-      })
-
-      if (!existingPaths.includes(this.form.path.trim())) {
+      if (this.isPathAvailable(this.form.path)) {
         this.$firebaseRefs.routes.push({
           content: this.form.content,
           path: this.form.path.trim(),
@@ -141,15 +137,19 @@ export default {
       this.form.key = route['.key']
     },
     updateRoute () {
-      this.$firebaseRefs.routes.child(this.form.key).set({
-        content: this.form.content,
-        path: this.form.path.trim(),
-        template: this.form.template
-      })
-        .then(() => {
-          this.showNotification('success', 'Route Updated successfully')
-          this.clear()
+      if (this.isPathAvailable(this.form.path)) {
+        this.$firebaseRefs.routes.child(this.form.key).set({
+          content: this.form.content,
+          path: this.form.path.trim(),
+          template: this.form.template
         })
+          .then(() => {
+            this.showNotification('success', 'Route Updated successfully')
+            this.clear()
+          })
+      } else {
+        this.showNotification('danger', 'A route with the same path already exists')
+      }
     },
     deleteRoute (key) {
       this.$firebaseRefs.routes.child(key).remove()
@@ -163,6 +163,12 @@ export default {
       this.form.content = ''
       this.form.template = ''
       this.form.action = 'add'
+    },
+    isPathAvailable (path) {
+      let existingPaths = this.routes.map(route => {
+        return route.path
+      })
+      return !existingPaths.includes(this.form.path.trim())
     }
   }
 }

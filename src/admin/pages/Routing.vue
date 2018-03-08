@@ -48,7 +48,12 @@
           <!-- buttons -->
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-info" @click="addRoute">Add</button>
+              <button v-if="form.action === 'add'" class="button is-info" @click="addRoute">
+                Add
+              </button>
+              <button v-if="form.action === 'update'" class="button is-info" @click="updateRoute">
+                Update
+              </button>
             </div>
             <div class="control">
               <button class="button" >Cancel</button>
@@ -60,8 +65,13 @@
           <ul>
             <li v-for="(route, i) in routes" :key="i">
               <b>Route {{i}}</b>
-              <span class="has-text-danger fa fa-trash" @click="deleteRoute(route['.key'])"></span>
-              <div style="padding-left: 20px; margin-bottom: 20px;">
+
+              <span class="route-actions">
+                <span class="has-text-danger fa fa-trash" @click="deleteRoute(route['.key'])"></span>
+                <span class="has-text-info fa fa-edit" @click="editRoute(route)"></span>
+              </span>
+
+              <div class="route-details">
                 <span><b>Path:</b> {{route.route}} | </span>
                 <span><b>Template:</b> {{route.template}} | </span>
                 <span><b>Content:</b> {{selectContentById(route.content).title}}</span>
@@ -85,7 +95,9 @@ export default {
       form: {
         content: '',
         route: '/',
-        template: ''
+        template: '',
+        action: 'add',
+        key: ''
       },
       templates
     }
@@ -106,11 +118,29 @@ export default {
         template: this.form.template
       })
         .then((res) => {
-          console.log(res)
           this.showNotification('success', 'Route added successfully')
+          this.clear()
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    editRoute (route) {
+      this.form.content = route.content
+      this.form.template = route.template
+      this.form.route = route.route
+      this.form.action = 'update'
+      this.form.key = route['.key']
+    },
+    updateRoute () {
+      this.$firebaseRefs.routes.child(this.form.key).set({
+        content: this.form.content,
+        route: this.form.route.trim(),
+        template: this.form.template
+      })
+        .then(() => {
+          this.showNotification('success', 'Route Updated successfully')
+          this.clear()
         })
     },
     deleteRoute (key) {
@@ -118,7 +148,34 @@ export default {
         .then(() => {
           this.showNotification('success', 'Route deleted successfully')
         })
+    },
+    clear () {
+      this.form.key = ''
+      this.form.route = '/'
+      this.form.content = ''
+      this.form.template = ''
+      this.form.action = 'add'
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.route-actions {
+  padding-left: 10px;
+  display: none;
+  span {
+    cursor: pointer;
+    padding-right: 5px;
+  }
+}
+
+li:hover .route-actions {
+  display: inline;
+}
+
+.route-details {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+</style>

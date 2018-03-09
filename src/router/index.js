@@ -14,7 +14,9 @@ import Settings from '@/admin/pages/settings/Settings'
 import Pages from '@/admin/pages/Pages'
 import Media from '@/admin/pages/Media'
 import Database from '@/admin/pages/Database'
-
+import ContentType from '@/admin/pages/ContentType'
+import Content from '@/admin/pages/content/Content'
+import ContentNew from '@/admin/pages/content/ContentNew'
 Vue.use(Router)
 
 export default new Router({
@@ -64,6 +66,20 @@ export default new Router({
         {
           path: 'database',
           component: Database
+        },
+        {
+          path: 'content',
+          component: ContentType
+        },
+        {
+          path: 'content/:customContent',
+          component: Content,
+          children: [
+            {
+              path: 'new',
+              component: ContentNew
+            }
+          ]
         }
       ]
     },

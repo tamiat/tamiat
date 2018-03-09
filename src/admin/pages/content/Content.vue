@@ -119,7 +119,7 @@
 
 <script>
 import moment from 'moment'
-import { postsRef } from '@/admin/firebase_config'
+import { contentsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 import modal from '@/admin/components/shared/Modal'
 import postFilters from '@/admin/mixins/postFilters'
@@ -139,14 +139,15 @@ export default {
     }
   },
   firebase: {
-    posts: postsRef
+    contents: contentsRef
   },
   created () {
-    this.$store.dispatch('getMenuItem', this.$route.path)
+    /* this.$store.dispatch('getMenuItem', this.$route.path)
       .then(() => {
         this.customContent = this.$store.getters.menuItem
         this.loaded = true
       })
+    */
   },
   computed: {
     allPosts () {

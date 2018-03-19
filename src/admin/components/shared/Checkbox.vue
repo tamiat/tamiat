@@ -25,11 +25,12 @@ export default {
   methods: {
     updateCheckbox () {
       this.$emit('input', event.target.checked)
+      this.$emit('checked', this.checked)
     }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 input[type=checkbox] {
      position: relative;
 }

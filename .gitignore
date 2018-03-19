@@ -72,4 +72,4 @@ typings/
 .next
 
 # firebaseConfig
-/src/admin/firebase_config/config.js
+src/admin/firebase_config/config.js

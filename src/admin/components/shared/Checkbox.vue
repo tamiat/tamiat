@@ -25,6 +25,7 @@ export default {
   methods: {
     updateCheckbox () {
       this.$emit('input', event.target.checked)
+      this.$emit('checked', this.checked)
     }
   }
 }

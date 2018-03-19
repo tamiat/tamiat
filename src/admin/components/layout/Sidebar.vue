@@ -28,6 +28,13 @@
                 </div>
               </router-link>
             </li>
+            <li>
+              <router-link :to="menuItems[0].dropdown[0].path">
+                <div class="has-text-centered">
+                  {{ menuItems[0].dropdown[0].name }}
+                </div>
+              </router-link>
+            </li>
           </ul>
         </router-link>
       </li>
@@ -47,7 +54,6 @@ export default {
     return {
       // this array contains the all the links in the sidebar
       loaded: true,
-      // menuitems: [],
       menu: [
         {
           name: 'Posts',

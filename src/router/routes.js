@@ -12,9 +12,8 @@ import Routing from '@/admin/pages/Routing'
 import Pages from '@/admin/pages/Pages'
 import Media from '@/admin/pages/Media'
 import Database from '@/admin/pages/Database'
-import Content from '@/admin/pages/content/Content'
-import ContentNew from '@/admin/pages/content/ContentNew'
-import ContentType from '@/admin/pages/ContentType'
+import ContentType from '@/admin/pages/content/ContentType'
+import FieldNew from '@/admin/pages/content/FieldNew'
 
 const routes = [
   {
@@ -68,15 +67,11 @@ const routes = [
       },
       {
         path: 'content',
-        component: ContentType
-      },
-      {
-        path: 'content/:customContent',
-        component: Content,
+        component: ContentType,
         children: [
           {
-            path: 'new',
-            component: ContentNew
+            path: 'fieldNew',
+            component: FieldNew
           }
         ]
       }

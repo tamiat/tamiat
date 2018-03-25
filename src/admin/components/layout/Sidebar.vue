@@ -56,11 +56,6 @@ export default {
       loaded: true,
       menu: [
         {
-          name: 'Posts',
-          path: '/admin/posts',
-          icon: 'fa-file-text'
-        },
-        {
           name: 'Routing',
           path: '/admin/routing',
           icon: 'fa-random'

@@ -28,6 +28,35 @@
         "path": "https://www.google.com",
         "isAbsolute": true
       }
+    ],
+    "demoContent": {
+      "name": "Posts",
+      "icon": "fa-file-text",
+      "path": "/admin/posts",
+      "fields": [
+        {
+          "multiValue": false,
+          "name": "Title",
+          "type": "textbox"
+        },
+        {
+          "multiValue": false,
+          "name": "Category",
+          "type": "textbox"
+        }
+      ]
+    },
+    "demoFields": [
+      {
+        "multiValue": false,
+        "name": "Title",
+        "type": "textbox"
+      },
+      {
+        "multiValue": false,
+        "name": "Category",
+        "type": "textbox"
+      }
     ]
   }
 }

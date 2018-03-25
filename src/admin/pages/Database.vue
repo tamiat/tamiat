@@ -45,6 +45,24 @@
             </span>
             <span v-else class="has-text-success">Contains data</span>
           </div>
+
+           <div>
+            Content:
+            <span v-if="contents.length === 0" class="has-text-danger">
+              Empty
+              <button class="button is-info" @click="addDemoContent">Add Demo Content</button>
+            </span>
+            <span v-else class="has-text-success">Contains data</span>
+          </div>
+
+           <div>
+            Fields:
+            <span v-if="fields.length === 0" class="has-text-danger">
+              Empty
+              <button class="button is-info" @click="addDemoFields">Add Demo Field</button>
+            </span>
+            <span v-else class="has-text-success">Contains data</span>
+          </div>
         </div>
       </div>
     </div>
@@ -55,7 +73,7 @@
 import firebase from 'firebase'
 import {demoData} from '@/../tamiat.config.json'
 import notifier from '@/admin/mixins/notifier'
-import { postsRef, settingsRef, mediaRef, navRef } from '@/admin/firebase_config'
+import { postsRef, settingsRef, mediaRef, navRef, contentsRef, fieldsRef } from '@/admin/firebase_config'
 export default {
   data () {
     return {...demoData}
@@ -64,7 +82,9 @@ export default {
     posts: postsRef,
     settings: settingsRef,
     media: mediaRef,
-    nav: navRef
+    nav: navRef,
+    fields: fieldsRef,
+    contents: contentsRef
   },
   mixins: [notifier],
   methods: {
@@ -141,6 +161,24 @@ export default {
       })
         .then(() => {
           this.showNotification('success', 'Demo Logo added successfully')
+        })
+    },
+    addDemoFields () {
+      let i = this.demoFields.length
+      this.demoFields.forEach(field => {
+        this.$firebaseRefs.fields.push(field)
+          .then(() => {
+            i--
+            if (i === 0) {
+              this.showNotification('success', 'Demo field added successfully')
+            }
+          })
+      })
+    },
+    addDemoContent () {
+      this.$firebaseRefs.contents.push(this.demoContent)
+        .then(() => {
+          this.showNotification('success', 'Demo Content added successfully')
         })
     }
   }

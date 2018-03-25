@@ -56,7 +56,7 @@
               </button>
             </div>
             <div class="control">
-              <button class="button" >Cancel</button>
+              <button class="button" @click="clear">Cancel</button>
             </div>
           </div>
         </div>
@@ -142,24 +142,20 @@ export default {
       this.form.key = route['.key']
     },
     updateRoute () {
-      if (this.isPathAvailable(this.form.path)) {
-        this.$firebaseRefs.routes.child(this.form.key).set({
-          content: this.form.content,
-          path: this.form.path.trim(),
-          template: this.form.template
+      this.$firebaseRefs.routes.child(this.form.key).set({
+        content: this.form.content,
+        path: this.form.path.trim(),
+        template: this.form.template
+      })
+        .then(() => {
+          let template = this.form.template
+          this.showNotification('success', 'Route Updated successfully')
+          this.$router.addRoutes([{
+            path: this.form.path,
+            component: () => import(`@/app/templates/${template}.vue`)
+          }])
+          this.clear()
         })
-          .then(() => {
-            let template = this.form.template
-            this.showNotification('success', 'Route Updated successfully')
-            this.$router.addRoutes([{
-              path: this.form.path,
-              component: () => import(`@/app/templates/${template}.vue`)
-            }])
-            this.clear()
-          })
-      } else {
-        this.showNotification('danger', 'A route with the same path already exists')
-      }
     },
     deleteRoute (key) {
       this.$firebaseRefs.routes.child(key).remove()

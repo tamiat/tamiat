@@ -50,6 +50,12 @@
     "nav": {
       ".validate": true
     },
+    "fields": {
+      ".validate": true
+    },
+    "contents": {
+      ".validate": true
+    },
     "routes": {
       ".validate": true
     },

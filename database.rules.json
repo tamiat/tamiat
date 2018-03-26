@@ -50,6 +50,9 @@
     "nav": {
       ".validate": true
     },
+    "routes": {
+      ".validate": true
+    },
     "$other": {
       ".validate": false
     }

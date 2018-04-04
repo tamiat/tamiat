@@ -13,12 +13,12 @@
 
       <nav>
         <li v-for="(link, index) in nav" :key="index">
-          <a v-if="link.isAbsolute" :href="link.path">{{link.name}}</a>
+          <a v-if="link.isAbsolute" :href="link.path" target="_blank">{{link.name}}</a>
           <router-link v-else :to="link.path">{{link.name}}</router-link>
 
           <ul v-if="link.children" class="sub-nav">
             <li v-for="(subLink, index) in link.children" :key="index">
-              <a v-if="subLink.isAbsolute" :href="subLink.path">{{subLink.name}}</a>
+              <a v-if="subLink.isAbsolute" :href="subLink.path" target="_blank">{{subLink.name}}</a>
               <router-link v-else :to="subLink.path">{{subLink.name}}</router-link>
             </li>
           </ul>

@@ -2,7 +2,7 @@
   <div id="app">
 
     <header>
-      <h2 class="is-title is-size-4">
+      <h2>
         <a href="#">
           <figure class="websiteLogo" v-if="loadLogo">
             <img :src="loadLogo" alt="image">
@@ -73,33 +73,6 @@
           </p>
         </li>
       </ul>
-    </section>
-
-    <section>
-      <h3 class="title">Our blog posts</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-      <hr>
-
-      <div class="wrapper">
-        <div class="card radius shadowDepth1" v-if="post" v-for="post in posts" :key="post.created">
-          <div class="card__image border-tlr-radius">
-            <img :src="post.img" alt="image" class="border-tlr-radius">
-          </div>
-          <div class="card__content card__padding">
-            <article class="card__article">
-              <h2><a href="#">{{post.title}}</a></h2>
-              <p v-html="post.body"></p>
-            </article>
-          </div>
-          <div class="card__action">
-            <div class="card__author">
-              <div class="card__author-content">
-                By <a href="#">{{post.author}}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="reviews">

@@ -27,8 +27,8 @@
             <label class="label">Template</label>
             <div class="select is-fullwidth">
               <select v-model="form.template">
-                <option v-for="(template, i) in templates" :key="i" :value="template">
-                  {{template}}
+                <option v-for="(template, i) in templates" :key="i" :value="template.filename">
+                  {{template.displayName}}
                 </option>
               </select>
             </div>
@@ -74,7 +74,7 @@
               </span>
 
               <div class="route-details">
-                <span><b>Template:</b> {{route.template}} | </span>
+                <span><b>Template:</b> {{getTemplateDisplayName(route.template)}} | </span>
                 <span><b>Content:</b> {{selectContentById(route.content).title || 'No Content'}}</span>
               </div>
             </li>
@@ -176,6 +176,13 @@ export default {
         return route.path
       })
       return !existingPaths.includes(this.form.path.trim())
+    },
+    getTemplateDisplayName (filename) {
+      let displayName = ''
+      templates.forEach(template => {
+        displayName = template.filename === filename ? template.displayName : displayName
+      })
+      return displayName
     }
   }
 }

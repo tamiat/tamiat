@@ -15,7 +15,7 @@
               </h1>
             </div>
             <h2 class="subtitle">
-              <a class="button is-dark" href="https://github.com/tamiat/tamiat">
+              <a class="button is-dark" href="https://github.com/tamiat/tamiat" target="_blank">
                 <span class="icon">
                   <i class="fa fa-github"></i>
                 </span>

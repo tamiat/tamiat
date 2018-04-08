@@ -61,11 +61,6 @@ export default {
           icon: 'fa-random'
         },
         {
-          name: 'Pages',
-          path: '/admin/pages',
-          icon: 'fa-archive'
-        },
-        {
           name: 'Media',
           path: '/admin/media',
           icon: 'fa-picture-o'

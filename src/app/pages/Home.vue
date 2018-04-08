@@ -33,7 +33,7 @@
       </h1>
       <h3>{{settings.description}}</h3>
       <div class="cta">
-        <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn">Download it Here</a>
+        <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn" target="_blank">Download it Here</a>
       </div>
     </section>
 

@@ -18,14 +18,14 @@
         <!-- email -->
         <div class="field columns">
           <div class="control column">
-            <input type="email" class="input" placeholder="Email" v-model="email">
+            <input type="email" class="input" placeholder="Email" v-model="email" @keyup.enter="login">
           </div>
         </div>
 
         <!-- password -->
         <div class="field columns">
           <div class="control column">
-            <input type="password" class="input" placeholder="Password" v-model="password">
+            <input type="password" class="input" placeholder="Password" v-model="password" @keyup.enter="login">
           </div>
         </div>
 

@@ -17,13 +17,9 @@
         <div class="column">
 
           <div class="field">
-            <label class="label">Content</label>
-            <div class="select is-fullwidth">
-              <select v-model="form.content">
-                <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
-                  {{content.title}}
-                </option>
-              </select>
+            <label class="label">Path</label>
+            <div class="control">
+              <input class="input" type="text" v-model="form.path" placeholder="Ex: /path">
             </div>
           </div>
 
@@ -39,9 +35,13 @@
           </div>
 
           <div class="field">
-            <label class="label">Path</label>
-            <div class="control">
-              <input class="input" type="text" v-model="form.path" placeholder="Ex: /path">
+            <label class="label">Content</label>
+            <div class="select is-fullwidth">
+              <select v-model="form.content">
+                <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
+                  {{content.title}}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -64,7 +64,8 @@
         <div class="column">
           <ul>
             <li v-for="(route, i) in routes" :key="i">
-              <b>Route {{i}}</b>
+              <b>Path: </b>
+              <router-link :to="route.path">{{route.path}}</router-link>
 
               <span class="route-actions">
                 <span class="has-text-danger fa fa-trash" @click="deleteRoute(route['.key'])"></span>
@@ -72,7 +73,6 @@
               </span>
 
               <div class="route-details">
-                <span><b>Path:</b> {{route.path}} | </span>
                 <span><b>Template:</b> {{route.template}} | </span>
                 <span><b>Content:</b> {{selectContentById(route.content).title}}</span>
               </div>

@@ -9,11 +9,11 @@ import PostNew from '@/admin/pages/posts/PostNew'
 import PostEdit from '@/admin/pages/posts/PostEdit'
 import Settings from '@/admin/pages/settings/Settings'
 import Routing from '@/admin/pages/Routing'
-import Pages from '@/admin/pages/Pages'
 import Media from '@/admin/pages/Media'
 import Database from '@/admin/pages/Database'
 import ContentType from '@/admin/pages/content/ContentType'
 import FieldNew from '@/admin/pages/content/FieldNew'
+import FieldEdit from '@/admin/pages/content/FieldEdit'
 
 const routes = [
   {
@@ -54,10 +54,6 @@ const routes = [
         component: Routing
       },
       {
-        path: 'pages',
-        component: Pages
-      },
-      {
         path: 'media',
         component: Media
       },
@@ -72,6 +68,10 @@ const routes = [
           {
             path: 'fieldNew',
             component: FieldNew
+          },
+          {
+            path: 'fieldEdit/:key',
+            component: FieldEdit
           }
         ]
       }

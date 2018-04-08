@@ -1,14 +1,14 @@
 <template>
  <div class="container is-widescreen">
 
-    <h3 class="is-size-3 has-text-centered">Create content field</h3><br>
+    <h3 class="is-size-3 has-text-centered">Edit content field</h3><br>
     <div class="box">
       <div class="columns">
         <div class="column is-one-third">
           <div class="field">
             <label class="label">Field name</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Field name" v-model="fieldName">
+              <input class="input" type="text" placeholder="Field name" v-model="field.name">
             </div>
           </div>
           <div class="field">
@@ -20,13 +20,13 @@
           <div class="field">
             <label class="label">Multi value allowed</label>
             <div class="control">
-               <checkbox v-model="multiValue"/>
+               <checkbox v-model="field.multiValue"/>
             </div>
           </div>
         </div>
       </div>
       <div class="buttons">
-        <button type="submit" class="button is-success" :disabled="fieldName === '' || fieldType.id === ''" @click="add()">Add field</button>
+        <button type="submit" class="button is-success" :disabled="field.name === '' || field.type === ''" @click="edit()">Edit field</button>
         <router-link to="/admin/content" class="button is-danger">Cancel</router-link>
       </div>
     </div>
@@ -39,7 +39,7 @@ import dropdown from '@/admin/components/shared/Dropdown'
 import { contentsRef, fieldsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 export default {
-  name: 'fieldNew',
+  name: 'fieldEdit',
   mixins: [notifier],
   firebase: {
     contents: contentsRef,
@@ -47,12 +47,12 @@ export default {
   },
   data () {
     return {
-      fieldName: '',
+      field: null,
+      multiValue: false,
       fieldType: {
         id: '',
         label: 'Field type'
       },
-      multiValue: false,
       fieldTypes: [
         {
           id: 'textarea',
@@ -77,29 +77,26 @@ export default {
       ]
     }
   },
-  props: ['add-field'],
+  props: ['edit-field'],
+  created () {
+    this.field = Object.assign(
+      {},
+      (this.fields.filter((field) => {
+        return (field['.key'] === this.$route.params.key)
+      }))[0]
+    )
+    this.fieldType.id = this.field.type
+    this.fieldType.label = this.field.type.charAt(0).toUpperCase() + this.field.type.slice(1)
+  },
   methods: {
-    add () {
+    edit () {
       let f = {
-        name: this.fieldName,
+        name: this.field.name,
         type: this.fieldType.id,
-        multiValue: this.multiValue
+        multiValue: this.field.multiValue
       }
-      this.addField(f)
-      this.fieldName = ''
-      this.fieldType = {
-        id: '',
-        label: 'Field type'
-      }
-      this.multiValue = false
+      this.editField(this.field, f)
       this.$router.push({ path: '/admin/content' })
-    },
-    resetForm () {
-      this.name = ''
-
-      for (var key in this.supports) {
-        this.supports[key] = false
-      }
     }
   },
   components: {

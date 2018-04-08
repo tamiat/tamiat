@@ -8,7 +8,6 @@ let db = app.database()
 
 // create a database references
 const settingsRef = db.ref('settings')
-const pagesRef = db.ref('pages')
 const postsRef = db.ref('posts')
 const usersRef = db.ref('users')
 const mediaRef = db.ref('media')
@@ -17,4 +16,4 @@ const contentsRef = db.ref('contents')
 const fieldsRef = db.ref('fields')
 
 const routesRef = db.ref('routes')
-export { postsRef, usersRef, settingsRef, pagesRef, mediaRef, navRef, routesRef, contentsRef, fieldsRef }
+export { postsRef, usersRef, settingsRef, mediaRef, navRef, routesRef, contentsRef, fieldsRef }

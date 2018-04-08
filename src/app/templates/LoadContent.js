@@ -1,13 +1,3 @@
-<template>
-  <div>
-    this is template 1
-    <span v-if="!content && routes.length > 0">{{onLoaded()}}</span>
-    <h1>{{content.title}}</h1>
-    <div v-html="content.body"></div>
-  </div>
-</template>
-
-<script>
 import { postsRef, routesRef } from '@/admin/firebase_config/index'
 export default {
   data () {
@@ -23,16 +13,15 @@ export default {
       let filteredRoutes = this.routes.filter((route) => {
         return route.path === this.$route.path
       })
-      let contentId = filteredRoutes[0].content
+      let contentId = filteredRoutes[0].content || 'none'
       this.getContentById(contentId)
     },
     getContentById (id) {
-      if (id) {
+      if (id !== 'none') {
         postsRef.child(id).on('value', (snapshot) => {
-          this.content = snapshot.val()
+          this.content = snapshot.val() || ''
         })
       }
     }
   }
 }
-</script>

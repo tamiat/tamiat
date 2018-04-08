@@ -41,6 +41,7 @@
                 <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
                   {{content.title}}
                 </option>
+                <option value="none">No Content</option>
               </select>
             </div>
           </div>
@@ -74,7 +75,7 @@
 
               <div class="route-details">
                 <span><b>Template:</b> {{route.template}} | </span>
-                <span><b>Content:</b> {{selectContentById(route.content).title}}</span>
+                <span><b>Content:</b> {{selectContentById(route.content).title || 'No Content'}}</span>
               </div>
             </li>
           </ul>
@@ -93,7 +94,7 @@ export default {
   data () {
     return {
       form: {
-        content: '',
+        content: 'none',
         path: '/',
         template: '',
         action: 'add',
@@ -109,7 +110,7 @@ export default {
   mixins: [notifier],
   methods: {
     selectContentById (contentId) {
-      return this.contents.filter(content => content['.key'] === contentId)[0]
+      return this.contents.filter(content => content['.key'] === contentId)[0] || {}
     },
     addRoute () {
       if (this.isPathAvailable(this.form.path)) {

@@ -8,7 +8,6 @@ import VueQuillEditor from 'vue-quill-editor'
 
 // import external stylesheets
 import '../node_modules/font-awesome/css/font-awesome.css'
-import '../node_modules/bulma/css/bulma.css'
 
 // import vue-quill-editor styles
 import 'quill/dist/quill.core.css'

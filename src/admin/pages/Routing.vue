@@ -63,7 +63,16 @@
         </div>
 
         <div class="column">
+          <!-- preserved routes list -->
           <ul>
+            <h2 class="is-size-4">Preserved routes:</h2>
+            <li v-for="(route, i) in defaultRoutes" :key="i">
+              <router-link :to="route">{{route}}</router-link>
+            </li>
+          </ul>
+          <!-- dynamic routes list -->
+          <ul>
+            <h2 class="is-size-4">Dynamic routes:</h2>
             <li v-for="(route, i) in routes" :key="i">
               <b>Path: </b>
               <router-link :to="route.path">{{route.path}}</router-link>
@@ -100,6 +109,7 @@ export default {
         action: 'add',
         key: ''
       },
+      defaultRoutes: ['/', '/admin', '/login'],
       templates
     }
   },

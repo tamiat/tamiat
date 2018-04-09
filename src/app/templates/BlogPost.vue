@@ -1,6 +1,5 @@
 <template>
-  <div>
-    this is a blog post
+  <div class="template">
     <h1>{{content.title}}</h1>
     <div v-html="content.body"></div>
 
@@ -15,3 +14,7 @@ export default {
   mixins: [LoadContent]
 }
 </script>
+
+<style lang="sass">
+@import '../styles/index.sass'
+</style>

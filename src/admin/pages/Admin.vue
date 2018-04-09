@@ -65,42 +65,5 @@ export default {
 </script>
 
 <style lang="sass">
-
-#admin
-  font-family: sans-serif
-  .admin-wrapper
-    width: calc(100% - 115px)
-    position: absolute
-    top: 52px
-    left: 115px
-    background-color: #F1F1F1
-
-    .container
-      padding: 0 10px
-    .content-heading
-      justify-content: baseline
-      align-content: center
-      align-items: center
-      h3
-        margin: 1em 1em 1em 0em
-
-  .actions
-    display: none
-    span
-      cursor: pointer
-
-  tr:hover .actions
-    display: inline
-    span
-      padding: 0px 0px 0px 10px
-
-  .notification
-    position: fixed
-    top: 60px
-    right: 10px
-    z-index: 2000
-    max-width: 90%
-
-  .titleAdmin
-    padding-bottom: 15px
+@import '../styles/index'
 </style>

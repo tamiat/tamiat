@@ -12,7 +12,7 @@
       <modal @close="showModal = false" :kind="kind" @addSetting='confirmAddSetting' @confirmDeleteSetting="confirmDeleteSetting()" v-if="showModal" :header="header"/>
     </transition>
 
-    <h3 class="is-size-3">General settings</h3>
+    <h2>General settings</h2>
     <div class="box">
       <div class="columns">
 
@@ -243,11 +243,3 @@ export default {
 }
 
 </script>
-
-<style lang="scss">
-#settings {
-  h3 {
-    margin: 1em 1em 1em 0em;
-  }
-}
-</style>

@@ -8,7 +8,7 @@
       </div>
     </transition>
 
-    <h2 class="is-size-3">Database State</h2>
+    <h2>Database State</h2>
     <div class="box">
       <div class="columns">
         <div class="column">
@@ -186,10 +186,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h2 {
-  margin: 15px 0px;
-}
-
 .column > div {
   margin-top: 15px;
   &:first-child {

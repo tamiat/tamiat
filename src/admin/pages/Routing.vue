@@ -9,7 +9,7 @@
     </transition>
 
     <!-- routes builder -->
-    <h3 class="is-size-3">Routes Builder</h3>
+    <h2>Routes Builder</h2>
     <div class="box">
       <div class="columns">
 
@@ -65,14 +65,14 @@
         <div class="column">
           <!-- preserved routes list -->
           <ul>
-            <h2 class="is-size-4">Preserved routes:</h2>
+            <h3 class="is-marginless">Preserved routes:</h3>
             <li v-for="(route, i) in defaultRoutes" :key="i">
               <router-link :to="route">{{route}}</router-link>
             </li>
           </ul>
           <!-- dynamic routes list -->
           <ul>
-            <h2 class="is-size-4">Dynamic routes:</h2>
+            <h3>Dynamic routes:</h3>
             <li v-for="(route, i) in routes" :key="i">
               <b>Path: </b>
               <router-link :to="route.path">{{route.path}}</router-link>
@@ -185,6 +185,7 @@ export default {
       let existingPaths = this.routes.map(route => {
         return route.path
       })
+      existingPaths = existingPaths.concat(this.defaultRoutes)
       return !existingPaths.includes(this.form.path.trim())
     },
     getTemplateDisplayName (filename) {

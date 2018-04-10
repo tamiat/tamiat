@@ -1,14 +1,14 @@
 <template>
 <div class="contentType">
  <div class="container is-widescreen">
-  <router-view :edit-field="editField" :add-field="addField"></router-view><br><br>
+  <router-view :edit-field="editField" :add-field="addField"></router-view>
     <!-- notification -->
-      <transition mode="out-in" name="fade">
-        <div v-if="notification.message" :class="'notification is-' + notification.type">
-          <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-        </div>
-      </transition>
-    <h3 class="is-size-3 has-text-centered">Create content type</h3><br>
+    <transition mode="out-in" name="fade">
+      <div v-if="notification.message" :class="'notification is-' + notification.type">
+        <button class="delete" @click="hideNotifications"></button>{{notification.message}}
+      </div>
+    </transition>
+    <h2>Create content type</h2>
     <div class="box">
       <div class="columns">
 

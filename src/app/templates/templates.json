@@ -1,4 +1,10 @@
 [
-  "Template1",
-  "Template2"
+  {
+    "filename": "About",
+    "displayName": "About us"
+  },
+  {
+    "filename": "BlogPost",
+    "displayName": "Blog post"
+  }
 ]

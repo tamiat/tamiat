@@ -9,7 +9,7 @@
     </transition>
 
     <!-- routes builder -->
-    <h3 class="is-size-3">Routes Builder</h3>
+    <h2>Routes Builder</h2>
     <div class="box">
       <div class="columns">
 
@@ -27,8 +27,8 @@
             <label class="label">Template</label>
             <div class="select is-fullwidth">
               <select v-model="form.template">
-                <option v-for="(template, i) in templates" :key="i" :value="template">
-                  {{template}}
+                <option v-for="(template, i) in templates" :key="i" :value="template.filename">
+                  {{template.displayName}}
                 </option>
               </select>
             </div>
@@ -41,6 +41,7 @@
                 <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
                   {{content.title}}
                 </option>
+                <option value="none">No Content</option>
               </select>
             </div>
           </div>
@@ -62,7 +63,16 @@
         </div>
 
         <div class="column">
+          <!-- preserved routes list -->
           <ul>
+            <h3 class="is-marginless">Preserved routes:</h3>
+            <li v-for="(route, i) in defaultRoutes" :key="i">
+              <router-link :to="route">{{route}}</router-link>
+            </li>
+          </ul>
+          <!-- dynamic routes list -->
+          <ul>
+            <h3>Dynamic routes:</h3>
             <li v-for="(route, i) in routes" :key="i">
               <b>Path: </b>
               <router-link :to="route.path">{{route.path}}</router-link>
@@ -73,8 +83,8 @@
               </span>
 
               <div class="route-details">
-                <span><b>Template:</b> {{route.template}} | </span>
-                <span><b>Content:</b> {{selectContentById(route.content).title}}</span>
+                <span><b>Template:</b> {{getTemplateDisplayName(route.template)}} | </span>
+                <span><b>Content:</b> {{selectContentById(route.content).title || 'No Content'}}</span>
               </div>
             </li>
           </ul>
@@ -93,12 +103,13 @@ export default {
   data () {
     return {
       form: {
-        content: '',
+        content: 'none',
         path: '/',
         template: '',
         action: 'add',
         key: ''
       },
+      defaultRoutes: ['/', '/admin', '/login'],
       templates
     }
   },
@@ -109,7 +120,7 @@ export default {
   mixins: [notifier],
   methods: {
     selectContentById (contentId) {
-      return this.contents.filter(content => content['.key'] === contentId)[0]
+      return this.contents.filter(content => content['.key'] === contentId)[0] || {}
     },
     addRoute () {
       if (this.isPathAvailable(this.form.path)) {
@@ -174,7 +185,15 @@ export default {
       let existingPaths = this.routes.map(route => {
         return route.path
       })
+      existingPaths = existingPaths.concat(this.defaultRoutes)
       return !existingPaths.includes(this.form.path.trim())
+    },
+    getTemplateDisplayName (filename) {
+      let displayName = ''
+      templates.forEach(template => {
+        displayName = template.filename === filename ? template.displayName : displayName
+      })
+      return displayName
     }
   }
 }

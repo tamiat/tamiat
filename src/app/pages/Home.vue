@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div class="home">
 
     <header>
       <h2>
         <a href="#">
           <figure class="websiteLogo" v-if="loadLogo">
-            <img :src="loadLogo" alt="image">
+            <img :src="loadLogo" alt="image" style="max-height: 50px;">
           </figure>
         {{ loadLogo ? null : 'Website Logo' }}
         </a>
@@ -173,7 +173,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
@@ -183,7 +183,7 @@ export default {
   box-sizing: border-box;
 }
 
-html {
+.home {
   font: normal 16px sans-serif;
   color: #555;
 }

@@ -16,6 +16,7 @@ html,
 body,
 #app,
 .admin
+  font-family: sans-serif
   background-color: #F1F1F1
   height: 100%
   width: 100%

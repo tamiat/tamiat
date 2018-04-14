@@ -13,15 +13,6 @@
       <div class="columns">
         <div class="column">
           <div>
-            Posts:
-            <span v-if="posts.length === 0" class="has-text-danger">
-              Empty
-              <button class="button is-info" @click="addDemoPost">Add Demo Post</button>
-            </span>
-            <span v-else class="has-text-success">Contains data</span>
-          </div>
-
-          <div>
             Settings:
             <span v-if="settings.length === 0" class="has-text-danger">
               Empty
@@ -76,7 +67,7 @@ import notifier from '@/admin/mixins/notifier'
 import { postsRef, settingsRef, mediaRef, navRef, contentsRef, fieldsRef } from '@/admin/firebase_config'
 export default {
   data () {
-    return {...demoData}
+    return {...demoData, con: ''}
   },
   firebase: {
     posts: postsRef,
@@ -103,7 +94,8 @@ export default {
           demoPost.created = Date.now()
           demoPost.img = imgDownloadURL
           demoPost.body += `<p><img src="${imgDownloadURL}"></p>`
-          return this.$firebaseRefs.posts.push(demoPost)
+          // return this.$firebaseRefs.contents.child(this.con + '/posts').push(demoPost)
+          return this.$firebaseRefs.contents.child(this.con + '/data').push(demoPost)
         })
         .then(() => {
           return this.$firebaseRefs.media.push({
@@ -113,7 +105,7 @@ export default {
           })
         })
         .then(() => {
-          this.showNotification('success', 'Demo Post added successfully')
+          this.showNotification('success', 'Demo Content added successfully')
         })
     },
     addDemoSettings () {
@@ -170,15 +162,16 @@ export default {
           .then(() => {
             i--
             if (i === 0) {
-              this.showNotification('success', 'Demo field added successfully')
+              this.showNotification('success', 'Demo fields added successfully')
             }
           })
       })
     },
     addDemoContent () {
       this.$firebaseRefs.contents.push(this.demoContent)
-        .then(() => {
-          this.showNotification('success', 'Demo Content added successfully')
+        .then((c) => {
+          this.con = c.key
+          this.addDemoPost()
         })
     }
   }

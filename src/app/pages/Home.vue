@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import { settingsRef, postsRef, navRef, mediaRef } from '@/admin/firebase_config'
+import { contentsRef, settingsRef, navRef, mediaRef } from '@/admin/firebase_config'
 
 export default {
   name: 'home',
@@ -146,16 +146,14 @@ export default {
       source: settingsRef,
       asObject: true
     },
-    posts: {
-      source: postsRef,
-      asObject: true
-    },
     nav: {
       source: navRef
     },
     media: {
       source: mediaRef
-    }
+    },
+    contents: contentsRef,
+    asObject: true
   },
   computed: {
     loadLogo () {

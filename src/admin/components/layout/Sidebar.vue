@@ -22,7 +22,7 @@
           </div>
           <ul class="menu--item-dropdown" v-if="contents">
             <li v-for="(dropdownItem, dropdownItemKey) in contents" :key="dropdownItemKey">
-              <router-link :to="dropdownItem.path">
+              <router-link :to="'/admin/content/' + dropdownItem['.key']">
                 <div class="has-text-centered">
                   {{ dropdownItem.name }}
                 </div>

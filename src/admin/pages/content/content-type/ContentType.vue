@@ -28,6 +28,8 @@
                   <span class="link-actions">
                     <span v-if="fieldKey !== 0" class="has-text-success fa fa-arrow-up" @click="moveFieldUp(field, checkedFields[fieldKey - 1])"></span>
                     <span v-if="fieldKey !== checkedFields.length - 1" class="fa fa-arrow-down" @click="moveFieldDown(field, checkedFields[fieldKey + 1])"></span>
+                    <checkbox v-if="field.type === 'textbox'" v-model="field.sortable" @mouseover="showDesc = !showDesc"/>
+                    <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span>
                    </span>
                 </li>
               </ul>
@@ -35,6 +37,7 @@
           </div>
           <div class="column">
             <label class="label">Available fields</label>
+            <label class="label has-text-danger is-size-7" v-if="fields.length" >Select the fields you want to include in your content type</label>
             <div class="field is-grouped is-grouped-multiline">
               <ul class="nav-preview">
               <li class="control"  v-for="(field, fieldKey) in fields" :key="fieldKey">
@@ -73,7 +76,8 @@ export default {
   },
   data () {
     return {
-      name: ''
+      name: '',
+      showDesc: false
     }
   },
   created () {

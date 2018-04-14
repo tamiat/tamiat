@@ -33,6 +33,7 @@ export default {
 <style lang="scss">
 input[type=checkbox] {
      position: relative;
+     cursor: pointer;
 }
 /* to hide the checkbox itself */
  label>input[type=checkbox]:before {

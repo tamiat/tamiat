@@ -73,6 +73,22 @@ export default {
         {
           id: 'url',
           label: 'Url'
+        },
+        {
+          id: 'richtextbox',
+          label: 'Richtextbox'
+        },
+        {
+          id: 'tags',
+          label: 'Tags'
+        },
+        {
+          id: 'select',
+          label: 'Select'
+        },
+        {
+          id: 'image',
+          label: 'Image'
         }
       ]
     }

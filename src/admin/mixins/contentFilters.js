@@ -119,7 +119,7 @@ const contentFilters = {
         }
         if (this.params.bulkAction.id === 'delete') {
           if (this.filteredContent[i].selected === true) {
-            this.$firebaseRefs.contents.child(this.conKey + '/data').child(this.filteredContent[i]['.key']).remove()
+            this.$firebaseRefs.contents.child(this.$route.params.key + '/data').child(this.filteredContent[i]['.key']).remove()
               .then(() => {
               // this.showNotification('success', 'Posts deleted successfully')
               // this.showModal = false

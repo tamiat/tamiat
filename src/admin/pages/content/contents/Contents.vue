@@ -1,5 +1,5 @@
 <template>
- <div class="container posts" id="posts">
+ <div class="container posts" id="posts" v-if="loaded">
 
     <!-- Page title -->
     <div class="content-heading is-flex">
@@ -20,7 +20,7 @@
     </transition>
 
     <!-- New content form loaded via router -->
-    <router-view :add-content="addContent" :fields="content.fields" :update-content="updateContent" :content="contentData" :key="$route.name + ($route.params.key || '')"></router-view>
+    <router-view :add-content="addContent" :fields="content.fields" :update-content="updateContent" :contents="contentData" :key="$route.name + ($route.params.key || '')"></router-view>
 
     <!-- Search contents -->
     <div class="field is-grouped">
@@ -96,7 +96,7 @@
 
 <script>
 import moment from 'moment'
-import { contentsRef } from '@/admin/firebase_config'
+import { contentsRef, db } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 import modal from '@/admin/components/shared/Modal'
 import dropdown from '@/admin/components/shared/Dropdown'
@@ -108,12 +108,13 @@ export default {
   data () {
     return {
       content: null,
-      contentData: [],
+      // contentData: [],
       selContent: null,
       showModal: false,
       header: '',
       kind: '',
-      sortKey: 'tittle'
+      sortKey: 'tittle',
+      loaded: false
     }
   },
   firebase: {
@@ -127,18 +128,9 @@ export default {
         return (content['.key'] === this.$route.params.key)
       }))[0]
     )
-    // this.$bindAsObject('contentData', db.ref('contents/' + this.$route.params.id + '/data'))
+    this.$bindAsArray('contentData', db.ref('contents/' + this.$route.params.key + '/data'))
 
-    if (this.content.data) {
-      let dataKeys = Object.keys(this.content.data)
-      this.contentData = Object.values(this.content.data)
-      let j = 0
-      for (var i in dataKeys) {
-        this.contentData[j]['.key'] = dataKeys[i]
-        j++
-      }
-      // this.contentData = Object.values(this.content.data)
-    }
+    this.loaded = true
   },
   computed: {
     allContents () {
@@ -168,8 +160,6 @@ export default {
           if (this.content.fields[key].sortable) {
             return true
           }
-        } else {
-          // this.findField(this.content.fields[key].name)
         }
       }
       return false
@@ -213,7 +203,7 @@ export default {
       let tempCon = { ...content }
       // remove the .key attribute
       delete tempCon['.key']
-      this.$firebaseRefs.contents.child(this.$route.params.key + '/data').child(this.selContent['.key']).set(tempCon)
+      this.$firebaseRefs.contents.child(this.$route.params.key + '/data').child(content['.key']).set(tempCon)
         .then(() => {
           if (content.state === 'saved') {
             this.showNotification('success', 'Content updated successfully')

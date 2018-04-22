@@ -4,16 +4,19 @@ import Home from '@/app/pages/Home'
 // import admin page components
 import Admin from '@/admin/pages/Admin'
 import Login from '@/admin/pages/Login'
-import Posts from '@/admin/pages/posts/Posts'
-import PostNew from '@/admin/pages/posts/PostNew'
-import PostEdit from '@/admin/pages/posts/PostEdit'
+// import Posts from '@/admin/pages/posts/Posts'
+// import PostNew from '@/admin/pages/posts/PostNew'
+// import PostEdit from '@/admin/pages/posts/PostEdit'
 import Settings from '@/admin/pages/settings/Settings'
 import Routing from '@/admin/pages/Routing'
 import Media from '@/admin/pages/Media'
 import Database from '@/admin/pages/Database'
-import ContentType from '@/admin/pages/content/ContentType'
-import FieldNew from '@/admin/pages/content/FieldNew'
-import FieldEdit from '@/admin/pages/content/FieldEdit'
+import ContentType from '@/admin/pages/content/content-type/ContentType'
+import FieldNew from '@/admin/pages/content/fields/FieldNew'
+import FieldEdit from '@/admin/pages/content/fields/FieldEdit'
+import Contents from '@/admin/pages/content/contents/Contents'
+import ContentsNew from '@/admin/pages/content/contents/ContentsNew'
+import ContentsEdit from '@/admin/pages/content/contents/ContentsEdit'
 
 const routes = [
   {
@@ -31,7 +34,7 @@ const routes = [
     name: 'Admin',
     component: Admin,
     children: [
-      {
+      /* {
         path: 'posts',
         component: Posts,
         children: [
@@ -45,6 +48,7 @@ const routes = [
           }
         ]
       },
+      */
       {
         path: 'settings',
         component: Settings
@@ -72,6 +76,20 @@ const routes = [
           {
             path: 'fieldEdit/:key',
             component: FieldEdit
+          }
+        ]
+      },
+      {
+        path: 'content/:key',
+        component: Contents,
+        children: [
+          {
+            path: 'new',
+            component: ContentsNew
+          },
+          {
+            path: 'edit/:contentKey',
+            component: ContentsEdit
           }
         ]
       }

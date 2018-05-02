@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import { contentsRef, settingsRef, navRef, mediaRef } from '@/admin/firebase_config'
+import { settingsRef, navRef, mediaRef } from '@/admin/firebase_config'
 
 export default {
   name: 'home',
@@ -151,9 +151,7 @@ export default {
     },
     media: {
       source: mediaRef
-    },
-    contents: contentsRef,
-    asObject: true
+    }
   },
   computed: {
     loadLogo () {

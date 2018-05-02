@@ -29,7 +29,7 @@
           </div>
         </div>
       </section>
-      <router-view></router-view>
+      <router-view :key="$route.path" />
     </div>
 
   </div>

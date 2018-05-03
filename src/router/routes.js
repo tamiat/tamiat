@@ -4,9 +4,6 @@ import Home from '@/app/pages/Home'
 // import admin page components
 import Admin from '@/admin/pages/Admin'
 import Login from '@/admin/pages/Login'
-// import Posts from '@/admin/pages/posts/Posts'
-// import PostNew from '@/admin/pages/posts/PostNew'
-// import PostEdit from '@/admin/pages/posts/PostEdit'
 import Settings from '@/admin/pages/settings/Settings'
 import Routing from '@/admin/pages/Routing'
 import Media from '@/admin/pages/Media'
@@ -34,21 +31,6 @@ const routes = [
     name: 'Admin',
     component: Admin,
     children: [
-      /* {
-        path: 'posts',
-        component: Posts,
-        children: [
-          {
-            path: 'new',
-            component: PostNew
-          },
-          {
-            path: 'edit/:key',
-            component: PostEdit
-          }
-        ]
-      },
-      */
       {
         path: 'settings',
         component: Settings

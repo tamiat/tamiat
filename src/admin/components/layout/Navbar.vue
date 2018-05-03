@@ -37,7 +37,6 @@
 
 <script>
 import firebase from 'firebase'
-import { usersRef } from '@/admin/firebase_config'
 import modal from '@/admin/components/shared/Modal'
 export default {
   name: 'navbar',
@@ -49,9 +48,6 @@ export default {
       header: 'Are you sure you want to logout?',
       kind: 'logout'
     }
-  },
-  firebase: {
-    users: usersRef
   },
   methods: {
     signOut () {

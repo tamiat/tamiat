@@ -1,4 +1,4 @@
-import { postsRef, routesRef } from '@/admin/firebase_config/index'
+import { contentsRef, routesRef } from '@/admin/firebase_config/index'
 export default {
   data () {
     return {
@@ -18,7 +18,7 @@ export default {
     },
     getContentById (id) {
       if (id !== 'none') {
-        postsRef.child(id).on('value', (snapshot) => {
+        contentsRef.child(id).on('value', (snapshot) => {
           this.content = snapshot.val() || ''
         })
       }

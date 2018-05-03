@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { postsRef, routesRef } from '@/admin/firebase_config'
+import { contentsRef, routesRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 import templates from '@/app/templates/templates.json'
 export default {
@@ -114,7 +114,7 @@ export default {
     }
   },
   firebase: {
-    contents: postsRef,
+    contents: contentsRef,
     routes: routesRef
   },
   mixins: [notifier],

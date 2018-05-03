@@ -2,32 +2,8 @@
   "rules": {
     ".write": "auth.uid === 'YOURID'",    
     ".read": true,
-    "posts": {
-      "$id": {
-        "author": {
-          ".validate": "newData.isString()"
-        },
-        "body": {
-          ".validate": "newData.isString()"
-        },
-        "title": {
-          ".validate": "newData.isString()"
-        },
-        "img": {
-          ".validate": "newData.isString()"
-        },
-        "created": {
-          // ".validate": "newData.val() < now"
-        }
-      }
-    },
     "settings": {
       ".validate": true
-    },
-    "users": {
-      "$uid": {
-        // ".write": "auth != null && auth.uid == $uid && root.child('users').child(auth.uid).child('role').val() === 'admin' "
-      }
     },
     "media": {
       "$id": {

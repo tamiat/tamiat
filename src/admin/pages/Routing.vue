@@ -35,11 +35,23 @@
           </div>
 
           <div class="field">
+            <label class="label">Content type</label>
+            <div class="select is-fullwidth">
+              <select v-model="form.contentType">
+                <option v-for="(type, i) in contentTypes" :key="i" :value="type">
+                  {{type}}
+                </option>
+                <option value="none">No Content Type</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
             <label class="label">Content</label>
             <div class="select is-fullwidth">
               <select v-model="form.content">
-                <option v-for="(content, i) in contents" :key="i" :value="content['.key']">
-                  {{content.title}}
+                <option v-for="(content, i) in selectedContents" :key="i" :value="content['.key']">
+                  {{content['.key']}}
                 </option>
                 <option value="none">No Content</option>
               </select>
@@ -84,7 +96,7 @@
 
               <div class="route-details">
                 <span><b>Template:</b> {{getTemplateDisplayName(route.template)}} | </span>
-                <span><b>Content:</b> {{selectContentById(route.content).title || 'No Content'}}</span>
+                <span><b>Content:</b> {{selectContentByTypeAndId(route.contentType, route.content)['.key'] || 'No Content'}}</span>
               </div>
             </li>
           </ul>
@@ -103,9 +115,10 @@ export default {
   data () {
     return {
       form: {
-        content: 'none',
         path: '/',
-        template: '',
+        template: templates[0].filename,
+        contentType: 'none',
+        content: 'none',
         action: 'add',
         key: ''
       },
@@ -117,17 +130,29 @@ export default {
     contents: contentsRef,
     routes: routesRef
   },
+  computed: {
+    contentTypes () {
+      return this.contents.map(content => {
+        return content.name
+      })
+    },
+    selectedContents () {
+      return this.getContentsByType(this.form.contentType)
+    }
+  },
   mixins: [notifier],
   methods: {
-    selectContentById (contentId) {
-      return this.contents.filter(content => content['.key'] === contentId)[0] || {}
+    selectContentByTypeAndId (type, id) {
+      let contentsByType = this.getContentsByType(type)
+      return contentsByType.filter(content => content['.key'] === id)[0] || {}
     },
     addRoute () {
       if (this.isPathAvailable(this.form.path)) {
         this.$firebaseRefs.routes.push({
-          content: this.form.content,
           path: this.form.path.trim(),
-          template: this.form.template
+          template: this.form.template,
+          contentType: this.form.contentType,
+          content: this.form.content
         })
           .then((res) => {
             let template = this.form.template
@@ -178,7 +203,7 @@ export default {
       this.form.key = ''
       this.form.path = '/'
       this.form.content = ''
-      this.form.template = ''
+      this.form.template = templates[0].filename
       this.form.action = 'add'
     },
     isPathAvailable (path) {
@@ -194,6 +219,37 @@ export default {
         displayName = template.filename === filename ? template.displayName : displayName
       })
       return displayName
+    },
+    getContentsByType (contentType) {
+      let selectedContentsData = []
+      let selectedContents = this.contents.filter(content => {
+        return content.name === contentType
+      })
+      selectedContents.forEach(content => {
+        let contentDataArray = this.convertContentDataToArray(content.data)
+        selectedContentsData = selectedContentsData.concat(contentDataArray || [])
+      })
+      return selectedContentsData
+    },
+    convertContentDataToArray (contentData) {
+      let contentDataArray = []
+      for (let key in contentData) {
+        contentDataArray.push({
+          ...contentData[key],
+          '.key': key
+        })
+      }
+      return contentDataArray
+    }
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler () {
+        if (this.form.contentType === 'none') {
+          this.form.content = 'none'
+        }
+      }
     }
   }
 }

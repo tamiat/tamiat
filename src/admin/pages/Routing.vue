@@ -116,7 +116,7 @@ export default {
     return {
       form: {
         path: '/',
-        template: '',
+        template: templates[0].filename,
         contentType: 'none',
         content: 'none',
         action: 'add',
@@ -203,7 +203,7 @@ export default {
       this.form.key = ''
       this.form.path = '/'
       this.form.content = ''
-      this.form.template = ''
+      this.form.template = templates[0].filename
       this.form.action = 'add'
     },
     isPathAvailable (path) {

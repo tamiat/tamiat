@@ -76,11 +76,6 @@ const routes = [
         ]
       }
     ]
-  },
-  {
-    path: '*',
-    name: 'default',
-    component: Home
   }
 ]
 

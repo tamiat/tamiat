@@ -87,7 +87,7 @@
             <h3>Dynamic routes:</h3>
             <li v-for="(route, i) in routes" :key="i">
               <b>Path: </b>
-              <router-link :to="route.path">{{route.path}}</router-link>
+              <a :href="route.path" target="_blank">{{route.path}}</a>
 
               <span class="route-actions">
                 <span class="has-text-danger fa fa-trash" @click="deleteRoute(route['.key'])"></span>

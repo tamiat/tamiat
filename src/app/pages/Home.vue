@@ -95,17 +95,17 @@
         <ul class="quote-box">
           <li>
             <p class="quote">Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-            <img src="/static/img/quotes/quotes-1.png" alt="Patrick Farrell">
+            <img src="../assets/img/quotes/quotes-1.png" alt="Patrick Farrell">
             <p class="author">Patrick Farrell</p>
           </li>
           <li>
             <p class="quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-            <img src="/static/img/quotes/quotes-2.png" alt="George Smith">
+            <img src="../assets/img/quotes/quotes-2.png" alt="George Smith">
             <p class="author">George Smith</p>
           </li>
           <li>
             <p class="quote">Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi pulvinar ornare. Integer eu iaculis metus.</p>
-            <img src="/static/img/quotes/quotes-3.png" alt="Kevin Blake">
+            <img src="../assets/img/quotes/quotes-3.png" alt="Kevin Blake">
             <p class="author">Kevin Blake</p>
           </li>
         </ul>
@@ -115,7 +115,7 @@
     <section class="contact">
       <div class="container">
         <div class="icon-box">
-          <img src="/static/img/footer-icon.png" alt="footer-icon">
+          <img src="../assets/img/footer-icon.png" alt="footer-icon">
         </div>
 
         <div class="content">
@@ -140,17 +140,17 @@
         <ul>
           <li>
             <a href="#">
-              <img src="/static/img/social-media/twitter-white.png" alt="twitter">
+              <img src="../assets/img/social-media/twitter-white.png" alt="twitter">
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="/static/img/social-media/facebook-white.png" alt="facebook">
+              <img src="../assets/img/social-media/facebook-white.png" alt="facebook">
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="/static/img/social-media/pinterest-white.png" alt="pinterest">
+              <img src="../assets/img/social-media/pinterest-white.png" alt="pinterest">
             </a>
           </li>
           <!-- <li>

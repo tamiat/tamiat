@@ -808,6 +808,7 @@ header {
   .hero .hero-content {
     padding: 0 30px;
     right: auto;
+    text-align: center;
   }
 }
 
@@ -849,8 +850,13 @@ header {
 }
 
 @media (max-width: 600px) {
-  .grid li.small, .our-work .grid li.large {
-    padding: 10px 0;
+  .our-work {
+    .grid {
+      padding: 30px 0;
+      li.small, li.large {
+        padding: 10px 0;
+      }
+    }
   }
 }
 

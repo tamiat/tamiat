@@ -15,30 +15,29 @@
               </h1>
             </div>
             <h2 class="subtitle">
-              <a href="https://github.com/tamiat/tamiat" target="_blank">
-                <span>GitHub</span>
+              <a class="button is-dark" href="https://github.com/tamiat/tamiat">
+                <span class="icon">
+                  <i class="fa fa-github"></i>
+                </span>
+                <span>GitHub.....</span>
               </a>
             </h2><br><br>
             <router-link to="/">
-              <div>
-                <object type="image/svg+xml" data="static/img/tamiat-logo.svg" class="midlogo">
-                  <img src="static/img/tamiat-logo-icon-color.png" alt="logo">
-                </object>
-              </div>
+              <img src="/static/img/logo.png" alt="Tamiat CMS logo">
             </router-link>
             <p>Version v0.2.2</p>
           </div>
         </div>
       </section>
-      <router-view :key="$route.path" />
+      <router-view></router-view>
     </div>
 
   </div>
 </template>
 
 <script>
-import Navbar from '@/admin/components/layout/Navbar'
-import Sidebar from '@/admin/components/layout/Sidebar'
+import Navbar from './Admin/layout/Navbar'
+import Sidebar from './Admin/layout/Sidebar'
 import firebase from 'firebase'
 
 export default {
@@ -66,5 +65,42 @@ export default {
 </script>
 
 <style lang="sass">
-@import '../styles/index'
+
+#admin
+  font-family: 'Quicksand', sans-serif
+  .admin-wrapper
+    width: calc(100% - 115px)
+    position: absolute
+    top: 52px
+    left: 115px
+    background-color: #F1F1F1
+
+    .container
+      padding: 0 10px
+    .content-heading
+      justify-content: baseline
+      align-content: center
+      align-items: center
+      h3
+        margin: 1em 1em 1em 0em
+
+  .actions
+    display: none
+    span
+      cursor: pointer
+
+  tr:hover .actions
+    display: inline
+    span
+      padding: 0px 0px 0px 10px
+
+  .notification
+    position: fixed
+    top: 60px
+    right: 10px
+    z-index: 2000
+    max-width: 90%
+
+  .titleAdmin
+    padding-bottom: 15px
 </style>

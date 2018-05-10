@@ -9,8 +9,8 @@
     <!-- the navbar brand -->
     <div class="navbar-brand">
       <router-link class="navbar-item logo" to="/admin">
-        <div>
-          <object type="image/svg+xml" data="static/img/02-admin-logo-tamiat-cms.svg" style="pointer-events: none;"></object>
+        <div style="pointer-events: none">
+          <!-- <img src="/static/img/logo.png" alt="Tamiat CMS logo"> -->
         </div>
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
@@ -28,7 +28,7 @@
         </span>
         <span class="navbar-item sign-out" @click="signOut">
           <span class="icon is-medium has-text-centered">
-            <i class="fa fa-bars fa-2x"></i>
+            <i class="fa fa-power-off"></i>
           </span>
         </span>
       </div>
@@ -39,7 +39,8 @@
 
 <script>
 import firebase from 'firebase'
-import modal from '@/admin/components/shared/Modal'
+import { usersRef } from '@/firebase_config'
+import modal from '@/components/shared/Modal'
 export default {
   name: 'navbar',
   data () {
@@ -50,6 +51,9 @@ export default {
       header: 'Are you sure you want to logout?',
       kind: 'logout'
     }
+  },
+  firebase: {
+    users: usersRef
   },
   methods: {
     signOut () {
@@ -78,16 +82,15 @@ export default {
 </script>
 
 <style lang="scss">
-$navbarBg: #fff;
+$navbarBg: #333;
 $navbarColor: #aaaaaa;
 
 #navbar {
   position: fixed;
   z-index: 1024;
   width: 100%;
-  height: 100px;
   background-color: $navbarBg;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
   .logo {
     z-index: 9999;
@@ -95,26 +98,17 @@ $navbarColor: #aaaaaa;
     &:hover {
       background: whitesmoke;
     }
-    p {
-      font-weight: 300;
-      width: 2em;
-      line-height: 21px;
-      color: #435466;
-      font-size: 1.3em
-    }
   }
 
   .navbar-item {
     color: $navbarColor;
-    font-weight: bold;
     &:hover {
-      color: #4BB885;
+      color: white;
     }
   }
 
   .sign-out {
     cursor: pointer;
-    padding-left: 0;
   }
 }
 @media screen and (max-width: 1023px) {

@@ -19,8 +19,8 @@
 
       <nav :class="isNavOpen ? '' : 'hidden'">
         <li v-for="(link, index) in nav" :key="index">
-          <a v-if="link.isAbsolute" :href="link.path" target="_blank">{{link.name}}</a>
-          <router-link v-else :to="link.path">{{link.name}}</router-link>
+          <a v-if="link.isAbsolute" @click="toggleNav" :href="link.path" target="_blank">{{link.name}} <i v-if="link.children" class="fa"></i></a>
+          <router-link v-else @click.native="toggleNav" :to="link.path">{{link.name}} <i v-if="link.children" class="fa"></i></router-link>
 
           <ul v-if="link.children" class="sub-nav">
             <li v-for="(subLink, index) in link.children" :key="index">
@@ -205,6 +205,16 @@ export default {
     return {
       isNavOpen: false
     }
+  },
+  methods: {
+    toggleNav (event) {
+      const targetElement = event.target.parentElement.parentElement
+      if (targetElement.nodeName === 'LI') {
+        targetElement.className = targetElement.className === 'open' ? '' : 'open'
+      }
+
+      event.preventDefault()
+    }
   }
 }
 
@@ -232,8 +242,8 @@ export default {
 $color-black: #000000;
 $color-black-light: #BEBEBE;
 
-$color-gray: #000000;
-$color-gray-light: #BEBEBE;
+$color-gray: #898989;
+$color-gray-light: #E9E7E7;
 
 $color-blue: #4374D8;
 $color-blue-light: #9ABBFF;
@@ -354,7 +364,7 @@ ul.grid {
   }
 
   &:disabled {
-    background-color: #BEBEBE;
+    background-color: $color-black-light;
   }
 
   &.has-icon {
@@ -379,7 +389,7 @@ a.btn {
 }
 
 a {
-  color: #4374D8;
+  color: $color-blue;
   font-weight: 700;
   font-size: 18px;
   cursor: pointer;
@@ -391,14 +401,15 @@ a {
 
 p.info {
   max-width: 500px;
+  text-align: center;
 }
 
 input.form-control {
-  color: #BEBEBE;
+  color: $color-black-light;
   font-size: 18px;
   background-color: #FFFFFF;
   padding: 15px;
-  border: 1px solid #BEBEBE;
+  border: 1px solid $color-black-light;
   outline: 0;
   &.is-large {
     padding: 20px 15px;
@@ -407,7 +418,7 @@ input.form-control {
     color: $primary-font-color;
   }
   &:disabled {
-    background: #E9E7E7;
+    background: $color-gray-light;
   }
 }
 
@@ -424,7 +435,7 @@ input.form-control {
     top: 0;
     height: 100%;
     width: 50px;
-    background-color: #4374D8;
+    background-color: $color-blue;
     color: #FFFFFF;
     border: none;
   }
@@ -439,10 +450,10 @@ input.form-control {
     }
   }
   input:disabled {
-    background-color: #E9E7E7;
-    color: #BEBEBE;
+    background-color: $color-gray-light;
+    color: $color-black-light;
     & + button {
-      background-color: #BEBEBE;
+      background-color: $color-black-light;
     }
   }
 }
@@ -454,12 +465,12 @@ input.form-control {
     a {
       text-decoration: none;
       &:hover {
-        background: #E9E7E7;
+        background-color: $color-gray-light;
       }
     }
     &.is-current a {
-      background-color: #9ABBFF;
-      border: 1px solid #9ABBFF;
+      background-color: $color-blue-light;
+      border: 1px solid $color-blue-light;
       color: #FFFFFF;
     }
     &.navigation {
@@ -468,20 +479,20 @@ input.form-control {
         display: inline-block;
         padding: 10px;
         text-align: center;
-        background-color: #4374D8;
+        background-color: $color-blue;
         color: #FFFFFF;
         &:hover {
-          background-color: #4374D8;
+          background-color: $color-blue;
         }
       }
       &.is-disabled a {
-        background-color: #BEBEBE;
+        background-color: $color-black-light;
         color: #FFFFFF;
       }
     }
   }
   a {
-    border: 1px solid #BEBEBE;
+    border: 1px solid $color-black-light;
     @include border-radius(5px);
     background-color: #FFFFFF;
     color: $primary-font-color;
@@ -505,6 +516,9 @@ input.form-control {
   .container {
     padding: 30px !important;
   }
+  .is-heading {
+    text-align: center;
+  }
 }
 
 /*-------------
@@ -527,6 +541,11 @@ header {
   background: white;
   nav {
     display: flex;
+    li {
+      i.fa {
+        display: none;
+      }
+    }
     .sub-nav {
       display: none;
       position: absolute;
@@ -608,36 +627,74 @@ header {
       position: absolute;
       height: 100%;
       width: 100%;
-      top: 0;
+      top: 65px;
       left: 0;
-      justify-content: center;
-      align-items: center;
       display: flex;
       flex-direction: column;
       background-color: #FFFFFF;
       z-index: 9;
+      border-top: 1px solid $color-gray-light;
       &.hidden {
         display: none;
       }
-      li {
-        padding: 7px 0;
+      > li {
+        padding: 0;
         margin: 0;
-        &:hover .sub-nav {
-          display: none !important;
+        border-bottom: 1px solid $color-gray-light;
+        > a {
+          display: block;
+          margin: 0 25px;
+          padding: 7px 0;
+          i.fa {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: x-large;
+            display: inline-block;
+            z-index: 11;
+          }
+        }
+        &:hover {
+          .sub-nav, .sub-nav:hover {
+            display: none;
+          }
+        }
+        &.open {
+          .sub-nav {
+            display: block;
+          }
+          a {
+            i.fa::before {
+              content: "\F106";
+            }
+          }
+        }
+        a {
+          i.fa:before {
+            content: "\F107";
+          }
         }
         .sub-nav {
-          top: 10px;
+          display: none;
+          top: 0;
+          left: 0;
           position: relative;
           padding-top: 0;
+          background-color: #F3F3F3;
           li {
             width: 100%;
+            padding: 7px 0;
+            padding-left: 55px;
             box-shadow: none !important;
+            border-top: 1px solid #FFFFFF;
+            border-bottom: none;
+            color: $color-gray-light;
           }
         }
       }
     }
     .menu-toggle {
-      width: 40px;
+      width: 25px;
       height: 30px;
       position: absolute;
       top: 20px;
@@ -648,9 +705,9 @@ header {
       .two,
       .three {
         width: 100%;
-        height: 5px;
+        height: 4px;
         background-color: $color-blue;
-        margin: 6px auto;
+        margin: 5px auto;
         backface-visibility: hidden;
         -moz-transition-duration: 0.3s;
         -o-transition-duration: 0.3s;
@@ -659,19 +716,19 @@ header {
       }
       &.on {
         .one {
-          -moz-transform: rotate(45deg) translate(7px, 7px);
-          -ms-transform: rotate(45deg) translate(7px, 7px);
-          -webkit-transform: rotate(45deg) translate(7px, 7px);
-          transform: rotate(45deg) translate(7px, 7px);
+          -moz-transform: rotate(45deg) translate(3px, 4px);
+          -ms-transform: rotate(45deg) translate(3px, 4px);
+          -webkit-transform: rotate(45deg) translate(3px, 4px);
+          transform: rotate(45deg) translate(3px, 4px);
         }
         .two {
           opacity: 0;
         }
         .three {
-          -moz-transform: rotate(-45deg) translate(8px, -10px);
-          -ms-transform: rotate(-45deg) translate(8px, -10px);
-          -webkit-transform: rotate(-45deg) translate(8px, -10px);
-          transform: rotate(-45deg) translate(8px, -10px);
+          -moz-transform: rotate(-45deg) translate(9px, -10px);
+          -ms-transform: rotate(-45deg) translate(9px, -10px);
+          -webkit-transform: rotate(-45deg) translate(9px, -10px);
+          transform: rotate(-45deg) translate(9px, -10px);
         }
       }
     }
@@ -751,6 +808,7 @@ header {
   .hero .hero-content {
     padding: 0 30px;
     right: auto;
+    text-align: center;
   }
 }
 
@@ -792,8 +850,13 @@ header {
 }
 
 @media (max-width: 600px) {
-  .grid li.small, .our-work .grid li.large {
-    padding: 10px 0;
+  .our-work {
+    .grid {
+      padding: 30px 0;
+      li.small, li.large {
+        padding: 10px 0;
+      }
+    }
   }
 }
 
@@ -954,7 +1017,7 @@ header {
     display: block;
     padding: 30px !important;
     .icon-box {
-      text-align: center;
+      display: none;
     }
     > div {
       width: 100%;

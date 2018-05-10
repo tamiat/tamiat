@@ -5,9 +5,9 @@
       <li v-for="(item, index) in menu" :key="index">
         <router-link :to="item.path" v-if="item.path">
           <span class="icon is-medium has-text-centered">
-            <i :class="['fa', item.icon]"></i>
+            <i :class="['fa fa-3x', item.icon]"></i>
           </span>
-          <div class="has-text-centered">
+          <div class="has-text-centered text-under-icons">
             <span> {{ item.name }} </span>
           </div>
         </router-link>
@@ -88,16 +88,16 @@ export default {
 </script>
 
 <style lang="scss">
-$sidebarBg: #384A5C;
-$sidebarColor: #B7B7B7;
+$sidebarBg: #4cb986;
+$sidebarColor: #595858;
 
 #sidebar {
   position: absolute;
   top: 0px;
   left: 0;
   bottom: 0;
-  padding: 20px 0 50px;
-  width: 115px;
+  padding: 35px 0 50px;
+  width: 122px;
   min-width: 45px;
   max-height: 100vh;
   height: calc(100%);
@@ -105,11 +105,11 @@ $sidebarColor: #B7B7B7;
   background: $sidebarBg;
   box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
   // overflow: auto;
-  padding-top: 65px;
+  padding-top: 110px;
   &:after {
     content: '';
     display: block;
-    width: 115px;
+    width: 122px;
     position: fixed;
     height: 100vh;
     bottom: 0;
@@ -128,6 +128,7 @@ $sidebarColor: #B7B7B7;
     color: $sidebarColor;
     border-radius: 0px;
     padding: 15px 0px;
+    opacity: 0.5;
 
     &:hover {
       background: $sidebarBg;
@@ -140,6 +141,12 @@ $sidebarColor: #B7B7B7;
     width: 100% !important;
     text-align: center !important;
   }
+
+  .text-under-icons{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #595858
+  }
 }
 
 .menu {
@@ -148,6 +155,7 @@ $sidebarColor: #B7B7B7;
     &:hover {
       .menu--item-dropdown {
         display: block;
+        background-color: #585959;
       }
     }
     &-dropdown {
@@ -158,7 +166,7 @@ $sidebarColor: #B7B7B7;
       right: 0;
       transform: translateX(100%);
       padding: 0 !important;
-      background: #384a5c;
+      background: #ccc;
       &, & * {
         border: none !important;
       }

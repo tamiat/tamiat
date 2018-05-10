@@ -39,13 +39,6 @@
 ---
 
 
-# Features
-
-* Front end focused CMS
-* Powered by [Vue][] **2.0** & [Firebase]
-
-<br>
-
 <h1 text-align="center"> What It Looks Like </h1>
 
 ![posts section](https://i.imgur.com/Kstbzxu.png)
@@ -53,7 +46,6 @@
 ![media section](https://i.imgur.com/54vjwey.jpg)
 
 
-<br>
 
 # Getting Started
 
@@ -62,8 +54,6 @@ To get started with Tamiat CMS, you have two options:
 
   - Making Tamiat your starting point.
   - Integrating Tamiat into an existing project.
-
-<br>
 
 ## Making Tamiat Your Starting Point
 
@@ -214,3 +204,101 @@ new Vue({
   6. Once this is done, you can just follow the same instructions of the first option above starting from `step 2`.
 
   7. Enjoy! 
+
+
+# Features
+
+* Front end focused CMS
+* Powered by [Vue][] **2.0** & [Firebase]
+
+## Routing
+
+In **Tamiat CMS**, there are reserved routes that are built in the CMS itself as well as dynamic routes that you can create yourself.
+
+### What benefit it offers
+
+With dynamic routes you are in complete control and have the total freedom about the presentation of your content. You can associate the content that you want with the template that you want and give them the url that you want.
+
+
+### How to create a dynamic route
+
+In order to create a dynamic route you have to go to the `Routing` section in **Tamiat** admin area.
+
+![Routing section](https://user-images.githubusercontent.com/11301627/39885992-0a34d1c6-5486-11e8-80a9-8742ac7db9d4.png)
+
+On the right side, you can see the reserved routes in the CMS (you can not create dynamic routes with these paths).
+
+On the left side you see the form that you need to fill in to create a new dynamic route. This form consists of 4 inputs:
+
+- The route path
+- The route template
+- The route content type
+- The route content
+
+The only required fields in the form are `path` & `template`. The other fileds: `Content type` & `Content` are optional since some templates are static and don't accept any dynamic content to show. This type of templates shows static content instead (like the default `About us` template).
+
+After you fill in the form and click the `add` button, the dynamic route will be created and added to the *Dynamic routes* on the right hand side. There, you can test it by clicking on the path link that will open the new route in a new browser tab.
+
+After the creation of the new route, you will have options to edit all it's components (path, template, content type & content) in addition to completely deleting it. You just need to hove over the created route to see those control buttons.
+
+### What about creating new templates
+Creating new templates is very easy. All you have to do is:
+
+- Create a new `MyTemplate.vue` file in `/src/app/templates` folder.
+
+```html
+<template>
+  <div class="template">
+    <h1>Hello, I am a new template</h1>
+  </div>
+</template>
+```
+
+- Add some info about the new template to `/src/app/templates/templates.json` as in the following snippet of code:
+
+```javascript
+[
+  ...
+  {
+    "filename": "MyTemplate", // the name of the file you created without ".vue" extension
+    "displayName": "My New Template" // The name you want your template to be called in the Routing page
+  }
+  ...
+]
+```
+
+### Static vs dynamic templates
+
+Static templates are templates that contains only hard coded content. They can not be used to show dynamic content (ex: the AboutUs default template).
+
+here is the minimal code for a static template:
+
+```html
+<template>
+  <div class="template">
+    <h1>Hello, I am a static template</h1>
+  </div>
+</template>
+```
+
+On the other side, dynamic templates are used to show dynamic content in a given layout defined by the template (ex: the BlogPost default template)
+
+Here is the minimal code for a dynamic template:
+
+```html
+<template>
+  <div class="template">
+    <h1>{{content.title}}</h1>
+  </div>
+</template>
+
+<script>
+import LoadContent from './LoadContent'
+export default {
+  mixins: [LoadContent]
+}
+</script>
+```
+The vue mixin `LoadContent` will expose your content as a data object called `content`. There, you can access all the fields of the content you assigned to that route.
+
+<br>

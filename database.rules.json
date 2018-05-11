@@ -1,46 +1,9 @@
 {
   "rules": {
-    ".write": "auth.uid === 'YOURID'",    
+    ".write": "auth.uid === 'jTZxpIGtkpM6LRVb3QOzsPO04zI2'",    
     ".read": true,
-    "posts": {
-      "$id": {
-        "author": {
-          ".validate": "newData.isString()"
-        },
-        "body": {
-          ".validate": "newData.isString()"
-        },
-        "title": {
-          ".validate": "newData.isString()"
-        },
-        "img": {
-          ".validate": "newData.isString()"
-        },
-        "created": {
-          // ".validate": "newData.val() < now"
-        }
-      }
-    },
     "settings": {
       ".validate": true
-    },
-    "pages": {
-      "$id": {
-        "name": {
-          ".validate": "newData.isString()"
-        },
-        "fields": {
-          ".validate": true
-        },
-        "$other": {
-          ".validate": false
-        }
-      }
-    },
-    "users": {
-      "$uid": {
-        // ".write": "auth != null && auth.uid == $uid && root.child('users').child(auth.uid).child('role').val() === 'admin' "
-      }
     },
     "media": {
       "$id": {
@@ -48,6 +11,15 @@
       }
     },
     "nav": {
+      ".validate": true
+    },
+    "fields": {
+      ".validate": true
+    },
+    "contents": {
+      ".validate": true
+    },
+    "routes": {
       ".validate": true
     },
     "$other": {

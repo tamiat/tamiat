@@ -119,6 +119,7 @@ $sidebarColor: #B7B7B7;
   }
   .menu-list {
     padding-bottom: 80px;
+    margin-top: 50px;
   }
   .menu-label {
     padding-left: 5px;
@@ -148,7 +149,6 @@ $sidebarColor: #B7B7B7;
     &:hover {
       .menu--item-dropdown {
         display: block;
-        width: 164px !important;
       }
     }
     &-dropdown {

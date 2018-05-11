@@ -1,7 +1,7 @@
 <template>
 <div class="dropdown" :class="{'is-active': dropdownActive}" @click="toggleDropdown">
   <div class="dropdown-trigger">
-    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" style="min-width: 200px !important;">
       <span>{{selectedElement.label}}</span>
       <span class="icon is-small">
         <i class="fa fa-angle-down" aria-hidden="true"></i>

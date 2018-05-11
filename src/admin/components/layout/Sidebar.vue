@@ -148,6 +148,7 @@ $sidebarColor: #B7B7B7;
     &:hover {
       .menu--item-dropdown {
         display: block;
+        width: 164px !important;
       }
     }
     &-dropdown {

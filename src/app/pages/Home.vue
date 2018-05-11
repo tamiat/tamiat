@@ -395,7 +395,7 @@ a {
   cursor: pointer;
   text-decoration: none;
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
@@ -518,6 +518,8 @@ input.form-control {
   }
   .is-heading {
     text-align: center;
+    font-size: 30px;
+    line-height: 40px;
   }
 }
 

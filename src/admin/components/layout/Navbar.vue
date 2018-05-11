@@ -12,7 +12,7 @@
         <img src="/static/img/logo.png" alt="Tamiat CMS logo">
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
-        <span></span>
+        <span>kkkk</span>
         <span></span>
         <span></span>
       </div>

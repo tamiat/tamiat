@@ -11,7 +11,7 @@
           <div class="container has-text-centered">
             <div class="titleAdmin">
               <h1 class="title">
-                Welcome to Tamiat CMS.....
+                Welcome to Tamiat CMS
               </h1>
             </div>
             <h2 class="subtitle">

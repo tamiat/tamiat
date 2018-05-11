@@ -131,4 +131,3 @@ $navbarColor: #aaaaaa;
   }
 }
 </style>
-

@@ -15,15 +15,15 @@
               </h1>
             </div>
             <h2 class="subtitle">
-              <a class="button is-dark" href="https://github.com/tamiat/tamiat" target="_blank">
-                <span class="icon">
-                  <i class="fa fa-github"></i>
-                </span>
-                <span>GitHub</span>
+              <a href="https://github.com/tamiat/tamiat" target="_blank">
+                <span style="font-size: 25px;font-weight: bold">GitHub</span>
               </a>
-            </h2><br><br>
+            </h2>
             <router-link to="/">
-              <img src="/static/img/logo.png" alt="Tamiat CMS logo">
+              <!-- <img src="/static/img/logo.png" alt="Tamiat CMS logo"> -->
+              <div>
+                <object type="image/svg+xml" data="static/img/tamiat-logo-icon-color.svg" style="pointer-events: none; height: 7rem"></object>
+              </div>
             </router-link>
             <p>Version v0.2.2</p>
           </div>

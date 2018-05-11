@@ -119,6 +119,7 @@ $sidebarColor: #B7B7B7;
   }
   .menu-list {
     padding-bottom: 80px;
+    margin-top: 50px;
   }
   .menu-label {
     padding-left: 5px;

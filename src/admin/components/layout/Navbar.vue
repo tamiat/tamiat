@@ -9,7 +9,9 @@
     <!-- the navbar brand -->
     <div class="navbar-brand">
       <router-link class="navbar-item logo" to="/admin">
-        <img src="/static/img/logo.png" alt="Tamiat CMS logo">
+        <div>
+         <object type="image/svg+xml" data="static/img/02-admin-logo-tamiat-cms.svg" style="pointer-events: none;"></object>
+       </div>
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
         <span></span>
@@ -21,12 +23,12 @@
     <!-- the navbar right menu -->
     <div class="navbar-menu" id="navbar" :class="{'is-active': mobileMenuIsActive}">
       <div class="navbar-end">
-        <span class="navbar-item">
+        <span class="navbar-item email">
           {{currentUser.email}}
         </span>
         <span class="navbar-item sign-out" @click="signOut">
           <span class="icon is-medium has-text-centered">
-            <i class="fa fa-power-off"></i>
+            <i class="fa fa-bars fa-2x"></i>
           </span>
         </span>
       </div>
@@ -76,13 +78,14 @@ export default {
 </script>
 
 <style lang="scss">
-$navbarBg: #333;
+$navbarBg: #fff;
 $navbarColor: #aaaaaa;
 
 #navbar {
   position: fixed;
   z-index: 1024;
   width: 100%;
+  height: 100px;
   background-color: $navbarBg;
 
   .logo {
@@ -95,9 +98,18 @@ $navbarColor: #aaaaaa;
 
   .navbar-item {
     color: $navbarColor;
+    font-weight: bold;
     &:hover {
-      color: white;
+      color: #4BB885;
     }
+    object{
+      height: 12rem;
+      margin-left: -1.2rem;
+    }
+  }
+
+  span.email{
+    margin-right: -10px;
   }
 
   .sign-out {

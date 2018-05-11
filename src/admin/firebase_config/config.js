@@ -1,10 +1,11 @@
 const config = {
-  apiKey: 'AIzaSyDN6vYIk-89PI1y1gmI8P-33hvZ8NxT3iI',
-  authDomain: 'tamiatcms.firebaseapp.com',
-  databaseURL: 'https://tamiatcms.firebaseio.com',
-  projectId: 'tamiatcms',
-  storageBucket: 'tamiatcms.appspot.com',
-  messagingSenderId: '94963392700'
+  apiKey: 'AIzaSyBjCbs0u_h_r_aooyUjrWKD4YbA7eAVntc',
+  authDomain: 'tamimat-52622.firebaseapp.com',
+  databaseURL: 'https://tamimat-52622.firebaseio.com',
+  projectId: 'tamimat-52622',
+  storageBucket: 'tamimat-52622.appspot.com',
+  messagingSenderId: '80886271084'
+
 }
 
 export default config

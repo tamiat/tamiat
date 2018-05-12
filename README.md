@@ -302,3 +302,65 @@ export default {
 The vue mixin `LoadContent` will expose your content as a data object called `content`. There, you can access all the fields of the content you assigned to that route.
 
 <br>
+
+## Content types/Contents/Fields
+
+First, we have to understand the basic concepts and the DB structure.
+- Content type - type from which we create specific contents
+             - every content type has it's own `name`, `icon`, `path`, `fields` and `data`(Contents)
+- Content - actual contents created as `data` in Content types
+- Fields - used as properties for Contents and can be created as one of the available input types (`textarea`, `textbox`, `integer`, `boolean`, `url`, `richtextbox`, `tags`, `select`, `input`)
+
+### Why do we need this?
+
+This way, everything we create is custom made. We don't have any restrictions in sense of how our content should be named, what properties(inputs) should it have, on what path should our contents be, etc.
+
+### *** For users who have used previous version of Tamiat CMS ***
+In order for this new feature to work, you have to do the following:
+- Delete everything from DB except `media`, `nav` and `settings`
+- Go to the `Database` section in **Tamiat** admin area and add `Demo Content` and `Demo Fields`
+- After this, you have successfully added the demo data and initialized the DB. Now you can continue on working with contents and fields.
+
+### How to create Content types and Fields?
+
+In order to create content types and fields we have to go to the `Content` section in **Tamiat** admin area.
+
+#### Content types
+
+![Content type section](src/admin/assets/Contents.png)
+
+##### Create
+To be able to create new content type we have to define the name and select one or more fields from available fields list.
+On the right side we have a list of available fields. Those are the fields that are currently available in the DB.
+By checking a field from that list, we decide to include it in the creation of content type.
+If we want some fields to be shown later in the UI, we have to check a field from `Fields` list (only `textbox` type fields are available). Also, we can reorder fields so that they are stored in the DB as we want.
+
+##### Edit/Delete
+Lets look at the right section.
+By selecting a content type from dropdown menu, section on the left is populated with data of selected content type.
+From that point, we can choose to edit or to delete it.
+
+#### Fields
+
+![Fields section](src/admin/assets/Fields.png)
+
+##### Create
+By clicking on `Add new field` button, this block is displayed.
+Field name and field type are mandatory, but multi value isn't.
+
+##### Edit/Delete
+Next to every fields name in the available fields list, we have two icons - delete and edit.
+The same block is displayed just now it's populated with selected fields data.
+
+
+### We created a new content type, what now?
+After successfull creation, content types are displayed in the dropdown menu `Content` in **Tamiat** admin area.
+By clicking on a specific content type, this page is displayed:
+
+![Content section](src/admin/assets/Content.png)
+
+From this point, we can Create (Save/Publish), Edit, Delete, Bulk delete, Select, Filter and Sort contents.
+Those contents will be displayed later in the app.
+
+In the picture above we can see that we have newly created content type, ex. `Posts`, which has an actual data that is displayed in the table.
+Notice that only `author` and `title` fields are displayed - because those are the `textbox` fields we previously marked as "displayable" when we were creating content type.

@@ -6,7 +6,7 @@ const state = {
       icon: 'fa-wrench',
       dropdown: [
         {
-          name: 'New content',
+          name: 'New/Edit content',
           path: '/admin/content',
           icon: 'fa-file-text',
           supports: null

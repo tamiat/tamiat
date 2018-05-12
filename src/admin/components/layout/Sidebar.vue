@@ -88,8 +88,8 @@ export default {
 </script>
 
 <style lang="scss">
-$sidebarBg: #384A5C;
-$sidebarColor: #B7B7B7;
+$sidebarBg: #4cb986;
+$sidebarColor: #3b9169;
 
 #sidebar {
   position: absolute;
@@ -120,6 +120,10 @@ $sidebarColor: #B7B7B7;
   .menu-list {
     padding-bottom: 80px;
     margin-top: 50px;
+    li{
+      border-bottom: 1px solid #3b9169;
+      padding-bottom: 4px;
+    }
   }
   .menu-label {
     padding-left: 5px;
@@ -140,6 +144,11 @@ $sidebarColor: #B7B7B7;
     display: block !important;
     width: 100% !important;
     text-align: center !important;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  .icon{
+    font-size: 32px;
+    margin-bottom: 5px;
   }
 }
 

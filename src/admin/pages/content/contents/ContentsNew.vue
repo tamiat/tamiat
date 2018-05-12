@@ -13,6 +13,14 @@
           </div>
         </div>
 
+        <!-- Textarea fields -->
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'textarea'">
+          <label class="label">{{ field.name }}</label>
+          <div class="control">
+            <textarea class="input" v-model="newContent[field.name]" :placeholder="field.name" v-text="newContent[field.name]"></textarea>
+          </div>
+        </div>
+
         <!-- Rich text fields - vue-quill-editor plugin -->
         <div v-for="(field, index) in fields" :key="index" v-if="field.type === 'richtextbox'">
           <quill-editor v-model="newContent[field.name]" :options="editorOptions">

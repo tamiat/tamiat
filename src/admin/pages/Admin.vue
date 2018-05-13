@@ -25,7 +25,7 @@
                 <object type="image/svg+xml" data="static/img/tamiat-logo-icon-color.svg" style="pointer-events: none; height: 7rem"></object>
               </div>
             </router-link>
-            <p>Version v0.2.2</p>
+            <p>Version v0.3.0</p>
           </div>
         </div>
       </section>

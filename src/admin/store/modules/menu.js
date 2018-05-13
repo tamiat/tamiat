@@ -1,19 +1,4 @@
 const state = {
-  menuItems: [
-    {
-      name: 'Content',
-      path: '/admin/content',
-      icon: 'fa-wrench',
-      dropdown: [
-        {
-          name: 'New/Edit content',
-          path: '/admin/content',
-          icon: 'fa-file-text',
-          supports: null
-        }
-      ]
-    }
-  ],
   menuItem: null
 }
 

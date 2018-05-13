@@ -12,6 +12,14 @@
           </div>
         </div>
 
+        <!-- Textarea fields -->
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'textarea'">
+          <label class="label">{{ field.name }}</label>
+          <div class="control">
+            <textarea class="input" v-model="content[field.name]" :placeholder="field.name" v-text="content[field.name]"></textarea>
+          </div>
+        </div>
+
         <!-- Rich text fields - vue-quill-editor plugin -->
         <div v-for="(field, index) in fields" :key="index" v-if="field.type === 'richtextbox'">
           <quill-editor v-model="content[field.name]" :options="editorOptions">
@@ -122,7 +130,7 @@ export default {
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
-        this.post.img = snapshot.downloadURL
+        this.content.img = snapshot.downloadURL
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({
           src: snapshot.downloadURL,

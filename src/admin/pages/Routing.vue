@@ -111,6 +111,7 @@
 import { contentsRef, routesRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 import templates from '@/app/templates/templates.json'
+
 export default {
   data () {
     return {
@@ -173,6 +174,7 @@ export default {
     editRoute (route) {
       this.form.content = route.content
       this.form.template = route.template
+      this.form.contentType = route.contentType
       this.form.path = route.path
       this.form.action = 'update'
       this.form.key = route['.key']
@@ -181,7 +183,8 @@ export default {
       this.$firebaseRefs.routes.child(this.form.key).set({
         content: this.form.content,
         path: this.form.path.trim(),
-        template: this.form.template
+        template: this.form.template,
+        contentType: this.form.contentType
       })
         .then(() => {
           let template = this.form.template

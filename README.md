@@ -1,6 +1,6 @@
 <div align="center">
 
-<p><img src="https://github.com/tamiat/tamiat/blob/master/tamiatlogo.png" width="48%"></p>
+<p><img src="https://github.com/tamiat/tamiat/blob/master/tamiat-new-logo.png" width="48%"></p>
 
 <p align="center">
   <a href="https://www.tamiat.org"><img src="https://img.shields.io/github/tag/tamiat/tamiat.svg?label=Version" alt="Version"></a>

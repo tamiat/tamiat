@@ -10,8 +10,8 @@
     <div class="navbar-brand">
       <router-link class="navbar-item logo" to="/admin">
         <div>
-         <object type="image/svg+xml" data="/static/img/02-admin-logo-tamiat-cms.svg" style="pointer-events: none;"></object>
-       </div>
+         <object type="image/svg+xml" data="static/img/02-admin-logo-tamiat-cms.svg" style="pointer-events: none;"></object>
+        </div>
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
         <span></span>
@@ -99,6 +99,7 @@ $navbarColor: #aaaaaa;
   .navbar-item {
     color: $navbarColor;
     font-weight: bold;
+    max-height: 100px;
     &:hover {
       color: #4BB885;
     }

@@ -52,26 +52,6 @@ export default {
       loaded: true,
       menu: [
         {
-          name: 'Routing',
-          path: '/admin/routing',
-          icon: 'fa-random'
-        },
-        {
-          name: 'Media',
-          path: '/admin/media',
-          icon: 'fa-picture-o'
-        },
-        {
-          name: 'Settings',
-          path: '/admin/settings',
-          icon: 'fa-gear'
-        },
-        {
-          name: 'Database',
-          path: '/admin/database',
-          icon: 'fa-database'
-        },
-        {
           name: 'Content',
           path: '/admin/content',
           icon: 'fa-wrench',
@@ -83,6 +63,26 @@ export default {
               supports: null
             }
           ]
+        },
+        {
+          name: 'Routing',
+          path: '/admin/routing',
+          icon: 'fa-random'
+        },
+        {
+          name: 'Media',
+          path: '/admin/media',
+          icon: 'fa-picture-o'
+        },
+        {
+          name: 'Database',
+          path: '/admin/database',
+          icon: 'fa-database'
+        },
+        {
+          name: 'Settings',
+          path: '/admin/settings',
+          icon: 'fa-gear'
         }
       ]
     }

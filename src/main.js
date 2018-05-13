@@ -8,12 +8,12 @@ import VueQuillEditor from 'vue-quill-editor'
 
 // import external stylesheets
 import '../node_modules/font-awesome/css/font-awesome.css'
-import '../node_modules/bulma/css/bulma.css'
 
 // import vue-quill-editor styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import store from './admin/store'
 
 Vue.use(VueFire) // activate vuefire plugin
 Vue.use(VueQuillEditor) // activate vue-quill-editor
@@ -23,6 +23,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -28,6 +28,78 @@
         "path": "https://www.google.com",
         "isAbsolute": true
       }
+    ],
+    "demoContent": {
+      "name": "Posts",
+      "icon": "fa-file-text",
+      "path": "/admin/posts",
+      "data": [],
+      "fields": [
+        {
+          "multiValue": false,
+          "name": "author",
+          "type": "textbox",
+          "sortable": true
+        },
+        {
+          "multiValue": false,
+          "name": "body",
+          "type": "richtextbox"
+        },
+        {
+          "multiValue": false,
+          "name": "category",
+          "type": "select"
+        },
+        {
+          "multiValue": false,
+          "name": "img",
+          "type": "image"
+        },
+        {
+          "multiValue": false,
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "multiValue": false,
+          "name": "title",
+          "type": "textbox",
+          "sortable": true
+        }
+      ]
+    },
+    "demoFields": [
+      {
+        "multiValue": false,
+        "name": "title",
+        "type": "textbox"
+      },
+      {
+        "multiValue": false,
+        "name": "category",
+        "type": "textbox"
+      },
+      {
+        "multiValue": false,
+        "name": "body",
+        "type": "richtextbox"
+      },
+      {
+        "multiValue": false,
+        "name": "author",
+        "type": "textbox"
+      },
+      {
+        "multiValue": false,
+        "name": "img",
+        "type": "image"
+      },
+      {
+        "multiValue": true,
+        "name": "tags",
+        "type": "tags"
+      }
     ]
   }
 }

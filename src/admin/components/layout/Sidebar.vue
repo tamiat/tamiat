@@ -113,7 +113,7 @@ $sidebarWidth: 115px;
 
   .sidebar-menu-list {
     padding-bottom: 80px;
-    margin-top: 50px;
+    margin-top: 36px;
   }
 
   li {

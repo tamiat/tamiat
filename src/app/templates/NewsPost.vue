@@ -7,13 +7,13 @@
 
     <div class="clearfix news-content">
       <div class="leftbar">
-        <img :src="content.img" class="responsive-image">
+        <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
 
         <div class="news-preview-content">
           <h1 class="news-title" v-text="content.title"></h1>
           <p class="date">12/10/2018</p>
 
-          <p class="lead-paragraph" v-text="content.leadParagraph"></p>
+          <p class="subheadline" v-text="content.subheadline"></p>
 
           <div class="news-body" v-html="content.body"></div>
 
@@ -114,7 +114,7 @@ export default {
   .date {
     margin-bottom: 20px;
   }
-  .lead-paragraph {
+  .subheadline {
     font-weight: 700;
     margin-bottom: 25px;
   }

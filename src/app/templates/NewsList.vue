@@ -26,7 +26,7 @@
               <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
               <div class="news-preview-content">
                 <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
-                <p v-if="newsItem.leadParagraph" v-text="newsItem.leadParagraph"></p>
+                <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
                 <button class="btn is-small">Read more</button>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default {
 
       return _.filter(this.news, function (o) {
         return (!searchQuery && !category) ||
-          (searchQuery && (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.leadParagraph))) ||
+          (searchQuery && (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) ||
           (category && (stringContains(category, o.category) || stringContains(category, o.category)))
       })
     },

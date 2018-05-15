@@ -13,6 +13,7 @@
   },
   {
     "filename": "NewsList",
-    "displayName": "News list"
+    "displayName": "News list",
+    "createNestedRoute": true
   }
 ]

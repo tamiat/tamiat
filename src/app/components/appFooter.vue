@@ -41,11 +41,6 @@
               <img src="../assets/img/social-media/white/pinterest-white.png" alt="pinterest">
             </a>
           </li>
-          <!-- <li>
-            <a href="#">
-              <i class="fa fa-github-square"></i>
-            </a>
-          </li> -->
         </ul>
         <div>
           <p>Made by

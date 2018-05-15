@@ -27,7 +27,7 @@
               <div class="news-preview-content">
                 <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
                 <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
-                <button class="btn is-small">Read more</button>
+                <router-link :to="$route.path + '/' + newsItem['.key']" class="btn is-small">Read more</router-link>
               </div>
             </div>
 
@@ -138,6 +138,7 @@ export default {
       this.filter.q = this.searchQuery
     },
     changeCategory (category) {
+      this.filter.currentPage = 1
       this.filter.category = category.toLowerCase()
     },
     changePage (toPage) {

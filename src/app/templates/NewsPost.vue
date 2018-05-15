@@ -49,9 +49,9 @@
       </div>
       <div class="rightbar">
         <div class="search-box form-icon-wrapper">
-          <input class="form-control" placeholder="Search...">
+          <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
 
-          <button>
+          <button @click="search">
             <i class="fa fa-arrow-right"></i>
           </button>
         </div>
@@ -60,7 +60,9 @@
 
         <ul v-if="categories" class="topic-list">
           <li v-for="(count, category) in categories" :key="category">
-            <a>{{ category }} <span class="count">({{ count }})</span></a>
+            <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
+              {{ category }} <span class="count">({{ count }})</span>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -99,6 +101,28 @@ export default {
     },
     categories () {
       return _.countBy(this.news, 'category')
+    }
+  },
+  data () {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    getListingRoute () {
+      const params = this.$route.params
+      let path = this.$route.path
+
+      if (params) {
+        _.forIn(params, (value, key) => {
+          path = path.replace(`/${value}`, '')
+        })
+      }
+
+      return path
+    },
+    search () {
+      this.$router.replace({ path: this.getListingRoute(), query: { q: this.searchQuery } })
     }
   }
 }

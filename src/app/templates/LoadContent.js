@@ -21,7 +21,7 @@ export default {
         return route.path === path
       })[0]
       let contentType = currentRoute.contentType
-      let contentId = currentRoute.content !== 'none' || params.id
+      let contentId = currentRoute.content || (_.has(params, 'id') ? params.id : 'none')
       return this.selectContentByTypeAndId(contentType, contentId)
     }
   }

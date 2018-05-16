@@ -115,6 +115,11 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/index.scss';
 
+.container {
+  align-items: center;
+  padding: 75px;
+}
+
 /*----------------
        Hero Section
   ----------------*/

@@ -3,52 +3,54 @@
     <app-header></app-header>
 
     <div class="news-list">
-      <div class="clearfix">
-        <div class="leftbar">
-          <h2 class="is-heading">Latest News Entries</h2>
-        </div>
-
-        <div class="rightbar">
-          <div class="search-box form-icon-wrapper">
-            <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
-
-            <button @click="search">
-              <i class="fa fa-arrow-right"></i>
-            </button>
+      <div class="container">
+        <div class="clearfix">
+          <div class="leftbar">
+            <h2 class="is-heading">Latest News Entries</h2>
           </div>
-        </div>
-      </div>
 
-      <div class="clearfix news-listing-box">
-        <div class="leftbar">
-          <div v-if="currentPageNews && currentPageNews.length > 0">
-            <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
-              <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
-              <div class="news-preview-content">
-                <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
-                <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
-                <router-link :to="$route.path + '/' + newsItem['.key']" class="btn is-small">Read more</router-link>
-              </div>
+          <div class="rightbar">
+            <div class="search-box form-icon-wrapper">
+              <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
+
+              <button @click="search">
+                <i class="fa fa-arrow-right"></i>
+              </button>
             </div>
-
-            <pagination :totalItems="filteredNews.length"
-                        :perPage="perPage"
-                        :currentPage="filter.currentPage"
-                        @changePage="changePage">
-            </pagination>
-          </div>
-          <div v-else>
-            No News Found
           </div>
         </div>
-        <div class="rightbar">
-          <h3 class="is-subheading">Search By Topic</h3>
 
-          <ul v-if="categories" class="topic-list">
-            <li v-for="(count, category) in categories" :key="category">
-              <a @click="changeCategory(category)">{{ category }} <span class="count">({{ count }})</span></a>
-            </li>
-          </ul>
+        <div class="clearfix news-listing-box">
+          <div class="leftbar">
+            <div v-if="currentPageNews && currentPageNews.length > 0">
+              <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
+                <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
+                <div class="news-preview-content">
+                  <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
+                  <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
+                  <router-link :to="$route.path + '/' + newsItem['.key']" class="btn is-small">Read more</router-link>
+                </div>
+              </div>
+
+              <pagination :totalItems="filteredNews.length"
+                          :perPage="perPage"
+                          :currentPage="filter.currentPage"
+                          @changePage="changePage">
+              </pagination>
+            </div>
+            <div v-else>
+              No News Found
+            </div>
+          </div>
+          <div class="rightbar">
+            <h3 class="is-subheading">Search By Topic</h3>
+
+            <ul v-if="categories" class="topic-list">
+              <li v-for="(count, category) in categories" :key="category">
+                <a @click="changeCategory(category)">{{ category }} <span class="count">({{ count }})</span></a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -65,6 +65,8 @@ import firebase from 'firebase'
 import {demoData} from '@/../tamiat.config.json'
 import notifier from '@/admin/mixins/notifier'
 import { settingsRef, mediaRef, navRef, contentsRef, fieldsRef, routesRef } from '@/admin/firebase_config'
+import _ from 'lodash'
+
 export default {
   data () {
     return {...demoData, con: ''}
@@ -94,7 +96,8 @@ export default {
           demoPost.created = Date.now()
           demoPost.img = imgDownloadURL
           demoPost.body += `<p><img src="${imgDownloadURL}"></p>`
-          return this.$firebaseRefs.contents.child(this.con + '/data').push(demoPost)
+          const key = _.find(this.contents, { 'name': 'Posts' })['.key']
+          return this.$firebaseRefs.contents.child(key + '/data').push(demoPost)
         })
         .then(() => {
           return this.$firebaseRefs.media.push({

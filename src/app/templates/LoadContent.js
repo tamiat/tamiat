@@ -20,8 +20,11 @@ export default {
       let currentRoute = this.routes.filter((route) => {
         return route.path === path
       })[0]
+
       let contentType = currentRoute.contentType
-      let contentId = currentRoute.content !== 'none' ? currentRoute.content : (_.has(params, 'id') ? params.id : 'none')
+      let contentId = currentRoute.content !== 'none' && currentRoute.content !== undefined
+        ? currentRoute.content : (_.has(params, 'id') ? params.id : 'none')
+      console.log(contentType, currentRoute, params, currentRoute.content)
       return this.selectContentByTypeAndId(contentType, contentId)
     }
   }

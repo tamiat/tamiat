@@ -116,8 +116,10 @@ export default {
 
       return _.filter(this.news, function (o) {
         return (!searchQuery && !category) ||
-          (searchQuery && (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) ||
-          (category && (stringContains(category, o.category) || stringContains(category, o.category)))
+          (
+            (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
+            (!category || (stringContains(category, o.category)))
+          )
       })
     },
     currentPageNews () {

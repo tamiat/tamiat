@@ -64,7 +64,9 @@
 import firebase from 'firebase'
 import {demoData} from '@/../tamiat.config.json'
 import notifier from '@/admin/mixins/notifier'
-import { settingsRef, mediaRef, navRef, contentsRef, fieldsRef } from '@/admin/firebase_config'
+import { settingsRef, mediaRef, navRef, contentsRef, fieldsRef, routesRef } from '@/admin/firebase_config'
+import _ from 'lodash'
+
 export default {
   data () {
     return {...demoData, con: ''}
@@ -74,7 +76,8 @@ export default {
     media: mediaRef,
     nav: navRef,
     fields: fieldsRef,
-    contents: contentsRef
+    contents: contentsRef,
+    routes: routesRef
   },
   mixins: [notifier],
   methods: {
@@ -93,7 +96,8 @@ export default {
           demoPost.created = Date.now()
           demoPost.img = imgDownloadURL
           demoPost.body += `<p><img src="${imgDownloadURL}"></p>`
-          return this.$firebaseRefs.contents.child(this.con + '/data').push(demoPost)
+          const key = _.find(this.contents, { 'name': 'Posts' })['.key']
+          return this.$firebaseRefs.contents.child(key + '/data').push(demoPost)
         })
         .then(() => {
           return this.$firebaseRefs.media.push({
@@ -103,8 +107,47 @@ export default {
           })
         })
         .then(() => {
+          // this.showNotification('success', 'Demo Content added successfully')
+        })
+    },
+    addDemoNews () {
+      let storageRef = firebase.storage().ref()
+      let postImageRef = storageRef.child('images/demo-post-img.png')
+      let imgDownloadURL = ''
+
+      this.fetchLogoBlob()
+        .then(blob => {
+          return postImageRef.put(blob)
+        })
+        .then(snapshot => {
+          imgDownloadURL = snapshot.downloadURL
+          let demoNews = {...this.demoNews}
+          demoNews.img = imgDownloadURL
+          return this.$firebaseRefs.contents.child(this.con + '/data').push(demoNews)
+        })
+        .then(() => {
+          return this.$firebaseRefs.media.push({
+            name: 'demo-post-img.png',
+            path: postImageRef.fullPath,
+            src: imgDownloadURL
+          })
+        })
+        .then(() => {
+          this.addDemoRoutesForNews()
           this.showNotification('success', 'Demo Content added successfully')
         })
+    },
+    addDemoRoutesForNews () {
+      let i = this.demoRoutes.length
+      this.demoRoutes.forEach(route => {
+        this.$firebaseRefs.routes.push(route)
+          .then(() => {
+            i--
+            if (i === 0) {
+              this.showNotification('success', 'Demo Route added successfully')
+            }
+          })
+      })
     },
     addDemoSettings () {
       this.$firebaseRefs.settings.update(this.demoSettings)
@@ -166,11 +209,19 @@ export default {
       })
     },
     addDemoContent () {
-      this.$firebaseRefs.contents.push(this.demoContent)
-        .then((c) => {
-          this.con = c.key
-          this.addDemoPost()
-        })
+      let i = this.demoContent.length
+
+      this.demoContent.forEach(content => {
+        this.$firebaseRefs.contents.push(content)
+          .then((c) => {
+            i--
+            if (i === 0) {
+              this.con = c.key
+              this.addDemoPost()
+              this.addDemoNews()
+            }
+          })
+      })
     }
   }
 }

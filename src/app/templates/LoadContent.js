@@ -24,7 +24,7 @@ export default {
       let contentType = currentRoute.contentType
       let contentId = currentRoute.content !== 'none' && currentRoute.content !== undefined
         ? currentRoute.content : (_.has(params, 'id') ? params.id : 'none')
-      console.log(contentType, currentRoute, params, currentRoute.content)
+
       return this.selectContentByTypeAndId(contentType, contentId)
     }
   }

@@ -11,7 +11,7 @@
 
         <div class="news-preview-content">
           <h1 class="news-title" v-text="content.title"></h1>
-          <p class="date">12/10/2018</p>
+          <p class="date" v-text="content.date"></p>
 
           <p class="subheadline" v-text="content.subheadline"></p>
 
@@ -25,22 +25,22 @@
             <ul>
               <li>
                 <a href="#">
-                  <img src="../assets/img/social-media/blue/facebook-fill-blue.png" alt="facebook">
+                  <img src="../assets/img/social-media/blue/facebook-blue.png" alt="facebook">
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <img src="../assets/img/social-media/blue/twitter-fill-blue.png" alt="twitter">
+                  <img src="../assets/img/social-media/blue/twitter-blue.png" alt="twitter">
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <img src="../assets/img/social-media/blue/pinterest-fill-blue.png" alt="pinterest">
+                  <img src="../assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <img src="../assets/img/social-media/blue/instagram-fill-blue.png" alt="pinterest">
+                  <img src="../assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
                 </a>
               </li>
             </ul>

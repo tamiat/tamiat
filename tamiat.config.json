@@ -9,6 +9,13 @@
       "selected": false,
       "state": "published"
     },
+    "demoNews": {
+      "title": "Demo news",
+      "subheadline": "you can see here, how new news sections can be implemented easily",
+      "category": "vuejs",
+      "date": "10/18/2018",
+      "body": "<p>Taimat CMS news integration.</p><br><p>This is an example news<br/>"
+    },
     "demoSettings": {
       "title": "Tamiat CMS",
       "description": "Firebase & Vue.js based CMS"
@@ -27,48 +34,92 @@
         "name": "google",
         "path": "https://www.google.com",
         "isAbsolute": true
+      },
+      {
+        "name": "news",
+        "path": "/news"
       }
     ],
-    "demoContent": {
-      "name": "Posts",
-      "icon": "fa-file-text",
-      "path": "/admin/posts",
-      "data": [],
-      "fields": [
-        {
-          "multiValue": false,
-          "name": "author",
-          "type": "textbox",
-          "sortable": true
-        },
-        {
-          "multiValue": false,
-          "name": "body",
-          "type": "richtextbox"
-        },
-        {
-          "multiValue": false,
-          "name": "category",
-          "type": "select"
-        },
-        {
-          "multiValue": false,
-          "name": "img",
-          "type": "image"
-        },
-        {
-          "multiValue": false,
-          "name": "tags",
-          "type": "tags"
-        },
-        {
-          "multiValue": false,
-          "name": "title",
-          "type": "textbox",
-          "sortable": true
-        }
-      ]
-    },
+    "demoContent": [
+      {
+        "name": "Posts",
+        "icon": "fa-file-text",
+        "path": "/admin/posts",
+        "data": [],
+        "fields": [
+          {
+            "multiValue": false,
+            "name": "author",
+            "type": "textbox",
+            "sortable": true
+          },
+          {
+            "multiValue": false,
+            "name": "body",
+            "type": "richtextbox"
+          },
+          {
+            "multiValue": false,
+            "name": "category",
+            "type": "select"
+          },
+          {
+            "multiValue": false,
+            "name": "img",
+            "type": "image"
+          },
+          {
+            "multiValue": false,
+            "name": "tags",
+            "type": "tags"
+          },
+          {
+            "multiValue": false,
+            "name": "title",
+            "type": "textbox",
+            "sortable": true
+          }
+        ]
+      },
+      {
+        "name": "News",
+        "icon": "fa-file-text",
+        "path": "/admin/news",
+        "data": [],
+        "fields": [
+          {
+            "multiValue": false,
+            "name": "title",
+            "type": "textbox"
+          },
+          {
+            "multiValue": false,
+            "name": "subheadline",
+            "type": "textarea"
+          },
+          {
+            "multiValue": false,
+            "name": "date",
+            "type": "textarea"
+          },
+          {
+            "multiValue": false,
+            "name": "category",
+            "type": "textarea"
+          },
+          {
+            "multiValue": false,
+            "name": "body",
+            "type": "richtextbox"
+          },
+          {
+            "multiValue": false,
+            "name": "img",
+            "type": "image"
+          }
+        ]
+      }
+    ],
     "demoFields": [
       {
         "multiValue": false,
@@ -99,6 +150,28 @@
         "multiValue": true,
         "name": "tags",
         "type": "tags"
+      },
+      {
+        "multiValue": false,
+        "name": "date",
+        "type": "textbox"
+      },
+      {
+        "multiValue": false,
+        "name": "subheadline",
+        "type": "textarea"
+      }
+    ],
+    "demoRoutes": [
+      {
+        "contentType": "News",
+        "path": "/news",
+        "template": "NewsList"
+      },
+      {
+        "contentType": "News",
+        "path": "/news/:id",
+        "template": "NewsPost"
       }
     ]
   }

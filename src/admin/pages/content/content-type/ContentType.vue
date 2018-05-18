@@ -23,7 +23,7 @@
                     <input v-if="!selectedContent" class="input" type="text" placeholder="e.g. Movies" v-model="name">
                     <input v-else class="input" type="text" placeholder="e.g. Movies" v-model="selectedContent.name">
                   </div>
-                </div><br><br>
+                </div>
                 <!-- Custom Fields -->
                 <label class="label">Fields</label>
                 <div class="field is-grouped is-grouped-multiline">
@@ -38,6 +38,23 @@
                       </span>
                     </li>
                   </ul>
+                </div>
+                <br/><br/>
+
+                <div>
+                  <label class="label">Slug - <strong v-text="slug"></strong></label>
+
+                  <div class="select">
+                    <select v-model="slug" placeholder="Select Column For Slug">
+                      <option value="" selected>Select Column For Slug</option>
+                      <option v-for="(field, fieldKey) in checkedFields" :key="fieldKey" v-if="field.checked && field.type === 'textbox'">
+                        {{ field.name }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <br/><br/>
+                  <p>This will be used with :key to identify record.</p>
                 </div>
               </div>
               <div class="column">
@@ -55,10 +72,11 @@
                       </span>
                     </li>
                     </ul>
-                  </div><br>
-                    <router-link to="/admin/content/fieldNew" class="button is-info is-small">Add new field</router-link>
+                  </div>
+                  <br>
+                  <router-link to="/admin/content/fieldNew" class="button is-info is-small">Add new field</router-link>
               </div>
-            </div><br><br>
+            </div>
           <div class="buttons">
           <button v-if="selectedContent" type="submit" class="button is-success" :disabled="!selectedContent.name || !checkedFields.length" @click="createMenuItem(true)">Edit</button>
           <button v-else type="submit" class="button is-success" :disabled="!name || !checkedFields.length" @click="createMenuItem(false)">Create new</button>
@@ -102,12 +120,18 @@ export default {
   name: 'content-type',
   mixins: [notifier],
   firebase: {
-    contents: contentsRef,
+    contents: {
+      source: contentsRef,
+      readyCallback: function () {
+        this.loadContentTypes()
+      }
+    },
     fields: fieldsRef
   },
   data () {
     return {
       name: '',
+      slug: null,
       showDesc: false,
       createdContentTypes: null,
       selectedContentType: {
@@ -166,6 +190,7 @@ export default {
 
       let item = {
         name: this.name,
+        slug: this.slug,
         path: `/admin/content/${path}`,
         icon: 'fa-file-text',
         fields: selectedFields
@@ -173,6 +198,7 @@ export default {
       if (edit) {
         this.selectedContent.path = `/admin/content/${path}`
         this.selectedContent.fields = selectedFields
+        this.selectedContent.slug = this.slug
         let item = {...this.selectedContent}
         delete item['.key']
         this.$firebaseRefs.contents.child(this.selectedContent['.key']).set(item).then(() => {
@@ -197,6 +223,7 @@ export default {
     },
     resetForm () {
       this.name = ''
+      this.slug = null
       this.selectedContent = null
       for (var fieldKey in this.fields) {
         this.fields[fieldKey].checked = false
@@ -247,12 +274,15 @@ export default {
       }
     },
     selectContentType (option) {
+      if (option.id === '') return
+
       this.selectedContentType = option
       this.selectedContent = this.contents.filter(content => {
         if (content.name === option.label) {
           return content
         }
       })[0]
+      this.slug = this.selectedContent.slug
       this.clearChecked()
       if (option.id) {
         this.mapFields()
@@ -270,6 +300,9 @@ export default {
           }
         }
       }
+    },
+    setAsSlug (column) {
+      this.slug = this.slug === column ? null : column
     }
   },
   components: {

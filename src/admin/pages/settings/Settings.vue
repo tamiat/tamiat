@@ -188,7 +188,6 @@ export default {
         })
     },
     uploadWebsiteLogo (e) {
-      console.log(e)
       let file = e.target.files[0]
       let storageRef = firebase.storage().ref('images/' + file.name)
 
@@ -200,7 +199,6 @@ export default {
         }
       }
       storageRef.put(file).then((snapshot) => {
-        console.log(snapshot)
         this.websiteLogo = snapshot.downloadURL
 
         var logo = {

@@ -113,7 +113,6 @@ export default {
   },
   methods: {
     add (state) {
-      console.log('Created new content: ' + this.newContent)
       this.newContent.created = Date.now()
       this.newContent.selected = false
       this.newContent.state = state
@@ -122,12 +121,10 @@ export default {
       this.$router.push({ path: '/admin/content/' + this.$route.params.key })
     },
     uploadFeaturedImage (e, fieldName) {
-      console.log(e)
       let file = e.target.files[0]
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
-        console.log(snapshot)
         this.newContent[fieldName] = ''
         this.newContent[fieldName] = snapshot.downloadURL
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object

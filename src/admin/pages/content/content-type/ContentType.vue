@@ -183,11 +183,11 @@ export default {
       path = path.replace(/^[, ]+|[, ]+$|[, ]+/g, '').trim()
 
       let selectedFields = this.checkedFields.map(field => {
-        return {
+        return Object.assign({
           name: field.name,
           type: field.type,
           multiValue: field.multiValue
-        }
+        }, field.sortable ? { sortable: true } : null)
       })
 
       let item = {

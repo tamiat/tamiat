@@ -5,10 +5,6 @@
     <div class="news-list">
       <div class="container">
         <div class="clearfix">
-          <div class="leftbar">
-            <h2 class="is-heading">Latest News Entries</h2>
-          </div>
-
           <div class="rightbar">
             <div class="search-box form-icon-wrapper">
               <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
@@ -18,11 +14,28 @@
               </button>
             </div>
           </div>
+
+          <div class="leftbar">
+            <h2 class="is-heading">Latest News Entries</h2>
+          </div>
         </div>
 
         <div class="clearfix news-listing-box">
+          <div class="rightbar">
+            <h3 class="is-subheading">Search By Topic</h3>
+
+            <ul v-if="categories" class="topic-list">
+              <li v-for="(count, category) in categories" :key="category">
+                <a @click="changeCategory(category)">{{ category }} <span class="count">({{ count }})</span></a>
+              </li>
+            </ul>
+          </div>
+
           <div class="leftbar">
-            <div v-if="currentPageNews && currentPageNews.length > 0">
+            <div v-if="loaded === false">
+              <h4>Loading News.. Please wait..</h4>
+            </div>
+            <div v-else-if="currentPageNews && currentPageNews.length > 0">
               <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
                 <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
                 <div class="news-preview-content">
@@ -41,15 +54,6 @@
             <div v-else>
               No News Found
             </div>
-          </div>
-          <div class="rightbar">
-            <h3 class="is-subheading">Search By Topic</h3>
-
-            <ul v-if="categories" class="topic-list">
-              <li v-for="(count, category) in categories" :key="category">
-                <a @click="changeCategory(category)">{{ category }} <span class="count">({{ count }})</span></a>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -80,7 +84,12 @@ export default {
   },
   firebase: {
     routes: routesRef,
-    contents: contentsRef
+    contents: {
+      source: contentsRef,
+      readyCallback: function () {
+        this.loaded = true
+      }
+    }
   },
   data () {
     return {
@@ -90,7 +99,8 @@ export default {
         currentPage: 1
       },
       searchQuery: undefined,
-      perPage: 1 // No of news per page
+      perPage: 1, // No of news per page
+      loaded: false
     }
   },
   watch: {

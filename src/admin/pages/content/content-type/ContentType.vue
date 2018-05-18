@@ -1,9 +1,9 @@
 <template>
 <div class="contentType">
- <div class="container is-widescreen">
+  <div class="container is-widescreen">
 
-   <!-- View for edit/add new field -->
-  <router-view :edit-field="editField" :add-field="addField"></router-view>
+    <!-- View for edit/add new field -->
+    <router-view :edit-field="editField" :add-field="addField"></router-view>
 
     <!-- notification -->
     <transition mode="out-in" name="fade">
@@ -116,6 +116,7 @@ import checkbox from '@/admin/components/shared/Checkbox'
 import dropdown from '@/admin/components/shared/Dropdown'
 import { contentsRef, fieldsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
+
 export default {
   name: 'content-type',
   mixins: [notifier],
@@ -123,6 +124,7 @@ export default {
     contents: {
       source: contentsRef,
       readyCallback: function () {
+        // Load content types in select after content data loaded from firebase
         this.loadContentTypes()
       }
     },
@@ -131,7 +133,7 @@ export default {
   data () {
     return {
       name: '',
-      slug: null,
+      slug: '',
       showDesc: false,
       createdContentTypes: null,
       selectedContentType: {
@@ -223,7 +225,7 @@ export default {
     },
     resetForm () {
       this.name = ''
-      this.slug = null
+      this.slug = ''
       this.selectedContent = null
       for (var fieldKey in this.fields) {
         this.fields[fieldKey].checked = false

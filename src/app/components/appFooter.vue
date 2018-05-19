@@ -150,6 +150,11 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .contact {
+    .content p {
+      margin-top: 15px;
+    }
+  }
   footer {
     padding: 0px;
     .container {

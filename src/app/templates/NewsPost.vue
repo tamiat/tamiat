@@ -5,65 +5,67 @@
 
     <app-header></app-header>
 
-    <div class="clearfix news-content">
-      <div class="rightbar">
-        <div class="search-box form-icon-wrapper">
-          <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
+    <div class="container">
+      <div class="clearfix news-content">
+        <div class="rightbar">
+          <div class="search-box form-icon-wrapper">
+            <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
 
-          <button @click="search">
-            <i class="fa fa-arrow-right"></i>
-          </button>
+            <button @click="search">
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <h3 class="is-subheading">Search By Topic</h3>
+
+          <ul v-if="categories" class="topic-list">
+            <li v-for="(count, category) in categories" :key="category">
+              <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
+                {{ category }} <span class="count">({{ count }})</span>
+              </router-link>
+            </li>
+          </ul>
         </div>
 
-        <h3 class="is-subheading">Search By Topic</h3>
+        <div class="leftbar">
+          <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
 
-        <ul v-if="categories" class="topic-list">
-          <li v-for="(count, category) in categories" :key="category">
-            <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
-              {{ category }} <span class="count">({{ count }})</span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
+          <div class="news-preview-content">
+            <h1 class="news-title" v-text="content.title"></h1>
+            <p class="date" v-text="content.date"></p>
 
-      <div class="leftbar">
-        <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
+            <p class="subheadline" v-text="content.subheadline"></p>
 
-        <div class="news-preview-content">
-          <h1 class="news-title" v-text="content.title"></h1>
-          <p class="date" v-text="content.date"></p>
+            <div class="news-body" v-html="content.body"></div>
 
-          <p class="subheadline" v-text="content.subheadline"></p>
+            <hr/>
 
-          <div class="news-body" v-html="content.body"></div>
+            <div class="share-box">
+              <h4 class="is-subheading">Share this:</h4>
 
-          <hr/>
-
-          <div class="share-box">
-            <h4 class="is-subheading">Share this:</h4>
-
-            <ul>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/facebook-blue.png" alt="facebook">
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/twitter-blue.png" alt="twitter">
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
-                </a>
-              </li>
-            </ul>
+              <ul>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/facebook-blue.png" alt="facebook">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/twitter-blue.png" alt="twitter">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -168,6 +170,16 @@ export default {
   .page-news {
     .search-box {
       margin: 10px 0;
+      display: none;
+    }
+    .rightbar .is-subheading {
+      text-align: center;
+    }
+    .leftbar {
+      margin-top: 10px;
+    }
+    .topic-list {
+      display: none;
     }
   }
 }

@@ -7,26 +7,6 @@
 
     <div class="container">
       <div class="clearfix news-content">
-        <div class="rightbar">
-          <div class="search-box form-icon-wrapper">
-            <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
-
-            <button @click="search">
-              <i class="fa fa-arrow-right"></i>
-            </button>
-          </div>
-
-          <h3 class="is-subheading">Search By Topic</h3>
-
-          <ul v-if="categories" class="topic-list">
-            <li v-for="(count, category) in categories" :key="category">
-              <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
-                {{ category }} <span class="count">({{ count }})</span>
-              </router-link>
-            </li>
-          </ul>
-        </div>
-
         <div class="leftbar">
           <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
 
@@ -67,6 +47,26 @@
               </ul>
             </div>
           </div>
+        </div>
+
+        <div class="rightbar">
+          <div class="search-box form-icon-wrapper">
+            <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
+
+            <button @click="search">
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <h3 class="is-subheading">Search By Topic</h3>
+
+          <ul v-if="categories" class="topic-list">
+            <li v-for="(count, category) in categories" :key="category">
+              <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
+                {{ category }} <span class="count">({{ count }})</span>
+              </router-link>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -166,20 +166,22 @@ export default {
   }
 }
 
+@media(max-width: 768px) {
+  .page-news {
+    .rightbar {
+      display: none;
+    }
+  }
+}
+
 @media(max-width: 600px) {
   .page-news {
     .search-box {
       margin: 10px 0;
       display: none;
     }
-    .rightbar .is-subheading {
-      text-align: center;
-    }
     .leftbar {
       margin-top: 10px;
-    }
-    .topic-list {
-      display: none;
     }
   }
 }

@@ -293,7 +293,7 @@ input.form-control {
     width: 30%;
   }
   .leftbar, .rightbar {
-    float: right;
+    float: left;
     padding: 0 30px;
   }
   .news-listing:not(:first-child) {
@@ -362,6 +362,9 @@ input.form-control {
 
 @media(max-width: 600px) {
   .page-news-list, .page-news {
+    .is-heading {
+      text-align: left;
+    }
     .news-list, .news-content {
       padding: 0;
     }
@@ -370,6 +373,16 @@ input.form-control {
     }
     .rightbar {
       text-align: right;
+      .is-subheading, .topic-list {
+        display: none;
+      }
+      .search-box {
+        margin-top: 15px;
+        width: 100%;
+        input {
+          width: 100%;
+        }
+      }
     }
     .news-listing-box {
       padding: 10px 0;

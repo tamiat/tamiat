@@ -112,6 +112,12 @@ export default {
       display: block;
       padding-bottom: 20px;
     }
+    form {
+      width: 100%;
+      .form-icon-wrapper, input {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -150,6 +156,11 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .contact {
+    .content p {
+      margin-top: 15px;
+    }
+  }
   footer {
     padding: 0px;
     .container {

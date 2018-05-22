@@ -198,7 +198,6 @@ export default {
         })
     },
     updateContent (content) {
-      console.log(JSON.stringify(content), content)
       // create a copy of the item
       let tempCon = { ...content }
       // remove the .key attribute

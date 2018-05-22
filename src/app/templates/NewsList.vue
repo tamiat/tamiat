@@ -22,7 +22,10 @@
 
         <div class="clearfix news-listing-box">
           <div class="leftbar">
-            <div v-if="currentPageNews && currentPageNews.length > 0">
+            <div v-if="loaded === false">
+              <h4>Loading News.. Please wait..</h4>
+            </div>
+            <div v-else-if="currentPageNews && currentPageNews.length > 0">
               <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
                 <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
                 <div class="news-preview-content">
@@ -42,6 +45,7 @@
               No News Found
             </div>
           </div>
+
           <div class="rightbar">
             <h3 class="is-subheading">Search By Topic</h3>
 
@@ -80,7 +84,12 @@ export default {
   },
   firebase: {
     routes: routesRef,
-    contents: contentsRef
+    contents: {
+      source: contentsRef,
+      readyCallback: function () {
+        this.loaded = true
+      }
+    }
   },
   data () {
     return {
@@ -90,7 +99,8 @@ export default {
         currentPage: 1
       },
       searchQuery: undefined,
-      perPage: 1 // No of news per page
+      perPage: 1, // No of news per page
+      loaded: false
     }
   },
   watch: {

@@ -51,7 +51,7 @@
             <div class="select is-fullwidth">
               <select v-model="form.content">
                 <option v-for="(content, i) in selectedContents" :key="i" :value="content['.key']">
-                  {{content['.key']}}
+                  {{ content['.key'] + (content['slugValue'] ? ` (${content['slugValue']})` : '')}}
                 </option>
                 <option value="none">No Content</option>
               </select>
@@ -229,16 +229,17 @@ export default {
         return content.name === contentType
       })
       selectedContents.forEach(content => {
-        let contentDataArray = this.convertContentDataToArray(content.data)
+        let contentDataArray = this.convertContentDataToArray(content.data, content.slug)
         selectedContentsData = selectedContentsData.concat(contentDataArray || [])
       })
       return selectedContentsData
     },
-    convertContentDataToArray (contentData) {
+    convertContentDataToArray (contentData, slug) {
       let contentDataArray = []
       for (let key in contentData) {
         contentDataArray.push({
           ...contentData[key],
+          slugValue: slug ? contentData[key][slug] : '',
           '.key': key
         })
       }

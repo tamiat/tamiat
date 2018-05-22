@@ -398,6 +398,9 @@ input.form-control {
       flex-wrap: wrap;
       li {
         margin: 5px;
+        &:not(.navigation) {
+          display: none;
+        }
       }
     }
   }

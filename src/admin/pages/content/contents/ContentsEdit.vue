@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import firebase from 'firebase'
 
 import { mediaRef } from '@/admin/firebase_config'
@@ -125,12 +126,19 @@ export default {
       }
       this.updateContent(this.content)
     },
-    uploadFeaturedImage (e) {
+    uploadFeaturedImage (e, fieldName) {
       let file = e.target.files[0]
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
-        this.content.img = snapshot.downloadURL
+        return new Promise((resolve, reject) => {
+          snapshot.ref.getDownloadURL().then(url => {
+            snapshot.downloadURL = url
+            resolve(snapshot)
+          })
+        })
+      }).then((snapshot) => {
+        Vue.set(this.content, fieldName, snapshot.downloadURL)
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({
           src: snapshot.downloadURL,

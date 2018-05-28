@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import firebase from 'firebase'
 import { mediaRef } from '@/admin/firebase_config'
 import editorOptions from '@/admin/utils/editor-options'
@@ -127,9 +128,15 @@ export default {
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
+        return new Promise((resolve, reject) => {
+          snapshot.ref.getDownloadURL().then(url => {
+            snapshot.downloadURL = url
+            resolve(snapshot)
+          })
+        })
+      }).then((snapshot) => {
         console.log(snapshot)
-        this.newContent[fieldName] = ''
-        this.newContent[fieldName] = snapshot.downloadURL
+        Vue.set(this.newContent, fieldName, snapshot.downloadURL)
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
         this.$firebaseRefs.media.push({
           src: snapshot.downloadURL,

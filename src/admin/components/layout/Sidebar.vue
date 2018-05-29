@@ -114,6 +114,7 @@ $sidebarColor: #3b9169;
 $sidebarWidth: 115px;
 
 #sidebar {
+  position: absolute;
   padding: 20px 0 50px;
   width: $sidebarWidth;
   min-width: 45px;

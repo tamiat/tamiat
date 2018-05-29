@@ -7,6 +7,6 @@
   </div>
 </template>
 
-<style lang="sass">
-@import '../styles/index.sass'
+<style lang="scss">
+@import '../styles/index.scss'
 </style>

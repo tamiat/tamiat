@@ -229,7 +229,6 @@ export default {
       this.action = 'edit-sub'
       this.key = key
       this.link = Object.assign({}, parent)
-      console.log(this.link['.key'])
     },
     updateSubLink () {
       this.$firebaseRefs.menu.child(this.link['.key']).child('children').child(this.key).update({

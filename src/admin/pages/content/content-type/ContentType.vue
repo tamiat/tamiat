@@ -1,9 +1,9 @@
 <template>
 <div class="contentType">
- <div class="container is-widescreen">
+  <div class="container is-widescreen">
 
-   <!-- View for edit/add new field -->
-  <router-view :edit-field="editField" :add-field="addField"></router-view>
+    <!-- View for edit/add new field -->
+    <router-view :edit-field="editField" :add-field="addField"></router-view>
 
     <!-- notification -->
     <transition mode="out-in" name="fade">
@@ -23,22 +23,39 @@
                     <input v-if="!selectedContent" class="input" type="text" placeholder="e.g. Movies" v-model="name">
                     <input v-else class="input" type="text" placeholder="e.g. Movies" v-model="selectedContent.name">
                   </div>
-                </div><br><br>
+                </div>
                 <!-- Custom Fields -->
-                  <label class="label">Fields</label>
-                  <div class="field is-grouped is-grouped-multiline">
-                    <ul class="nav-preview">
-                      <li v-for="(field, fieldKey) in checkedFields" :key="fieldKey" v-if="field.checked">
+                <label class="label">Fields</label>
+                <div class="field is-grouped is-grouped-multiline">
+                  <ul class="nav-preview">
+                    <li v-for="(field, fieldKey) in checkedFields" :key="fieldKey" v-if="field.checked">
+                      {{ field.name }}
+                      <span class="link-actions">
+                        <span v-if="fieldKey !== 0" class="has-text-success fa fa-arrow-up" @click="moveFieldUp(field, checkedFields[fieldKey - 1])"></span>
+                        <span v-if="fieldKey !== checkedFields.length - 1" class="fa fa-arrow-down" @click="moveFieldDown(field, checkedFields[fieldKey + 1])"></span>
+                        <span @mouseover="showDesc = !showDesc"><checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
+                        <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <br/><br/>
+
+                <div>
+                  <label class="label">Slug - <strong v-text="slug"></strong></label>
+
+                  <div class="select">
+                    <select v-model="slug" placeholder="Select Column For Slug">
+                      <option value="" selected>Select Column For Slug</option>
+                      <option v-for="(field, fieldKey) in checkedFields" :key="fieldKey" v-if="field.checked && field.type === 'textbox'">
                         {{ field.name }}
-                        <span class="link-actions">
-                          <span v-if="fieldKey !== 0" class="has-text-success fa fa-arrow-up" @click="moveFieldUp(field, checkedFields[fieldKey - 1])"></span>
-                          <span v-if="fieldKey !== checkedFields.length - 1" class="fa fa-arrow-down" @click="moveFieldDown(field, checkedFields[fieldKey + 1])"></span>
-                          <span @mouseover="showDesc = !showDesc"><checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
-                          <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span>
-                        </span>
-                      </li>
-                    </ul>
+                      </option>
+                    </select>
                   </div>
+
+                  <br/><br/>
+                  <p>This will be used with :key to identify record.</p>
+                </div>
               </div>
               <div class="column">
                   <label class="label">Available fields</label>
@@ -55,10 +72,11 @@
                       </span>
                     </li>
                     </ul>
-                  </div><br>
-                    <router-link to="/admin/content/fieldNew" class="button is-info is-small">Add new field</router-link>
+                  </div>
+                  <br>
+                  <router-link to="/admin/content/fieldNew" class="button is-info is-small">Add new field</router-link>
               </div>
-            </div><br><br>
+            </div>
           <div class="buttons">
           <button v-if="selectedContent" type="submit" class="button is-success" :disabled="!selectedContent.name || !checkedFields.length" @click="createMenuItem(true)">Edit</button>
           <button v-else type="submit" class="button is-success" :disabled="!name || !checkedFields.length" @click="createMenuItem(false)">Create new</button>
@@ -98,16 +116,24 @@ import checkbox from '@/admin/components/shared/Checkbox'
 import dropdown from '@/admin/components/shared/Dropdown'
 import { contentsRef, fieldsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
+
 export default {
   name: 'content-type',
   mixins: [notifier],
   firebase: {
-    contents: contentsRef,
+    contents: {
+      source: contentsRef,
+      readyCallback: function () {
+        // Load content types in select after content data loaded from firebase
+        this.loadContentTypes()
+      }
+    },
     fields: fieldsRef
   },
   data () {
     return {
       name: '',
+      slug: '',
       showDesc: false,
       createdContentTypes: null,
       selectedContentType: {
@@ -157,15 +183,16 @@ export default {
       path = path.replace(/^[, ]+|[, ]+$|[, ]+/g, '').trim()
 
       let selectedFields = this.checkedFields.map(field => {
-        return {
+        return Object.assign({
           name: field.name,
           type: field.type,
           multiValue: field.multiValue
-        }
+        }, field.sortable ? { sortable: true } : null)
       })
 
       let item = {
         name: this.name,
+        slug: this.slug,
         path: `/admin/content/${path}`,
         icon: 'fa-file-text',
         fields: selectedFields
@@ -173,6 +200,7 @@ export default {
       if (edit) {
         this.selectedContent.path = `/admin/content/${path}`
         this.selectedContent.fields = selectedFields
+        this.selectedContent.slug = this.slug
         let item = {...this.selectedContent}
         delete item['.key']
         this.$firebaseRefs.contents.child(this.selectedContent['.key']).set(item).then(() => {
@@ -197,6 +225,7 @@ export default {
     },
     resetForm () {
       this.name = ''
+      this.slug = ''
       this.selectedContent = null
       for (var fieldKey in this.fields) {
         this.fields[fieldKey].checked = false
@@ -247,12 +276,15 @@ export default {
       }
     },
     selectContentType (option) {
+      if (option.id === '') return
+
       this.selectedContentType = option
       this.selectedContent = this.contents.filter(content => {
         if (content.name === option.label) {
           return content
         }
       })[0]
+      this.slug = this.selectedContent.slug
       this.clearChecked()
       if (option.id) {
         this.mapFields()
@@ -266,10 +298,13 @@ export default {
         for (var i = 0; i < this.selectedContent.fields.length; i++) {
           if (this.selectedContent.fields[i].name === this.fields[j].name) {
             this.selectedContent.fields[i].checked = true
-            this.fields[j].checked = true
+            this.$set(this.fields[j], 'checked', true)
           }
         }
       }
+    },
+    setAsSlug (column) {
+      this.slug = this.slug === column ? null : column
     }
   },
   components: {

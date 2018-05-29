@@ -34,6 +34,18 @@
           </router-link>
         </ul>
       </router-link>
+      <a
+        target="_blank"
+        :href="helpbtn.path"
+        class="menu-item"
+        >
+
+        <div class="icon is-medium">
+            <i :class="['fa', helpbtn.icon]"></i>
+        </div>
+
+        <div>{{ helpbtn.name }}</div>
+      </a>
 
     </ul>
   </aside>
@@ -84,7 +96,12 @@ export default {
           path: '/admin/settings',
           icon: 'fa-gear'
         }
-      ]
+      ],
+      helpbtn: {
+        name: 'Help',
+        path: 'https://github.com/tamiat/tamiat/blob/master/README.md',
+        icon: 'fa-question'
+      }
     }
   }
 }
@@ -116,7 +133,8 @@ $sidebarWidth: 115px;
     margin-top: 36px;
   }
 
-  li {
+  li,
+  a {
     display: block;
     text-align: center;
     border-bottom: 1px solid #3b9169;

@@ -19,83 +19,33 @@
       </div>
     </section>
 
-    <section class="our-work">
-      <div class="container">
-        <h3 class="is-heading">Some of our work</h3>
-        <p class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-        <ul class="grid">
-          <li class="small" :style="{'background-image': `url(${require('../assets/img/coast.jpg')})`}"></li>
-          <li class="large" :style="{'background-image': `url(${require('../assets/img/island.jpg')})`}"></li>
-          <li class="large" :style="{'background-image': `url(${require('../assets/img/balloon.jpg')})`}"></li>
-          <li class="small" :style="{'background-image': `url(${require('../assets/img/mountain.jpg')})`}"></li>
-        </ul>
-      </div>
-    </section>
+    <section-work></section-work>
 
-    <section class="features bg-blue">
-      <div class="container">
-        <h3 class="is-heading">Features and services</h3>
-        <p class="info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-        <ul class="grid">
-          <li>
-            <i class="fa fa-camera-retro"></i>
-            <h4>Photography</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.
-            </p>
-          </li>
-          <li>
-            <i class="fa fa-cubes"></i>
-            <h4>Web Development</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.
-            </p>
-          </li>
-          <li>
-            <i class="fa fa-newspaper-o"></i>
-            <h4>Content Editing</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.
-            </p>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <section-service></section-service>
 
-    <section class="reviews">
-      <div class="container">
-        <h3 class="is-heading is-orange">What Others Say</h3>
-
-        <ul class="quote-box">
-          <li>
-            <p class="quote">Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-            <img src="../assets/img/quotes/quotes-1.png" alt="Patrick Farrell">
-            <p class="author">Patrick Farrell</p>
-          </li>
-          <li>
-            <p class="quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-            <img src="../assets/img/quotes/quotes-2.png" alt="George Smith">
-            <p class="author">George Smith</p>
-          </li>
-          <li>
-            <p class="quote">Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi pulvinar ornare. Integer eu iaculis metus.</p>
-            <img src="../assets/img/quotes/quotes-3.png" alt="Kevin Blake">
-            <p class="author">Kevin Blake</p>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <section-review></section-review>
 
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-import { settingsRef, mediaRef } from '@/admin/firebase_config'
+import { settingsRef, mediaRef, contentsRef } from '@/admin/firebase_config'
 import appHeader from '../components/appHeader'
 import appFooter from '../components/appFooter'
+import sectionWork from '../components/sectionWork'
+import sectionService from '../components/sectionService'
+import sectionReview from '../components/sectionReview'
+import contentFetch from '@/admin/mixins/contentFetch'
 
 export default {
   name: 'home',
+  mixins: [contentFetch],
   components: {
     appHeader,
+    sectionWork,
+    sectionService,
+    sectionReview,
     appFooter
   },
   firebase: {
@@ -106,6 +56,12 @@ export default {
     },
     media: {
       source: mediaRef
+    },
+    contents: contentsRef
+  },
+  computed: {
+    services () {
+      return this.getContentsByType('Services')
     }
   }
 }
@@ -114,11 +70,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/index.scss';
-
-.container {
-  align-items: center;
-  padding: 75px;
-}
 
 /*----------------
        Hero Section
@@ -194,169 +145,6 @@ export default {
     padding: 0 30px;
     right: auto;
     text-align: center;
-  }
-}
-
-/*--------------------
-       Our Work Section
-  ---------------------*/
-
-.our-work {
-  background-color: #fff;
-  .is-heading {
-    color: $color-orange;
-  }
-  .grid {
-    padding: 60px 0 20px 0;
-    li {
-      padding: 10px;
-      height: 350px;
-      border-radius: 3px;
-      background-clip: content-box;
-      background-size: cover;
-      background-position: center;
-      background-color: #333;
-      &.small {
-        flex-basis: 40%;
-      }
-      &.large {
-        flex-basis: 60%;
-      }
-    }
-  }
-}
-
-@media (max-width: 1000px) {
-
-  .our-work .grid li.small,
-  .our-work .grid li.large {
-    flex-basis: 100%;
-  }
-}
-
-@media (max-width: 600px) {
-  .our-work {
-    .grid {
-      padding: 30px 0;
-      li.small, li.large {
-        padding: 10px 0;
-      }
-    }
-  }
-}
-
-/*----------------------
-       Features Section
-  ----------------------*/
-
-.features {
-  color: #FFFFFF;
-  .is-heading {
-    color: #FFFFFF;
-  }
-  .grid {
-    padding-top: 50px;
-    li {
-      padding: 0 30px;
-      flex-basis: 33%;
-      text-align: left;
-      i {
-        font-size: 64px;
-        margin-bottom: 25px;
-      }
-      h4 {
-        font-size: 20px;
-        margin-bottom: 25px;
-      }
-      p {
-        margin: 0;
-        text-align: left;
-      }
-    }
-  }
-}
-
-@media (max-width: 1000px) {
-  .features .grid li {
-    flex-basis: 70%;
-    margin-bottom: 65px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .features .grid li {
-    flex-basis: 100%;
-  }
-}
-
-/*--------------------
-       Reviews Section
-  --------------------*/
-
-.reviews {
-  background-color: #fff;
-  ul.quote-box {
-    display: flex;
-    li {
-      margin: 50px 30px;
-      padding: 20px;
-      width: 33.33%;
-      @include border-radius(5px);
-      box-shadow: 0px 0px 9px 0px lightgray;
-      p {
-        text-align: left;
-      }
-      p.quote {
-        min-height: 180px;
-        margin-bottom: 45px;
-      }
-      .author {
-        color: #000000;
-        font-weight: 700;
-      }
-    }
-  }
-}
-
-@media (max-width: 1000px) {
-  .reviews {
-    .quote {
-      font-size: 20px;
-    }
-    .author {
-      font-size: 16px;
-    }
-  }
-}
-
-@media(max-width: 992px) {
-  .reviews {
-    ul.quote-box {
-      display: block;
-      li {
-        width: 100%;
-        display: block;
-        float: none;
-        margin: 0 0 30px 0;
-        p.quote {
-          min-height: auto;
-        }
-      }
-    }
-  }
-}
-
-@media(max-width: 600px) {
-  .reviews ul.quote-box {
-    li {
-      .quote {
-        font-size: 16px;
-        line-height: 26px;
-      }
-    }
   }
 }
 

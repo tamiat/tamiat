@@ -90,6 +90,13 @@ nav li {
   margin: 0 auto;
 }
 
+.home {
+  .container {
+    align-items: center;
+    padding: 75px;
+  }
+}
+
 ul.grid {
   width: 100%;
   display: flex;

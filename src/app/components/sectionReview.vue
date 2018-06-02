@@ -24,6 +24,11 @@ export default {
   firebase: {
     contents: contentsRef
   },
+  data () {
+    return {
+      img: '../assets/img/hero.jpg'
+    }
+  },
   computed: {
     reviews () {
       return this.getContentsByType('Reviews')

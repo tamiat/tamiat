@@ -21,6 +21,62 @@
       "description": "Firebase & Vue.js based CMS"
     },
     "demoLogoLink": "https://raw.githubusercontent.com/tamiat/tamiat/master/tamiatlogo.png",
+    "demoServices": [
+      {
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
+        "icon" : "fa fa-camera-retro",
+        "title" : "Photography"
+      },
+      {
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
+        "icon" : "fa fa-cubes",
+        "title" : "Web Development"
+      },
+      {
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
+        "icon" : "fa fa-newspaper-o",
+        "title" : "Content Editing"
+      }
+    ],
+    "demoWorks": [
+      {
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/balloon.jpg",
+        "title" : "Work 1"
+      },
+      {
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/coast.jpg",
+        "title" : "Work 2"
+      },
+      {
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/island.jpg",
+        "title" : "Work 3"
+      },
+      {
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/mountain.jpg",
+        "title" : "Work 4"
+      },
+      {
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/island.jpg",
+        "title" : "Work 5"
+      }
+    ],
+    "demoReviews": [
+      {
+        "author" : "Patrick Farrell",
+        "description" : "Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-1.png"
+      },
+      {
+        "author" : "George Smith",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.",
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-2.png"
+      },
+      {
+        "author" : "Kevin Blake",
+        "description" : "Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi pulvinar ornare. Integer eu iaculis metus.",
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-3.png"
+      }
+    ],
     "demoNav": [
       {
         "name": "Home",
@@ -118,6 +174,73 @@
             "type": "image"
           }
         ]
+      },
+      {
+        "name": "Works",
+        "icon": "fa-file-text",
+        "path": "/admin/content/works",
+        "slug": "title",
+        "data": [],
+        "fields": [
+          {
+            "multiValue": false,
+            "name": "title",
+            "type": "textbox"
+          },
+          {
+            "multiValue": false,
+            "name": "img",
+            "type": "image"
+          }
+        ]
+      },
+      {
+        "name": "Services",
+        "icon": "fa-file-text",
+        "path": "/admin/content/services",
+        "slug": "title",
+        "data": [],
+        "fields": [
+          {
+            "multiValue": false,
+            "name": "title",
+            "type": "textbox"
+          },
+          {
+            "multiValue": false,
+            "name": "icon",
+            "type": "textbox"
+          },
+          {
+            "multiValue": false,
+            "name": "description",
+            "type": "textarea"
+          }
+        ]
+      },
+      {
+        "name": "Reviews",
+        "icon": "fa-file-text",
+        "path": "/admin/content/reviews",
+        "slug": "author",
+        "data": [],
+        "fields": [
+          {
+            "multiValue": false,
+            "name": "author",
+            "type": "textbox"
+          },
+          {
+            "multiValue": false,
+            "name": "img",
+            "type": "image"
+          },
+          {
+            "multiValue": false,
+            "name": "description",
+            "type": "textarea"
+          }
+        ]
       }
     ],
     "demoFields": [
@@ -159,6 +282,16 @@
       {
         "multiValue": false,
         "name": "subheadline",
+        "type": "textarea"
+      },
+      {
+        "multiValue": false,
+        "name": "icon",
+        "type": "textbox"
+      },
+      {
+        "multiValue": false,
+        "name": "description",
         "type": "textarea"
       }
     ],

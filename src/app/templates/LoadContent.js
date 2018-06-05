@@ -25,7 +25,8 @@ export default {
       let contentId = currentRoute.content !== 'none' && currentRoute.content !== undefined
         ? currentRoute.content : (_.has(params, 'id') ? params.id : 'none')
 
-      return this.selectContentByTypeAndId(contentType, contentId)
+      // Only fetch published contents
+      return this.selectContentByTypeAndId(contentType, contentId, true)
     }
   }
 }

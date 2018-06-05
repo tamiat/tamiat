@@ -127,7 +127,7 @@ export default {
         return route.path === this.$route.path
       })[0]
 
-      return this.getContentsByType(currentRoute.contentType)
+      return this.getContentsByType(currentRoute.contentType, true)
     },
     filteredNews () {
       const searchQuery = this.filter.q

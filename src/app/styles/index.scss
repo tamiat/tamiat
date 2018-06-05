@@ -1,19 +1,5 @@
 @import "variables";
-
-// Mixins
-@mixin gen-props($prefix, $property) {
-  @each $color-name, $color in $colors {
-    .#{$prefix}-#{$color-name} {
-      #{$property}: $color
-    }
-  }
-}
-
-@mixin border-radius($radius) {
-  border-radius: $radius;
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-}
+@import "mixins";
 
 @import url('https://fonts.googleapis.com/css?family=Muli:400,700');
 

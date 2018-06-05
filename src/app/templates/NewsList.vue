@@ -40,7 +40,7 @@
                 <div class="news-preview-content">
                   <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
                   <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
-                  <router-link :to="$route.path + '/' + newsItem['.key']" class="btn is-small">Read more</router-link>
+                  <router-link :to="$route.path + '/' + (newsItem.slug ? newsItem.slug : newsItem['.key'])" class="btn is-small">Read more</router-link>
                 </div>
               </div>
 
@@ -134,11 +134,8 @@ export default {
       const category = this.filter.category
 
       return _.filter(this.news, function (o) {
-        return (!searchQuery && !category) ||
-          (
-            (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
-            (!category || (stringContains(category, o.category)))
-          )
+        return (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
+               (!category || (stringContains(category, o.category)))
       })
     },
     currentPageNews () {

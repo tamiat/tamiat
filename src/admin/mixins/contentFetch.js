@@ -2,7 +2,7 @@ export default {
   methods: {
     selectContentByTypeAndId (type, id) {
       let contentsByType = this.getContentsByType(type)
-      return contentsByType.filter(content => content['.key'] === id)[0] || {}
+      return contentsByType.filter(content => content.slug ? content.slug : content['.key'] === id)[0] || {}
     },
     getContentsByType (contentType) {
       let selectedContentsData = []

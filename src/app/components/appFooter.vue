@@ -1,27 +1,27 @@
 <template>
   <div>
     <section class="contact">
-        <div class="container">
-          <div class="icon-box">
-            <img src="../assets/img/footer-icon.png" alt="footer-icon">
-          </div>
-
-          <div class="content">
-            <h3 class="is-heading">Join our newsletter</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-
-            <form>
-              <div class="form-icon-wrapper is-large m-y-md">
-                <input class="form-control is-large" type="email" placeholder="Your e-mail">
-
-                <button>
-                  <i class="fa fa-arrow-right"></i>
-                </button>
-              </div>
-            </form>
-          </div>
+      <div class="container">
+        <div class="icon-box">
+          <img src="../assets/img/footer-icon.png" alt="footer-icon">
         </div>
-      </section>
+
+        <div class="content">
+          <h3 class="is-heading">Join our newsletter</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+
+          <form>
+            <div class="form-icon-wrapper is-large m-y-md">
+              <input class="form-control is-large" type="email" placeholder="Your e-mail">
+
+              <button>
+                <i class="fa fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div class="container">

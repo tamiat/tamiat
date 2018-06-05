@@ -7,7 +7,8 @@
       "tags": ["tag1", "tag2"],
       "category": "category1",
       "selected": false,
-      "state": "published"
+      "state": "published",
+      "slug": "demo-post"
     },
     "demoNews": {
       "title": "Demo news",
@@ -168,7 +169,8 @@
             "name": "img",
             "type": "image"
           }
-        ]
+        ],
+        "slug": "title"
       },
       {
         "name": "Works",

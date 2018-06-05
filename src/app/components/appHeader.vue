@@ -16,7 +16,15 @@
     </div>
 
     <nav :class="isNavOpen ? '' : 'hidden'">
-      <li v-for="(link, index) in nav" :key="index">
+      <!-- Default Nav Until dynamic nav loads from firebase -->
+      <li v-if="nav.length === 0">
+        <router-link to="/">Home </router-link>
+      </li>
+      <li v-if="nav.length === 0">
+        <router-link to="/admin">Admin </router-link>
+      </li>
+      <!-- dynamic nav from firebase -->
+      <li v-else v-for="(link, index) in nav" :key="index">
         <a v-if="link.isAbsolute" @click="toggleNav" :href="link.path" target="_blank">{{link.name}} <i v-if="link.children" class="fa"></i></a>
         <router-link v-else @click.native="toggleNav" :to="link.path">{{link.name}} <i v-if="link.children" class="fa"></i></router-link>
 

@@ -87,11 +87,6 @@
         "path": "/admin"
       },
       {
-        "name": "google",
-        "path": "https://www.google.com",
-        "isAbsolute": true
-      },
-      {
         "name": "news",
         "path": "/news"
       }

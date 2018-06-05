@@ -15,7 +15,9 @@
       "subheadline": "you can see here, how new news sections can be implemented easily",
       "category": "vuejs",
       "date": "10/18/2018",
-      "body": "<p>Taimat CMS news integration.</p><br><p>This is an example news<br/>"
+      "body": "<p>Taimat CMS news integration.</p><br><p>This is an example news<br/>",
+      "selected": false,
+      "state": "published"
     },
     "demoSettings": {
       "title": "Tamiat CMS",
@@ -26,56 +28,78 @@
       {
         "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
         "icon" : "fa fa-camera-retro",
-        "title" : "Photography"
+        "title" : "Photography",
+        "selected": false,
+        "state": "published"
       },
       {
         "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
         "icon" : "fa fa-cubes",
-        "title" : "Web Development"
+        "title" : "Web Development",
+        "selected": false,
+        "state": "published"
       },
       {
         "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
         "icon" : "fa fa-newspaper-o",
-        "title" : "Content Editing"
+        "title" : "Content Editing",
+        "selected": false,
+        "state": "published"
       }
     ],
     "demoWorks": [
       {
         "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/balloon.jpg",
-        "title" : "Work 1"
+        "title" : "Work 1",
+        "selected": false,
+        "state": "published"
       },
       {
         "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/coast.jpg",
-        "title" : "Work 2"
+        "title" : "Work 2",
+        "selected": false,
+        "state": "published"
       },
       {
         "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/island.jpg",
-        "title" : "Work 3"
+        "title" : "Work 3",
+        "selected": false,
+        "state": "published"
       },
       {
         "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/mountain.jpg",
-        "title" : "Work 4"
+        "title" : "Work 4",
+        "selected": false,
+        "state": "published"
       },
       {
         "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/island.jpg",
-        "title" : "Work 5"
+        "title" : "Work 5",
+        "selected": false,
+        "state": "published"
       }
     ],
     "demoReviews": [
       {
         "author" : "Patrick Farrell",
         "description" : "Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-1.png"
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-1.png",
+        "selected": false,
+        "state": "published"
       },
       {
         "author" : "George Smith",
         "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.",
-        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-2.png"
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-2.png",
+        "selected": false,
+        "state": "published"
       },
       {
         "author" : "Kevin Blake",
         "description" : "Donec commodo dolor augue, vitae faucibus tortor tincidunt in. Aliquam vitae leo quis mi pulvinar ornare. Integer eu iaculis metus.",
-        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-3.png"
+        "img" : "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/quotes/quotes-3.png",
+        "selected": false,
+        "state": "published"
       }
     ],
     "demoNav": [

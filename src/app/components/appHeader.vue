@@ -159,7 +159,7 @@ header {
         display: block;
       }
     }
-    a.router-link-active {
+    a.router-link-exact-active {
       color: $color-orange;
     }
   }

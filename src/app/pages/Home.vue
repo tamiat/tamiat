@@ -11,7 +11,7 @@
         </h1>
         <h3>{{settings.description}}</h3>
         <div class="cta">
-          <a href="http://tutorialzine.com/2016/06/freebie-landing-page-template-with-flexbox/" class="btn is-large has-icon" target="_blank">
+          <a href="https://github.com/tamiat/tamiat" class="btn is-large has-icon" target="_blank">
             Download it Here
             <i class="fa fa-arrow-circle-down"></i>
           </a>

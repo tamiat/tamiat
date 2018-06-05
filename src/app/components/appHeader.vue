@@ -1,12 +1,14 @@
 <template>
   <header class="bg-white">
     <h2>
-      <a href="#">
-        <figure class="websiteLogo" v-if="loadLogo">
-          <img :src="loadLogo" alt="image" style="max-height: 50px;">
+      <router-link to="/">
+        <figure class="websiteLogo" v-if="loadLogo && false">
+          <img :src="loadLogo" alt="logo" style="max-height: 50px;">
         </figure>
-      {{ loadLogo ? null : 'Website Logo' }}
-      </a>
+        <span v-else>
+          Website Logo
+        </span>
+      </router-link>
     </h2>
 
     <div :class="['menu-toggle', isNavOpen ? 'on' : '']" @click="isNavOpen = !isNavOpen">
@@ -106,6 +108,7 @@ header {
   nav {
     display: flex;
     li {
+      text-transform: capitalize;
       i.fa {
         display: none;
       }

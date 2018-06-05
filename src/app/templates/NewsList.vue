@@ -1,3 +1,12 @@
+<!-- this is an example of a dynamic template. -->
+<!-- To use this template you will need a content type which has following fields
+    img
+    title
+    subheadline
+    body
+    category
+    date
+  -->
 <template>
   <div class="page-news-list">
     <app-header></app-header>
@@ -31,7 +40,7 @@
                 <div class="news-preview-content">
                   <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
                   <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
-                  <router-link :to="$route.path + '/' + newsItem['.key']" class="btn is-small">Read more</router-link>
+                  <router-link :to="$route.path + '/' + (newsItem.slug ? newsItem.slug : newsItem['.key'])" class="btn is-small">Read more</router-link>
                 </div>
               </div>
 
@@ -118,18 +127,15 @@ export default {
         return route.path === this.$route.path
       })[0]
 
-      return this.getContentsByType(currentRoute.contentType)
+      return this.getContentsByType(currentRoute.contentType, true)
     },
     filteredNews () {
       const searchQuery = this.filter.q
       const category = this.filter.category
 
       return _.filter(this.news, function (o) {
-        return (!searchQuery && !category) ||
-          (
-            (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
-            (!category || (stringContains(category, o.category)))
-          )
+        return (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
+               (!category || (stringContains(category, o.category)))
       })
     },
     currentPageNews () {

@@ -1,59 +1,7 @@
-.template {
-  text-align: center;
-}
-
-// Mixins
-@mixin gen-props($prefix, $property) {
-  @each $color-name, $color in $colors {
-    .#{$prefix}-#{$color-name} {
-      #{$property}: $color
-    }
-  }
-}
-
-@mixin border-radius($radius) {
-  border-radius: $radius;
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-}
+@import "variables";
+@import "mixins";
 
 @import url('https://fonts.googleapis.com/css?family=Muli:400,700');
-
-// Colors
-$color-black: #000000;
-$color-black-light: #BEBEBE;
-
-$color-gray: #898989;
-$color-gray-light: #E9E7E7;
-
-$color-blue: #4374D8;
-$color-blue-light: #9ABBFF;
-
-$color-orange: #FF7443;
-$color-orange-light: #FFAA58;
-
-//
-$primary-font: 'Muli', sans-serif;
-$primary-font-color: #898989;
-
-$heading-font-color: $color-blue;
-$subheading-font-color: #898989;
-
-$primary-button-color: $color-blue;
-
-$colors: (
-  black: $color-black,
-  black-light: $color-black-light,
-
-  gray: $color-gray,
-  gray-light: $color-gray-light,
-
-  blue: $color-blue,
-  blue-light: $color-blue-light,
-
-  orange: $color-orange,
-  orange-light: $color-orange-light
-);
 
 @include gen-props('bg', 'background');
 
@@ -73,6 +21,10 @@ nav {
 ul li,
 nav li {
   position: relative;
+}
+
+.template {
+  text-align: center;
 }
 
 .home, .page-news, .page-news-list {

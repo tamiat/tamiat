@@ -1,12 +1,14 @@
 <template>
   <header class="bg-white">
     <h2>
-      <a href="#">
-        <figure class="websiteLogo" v-if="loadLogo">
-          <img :src="loadLogo" alt="image" style="max-height: 50px;">
+      <router-link to="/">
+        <figure class="websiteLogo" v-if="loadLogo && false">
+          <img :src="loadLogo" alt="logo" style="max-height: 50px;">
         </figure>
-      {{ loadLogo ? null : 'Website Logo' }}
-      </a>
+        <span v-else>
+          Website Logo
+        </span>
+      </router-link>
     </h2>
 
     <div :class="['menu-toggle', isNavOpen ? 'on' : '']" @click="isNavOpen = !isNavOpen">
@@ -16,7 +18,15 @@
     </div>
 
     <nav :class="isNavOpen ? '' : 'hidden'">
-      <li v-for="(link, index) in nav" :key="index">
+      <!-- Default Nav Until dynamic nav loads from firebase -->
+      <li v-if="nav.length === 0">
+        <router-link to="/">Home </router-link>
+      </li>
+      <li v-if="nav.length === 0">
+        <router-link to="/admin">Admin </router-link>
+      </li>
+      <!-- dynamic nav from firebase -->
+      <li v-else v-for="(link, index) in nav" :key="index">
         <a v-if="link.isAbsolute" @click="toggleNav" :href="link.path" target="_blank">{{link.name}} <i v-if="link.children" class="fa"></i></a>
         <router-link v-else @click.native="toggleNav" :to="link.path">{{link.name}} <i v-if="link.children" class="fa"></i></router-link>
 
@@ -98,6 +108,7 @@ header {
   nav {
     display: flex;
     li {
+      text-transform: capitalize;
       i.fa {
         display: none;
       }
@@ -150,7 +161,7 @@ header {
         display: block;
       }
     }
-    a.router-link-active {
+    a.router-link-exact-active {
       color: $color-orange;
     }
   }

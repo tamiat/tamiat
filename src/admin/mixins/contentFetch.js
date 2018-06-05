@@ -1,16 +1,21 @@
 export default {
   methods: {
-    selectContentByTypeAndId (type, id) {
-      let contentsByType = this.getContentsByType(type)
-      return contentsByType.filter(content => content['.key'] === id)[0] || {}
+    selectContentByTypeAndId (type, id, onlyPublished) {
+      let contentsByType = this.getContentsByType(type, onlyPublished)
+      return contentsByType.filter(content => (onlyPublished ? content.state === 'published' : true) &&
+              (content.slug ? content.slug : content['.key'] === id || {}))
     },
-    getContentsByType (contentType) {
+    getContentsByType (contentType, onlyPublished) {
       let selectedContentsData = []
       let selectedContents = this.contents.filter(content => {
         return content.name === contentType
       })
       selectedContents.forEach(content => {
         let contentDataArray = this.convertContentDataToArray(content.data)
+        // Get Published Only
+        if (onlyPublished === true) {
+          contentDataArray = contentDataArray.filter(content => content.state === 'published')
+        }
         selectedContentsData = selectedContentsData.concat(contentDataArray || [])
       })
       return selectedContentsData

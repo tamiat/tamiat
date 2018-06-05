@@ -1,27 +1,30 @@
 <template>
   <div>
     <section class="contact">
-        <div class="container">
-          <div class="icon-box">
-            <img src="../assets/img/footer-icon.png" alt="footer-icon">
-          </div>
-
-          <div class="content">
-            <h3 class="is-heading">Join our newsletter</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-
-            <form>
-              <div class="form-icon-wrapper is-large m-y-md">
-                <input class="form-control is-large" type="email" placeholder="Your e-mail">
-
-                <button>
-                  <i class="fa fa-arrow-right"></i>
-                </button>
-              </div>
-            </form>
-          </div>
+      <div class="container">
+        <div class="icon-box">
+          <img src="../assets/img/footer-icon.png" alt="footer-icon">
         </div>
-      </section>
+
+        <div class="content">
+          <h3 class="is-heading">Join our newsletter</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
+
+          <div class="alert-subscription" v-if="isSubscribed">
+            Thanks for your subscription.
+          </div>
+          <form v-else v-on:submit.prevent="subscribeNewsLetter">
+            <div class="form-icon-wrapper is-large m-y-md">
+              <input type="email" class="form-control is-large" ref="input-subscriber-email" v-model="subscriberEmail" placeholder="Your e-mail">
+
+              <button type="submit">
+                <i class="fa fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div class="container">
@@ -56,7 +59,22 @@
 
 <script>
 export default {
-  name: 'app-footer'
+  name: 'app-footer',
+  data () {
+    return {
+      subscriberEmail: '',
+      isSubscribed: false
+    }
+  },
+  methods: {
+    subscribeNewsLetter () {
+      if (!this.subscriberEmail) {
+        this.$refs['input-subscriber-email'].focus()
+      } else {
+        this.isSubscribed = true
+      }
+    }
+  }
 }
 </script>
 
@@ -81,6 +99,12 @@ export default {
         p {
           padding-bottom: 30px;
           text-align: left;
+        }
+        .alert-subscription {
+          padding: 10px;
+          color: $color-orange;
+          font-weight: bold;
+          background-color: $color-gray-light;
         }
       }
     }

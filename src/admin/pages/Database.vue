@@ -85,6 +85,7 @@ export default {
       let i = this.demoServices.length
       this.demoServices.forEach(service => {
         const key = _.find(this.contents, { 'name': 'Services' })['.key']
+        service.created = Date.now()
         this.$firebaseRefs.contents.child(key + '/data').push(service)
           .then(() => {
             i--
@@ -194,6 +195,7 @@ export default {
         .then(snapshot => {
           imgDownloadURL = snapshot.downloadURL
           let demoNews = {...this.demoNews}
+          demoNews.created = Date.now()
           demoNews.img = imgDownloadURL
           return this.$firebaseRefs.contents.child(key + '/data').push(demoNews)
         })

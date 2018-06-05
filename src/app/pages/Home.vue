@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { settingsRef, mediaRef, contentsRef } from '@/admin/firebase_config'
+import { settingsRef } from '@/admin/firebase_config'
 import appHeader from '../components/appHeader'
 import appFooter from '../components/appFooter'
 import sectionWork from '../components/sectionWork'
@@ -53,15 +53,6 @@ export default {
     settings: {
       source: settingsRef,
       asObject: true
-    },
-    media: {
-      source: mediaRef
-    },
-    contents: contentsRef
-  },
-  computed: {
-    services () {
-      return this.getContentsByType('Services')
     }
   }
 }
@@ -146,123 +137,5 @@ export default {
     right: auto;
     text-align: center;
   }
-}
-
-/**
- * https://codepen.io/mithicher/pen/azQKNN
- *
- * Card Styles
- */
- .wrapper {
-   text-align: center;
- }
-
-.card {
-  background-color: #fff;
-  margin-bottom: 1.6rem;
-  width: 300px;
-  display: inline-block;
-  margin: 30px;
-  box-shadow: 0px 10px 7px 3px lightgray;
-}
-
-.card__padding {
-  padding: 1rem;
-}
-
-.card__image {
-  min-height: 100px;
-  background-color: #eee;
-}
-
-.card__image img {
-  width: 100%;
-  max-width: 100%;
-  display: block;
-}
-
-.card__content {
-  position: relative;
-}
-
-/* card meta */
-.card__meta time {
-  font-size: 1.5rem;
-  color: #bbb;
-  margin-left: 0.8rem;
-}
-
-/* card article */
-.card__article p {
-  height: 100px;
-  overflow: hidden;
-  margin-bottom: 0px;
-}
-
-.card__article a {
-  text-decoration: none;
-  color: #444;
-  transition: all 0.5s ease;
-}
-
-.card__article a:hover {
-  color: #2980b9;
-}
-
-/* card action */
-.card__action {
-  overflow: hidden;
-  padding-right: 1.6rem;
-  padding-left: 1.6rem;
-  padding-bottom: 1.6rem;
-}
-
-.card__author img,
-.card__author-content {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.card__author img {
-  border-radius: 50%;
-  margin-right: 0.6em;
-}
-
-.card__share {
-  float: right;
-  position: relative;
-  margin-top: -42px;
-}
-
-.card__social {
-  position: absolute;
-  top: 0;
-  right: 0;
-  visibility: hidden;
-  width: 160px;
-  transform: translateZ(0);
-    transform: translateX(0px);
-    transition: transform 0.35s ease;
-}
-
-.card__social--active {
-  visibility: visible;
-  /*z-index: 3;*/
-  transform: translateZ(0);
-    transform: translateX(-48px);
-    transition: transform 0.35s ease;
-}
-
-/* -- Demo ads -- */
-
-@media (max-width: 1200px) {
-  #bsaHolder {
-    display: none;
-  }
-}
-
-.websiteLogo {
-  max-height: 128px;
-  max-width: 128px;
 }
 </style>

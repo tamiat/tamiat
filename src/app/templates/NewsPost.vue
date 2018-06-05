@@ -1,6 +1,12 @@
+<!-- this is an example of a dynamic template. -->
+<!-- To use this template you will need a content type which has following fields
+    img
+    title
+    date
+    subheadline
+    body
+  -->
 <template>
-  <!-- this is an example of a dynamic template. -->
-  <!-- Your dynamic content is exposed as 'content' data property in the template. -->
   <div class="page-news">
 
     <app-header></app-header>
@@ -8,6 +14,7 @@
     <div class="container">
       <div class="clearfix news-content">
         <div class="leftbar">
+          <!-- Load default image if not available -->
           <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
 
           <div class="news-preview-content">

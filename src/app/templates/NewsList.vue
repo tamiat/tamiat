@@ -1,3 +1,12 @@
+<!-- this is an example of a dynamic template. -->
+<!-- To use this template you will need a content type which has following fields
+    img
+    title
+    subheadline
+    body
+    category
+    date
+  -->
 <template>
   <div class="page-news-list">
     <app-header></app-header>

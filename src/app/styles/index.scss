@@ -1,9 +1,5 @@
 @import "variables";
 
-.template {
-  text-align: center;
-}
-
 // Mixins
 @mixin gen-props($prefix, $property) {
   @each $color-name, $color in $colors {
@@ -39,6 +35,10 @@ nav {
 ul li,
 nav li {
   position: relative;
+}
+
+.template {
+  text-align: center;
 }
 
 .home, .page-news, .page-news-list {

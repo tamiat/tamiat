@@ -107,7 +107,7 @@ export default {
         return route.path === path
       })[0]
 
-      return this.getContentsByType(currentRoute.contentType)
+      return this.getContentsByType(currentRoute.contentType, true)
     },
     categories () {
       return _.countBy(this.news, 'category')

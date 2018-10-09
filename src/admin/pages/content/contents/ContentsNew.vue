@@ -47,8 +47,10 @@
           <label class="label">{{ field.name }}</label>
           <div class="control">
             <div class="tags tagscontainer">
-            <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in newContent[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
-            <input :placeholder="field.name" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
+              <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in newContent[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}
+                <button class="delete is-small"></button>
+              </span>
+              <input :placeholder="field.name" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
             <p>Seperate tags with commas</p>
           </div>
@@ -113,7 +115,6 @@ export default {
   },
   methods: {
     add (state) {
-      console.log('Created new content: ' + this.newContent)
       this.newContent.created = Date.now()
       this.newContent.selected = false
       this.newContent.state = state
@@ -122,12 +123,10 @@ export default {
       this.$router.push({ path: '/admin/content/' + this.$route.params.key })
     },
     uploadFeaturedImage (e, fieldName) {
-      console.log(e)
       let file = e.target.files[0]
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
-        console.log(snapshot)
         this.newContent[fieldName] = ''
         this.newContent[fieldName] = snapshot.downloadURL
         if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
@@ -165,4 +164,7 @@ export default {
   cursor: pointer;
 }
 
+.ql-container {
+  min-height: 200px;
+}
 </style>

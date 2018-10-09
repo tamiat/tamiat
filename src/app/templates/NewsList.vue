@@ -1,3 +1,12 @@
+<!-- this is an example of a dynamic template. -->
+<!-- To use this template you will need a content type which has following fields
+    img
+    title
+    subheadline
+    body
+    category
+    date
+  -->
 <template>
   <div class="page-news-list">
     <app-header></app-header>
@@ -22,13 +31,16 @@
 
         <div class="clearfix news-listing-box">
           <div class="leftbar">
-            <div v-if="currentPageNews && currentPageNews.length > 0">
+            <div v-if="loaded === false">
+              <h4>Loading News.. Please wait..</h4>
+            </div>
+            <div v-else-if="currentPageNews && currentPageNews.length > 0">
               <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
                 <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
                 <div class="news-preview-content">
                   <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
                   <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
-                  <router-link :to="$route.path + '/' + newsItem['.key']" class="btn is-small">Read more</router-link>
+                  <router-link :to="$route.path + '/' + (newsItem.slug ? newsItem.slug : newsItem['.key'])" class="btn is-small">Read more</router-link>
                 </div>
               </div>
 
@@ -42,6 +54,7 @@
               No News Found
             </div>
           </div>
+
           <div class="rightbar">
             <h3 class="is-subheading">Search By Topic</h3>
 
@@ -80,7 +93,12 @@ export default {
   },
   firebase: {
     routes: routesRef,
-    contents: contentsRef
+    contents: {
+      source: contentsRef,
+      readyCallback: function () {
+        this.loaded = true
+      }
+    }
   },
   data () {
     return {
@@ -90,7 +108,8 @@ export default {
         currentPage: 1
       },
       searchQuery: undefined,
-      perPage: 1 // No of news per page
+      perPage: 1, // No of news per page
+      loaded: false
     }
   },
   watch: {
@@ -108,18 +127,15 @@ export default {
         return route.path === this.$route.path
       })[0]
 
-      return this.getContentsByType(currentRoute.contentType)
+      return this.getContentsByType(currentRoute.contentType, true)
     },
     filteredNews () {
       const searchQuery = this.filter.q
       const category = this.filter.category
 
       return _.filter(this.news, function (o) {
-        return (!searchQuery && !category) ||
-          (
-            (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
-            (!category || (stringContains(category, o.category)))
-          )
+        return (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
+               (!category || (stringContains(category, o.category)))
       })
     },
     currentPageNews () {

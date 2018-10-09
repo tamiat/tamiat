@@ -102,6 +102,7 @@ import modal from '@/admin/components/shared/Modal'
 import dropdown from '@/admin/components/shared/Dropdown'
 import checkbox from '@/admin/components/shared/Checkbox'
 import contentFilters from '@/admin/mixins/contentFilters'
+import _ from 'lodash'
 
 export default {
   name: 'contents',
@@ -169,6 +170,10 @@ export default {
       return moment(epoch).format('MM/DD/YY | hh:mm')
     },
     addContent (content) {
+      if (this.content.slug) {
+        content.slug = this.slugify(content[this.content.slug])
+      }
+
       this.$firebaseRefs.contents.child(this.$route.params.key + '/data')
         .push(content)
         .then(() => {
@@ -198,9 +203,11 @@ export default {
         })
     },
     updateContent (content) {
-      console.log(JSON.stringify(content), content)
       // create a copy of the item
       let tempCon = { ...content }
+      if (this.content.slug) {
+        tempCon.slug = this.slugify(tempCon[this.content.slug])
+      }
       // remove the .key attribute
       delete tempCon['.key']
       this.$firebaseRefs.contents.child(this.$route.params.key + '/data').child(content['.key']).set(tempCon)
@@ -212,6 +219,14 @@ export default {
             this.showNotification('success', 'Content updated and published successfully')
           }
         })
+    },
+    slugify (str) {
+      if (!_.isString(str)) return ''
+      str = str.toLowerCase()
+      str = str.split(/ /).join('-')
+      str = str.split(/\t/).join('--')
+      str = str.split(/[|$&`~=\\/@+*!?({[\]})<>=.,;:'"^]/).join('')
+      return str
     }
   },
   components: {

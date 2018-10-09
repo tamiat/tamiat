@@ -1,70 +1,80 @@
+<!-- this is an example of a dynamic template. -->
+<!-- To use this template you will need a content type which has following fields
+    img
+    title
+    date
+    subheadline
+    body
+  -->
 <template>
-  <!-- this is an example of a dynamic template. -->
-  <!-- Your dynamic content is exposed as 'content' data property in the template. -->
   <div class="page-news">
 
     <app-header></app-header>
 
-    <div class="clearfix news-content">
-      <div class="leftbar">
-        <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
+    <div class="container">
+      <div class="clearfix news-content">
+        <div class="leftbar">
+          <!-- Load default image if not available -->
+          <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
 
-        <div class="news-preview-content">
-          <h1 class="news-title" v-text="content.title"></h1>
-          <p class="date" v-text="content.date"></p>
+          <div class="news-preview-content">
+            <h1 class="news-title" v-text="content.title"></h1>
+            <p class="date" v-text="content.date"></p>
 
-          <p class="subheadline" v-text="content.subheadline"></p>
+            <p class="subheadline" v-text="content.subheadline"></p>
 
-          <div class="news-body" v-html="content.body"></div>
+            <div class="news-body" v-html="content.body"></div>
 
-          <hr/>
+            <hr/>
 
-          <div class="share-box">
-            <h4 class="is-subheading">Share this:</h4>
+            <div class="share-box">
+              <h4 class="is-subheading">Share this:</h4>
 
-            <ul>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/facebook-blue.png" alt="facebook">
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/twitter-blue.png" alt="twitter">
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="../assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
-                </a>
-              </li>
-            </ul>
+              <ul>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/facebook-blue.png" alt="facebook">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/twitter-blue.png" alt="twitter">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="../assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="rightbar">
-        <div class="search-box form-icon-wrapper">
-          <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
 
-          <button @click="search">
-            <i class="fa fa-arrow-right"></i>
-          </button>
+        <div class="rightbar">
+          <div class="search-box form-icon-wrapper">
+            <input @keydown.enter="search" v-model="searchQuery" class="form-control" placeholder="Search...">
+
+            <button @click="search">
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <h3 class="is-subheading">Search By Topic</h3>
+
+          <ul v-if="categories" class="topic-list">
+            <li v-for="(count, category) in categories" :key="category">
+              <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
+                {{ category }} <span class="count">({{ count }})</span>
+              </router-link>
+            </li>
+          </ul>
         </div>
-
-        <h3 class="is-subheading">Search By Topic</h3>
-
-        <ul v-if="categories" class="topic-list">
-          <li v-for="(count, category) in categories" :key="category">
-            <router-link :to="`${getListingRoute()}?cat=${category.toLowerCase()}`">
-              {{ category }} <span class="count">({{ count }})</span>
-            </router-link>
-          </li>
-        </ul>
       </div>
     </div>
 
@@ -97,7 +107,7 @@ export default {
         return route.path === path
       })[0]
 
-      return this.getContentsByType(currentRoute.contentType)
+      return this.getContentsByType(currentRoute.contentType, true)
     },
     categories () {
       return _.countBy(this.news, 'category')
@@ -160,6 +170,26 @@ export default {
   }
   .search-box {
     margin-bottom: 25px;
+  }
+}
+
+@media(max-width: 768px) {
+  .page-news {
+    .rightbar {
+      display: none;
+    }
+  }
+}
+
+@media(max-width: 600px) {
+  .page-news {
+    .search-box {
+      margin: 10px 0;
+      display: none;
+    }
+    .leftbar {
+      margin-top: 10px;
+    }
   }
 }
 </style>

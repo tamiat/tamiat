@@ -2,7 +2,7 @@
   <header class="bg-white">
     <h2>
       <router-link to="/">
-        <figure class="websiteLogo" v-if="loadLogo && false">
+        <figure class="websiteLogo" v-if="loadLogo">
           <img :src="loadLogo" alt="logo" style="max-height: 50px;">
         </figure>
         <span v-else>
@@ -121,14 +121,14 @@ header {
       padding-top: 36px;
       margin-top: 5px;
       z-index: 10;
-      background: #FFFFFF;
+      background: #ffffff;
       li {
         margin: 0px;
-        border-bottom: 1px solid #DFDFDF;
+        border-bottom: 1px solid #dfdfdf;
         padding: 5px 10px;
         width: 170px;
         &:first-child {
-          box-shadow: inset 0 7px 9px -7px #CCC;
+          box-shadow: inset 0 7px 9px -7px #ccc;
         }
         &:last-child {
           border-bottom: 0;
@@ -141,9 +141,10 @@ header {
         &:hover {
           background: $color-orange;
           a {
-            color: #FFFFFF;
+            color: #ffffff;
           }
-          .sub-nav, .sub-nav:hover {
+          .sub-nav,
+          .sub-nav:hover {
             display: block;
           }
         }
@@ -157,7 +158,8 @@ header {
       &:last-child {
         margin-right: 0;
       }
-      &:hover .sub-nav, .sub-nav:hover {
+      &:hover .sub-nav,
+      .sub-nav:hover {
         display: block;
       }
     }
@@ -198,7 +200,7 @@ header {
       left: 0;
       display: flex;
       flex-direction: column;
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       z-index: 9;
       border-top: 1px solid $color-gray-light;
       &.hidden {
@@ -222,7 +224,8 @@ header {
           }
         }
         &:hover {
-          .sub-nav, .sub-nav:hover {
+          .sub-nav,
+          .sub-nav:hover {
             display: none;
           }
         }
@@ -232,13 +235,13 @@ header {
           }
           a {
             i.fa::before {
-              content: "\F106";
+              content: '\F106';
             }
           }
         }
         a {
           i.fa:before {
-            content: "\F107";
+            content: '\F107';
           }
         }
         .sub-nav {
@@ -247,13 +250,13 @@ header {
           left: 0;
           position: relative;
           padding-top: 0;
-          background-color: #F3F3F3;
+          background-color: #f3f3f3;
           li {
             width: 100%;
             padding: 7px 0;
             padding-left: 55px;
             box-shadow: none !important;
-            border-top: 1px solid #FFFFFF;
+            border-top: 1px solid #ffffff;
             border-bottom: none;
             color: $color-gray-light;
           }

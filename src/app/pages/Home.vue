@@ -83,7 +83,7 @@ export default {
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-color: #2196F3;
+    background-color: #2196f3;
     z-index: -1;
     &:after {
       content: '';

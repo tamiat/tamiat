@@ -37,7 +37,7 @@
             <span v-else class="has-text-success">Contains data</span>
           </div>
 
-           <div>
+          <div>
             Content:
             <span v-if="contents.length === 0" class="has-text-danger">
               Empty
@@ -46,7 +46,7 @@
             <span v-else class="has-text-success">Contains data</span>
           </div>
 
-           <div>
+          <div>
             Fields:
             <span v-if="fields.length === 0" class="has-text-danger">
               Empty
@@ -112,7 +112,6 @@ export default {
             imgDownloadURL = snapshot.downloadURL
             work.created = Date.now()
             work.img = imgDownloadURL
-
             return this.$firebaseRefs.contents.child(key + '/data').push(work)
           })
           .then(() => {

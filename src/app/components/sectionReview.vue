@@ -80,7 +80,7 @@ export default {
   }
 }
 
-@media(max-width: 992px) {
+@media (max-width: 992px) {
   .reviews {
     ul.quote-box {
       display: block;
@@ -97,7 +97,7 @@ export default {
   }
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .reviews ul.quote-box {
     li {
       .quote {

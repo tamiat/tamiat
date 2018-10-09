@@ -61,7 +61,6 @@ export default {
 }
 
 @media (max-width: 1000px) {
-
   .our-work .grid li.small,
   .our-work .grid li.large {
     flex-basis: 100%;
@@ -72,7 +71,8 @@ export default {
   .our-work {
     .grid {
       padding: 30px 0;
-      li.small, li.large {
+      li.small,
+      li.large {
         padding: 10px 0;
       }
     }

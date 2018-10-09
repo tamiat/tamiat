@@ -40,9 +40,9 @@ export default {
   ----------------------*/
 
 .features {
-  color: #FFFFFF;
+  color: #ffffff;
   .is-heading {
-    color: #FFFFFF;
+    color: #ffffff;
   }
   .grid {
     padding-top: 50px;

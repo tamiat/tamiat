@@ -127,13 +127,15 @@ export default {
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
-        this.newContent[fieldName] = ''
-        this.newContent[fieldName] = snapshot.downloadURL
-        if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
-        this.$firebaseRefs.media.push({
-          src: snapshot.downloadURL,
-          path: snapshot.ref.fullPath,
-          name: snapshot.metadata.name
+        snapshot.ref.getDownloadURL().then(downloadURL => {
+          this.newContent[fieldName] = ''
+          this.newContent[fieldName] = downloadURL
+          if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
+          this.$firebaseRefs.media.push({
+            src: downloadURL,
+            path: snapshot.ref.fullPath,
+            name: snapshot.metadata.name
+          })
         })
       })
     },

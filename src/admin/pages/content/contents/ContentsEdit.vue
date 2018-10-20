@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-<div class="columns">
+    <div class="columns">
 
       <div class="column is-two-thirds">
 
@@ -46,8 +46,8 @@
           <label class="label">{{ field.name }}</label>
           <div class="control">
             <div class="tags tagscontainer">
-            <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in content[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
-            <input :placeholder="field.name" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
+              <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in content[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
+              <input :placeholder="field.name" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
             <p>Seperate tags with commas</p>
           </div>
@@ -81,7 +81,7 @@
       <button class="delete" @click="hideNotifications"></button>{{notification.message}}
     </div>
 
-     <!-- the form buttons -->
+    <!-- the form buttons -->
     <button v-if="content.state === 'saved'" type="submit" class="button is-success" @click="update(true)">Update and publish</button>
     <button type="submit" class="button is-info" @click="update(false)">Update</button>
     <router-link :to="'/admin/content/' + $route.params.key" class="button is-danger">Cancel</router-link>
@@ -130,12 +130,14 @@ export default {
       let storageRef = firebase.storage().ref('images/' + file.name)
 
       storageRef.put(file).then((snapshot) => {
-        this.content.img = snapshot.downloadURL
-        if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
-        this.$firebaseRefs.media.push({
-          src: snapshot.downloadURL,
-          path: snapshot.ref.fullPath,
-          name: snapshot.metadata.name
+        snapshot.ref.getDownloadURL().then(downloadURL => {
+          this.content.img = downloadURL
+          if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object
+          this.$firebaseRefs.media.push({
+            src: downloadURL,
+            path: snapshot.ref.fullPath,
+            name: snapshot.metadata.name
+          })
         })
       })
     },
@@ -164,5 +166,4 @@ export default {
 .pointer {
   cursor: pointer;
 }
-
 </style>

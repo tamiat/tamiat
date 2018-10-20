@@ -12,13 +12,18 @@ export default {
       let snapshot = await storageRef.put(file)
 
       this.createNewMedia(snapshot)
-      this.insertImageIntoDOM(snapshot.downloadURL)
+
+      snapshot.ref.getDownloadURL().then(downloadURL => {
+        this.insertImageIntoDOM(downloadURL)
+      })
     },
     createNewMedia (snapshot) {
-      mediaRef.push({
-        src: snapshot.downloadURL,
-        path: snapshot.ref.fullPath,
-        name: snapshot.metadata.name
+      snapshot.ref.getDownloadURL().then(downloadURL => {
+        mediaRef.push({
+          src: downloadURL,
+          path: snapshot.ref.fullPath,
+          name: snapshot.metadata.name
+        })
       })
     },
     insertImageIntoDOM (url) {

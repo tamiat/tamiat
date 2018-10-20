@@ -1,8 +1,8 @@
 <template>
-<label>
-  <input type="checkbox" :checked="value" :disabled="disabled" @change="updateCheckbox">
-  <span>{{ label }}</span>
-</label>
+  <label>
+    <input type="checkbox" :checked="value" :disabled="disabled" @change="updateCheckbox">
+    <span>{{ label }}</span>
+  </label>
 </template>
 <script>
 export default {
@@ -30,30 +30,31 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
-input[type=checkbox] {
-     position: relative;
-     cursor: pointer;
+input[type='checkbox'] {
+  position: relative;
+  cursor: pointer;
 }
 /* to hide the checkbox itself */
- label>input[type=checkbox]:before {
+label > input[type='checkbox']:before {
   position: absolute;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   height: 100%;
   width: 100%;
   font-family: FontAwesome;
   display: inline-block;
-  content:"\f096";
+  content: '\f096';
   letter-spacing: 10px;
 }
 /* space between checkbox and label */
- label>input[type=checkbox]:checked:before {
+label > input[type='checkbox']:checked:before {
   font-family: FontAwesome;
   display: inline-block;
-  content:"\f046";
+  content: '\f046';
   letter-spacing: 5px;
 }
- label>input[type=checkbox]:disabled:before {
+label > input[type='checkbox']:disabled:before {
   color: rgb(197, 194, 194);
 }
 </style>

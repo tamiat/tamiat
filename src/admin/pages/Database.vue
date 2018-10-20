@@ -62,14 +62,14 @@
 
 <script>
 import firebase from 'firebase'
-import {demoData} from '@/../tamiat.config.json'
+import { demoData } from '@/../tamiat.config.json'
 import notifier from '@/admin/mixins/notifier'
 import { settingsRef, mediaRef, navRef, contentsRef, fieldsRef, routesRef } from '@/admin/firebase_config'
 import _ from 'lodash'
 
 export default {
   data () {
-    return {...demoData, con: ''}
+    return { ...demoData, con: '' }
   },
   firebase: {
     settings: settingsRef,
@@ -109,9 +109,13 @@ export default {
             return workImageRef.put(blob)
           })
           .then(snapshot => {
-            imgDownloadURL = snapshot.downloadURL
+            return snapshot.ref.getDownloadURL()
+          })
+          .then(downloadURL => {
+            imgDownloadURL = downloadURL
             work.created = Date.now()
             work.img = imgDownloadURL
+
             return this.$firebaseRefs.contents.child(key + '/data').push(work)
           })
           .then(() => {
@@ -137,7 +141,10 @@ export default {
             return reviewImageRef.put(blob)
           })
           .then(snapshot => {
-            imgDownloadURL = snapshot.downloadURL
+            return snapshot.ref.getDownloadURL()
+          })
+          .then(downloadURL => {
+            imgDownloadURL = downloadURL
             review.created = Date.now()
             review.img = imgDownloadURL
 
@@ -162,8 +169,11 @@ export default {
           return postImageRef.put(blob)
         })
         .then(snapshot => {
-          imgDownloadURL = snapshot.downloadURL
-          let demoPost = {...this.demoPost}
+          return snapshot.ref.getDownloadURL()
+        })
+        .then(downloadURL => {
+          imgDownloadURL = downloadURL
+          let demoPost = { ...this.demoPost }
           demoPost.created = Date.now()
           demoPost.img = imgDownloadURL
           demoPost.body += `<p><img src="${imgDownloadURL}"></p>`
@@ -192,8 +202,11 @@ export default {
           return postImageRef.put(blob)
         })
         .then(snapshot => {
-          imgDownloadURL = snapshot.downloadURL
-          let demoNews = {...this.demoNews}
+          return snapshot.ref.getDownloadURL()
+        })
+        .then(downloadURL => {
+          imgDownloadURL = downloadURL
+          let demoNews = { ...this.demoNews }
           demoNews.created = Date.now()
           demoNews.img = imgDownloadURL
           return this.$firebaseRefs.contents.child(key + '/data').push(demoNews)
@@ -263,14 +276,15 @@ export default {
         })
     },
     addDemoLogoToDB (snapshot) {
-      this.$firebaseRefs.media.push({
-        name: 'WebsiteLogo',
-        path: snapshot.ref.fullPath,
-        src: snapshot.downloadURL
-      })
-        .then(() => {
-          this.showNotification('success', 'Demo Logo added successfully')
+      snapshot.ref.getDownloadURL().then(downloadURL => {
+        return this.$firebaseRefs.media.push({
+          name: 'WebsiteLogo',
+          path: snapshot.ref.fullPath,
+          src: downloadURL
         })
+      }).then(() => {
+        this.showNotification('success', 'Demo Logo added successfully')
+      })
     },
     addDemoFields () {
       let i = this.demoFields.length

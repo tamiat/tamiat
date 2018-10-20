@@ -15,7 +15,7 @@
       <div class="clearfix news-content">
         <div class="leftbar">
           <!-- Load default image if not available -->
-          <img :src="content.img || require('../assets/img/coast.jpg')" class="responsive-image">
+          <img :src="content.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
 
           <div class="news-preview-content">
             <h1 class="news-title" v-text="content.title"></h1>
@@ -25,7 +25,7 @@
 
             <div class="news-body" v-html="content.body"></div>
 
-            <hr/>
+            <hr />
 
             <div class="share-box">
               <h4 class="is-subheading">Share this:</h4>
@@ -33,22 +33,22 @@
               <ul>
                 <li>
                   <a href="#">
-                    <img src="../assets/img/social-media/blue/facebook-blue.png" alt="facebook">
+                    <img src="@/app/assets/img/social-media/blue/facebook-blue.png" alt="facebook">
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img src="../assets/img/social-media/blue/twitter-blue.png" alt="twitter">
+                    <img src="@/app/assets/img/social-media/blue/twitter-blue.png" alt="twitter">
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img src="../assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
+                    <img src="@/app/assets/img/social-media/blue/pinterest-blue.png" alt="pinterest">
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img src="../assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
+                    <img src="@/app/assets/img/social-media/blue/instagram-blue.png" alt="pinterest">
                   </a>
                 </li>
               </ul>
@@ -84,8 +84,8 @@
 
 <script>
 import LoadContent from './LoadContent'
-import appHeader from '../components/appHeader'
-import appFooter from '../components/appFooter'
+import appHeader from '@/app/components/appHeader'
+import appFooter from '@/app/components/appFooter'
 import _ from 'lodash'
 
 export default {
@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/index.scss';
+@import '@/app/styles/index.scss';
 
 .page-news {
   .news-title {
@@ -173,7 +173,7 @@ export default {
   }
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .page-news {
     .rightbar {
       display: none;
@@ -181,7 +181,7 @@ export default {
   }
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .page-news {
     .search-box {
       margin: 10px 0;

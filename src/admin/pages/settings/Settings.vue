@@ -9,7 +9,7 @@
     </transition>
     <!-- modal for add setting -->
     <transition mode="out-in" name="fade">
-      <modal @close="showModal = false" :kind="kind" @addSetting='confirmAddSetting' @confirmDeleteSetting="confirmDeleteSetting()" v-if="showModal" :header="header"/>
+      <modal @close="showModal = false" :kind="kind" @addSetting='confirmAddSetting' @confirmDeleteSetting="confirmDeleteSetting()" v-if="showModal" :header="header" />
     </transition>
 
     <h2>General settings</h2>
@@ -199,31 +199,33 @@ export default {
         }
       }
       storageRef.put(file).then((snapshot) => {
-        this.websiteLogo = snapshot.downloadURL
+        snapshot.ref.getDownloadURL().then(downloadURL => {
+          this.websiteLogo = downloadURL
 
-        var logo = {
-          src: snapshot.downloadURL,
-          path: snapshot.ref.fullPath,
-          name: 'WebsiteLogo'
-        }
-        // let tempLogo = {...currentLogo}
-
-        if (currentLogo) {
-          // delete tempLogo[key]
-          this.$firebaseRefs.media.child(currentLogo['.key']).set(logo)
-            .then(() => {
-              this.showNotification('success', 'Logo uploaded successfully')
-            })
-        } else {
-          if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return
-          this.$firebaseRefs.media.push({
-            src: snapshot.downloadURL,
+          var logo = {
+            src: downloadURL,
             path: snapshot.ref.fullPath,
             name: 'WebsiteLogo'
-          }).then(() => {
-            this.showNotification('success', 'Logo uploaded successfully')
-          })
-        }
+          }
+          // let tempLogo = {...currentLogo}
+
+          if (currentLogo) {
+          // delete tempLogo[key]
+            this.$firebaseRefs.media.child(currentLogo['.key']).set(logo)
+              .then(() => {
+                this.showNotification('success', 'Logo uploaded successfully')
+              })
+          } else {
+            if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return
+            this.$firebaseRefs.media.push({
+              src: downloadURL,
+              path: snapshot.ref.fullPath,
+              name: 'WebsiteLogo'
+            }).then(() => {
+              this.showNotification('success', 'Logo uploaded successfully')
+            })
+          }
+        })
       })
     }
   },

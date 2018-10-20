@@ -1,5 +1,5 @@
 <template>
- <div class="container is-widescreen">
+  <div class="container is-widescreen">
 
     <h3 class="is-size-3 has-text-centered">Create content field</h3><br>
     <div class="box">
@@ -14,13 +14,13 @@
           <div class="field">
             <label class="label">Field type</label>
             <div class="control">
-               <dropdown :options="fieldTypes" :selectedElement="fieldType" />
+              <dropdown :options="fieldTypes" :selectedElement="fieldType" />
             </div>
           </div>
           <div class="field">
             <label class="label">Multi value allowed</label>
             <div class="control">
-               <checkbox v-model="multiValue"/>
+              <checkbox v-model="multiValue" />
             </div>
           </div>
         </div>
@@ -127,5 +127,4 @@ export default {
 </script>
 
 <style>
-
 </style>

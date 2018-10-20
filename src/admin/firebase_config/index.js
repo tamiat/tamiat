@@ -1,6 +1,10 @@
 /* This is the Firebase configuration file */
 
-import Firebase from 'firebase'
+import Firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/storage'
+
 import config from './config'
 
 let app = Firebase.initializeApp(config)

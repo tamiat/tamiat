@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import modal from '@/admin/components/shared/Modal'
 export default {
   name: 'navbar',

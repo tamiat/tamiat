@@ -84,8 +84,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-
+import firebase from 'firebase/app'
+import 'firebase/storage'
 import { mediaRef, settingsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 import modal from '@/admin/components/shared/Modal'

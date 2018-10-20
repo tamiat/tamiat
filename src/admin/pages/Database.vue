@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/storage'
 import { demoData } from '@/../tamiat.config.json'
 import notifier from '@/admin/mixins/notifier'
 import { settingsRef, mediaRef, navRef, contentsRef, fieldsRef, routesRef } from '@/admin/firebase_config'

@@ -92,7 +92,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/storage'
 import { mediaRef } from '@/admin/firebase_config'
 import editorOptions from '@/admin/utils/editor-options'
 import imageLoader from '@/admin/mixins/image-loader'

@@ -17,13 +17,15 @@ Vue.use(Vuex)
  * Export
  */
 export default new Vuex.Store({
-	modules: {
-		menu
-	},
-	plugins: [persist({
-		namespace: 'tamiat',
-		initialState: {},
-		expires: 7 * 24 * 60 * 60 * 1e3 // 1 week
-	})],
+  modules: {
+    menu
+  },
+  plugins: [
+    persist({
+      namespace: 'tamiat',
+      initialState: {},
+      expires: 7 * 24 * 60 * 60 * 1e3 // 1 week
+    })
+  ],
   strict: false
 })

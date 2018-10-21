@@ -1,20 +1,18 @@
 const postFilters = {
   data () {
     return {
-      sortOptions:
-        {
-          title: {
-            reverse: true
-          },
-          author: {
-            reverse: true
-          },
-          created: {
-            reverse: true
-          }
+      sortOptions: {
+        title: {
+          reverse: true
         },
-      bulkActions:
-      [
+        author: {
+          reverse: true
+        },
+        created: {
+          reverse: true
+        }
+      },
+      bulkActions: [
         {
           id: 'all',
           label: 'Select all'
@@ -47,16 +45,24 @@ const postFilters = {
     filteredPosts () {
       return this.posts
         .filter(post => {
-          return post.title.toLowerCase().includes(this.searchPost.toLowerCase())
+          return post.title
+            .toLowerCase()
+            .includes(this.searchPost.toLowerCase())
         })
         .filter(() => {
           switch (this.selectedOption) {
             case 'title':
-              return this.sortOptions.title.reverse ? this.posts.sort(this.sortAcs) : this.posts.sort(this.sortAcs).reverse()
+              return this.sortOptions.title.reverse
+                ? this.posts.sort(this.sortAcs)
+                : this.posts.sort(this.sortAcs).reverse()
             case 'author':
-              return this.sortOptions.author.reverse ? this.posts.sort(this.sortAcs) : this.posts.sort(this.sortAcs).reverse()
+              return this.sortOptions.author.reverse
+                ? this.posts.sort(this.sortAcs)
+                : this.posts.sort(this.sortAcs).reverse()
             case 'created':
-              return this.sortOptions.created.reverse ? this.posts.sort(this.sortAcs) : this.posts.sort(this.sortAcs).reverse()
+              return this.sortOptions.created.reverse
+                ? this.posts.sort(this.sortAcs)
+                : this.posts.sort(this.sortAcs).reverse()
             default:
               return this.posts
           }
@@ -116,10 +122,16 @@ const postFilters = {
           return 1
         }
       } else {
-        if (a[this.selectedOption].toLowerCase() < b[this.selectedOption].toLowerCase()) {
+        if (
+          a[this.selectedOption].toLowerCase() <
+          b[this.selectedOption].toLowerCase()
+        ) {
           return -1
         }
-        if (a[this.selectedOption].toLowerCase() > b[this.selectedOption].toLowerCase()) {
+        if (
+          a[this.selectedOption].toLowerCase() >
+          b[this.selectedOption].toLowerCase()
+        ) {
           return 1
         }
       }
@@ -152,10 +164,13 @@ const postFilters = {
         }
         if (this.params.bulkAction.id === 'delete') {
           if (this.filteredPosts[i].selected === true) {
-            this.$firebaseRefs.posts.child(this.filteredPosts[i]['.key']).remove().then(() => {
-              // this.showNotification('success', 'Posts deleted successfully')
-              // this.showModal = false
-            })
+            this.$firebaseRefs.posts
+              .child(this.filteredPosts[i]['.key'])
+              .remove()
+              .then(() => {
+                // this.showNotification('success', 'Posts deleted successfully')
+                // this.showModal = false
+              })
           }
         }
       }

@@ -178,13 +178,13 @@ export default {
         if (childrenArray[i]['.key'] === currentKey) {
           previousKey = childrenArray[i - 1]['.key']
 
-          childrenObject[previousKey] = {...childrenArray[i]}
-          childrenObject[currentKey] = {...childrenArray[i - 1]}
+          childrenObject[previousKey] = { ...childrenArray[i] }
+          childrenObject[currentKey] = { ...childrenArray[i - 1] }
 
           delete childrenObject[previousKey]['.key']
           delete childrenObject[currentKey]['.key']
         } else {
-          childrenObject[childrenArray[i]['.key']] = {...childrenArray[i]}
+          childrenObject[childrenArray[i]['.key']] = { ...childrenArray[i] }
           delete childrenObject[childrenArray[i]['.key']]['.key']
         }
       }
@@ -200,13 +200,13 @@ export default {
         if (childrenArray[i]['.key'] === currentKey) {
           nextKey = childrenArray[i + 1]['.key']
 
-          childrenObject[nextKey] = {...childrenArray[i]}
-          childrenObject[currentKey] = {...childrenArray[i + 1]}
+          childrenObject[nextKey] = { ...childrenArray[i] }
+          childrenObject[currentKey] = { ...childrenArray[i + 1] }
 
           delete childrenObject[nextKey]['.key']
           delete childrenObject[currentKey]['.key']
         } else {
-          childrenObject[childrenArray[i]['.key']] = {...childrenArray[i]}
+          childrenObject[childrenArray[i]['.key']] = { ...childrenArray[i] }
           delete childrenObject[childrenArray[i]['.key']]['.key']
         }
       }
@@ -216,7 +216,7 @@ export default {
     convertFirebaseObjToArray (obj) {
       let array = []
       for (let key in obj) {
-        array.push({'.key': key, ...obj[key]})
+        array.push({ '.key': key, ...obj[key] })
       }
       return array
     },
@@ -243,7 +243,6 @@ export default {
 
 <style lang="scss" scoped>
 .nav-builder {
-
   .nav-preview {
     padding-left: 15px;
   }
@@ -252,28 +251,29 @@ export default {
     padding-left: 30px;
   }
 
-  .link-actions, .sub-link-actions {
+  .link-actions,
+  .sub-link-actions {
     display: none;
     span {
       cursor: pointer;
     }
   }
 
-  .nav-preview>li:hover .link-actions {
+  .nav-preview > li:hover .link-actions {
     display: inline;
   }
 
-  .sub-nav-preview>li:hover .sub-link-actions {
+  .sub-nav-preview > li:hover .sub-link-actions {
     display: inline;
   }
 
-  .sub-nav-preview>li:first-child {
+  .sub-nav-preview > li:first-child {
     .fa-arrow-up {
       display: none;
     }
   }
 
-  .sub-nav-preview>li:last-child {
+  .sub-nav-preview > li:last-child {
     .fa-arrow-down {
       display: none;
     }

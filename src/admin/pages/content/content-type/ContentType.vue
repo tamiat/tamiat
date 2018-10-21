@@ -1,21 +1,21 @@
 <template>
-<div class="contentType">
-  <div class="container is-widescreen">
+  <div class="contentType">
+    <div class="container is-widescreen">
 
-    <!-- View for edit/add new field -->
-    <router-view :edit-field="editField" :add-field="addField"></router-view>
+      <!-- View for edit/add new field -->
+      <router-view :edit-field="editField" :add-field="addField"></router-view>
 
-    <!-- notification -->
-    <transition mode="out-in" name="fade">
-      <div v-if="notification.message" :class="'notification is-' + notification.type">
-        <button class="delete" @click="hideNotifications"></button>{{notification.message}}
-      </div>
-    </transition>
-    <div class="columns">
-      <div class="column is-two-thirds">
-        <h2>Create content type</h2>
-        <div class="box">
-          <div class="columns">
+      <!-- notification -->
+      <transition mode="out-in" name="fade">
+        <div v-if="notification.message" :class="'notification is-' + notification.type">
+          <button class="delete" @click="hideNotifications"></button>{{notification.message}}
+        </div>
+      </transition>
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <h2>Create content type</h2>
+          <div class="box">
+            <div class="columns">
               <div class="column">
                 <div class="field">
                   <label class="label">Content type name</label>
@@ -33,13 +33,14 @@
                       <span class="link-actions">
                         <span v-if="fieldKey !== 0" class="has-text-success fa fa-arrow-up" @click="moveFieldUp(field, checkedFields[fieldKey - 1])"></span>
                         <span v-if="fieldKey !== checkedFields.length - 1" class="fa fa-arrow-down" @click="moveFieldDown(field, checkedFields[fieldKey + 1])"></span>
-                        <span @mouseover="showDesc = !showDesc"><checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
+                        <span @mouseover="showDesc = !showDesc">
+                          <checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
                         <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span>
                       </span>
                     </li>
                   </ul>
                 </div>
-                <br/><br/>
+                <br /><br />
 
                 <div>
                   <label class="label">Slug - <strong v-text="slug"></strong></label>
@@ -53,62 +54,62 @@
                     </select>
                   </div>
 
-                  <br/><br/>
+                  <br /><br />
                   <p>This will be used with :key to identify record.</p>
                 </div>
               </div>
               <div class="column">
-                  <label class="label">Available fields</label>
-                  <label class="label has-text-danger is-size-7" v-if="fields.length" >Select the fields you want to include in your content type</label>
-                  <div class="field is-grouped is-grouped-multiline">
-                    <ul class="nav-preview">
-                    <li class="control"  v-for="(field, fieldKey) in fields" :key="fieldKey">
+                <label class="label">Available fields</label>
+                <label class="label has-text-danger is-size-7" v-if="fields.length">Select the fields you want to include in your content type</label>
+                <div class="field is-grouped is-grouped-multiline">
+                  <ul class="nav-preview">
+                    <li class="control" v-for="(field, fieldKey) in fields" :key="fieldKey">
                       <span class="field">
-                        <checkbox :label="field.name" v-model="field.checked"/>
+                        <checkbox :label="field.name" v-model="field.checked" />
                         <span class="link-actions">
                           <span class="has-text-danger fa fa-trash" @click="removeField(field)"></span>
                           <router-link :to="'/admin/content/fieldEdit/' + field['.key']"><span class="has-text-info fa fa-edit"></span></router-link>
                         </span>
                       </span>
                     </li>
-                    </ul>
-                  </div>
-                  <br>
-                  <router-link to="/admin/content/fieldNew" class="button is-info is-small">Add new field</router-link>
+                  </ul>
+                </div>
+                <br>
+                <router-link to="/admin/content/fieldNew" class="button is-info is-small">Add new field</router-link>
               </div>
             </div>
-          <div class="buttons">
-          <button v-if="selectedContent" type="submit" class="button is-success" :disabled="!selectedContent.name || !checkedFields.length" @click="createMenuItem(true)">Edit</button>
-          <button v-else type="submit" class="button is-success" :disabled="!name || !checkedFields.length" @click="createMenuItem(false)">Create new</button>
-        </div>
-      </div>
-      </div>
-      <div class="column">
-        <h2>Edit content type</h2>
-        <div class="box" v-if="contentsLoaded">
-          <div class="dropdown" :class="{'is-active': dropdownActive}" @click="toggleDropdown">
-            <div class="dropdown-trigger">
-              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" style="min-width: 200px !important;">
-                <span>{{selectedContentType.label}}</span>
-                <span class="icon is-small">
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </div>
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-              <div class="dropdown-content">
-                <a class="dropdown-item" v-if="option" v-for="(option, optionKey) in createdContentTypes" :key="optionKey" @click="selectContentType(option)">
-                  {{option.label ? option.label : null }}
-                </a>
-              </div>
+            <div class="buttons">
+              <button v-if="selectedContent" type="submit" class="button is-success" :disabled="!selectedContent.name || !checkedFields.length" @click="createMenuItem(true)">Edit</button>
+              <button v-else type="submit" class="button is-success" :disabled="!name || !checkedFields.length" @click="createMenuItem(false)">Create new</button>
             </div>
           </div>
-          <button v-if="selectedContent" type="submit" class="button is-danger" @click="deleteMenuItem()">Delete</button>
+        </div>
+        <div class="column">
+          <h2>Edit content type</h2>
+          <div class="box" v-if="contentsLoaded">
+            <div class="dropdown" :class="{'is-active': dropdownActive}" @click="toggleDropdown">
+              <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" style="min-width: 200px !important;">
+                  <span>{{selectedContentType.label}}</span>
+                  <span class="icon is-small">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <a class="dropdown-item" v-if="option" v-for="(option, optionKey) in createdContentTypes" :key="optionKey" @click="selectContentType(option)">
+                    {{option.label ? option.label : null }}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <button v-if="selectedContent" type="submit" class="button is-danger" @click="deleteMenuItem()">Delete</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -170,7 +171,7 @@ export default {
           label: content.name
         }
       })
-      this.createdContentTypes.push({id: '', label: 'Select content type'})
+      this.createdContentTypes.push({ id: '', label: 'Select content type' })
       this.contentsLoaded = true
     },
     createMenuItem (edit) {
@@ -201,7 +202,7 @@ export default {
         this.selectedContent.path = `/admin/content/${path}`
         this.selectedContent.fields = selectedFields
         this.selectedContent.slug = this.slug
-        let item = {...this.selectedContent}
+        let item = { ...this.selectedContent }
         delete item['.key']
         this.$firebaseRefs.contents.child(this.selectedContent['.key']).set(item).then(() => {
           this.resetForm()
@@ -328,7 +329,7 @@ export default {
     }
   }
 
-  .nav-preview>li:hover .link-actions {
+  .nav-preview > li:hover .link-actions {
     display: inline;
   }
 }

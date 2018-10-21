@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';
+@import '@/app/styles/index.scss';
 
 .pagination {
   display: flex;
@@ -68,7 +68,7 @@ export default {
     &.is-current a {
       background-color: $color-blue-light;
       border: 1px solid $color-blue-light;
-      color: #FFFFFF;
+      color: #ffffff;
     }
     &.navigation {
       a {
@@ -77,21 +77,21 @@ export default {
         padding: 10px;
         text-align: center;
         background-color: $color-blue;
-        color: #FFFFFF;
+        color: #ffffff;
         &:hover {
           background-color: $color-blue;
         }
       }
       &.is-disabled a {
         background-color: $color-black-light;
-        color: #FFFFFF;
+        color: #ffffff;
       }
     }
   }
   a {
     border: 1px solid $color-black-light;
     @include border-radius(5px);
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     color: $primary-font-color;
     min-width: 50px;
     display: inline-block;

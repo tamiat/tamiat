@@ -1,15 +1,15 @@
 <template>
   <nav class="navbar" id="navbar">
 
-  <!-- modal for post delete -->
+    <!-- modal for post delete -->
     <transition mode="out-in" name="fade">
-      <modal @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header"/>
+      <modal @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header" />
     </transition>
 
     <!-- the navbar brand -->
     <div class="navbar-brand">
       <router-link class="navbar-item logo" to="/admin">
-        <img src="/static/img/tamiat-admin-logo-1.png" alt="logo">
+        <img :src="`${baseUrl}static/img/tamiat-admin-logo-1.png`" alt="logo">
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">
         <span></span>
@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import modal from '@/admin/components/shared/Modal'
 export default {
   name: 'navbar',
@@ -46,7 +47,8 @@ export default {
       currentUser: firebase.auth().currentUser,
       showModal: false,
       header: 'Are you sure you want to logout?',
-      kind: 'logout'
+      kind: 'logout',
+      baseUrl: process.env.BASE_URL
     }
   },
   methods: {
@@ -99,15 +101,15 @@ $navbarColor: #aaaaaa;
     font-weight: bold;
     max-height: 100px;
     &:hover {
-      color: #4BB885;
+      color: #4bb885;
     }
-    img{
+    img {
       max-height: 3rem;
       margin-left: 1.2rem;
     }
   }
 
-  span.email{
+  span.email {
     margin-right: -10px;
   }
 

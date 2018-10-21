@@ -17,13 +17,17 @@ export default {
           path = path.replace(value, ':' + key)
         })
       }
-      let currentRoute = this.routes.filter((route) => {
+      let currentRoute = this.routes.filter(route => {
         return route.path === path
       })[0]
 
       let contentType = currentRoute.contentType
-      let contentId = currentRoute.content !== 'none' && currentRoute.content !== undefined
-        ? currentRoute.content : (_.has(params, 'id') ? params.id : 'none')
+      let contentId =
+        currentRoute.content !== 'none' && currentRoute.content !== undefined
+          ? currentRoute.content
+          : _.has(params, 'id')
+            ? params.id
+            : 'none'
 
       // Only fetch published contents
       return this.selectContentByTypeAndId(contentType, contentId, true)

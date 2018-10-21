@@ -78,7 +78,7 @@ yarn
 
 > yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
 
-5. Copy your project configurations from WEB SETUP (_in `authentication` section of the firebase console_) and paste them in `config.js` file by replacing the existing ones.
+5. Copy your project configurations from WEB SETUP (_in firebase console_) and paste them in `/src/admin/firebase_config/config.js` file by replacing the existing ones.
 
 ```js
 // replace the existing config object below
@@ -92,7 +92,7 @@ let config = {
 }
 ```
 
-6. Run the `firebase init` command (if you haven't installed firebase yet, do so), select your project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
+6. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
 
 7) You can now use `firebase deploy` to deploy the security rules you just entered (to deploy the actual web app you must first use `npm run build` or `yarn build`).
 

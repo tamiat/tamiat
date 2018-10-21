@@ -1,10 +1,10 @@
-import { routesRef } from '../admin/firebase_config/index'
+import { routesRef } from '@/admin/firebase_config/index'
 
 let dynamicRoutes = {
   routes: [],
   getRoutes () {
     return new Promise((resolve, reject) => {
-      routesRef.on('value', (snapshot) => {
+      routesRef.on('value', snapshot => {
         let routesObj = snapshot.val()
         let routesArr = []
         for (let key in routesObj) {
@@ -21,7 +21,9 @@ let dynamicRoutes = {
   addDynamicComponents () {
     this.routes.forEach(route => {
       const template = route.component
-      route.component = () => { return import(`@/app/templates/${template}.vue`) }
+      route.component = () => {
+        return import(`@/app/templates/${template}.vue`)
+      }
     })
   },
 

@@ -1,31 +1,31 @@
 <template>
-<div class="modal is-active">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
+  <div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
         <p class="modal-card-title">{{ header }}</p>
         <button class="delete is-medium" aria-label="close" @click="$emit('close')"></button>
-    </header>
-    <section class="modal-card-body" v-if="kind == 'addField' || kind == 'addPage' || kind == 'addSetting'">
-       <input type="text" class="input" v-if="kind == 'addField'" :placeholder="'Property'" v-model="fieldName">
-       <input type="text" class="input" v-if="kind == 'addPage'" :placeholder="'Page'" v-model="pageName">
-       <input type="text" class="input" v-if="kind == 'addSetting'" :placeholder="'Setting'" v-model="settingName">
-    </section>
-    <footer class="modal-card-foot" v-if="kind == 'logout'">
-      <button class="button is-success" @click="$emit('confirmLogout')">Logout</button>
-      <button class="button" @click="$emit('close')">Cancel</button>
-    </footer>
-    <footer class="modal-card-foot" v-else>
-      <template v-if="kind == 'deletePage' || kind == 'deleteField' || kind == 'deleteSetting' || kind == 'deleteContent' || kind == 'bulkDeleteSelected'">
-        <button class="button is-success" @click="deleteObj()">Confirm</button>
-      </template>
-      <template v-else>
-        <button class="button is-success" @click="add()">Add</button>
-      </template>
-      <button class="button" @click="$emit('close')">Cancel</button>
-    </footer>
+      </header>
+      <section class="modal-card-body" v-if="kind == 'addField' || kind == 'addPage' || kind == 'addSetting'">
+        <input type="text" class="input" v-if="kind == 'addField'" :placeholder="'Property'" v-model="fieldName">
+        <input type="text" class="input" v-if="kind == 'addPage'" :placeholder="'Page'" v-model="pageName">
+        <input type="text" class="input" v-if="kind == 'addSetting'" :placeholder="'Setting'" v-model="settingName">
+      </section>
+      <footer class="modal-card-foot" v-if="kind == 'logout'">
+        <button class="button is-success" @click="$emit('confirmLogout')">Logout</button>
+        <button class="button" @click="$emit('close')">Cancel</button>
+      </footer>
+      <footer class="modal-card-foot" v-else>
+        <template v-if="kind == 'deletePage' || kind == 'deleteField' || kind == 'deleteSetting' || kind == 'deleteContent' || kind == 'bulkDeleteSelected'">
+          <button class="button is-success" @click="deleteObj()">Confirm</button>
+        </template>
+        <template v-else>
+          <button class="button is-success" @click="add()">Add</button>
+        </template>
+        <button class="button" @click="$emit('close')">Cancel</button>
+      </footer>
+    </div>
   </div>
-</div>
 </template>
 
 <script>

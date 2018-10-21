@@ -2,26 +2,15 @@
   <aside class="menu sidebar" id="sidebar">
     <ul class="sidebar-menu-list">
 
-      <router-link
-        v-for="item in menu"
-        :key="item.index"
-        tag="li"
-        :to="item.path"
-        class="menu-item"
-      >
-          <div class="icon is-medium">
-            <i :class="['fa', item.icon]"></i>
-          </div>
-          <div>{{ item.name }}</div>
+      <router-link v-for="item in menu" :key="item.index" tag="li" :to="item.path" class="menu-item">
+        <div class="icon is-medium">
+          <i :class="['fa', item.icon]"></i>
+        </div>
+        <div>{{ item.name }}</div>
 
         <!-- drop down menu -->
         <ul class="menu-item-dropdown" v-if="item.dropdown && contents">
-          <router-link
-            v-for="content in contents"
-            :key="content['.key']"
-            tag="li"
-            :to="'/admin/content/' + content['.key']"
-          >
+          <router-link v-for="content in contents" :key="content['.key']" tag="li" :to="'/admin/content/' + content['.key']">
             <div>
               {{ content.name }}
             </div>
@@ -34,14 +23,10 @@
           </router-link>
         </ul>
       </router-link>
-      <a
-        target="_blank"
-        :href="helpbtn.path"
-        class="menu-item"
-        >
+      <a target="_blank" :href="helpbtn.path" class="menu-item">
 
         <div class="icon is-medium">
-            <i :class="['fa', helpbtn.icon]"></i>
+          <i :class="['fa', helpbtn.icon]"></i>
         </div>
 
         <div>{{ helpbtn.name }}</div>
@@ -171,7 +156,7 @@ $sidebarWidth: 115px;
     }
   }
 
-  .icon{
+  .icon {
     font-size: 32px;
     margin-bottom: 5px;
   }

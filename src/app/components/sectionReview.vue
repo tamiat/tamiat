@@ -26,7 +26,7 @@ export default {
   },
   data () {
     return {
-      img: '../assets/img/hero.jpg'
+      img: '@/app/assets/img/hero.jpg'
     }
   },
   computed: {
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';
+@import '@/app/styles/index.scss';
 
 /*--------------------
        Reviews Section

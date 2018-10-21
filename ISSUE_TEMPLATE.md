@@ -1,22 +1,29 @@
 ## How to open an Issue?
 
-  ### Description
-  [Description of the issue]
+### Description
 
-  ### Steps to Reproduce
-  [First Step]
+[Description of the issue]
 
-  #### Expected behavior
-  [What you expect to happen]
+### Steps to Reproduce
 
-  #### Actual behavior
-  [What actually happens]
+[First Step]
 
-  #### Reproduces how often
-  [What percentage of the time does it reproduce?]
+#### Expected behavior
 
-  ### Versions
-  [The TamiatCMS version that you currently are using]
+[What you expect to happen]
 
-  ### Additional Information
-  Any additional information, configuration or data that might be necessary to reproduce the issue.
+#### Actual behavior
+
+[What actually happens]
+
+#### Reproduces how often
+
+[What percentage of the time does it reproduce?]
+
+### Versions
+
+[The TamiatCMS version that you currently are using]
+
+### Additional Information
+
+Any additional information, configuration or data that might be necessary to reproduce the issue.

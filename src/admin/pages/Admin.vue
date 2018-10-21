@@ -38,7 +38,8 @@
 <script>
 import Navbar from '@/admin/components/layout/Navbar'
 import Sidebar from '@/admin/components/layout/Sidebar'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 export default {
   name: 'admin',

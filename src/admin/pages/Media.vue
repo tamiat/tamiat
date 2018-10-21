@@ -2,7 +2,7 @@
   <div>
     <div class="gallery" v-if="!media.hasOwnProperty('.value')">
       <a class="img-container" v-for="(img, key) in images" :key="key" v-if="img.src && img.path">
-        <span @click="deleteImage(img.path, key)" class="delete delete-button"></span>
+        <div @click="deleteImage(img.path, key)" class="delete delete-button"></div>
         <div class="image-div" :style="{ 'background-image': 'url(' + img.src + ')' }"></div>
         <div class="info-tab"> {{img.name}} </div>
       </a>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-
+import firebase from 'firebase/app'
+import 'firebase/storage'
 import { mediaRef } from '@/admin/firebase_config'
 
 export default {
@@ -34,9 +34,6 @@ export default {
     }
   },
   methods: {
-    imageLoadError (tag) {
-      console.log(tag)
-    },
     deleteImage (path, key) {
       let storageRef = firebase.storage().ref(path)
       var that = this
@@ -50,7 +47,38 @@ export default {
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+.img-container {
+  margin: 10px;
+  position: relative;
+  background-color: white;
+  width: 400px;
+  height: 400px;
+}
+.delete-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.info-tab {
+  position: absolute;
+  bottom: 0px;
+  height: 28px;
+  width: 100%;
+  padding: 4px;
+  background-color: black;
+  color: white;
+  opacity: 0.71;
+}
+
+.image-div {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -58,34 +86,9 @@ export default {
   align-items: flex-start;
   height: 100vh;
 }
+
 .gallery a {
   flex-grow: 1;
   margin: 5px;
-}
-.img-container {
-  position: relative;
-  width: 400px;
-  height: 400px;
-}
-.delete-button {
-  position: absolute;
-  top: 35px;
-  left: 90%;
-}
-.info-tab {
-  position: absolute;
-  bottom: 0px;
-  height: 28px;
-  width: 100%;
-  padding: 4px;
-  text-align: center;
-  background-color: black;
-  color: white;
-  opacity: 0.71;
-}
-.image-div {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
 }
 </style>

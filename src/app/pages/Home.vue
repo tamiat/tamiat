@@ -4,7 +4,7 @@
     <app-header></app-header>
 
     <section class="hero">
-      <div class="background-image" :style="{'background-image': `url(${require('../assets/img/hero.jpg')})`}"></div>
+      <div class="background-image" :style="{'background-image': `url(${require('@/app/assets/img/hero.jpg')})`}"></div>
       <div class="hero-content">
         <h1>
           {{settings.title}}
@@ -31,11 +31,11 @@
 
 <script>
 import { settingsRef } from '@/admin/firebase_config'
-import appHeader from '../components/appHeader'
-import appFooter from '../components/appFooter'
-import sectionWork from '../components/sectionWork'
-import sectionService from '../components/sectionService'
-import sectionReview from '../components/sectionReview'
+import appHeader from '@/app/components/appHeader'
+import appFooter from '@/app/components/appFooter'
+import sectionWork from '@/app/components/sectionWork'
+import sectionService from '@/app/components/sectionService'
+import sectionReview from '@/app/components/sectionReview'
 import contentFetch from '@/admin/mixins/contentFetch'
 
 export default {
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';
+@import '@/app/styles/index.scss';
 
 /*----------------
        Hero Section

@@ -3,7 +3,7 @@
     <section class="contact">
       <div class="container">
         <div class="icon-box">
-          <img src="../assets/img/footer-icon.png" alt="footer-icon">
+          <img src="@/app/assets/img/footer-icon.png" alt="footer-icon">
         </div>
 
         <div class="content">
@@ -31,17 +31,17 @@
         <ul>
           <li>
             <a href="#">
-              <img src="../assets/img/social-media/white/twitter-white.png" alt="twitter">
+              <img src="@/app/assets/img/social-media/white/twitter-white.png" alt="twitter">
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="../assets/img/social-media/white/facebook-white.png" alt="facebook">
+              <img src="@/app/assets/img/social-media/white/facebook-white.png" alt="facebook">
             </a>
           </li>
           <li>
             <a href="#">
-              <img src="../assets/img/social-media/white/pinterest-white.png" alt="pinterest">
+              <img src="@/app/assets/img/social-media/white/pinterest-white.png" alt="pinterest">
             </a>
           </li>
         </ul>
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';
+@import '@/app/styles/index.scss';
 
 /*---------------------
        Contact Section
@@ -87,7 +87,7 @@ export default {
 
 .contact {
   background-color: $color-orange;
-  color: #FFFFFF;
+  color: #ffffff;
   .container {
     padding: 65px 0;
     flex-direction: row;
@@ -109,14 +109,14 @@ export default {
       }
     }
     .is-heading {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     form {
       max-width: 800px;
       width: 80%;
     }
     hr {
-      color: #FFFFFF;
+      color: #ffffff;
     }
   }
 }
@@ -138,7 +138,8 @@ export default {
     }
     form {
       width: 100%;
-      .form-icon-wrapper, input {
+      .form-icon-wrapper,
+      input {
         width: 100%;
       }
     }
@@ -151,7 +152,7 @@ export default {
 
 footer {
   background-color: $color-orange;
-  border-top: 1px solid #FFFFFF;
+  border-top: 1px solid #ffffff;
   .container {
     display: flex;
     flex-direction: row;
@@ -160,7 +161,7 @@ footer {
     color: #fff;
     padding: 40px 0;
     a {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     ul {
       width: 50%;

@@ -1,5 +1,5 @@
 <template>
- <div class="container posts" id="posts" v-if="loaded">
+  <div class="container posts" id="posts" v-if="loaded">
 
     <!-- Page title -->
     <div class="content-heading is-flex">
@@ -16,7 +16,7 @@
 
     <!-- modal for post delete -->
     <transition mode="out-in" name="fade">
-      <modal @close="showModal = false" :kind="kind" @confirmDeleteContent='confirmDeleteContent()' @selectBulkActions='selectBulkActions()' v-if="showModal" :header="header"/>
+      <modal @close="showModal = false" :kind="kind" @confirmDeleteContent='confirmDeleteContent()' @selectBulkActions='selectBulkActions()' v-if="showModal" :header="header" />
     </transition>
 
     <!-- New content form loaded via router -->
@@ -47,12 +47,12 @@
           Saved<span class="stateCnt">({{ savedContent.length}})</span>
         </a>
       </div>
-    <!-- Dropdown filters -->
-      <div >
+      <!-- Dropdown filters -->
+      <div>
         <!-- Categories
         <dropdown :options="postsList" :selectedElement="params.category" />-->
         <!-- Bulk actions -->
-        <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()" @bulkDelete="bulkDelete()"/>
+        <dropdown :options="bulkActions" :selectedElement="params.bulkAction" @selectBulkActions="selectBulkActions()" @bulkDelete="bulkDelete()" />
       </div>
     </div>
 
@@ -61,7 +61,7 @@
       <table class="table is-fullwidth is-striped">
         <thead>
           <tr>
-            <th >
+            <th>
               Created
               <span class="icon">
                 <i :class="{ 'fa fa-sort-down': !sortOptions.created.reverse, 'fa fa-sort-up': sortOptions.created.reverse }"></i>
@@ -254,12 +254,12 @@ export default {
   }
 }
 th {
-  cursor: pointer
+  cursor: pointer;
 }
 .icon-centered {
-    display: block !important;
-    width: 100% !important;
-    text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
 }
 .filters {
   padding-bottom: 5px;

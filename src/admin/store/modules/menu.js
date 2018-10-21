@@ -24,9 +24,11 @@ const mutations = {
     })
     state.menuItem = item[0]
   },
-  resetState: (s) => {
+  resetState: s => {
     const initial = state
-    Object.keys(initial).forEach(key => { s[key] = initial[key] })
+    Object.keys(initial).forEach(key => {
+      s[key] = initial[key]
+    })
   }
 }
 

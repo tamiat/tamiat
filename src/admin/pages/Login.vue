@@ -11,7 +11,7 @@
         <!-- tamiat CMS logo -->
         <div class="columns is-flex is-centered is-mobile">
           <figure class="column is-half">
-            <router-link to="/"><img src="/static/img/logo.png" alt="Tamiat logo"></router-link>
+            <router-link to="/"><img :src="`${baseUrl}static/img/logo.png`" alt="Tamiat logo"></router-link>
           </figure>
         </div>
 
@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import notifier from '@/admin/mixins/notifier'
 
 export default {
@@ -46,7 +47,8 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      baseUrl: process.env.BASE_URL
     }
   },
   mixins: [notifier],
@@ -77,7 +79,7 @@ export default {
   height: 100vh;
 }
 
-.login>div {
+.login > div {
   padding: 20px;
 }
 

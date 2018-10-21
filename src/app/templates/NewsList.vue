@@ -36,7 +36,7 @@
             </div>
             <div v-else-if="currentPageNews && currentPageNews.length > 0">
               <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
-                <img :src="newsItem.img || require('../assets/img/coast.jpg')" class="responsive-image">
+                <img :src="newsItem.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
                 <div class="news-preview-content">
                   <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
                   <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
@@ -44,10 +44,7 @@
                 </div>
               </div>
 
-              <pagination :totalItems="filteredNews.length"
-                          :perPage="perPage"
-                          :currentPage="filter.currentPage"
-                          @changePage="changePage">
+              <pagination :totalItems="filteredNews.length" :perPage="perPage" :currentPage="filter.currentPage" @changePage="changePage">
               </pagination>
             </div>
             <div v-else>
@@ -73,15 +70,15 @@
 </template>
 
 <script>
-import appHeader from '../components/appHeader'
-import appFooter from '../components/appFooter'
-import pagination from '../components/pagination'
+import appHeader from '@/app/components/appHeader'
+import appFooter from '@/app/components/appFooter'
+import pagination from '@/app/components/pagination'
 import { contentsRef, routesRef } from '@/admin/firebase_config/index'
 import contentFetch from '@/admin/mixins/contentFetch'
 import _ from 'lodash'
 
-const stringContains = (serach, string) => {
-  return string.toLowerCase().includes(serach.toLowerCase())
+const stringContains = (search, string) => {
+  return string.toLowerCase().includes(search.toLowerCase())
 }
 
 export default {
@@ -172,5 +169,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/index.scss';
+@import '@/app/styles/index.scss';
 </style>

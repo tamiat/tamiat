@@ -1,14 +1,12 @@
 const contentFilters = {
   data () {
     return {
-      sortOptions:
-        {
-          created: {
-            reverse: true
-          }
-        },
-      bulkActions:
-      [
+      sortOptions: {
+        created: {
+          reverse: true
+        }
+      },
+      bulkActions: [
         {
           id: 'all',
           label: 'Select all'
@@ -39,7 +37,9 @@ const contentFilters = {
         .filter(() => {
           switch (this.selectedOption) {
             case 'created':
-              return this.sortOptions.created.reverse ? this.contentData.sort(this.sortAcs) : this.contentData.sort(this.sortAcs).reverse()
+              return this.sortOptions.created.reverse
+                ? this.contentData.sort(this.sortAcs)
+                : this.contentData.sort(this.sortAcs).reverse()
             default:
               return this.contentData
           }
@@ -91,10 +91,16 @@ const contentFilters = {
           return 1
         }
       } else {
-        if (a[this.selectedOption].toLowerCase() < b[this.selectedOption].toLowerCase()) {
+        if (
+          a[this.selectedOption].toLowerCase() <
+          b[this.selectedOption].toLowerCase()
+        ) {
           return -1
         }
-        if (a[this.selectedOption].toLowerCase() > b[this.selectedOption].toLowerCase()) {
+        if (
+          a[this.selectedOption].toLowerCase() >
+          b[this.selectedOption].toLowerCase()
+        ) {
           return 1
         }
       }
@@ -119,10 +125,13 @@ const contentFilters = {
         }
         if (this.params.bulkAction.id === 'delete') {
           if (this.filteredContent[i].selected === true) {
-            this.$firebaseRefs.contents.child(this.$route.params.key + '/data').child(this.filteredContent[i]['.key']).remove()
+            this.$firebaseRefs.contents
+              .child(this.$route.params.key + '/data')
+              .child(this.filteredContent[i]['.key'])
+              .remove()
               .then(() => {
-              // this.showNotification('success', 'Posts deleted successfully')
-              // this.showModal = false
+                // this.showNotification('success', 'Posts deleted successfully')
+                // this.showModal = false
               })
           }
         }

@@ -78,7 +78,7 @@ yarn
 
 > yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
 
-5. Copy your project configurations from WEB SETUP (_in firebase console_) and paste them in `/src/admin/firebase_config/config.js` file by replacing the existing ones.
+5. Copy your project configurations from WEB SETUP (_in Authentication section of firebase console_) and paste them in `/src/admin/firebase_config/config.js` file by replacing the existing ones.
 
 ```js
 // replace the existing config object below
@@ -92,19 +92,21 @@ let config = {
 }
 ```
 
-6. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
+6. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
 
-7) You can now use `firebase deploy` to deploy the security rules you just entered (to deploy the actual web app you must first use `npm run build` or `yarn build`).
+7) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
 
-8. Run the local dev server with `npm run dev` or `yarn dev`.
+8. You can now use `firebase deploy` to deploy the security rules you just entered (to deploy the actual web app you must first use `npm run build` or `yarn build`).
 
-9) Access the admin interface by navigating to `localhost:8080/admin`.
+9) Run the local dev server with `npm run dev` or `yarn dev`.
 
-10. Sign in with your previous email and password.
+10. Access the admin interface by navigating to `localhost:8080/admin`.
 
-11) (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
+11) Sign in with your previous email and password.
 
-12. Enjoy!
+12. (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
+
+13) Enjoy!
 
 <br>
 
@@ -172,17 +174,9 @@ new Vue({
 
 | Source                | Target                    | Description                                           |
 | --------------------- | ------------------------- | ----------------------------------------------------- |
-| Tamiat/src/components | my-project/src/components | The building blocks components of the admin interface |
-| Tamiat/src/mixins     | my-project/src/mixins     | The shared functionalities between components         |
+| Tamiat/src/admin	    | my-project/src/admin 		| The building blocks of the admin interface 			|
+| Tamiat/src/app 	    | my-project/src/app	    | The building blocks of the app interface      	    |
 | Tamiat/src/router     | my-project/src/router     | The routing logic of the CMS                          |
-
-##### Files to be copied:
-
-| Source               | Target                   | Description                     |
-| -------------------- | ------------------------ | ------------------------------- |
-| Tamiat/src/Admin.vue | my-project/src/Admin.vue | The admin's interface main view |
-| Tamiat/src/Home.vue  | my-project/src/Home.vue  | The default home page           |
-| Tamiat/src/config.js | my-project/src/config.js | The firebase configuration file |
 
 6. Once this is done, you can just follow the same instructions of the first option above starting from `step 2`.
 

@@ -14,11 +14,10 @@
     <div class="container">
       <div class="clearfix news-content">
         <div class="leftbar">
-          <!-- Load default image if not available -->
-
           <div class="news-preview-content">
             <h1 class="news-title" v-text="currentNews.title"></h1>
             <p class="date" v-text="currentNews.date"></p>
+            <!-- Load default image if not available -->
             <img :src="currentNews.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
 
             <p class="subheadline" v-text="currentNews.subheadline"></p>

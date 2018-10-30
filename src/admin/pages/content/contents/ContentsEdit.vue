@@ -49,7 +49,7 @@
               <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in content[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
               <input :placeholder="field.name" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
-            <p>Seperate tags with commas</p>
+            <p>Separate tags with commas</p>
           </div>
         </div>
 

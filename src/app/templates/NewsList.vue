@@ -105,7 +105,7 @@ export default {
         currentPage: 1
       },
       searchQuery: undefined,
-      perPage: 1, // No of news per page
+      perPage: 4, // No of news per page
       loaded: false
     }
   },

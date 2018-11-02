@@ -14,16 +14,15 @@
     <div class="container">
       <div class="clearfix news-content">
         <div class="leftbar">
-          <!-- Load default image if not available -->
-          <img :src="content.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
-
           <div class="news-preview-content">
-            <h1 class="news-title" v-text="content.title"></h1>
-            <p class="date" v-text="content.date"></p>
+            <h1 class="news-title" v-text="currentNews.title"></h1>
+            <p class="date" v-text="currentNews.date"></p>
+            <!-- Load default image if not available -->
+            <img :src="currentNews.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
 
-            <p class="subheadline" v-text="content.subheadline"></p>
+            <p class="subheadline" v-text="currentNews.subheadline"></p>
 
-            <div class="news-body" v-html="content.body"></div>
+            <div class="news-body" v-html="currentNews.body"></div>
 
             <hr />
 
@@ -95,6 +94,11 @@ export default {
     appFooter
   },
   computed: {
+    currentNews () {
+      return this.news.filter(obj => {
+        return obj['.key'] === this.$route.params.id || obj.slug === this.$route.params.id
+      })[0]
+    },
     news () {
       const params = this.$route.params
       let path = this.$route.path
@@ -106,7 +110,6 @@ export default {
       let currentRoute = this.routes.filter((route) => {
         return route.path === path
       })[0]
-
       return this.getContentsByType(currentRoute.contentType, true)
     },
     categories () {

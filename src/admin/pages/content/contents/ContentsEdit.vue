@@ -47,7 +47,7 @@
           <div class="control">
             <div class="tags tagscontainer">
               <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in content[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
-              <input :placeholder="field.name" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
+              <input :placeholder="field.name" @blur="styleTags(field.name)" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
             <p>Separate tags with commas</p>
           </div>
@@ -103,7 +103,7 @@ export default {
     return {
       /* Here we are filtering out the post containing the provided key in the router params
        * we are using Object.assign to copy the post by value not by reference
-       * to prevent updating the poste when typing */
+       * to prevent updating the post when typing */
       inputData: '',
       content: Object.assign(
         {},
@@ -147,7 +147,9 @@ export default {
         if (!this.content[fieldName]) {
           this.content[fieldName] = []
         }
-        this.content[fieldName].push(`${this.inputData.trim()}`)
+        this.inputData.split(',').forEach(tag => {
+          this.content[fieldName].push(`${tag.trim()}`)
+        })
         this.inputData = ''
       }
     },

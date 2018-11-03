@@ -1,6 +1,6 @@
 {
   "rules": {
-    ".write": "auth.uid === 'YOURID'",    
+    ".write": "auth.uid === 'yourUID'",
     ".read": true,
     "settings": {
       ".validate": true

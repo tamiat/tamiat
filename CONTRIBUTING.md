@@ -15,6 +15,14 @@ Our git workflow is simple and straight forward. There are two main branches, `m
 
 `develop`: The developing branch is used to prepare the next version. It contains the new features and bug fixes.
 
+## Setting up project for contribution
+
+Follow the steps provided in [Readme.md](https://github.com/tamiat/tamiat/blob/master/README.md) along with following things:
+
+1. Make a copy of file `database.rules.json.tmp`, rename the copy to `database.rules.json` and modify it accordingly.
+2. Make a copy of file `config.js.tmp`, rename the copy to `config.js` and modify it accordingly.
+3. Leave `database.rules.json.tmp` and `config.js.tmp` as is.
+
 ## How to create a pull request?
 
 We welcome all the support we get so to make it easier for you to contribute, we have define a process in the [template](https://github.com/tamiat/tamiat/blob/master/PULL_TEMPLATE.md).

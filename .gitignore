@@ -73,3 +73,5 @@ typings/
 
 # firebaseConfig
 src/admin/firebase_config/config.js
+
+database.rules.json

@@ -26,16 +26,18 @@
                 </div>
                 <!-- Custom Fields -->
                 <label class="label">Fields</label>
+                <label class="has-text-danger is-size-7" v-if="fields.length">Select the fields you want to be shown in content lists</label>
                 <div class="field is-grouped is-grouped-multiline">
                   <ul class="nav-preview">
                     <li v-for="(field, fieldKey) in checkedFields" :key="fieldKey" v-if="field.checked">
                       {{ field.name }}
-                      <span class="link-actions">
+                      <span>
                         <span v-if="fieldKey !== 0" class="has-text-success fa fa-arrow-up" @click="moveFieldUp(field, checkedFields[fieldKey - 1])"></span>
                         <span v-if="fieldKey !== checkedFields.length - 1" class="fa fa-arrow-down" @click="moveFieldDown(field, checkedFields[fieldKey + 1])"></span>
-                        <span @mouseover="showDesc = !showDesc">
+                        <!-- <span @mouseover="showDesc = !showDesc">
                           <checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
-                        <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span>
+                        <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span> -->
+                        <span><checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /></span>
                       </span>
                     </li>
                   </ul>

@@ -310,7 +310,7 @@ In order to create content types and fields we have to go to the `Content` secti
 
 #### Content types
 
-![Content type section](https://i.imgur.com/t08wTTT.png)
+![Content type section](https://i.imgur.com/8QNUIef.png)
 
 ##### Create
 
@@ -349,5 +349,5 @@ By clicking on a specific content type, this page is displayed:
 From this point, we can Create (Save/Publish), Edit, Delete, Bulk delete, Select, Filter and Sort contents.
 Those contents will be displayed later in the app.
 
-In the picture above we can see that we have newly created content type, ex. `Posts`, which has an actual data that is displayed in the table.
-Notice that only `author` and `title` fields are displayed - because those are the `textbox` fields we previously marked as "displayable" when we were creating content type.
+In the picture above we can see that we have newly created content type, ex. `Posts`, which has an actual data that is displayed in the table.<br>
+Notice that only `author` and `title` fields are displayed - because those are the `textbox` fields we previously marked to be shown in content list when we were creating content type.

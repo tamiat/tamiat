@@ -126,9 +126,6 @@ $navbarColor: #aaaaaa;
     .sign-out {
       text-align: right;
     }
-    .navbar-burger span {
-      background: #fff;
-    }
   }
 }
 </style>

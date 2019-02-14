@@ -1,5 +1,5 @@
 <template>
-  <aside class="menu sidebar" id="sidebar">
+  <aside class="menu sidebar is-hidden-mobile" id="sidebar">
     <ul class="sidebar-menu-list">
 
       <router-link v-for="item in menu" :key="item.index" tag="li" :to="item.path" class="menu-item">

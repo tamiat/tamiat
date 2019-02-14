@@ -30,7 +30,7 @@
           </span>
         </span>
         <!-- mobile navigation -->
-        <div v-if="mobileMenuIsActive">
+        <div class="is-hidden-tablet">
           <router-link v-for="item in menu" :key="item.index" :to="item.path" class="menu-item">
             <span class="navbar-item">{{ item.name }}</span>
           </router-link>

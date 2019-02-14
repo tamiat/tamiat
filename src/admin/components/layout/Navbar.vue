@@ -149,6 +149,7 @@ $navbarColor: #aaaaaa;
   #navbar {
     .navbar-menu {
       width: auto;
+      height: auto;
       right: 0;
     }
     .sign-out {

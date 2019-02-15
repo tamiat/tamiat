@@ -155,9 +155,6 @@ $navbarColor: #aaaaaa;
       height: auto;
       right: 0;
     }
-    .sign-out {
-      text-align: right;
-    }
   }
 }
 </style>

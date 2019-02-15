@@ -19,7 +19,7 @@
     </div>
 
     <!-- the navbar right menu -->
-    <div class="navbar-menu" id="navbar" :class="{'is-active': mobileMenuIsActive}">
+    <div class="navbar-menu nav-burger" id="navbar" :class="{'is-active': mobileMenuIsActive}">
       <div class="navbar-end">
         <span class="navbar-item email">
           {{currentUser.email}}
@@ -142,6 +142,12 @@ $navbarColor: #aaaaaa;
     cursor: pointer;
   }
 }
+
+.nav-burger {
+  position: fixed;
+  right: 10px;
+}
+
 @media screen and (max-width: 1023px) {
   #navbar {
     .navbar-menu {

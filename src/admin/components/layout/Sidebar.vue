@@ -1,5 +1,5 @@
 <template>
-  <aside class="menu sidebar is-hidden-mobile" id="sidebar">
+  <div class="menu sidebar is-hidden-mobile" id="sidebar">
     <ul class="sidebar-menu-list">
 
       <router-link v-for="item in menu" :key="item.index" tag="li" :to="item.path" class="menu-item">
@@ -33,7 +33,7 @@
       </a>
 
     </ul>
-  </aside>
+  </div>
 </template>
 
 <script>
@@ -99,18 +99,15 @@ $sidebarColor: #3b9169;
 $sidebarWidth: 115px;
 
 #sidebar {
-  position: absolute;
-  padding: 20px 0 50px;
   width: $sidebarWidth;
   min-width: 45px;
   z-index: 1024 - 1;
   background: $sidebarBg;
   box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
-  padding-top: 65px;
 
   .sidebar-menu-list {
     padding-bottom: 80px;
-    margin-top: 36px;
+
   }
 
   li,

@@ -110,10 +110,7 @@ $navbarBg: #fff;
 $navbarColor: #aaaaaa;
 
 #navbar {
-  position: fixed;
   z-index: 1024;
-  width: 100%;
-  height: 100px;
   background-color: $navbarBg;
 
   .logo {

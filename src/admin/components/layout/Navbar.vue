@@ -19,7 +19,7 @@
     </div>
 
     <!-- the navbar right menu -->
-    <div class="navbar-menu" id="navbar" :class="{'is-active': mobileMenuIsActive}">
+    <div class="navbar-menu nav-burger" id="navbar" :class="{'is-active': mobileMenuIsActive}">
       <div class="navbar-end">
         <span class="navbar-item email">
           {{currentUser.email}}
@@ -29,6 +29,12 @@
             <i class="fa fa-bars fa-2x"></i>
           </span>
         </span>
+        <!-- mobile navigation -->
+        <div class="is-hidden-tablet">
+          <router-link v-for="item in menu" :key="item.index" :to="item.path" class="menu-item">
+            <span class="navbar-item">{{ item.name }}</span>
+          </router-link>
+        </div>
       </div>
     </div>
 
@@ -48,7 +54,29 @@ export default {
       showModal: false,
       header: 'Are you sure you want to logout?',
       kind: 'logout',
-      baseUrl: process.env.BASE_URL
+      baseUrl: process.env.BASE_URL,
+      menu: [
+        {
+          name: 'Content',
+          path: '/admin/content'
+        },
+        {
+          name: 'Routing',
+          path: '/admin/routing'
+        },
+        {
+          name: 'Media',
+          path: '/admin/media'
+        },
+        {
+          name: 'Database',
+          path: '/admin/database'
+        },
+        {
+          name: 'Settings',
+          path: '/admin/settings'
+        }
+      ]
     }
   },
   methods: {
@@ -82,10 +110,7 @@ $navbarBg: #fff;
 $navbarColor: #aaaaaa;
 
 #navbar {
-  position: fixed;
   z-index: 1024;
-  width: 100%;
-  height: 100px;
   background-color: $navbarBg;
 
   .logo {
@@ -117,14 +142,18 @@ $navbarColor: #aaaaaa;
     cursor: pointer;
   }
 }
+
+.nav-burger {
+  position: fixed;
+  right: 10px;
+}
+
 @media screen and (max-width: 1023px) {
   #navbar {
     .navbar-menu {
       width: auto;
+      height: auto;
       right: 0;
-    }
-    .sign-out {
-      text-align: right;
     }
   }
 }

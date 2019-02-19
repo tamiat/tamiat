@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar" id="navbar">
 
-    <!-- modal for post delete -->
+    <!-- modal for post delete -->  
     <transition mode="out-in" name="fade">
-      <modal @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header" />
+      <modal class="modal" @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header" />
     </transition>
 
     <!-- the navbar brand -->
@@ -114,7 +114,6 @@ $navbarColor: #aaaaaa;
   background-color: $navbarBg;
 
   .logo {
-    z-index: 9999;
     background: #fff;
     &:hover {
       background: whitesmoke;
@@ -141,6 +140,10 @@ $navbarColor: #aaaaaa;
   .sign-out {
     cursor: pointer;
   }
+}
+
+.modal {
+  z-index: 1025;
 }
 
 .nav-burger {

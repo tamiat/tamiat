@@ -34,11 +34,11 @@
           <label class="label">{{ field.name }}</label>
           <div class="select margin-select">
             <select>
-              <option>Select dropdown</option>
-              <option>With options</option>
+              <option v-for="(option, optionKey) in newContent[field.name]">{{ option }}</option>
             </select>
           </div>
           <div class="control">
+            <!--v-model - have a wrong content!-->
             <input type="text" class="input" :placeholder="field.name" v-model="newContent[field.name]" maxlength="25">
           </div>
           <p>Separate options with commas</p>
@@ -119,7 +119,8 @@ export default {
         tags: []
       },
       inputData: '',
-      editorOptions
+      editorOptions,
+      selectOptions: []
     }
   },
   methods: {

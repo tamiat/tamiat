@@ -32,9 +32,16 @@
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>
+          <div class="select margin-select">
+            <select>
+              <option>Select dropdown</option>
+              <option>With options</option>
+            </select>
+          </div>
           <div class="control">
             <input type="text" class="input" :placeholder="field.name" v-model="newContent[field.name]" maxlength="25">
           </div>
+          <p>Separate options with commas</p>
         </div>
 
       </div>
@@ -52,7 +59,7 @@
               </span>
               <input :placeholder="field.name" @blur="styleTags(field.name)" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
-            <p>Seperate tags with commas</p>
+            <p>Separate tags with commas</p>
           </div>
         </div>
 
@@ -169,8 +176,10 @@ export default {
 .pointer {
   cursor: pointer;
 }
-
 .ql-container {
   min-height: 200px;
+}
+.margin-select {
+  margin-bottom: 25px;
 }
 </style>

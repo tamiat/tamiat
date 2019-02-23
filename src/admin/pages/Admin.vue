@@ -10,34 +10,37 @@
     </header>
     <!--The admin main page for a sidebar and content-->
     <div class="columns is-gapless ia-contentarea">
-      <div class="column is-2 ia-leftcolumn">
+      <div>
           <sidebar></sidebar>
         </div>
       <!-- The admin page content -->
-      <section class="hero is-light is-medium is-bold" v-if="$route.name === 'Admin'">
-            <div class="hero-body ">
-              <div class="container has-text-centered">
-                <div class="titleAdmin">
-                  <h1 class="title">
-                    Welcome to Tamiat CMS
-                  </h1>
-                </div>
-                <h2 class="subtitle">
-                  <a href="https://github.com/tamiat/tamiat" target="_blank">
-                    <span style="font-size: 25px;font-weight: bold">GitHub</span>
-                  </a>
-                </h2>
-                <router-link to="/">
-                  <!-- <img src="/static/img/logo.png" alt="Tamiat CMS logo"> -->
-                  <div>
-                    <object type="image/svg+xml" data="static/img/tamiat-logo-icon-color.svg" style="pointer-events: none; height: 7rem"></object>
-                  </div>
-                </router-link>
-                <p>Version v0.3.0</p>
+      <div class="admin-wrapper">
+        <section class="hero is-light is-medium is-bold" v-if="$route.name === 'Admin'">
+          <div class="hero-body ">
+            <div class="container has-text-centered">
+              <div class="titleAdmin">
+                <h1 class="title">
+                  Welcome to Tamiat CMS
+                </h1>
               </div>
+              <h2 class="subtitle">
+                <a href="https://github.com/tamiat/tamiat" target="_blank">
+                  <span style="font-size: 25px;font-weight: bold">GitHub</span>
+                </a>
+              </h2>
+              <router-link to="/">
+                <!-- <img src="/static/img/logo.png" alt="Tamiat CMS logo"> -->
+                <div>
+                  <object type="image/svg+xml" data="static/img/tamiat-logo-icon-color.svg" style="pointer-events: none; height: 7rem"></object>
+                </div>
+              </router-link>
+              <p>Version v0.3.0</p>
             </div>
-          </section>
-      <router-view :key="$route.path" />
+          </div>
+        </section>
+        <router-view :key="$route.path" />
+      </div>
+
     </div>
   </div>
 </template>

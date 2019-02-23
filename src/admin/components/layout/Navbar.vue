@@ -3,7 +3,7 @@
 
     <!-- modal for post delete -->
     <transition mode="out-in" name="fade">
-      <modal @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header" />
+      <modal class="modal" @close="showModal = false" :kind="kind" @confirmLogout='confirmLogout()' v-if="showModal" :header="header" />
     </transition>
 
     <!-- the navbar brand -->
@@ -24,12 +24,13 @@
         <span class="navbar-item email">
           {{currentUser.email}}
         </span>
-        <span class="navbar-item sign-out" @click="signOut">
+        <span class="navbar-item sign-out is-hidden-touch" @click="signOut">
           <span class="icon is-medium has-text-centered">
             <i class="fa fa-bars fa-2x"></i>
           </span>
         </span>
         <!-- mobile navigation -->
+        <a class="navbar-item is-hidden-desktop" @click="signOut">Logout</a>
         <div class="is-hidden-tablet">
           <router-link v-for="item in menu" :key="item.index" :to="item.path" class="menu-item">
             <span class="navbar-item">{{ item.name }}</span>
@@ -114,7 +115,6 @@ $navbarColor: #aaaaaa;
   background-color: $navbarBg;
 
   .logo {
-    z-index: 9999;
     background: #fff;
     &:hover {
       background: whitesmoke;
@@ -141,6 +141,10 @@ $navbarColor: #aaaaaa;
   .sign-out {
     cursor: pointer;
   }
+}
+
+.modal {
+  z-index: 1025;
 }
 
 .nav-burger {

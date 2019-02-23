@@ -142,6 +142,7 @@ $sidebarWidth: 115px;
     background: $sidebarBg;
     left: $sidebarWidth;
     top: 0px;
+    z-index: 1023;
 
     & li {
       padding: 15px;

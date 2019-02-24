@@ -38,13 +38,10 @@
             </select>
           </div>
           <div class="control">
-            <!--v-model - have a wrong content!-->
-            <!--<input type="text" class="input" :placeholder="field.name" v-model="newContent[field.name]" maxlength="25">-->
             <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
           </div>
           <p>Separate options with commas</p>
         </div>
-
       </div>
 
       <!-- Right sidebar -->

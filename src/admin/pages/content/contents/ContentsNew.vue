@@ -37,6 +37,10 @@
               <option v-for="option in newContent[field.name]" :key="option">{{ option }}</option>
             </select>
           </div>
+          <!-- maybe I should make something like this
+          <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in newContent[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}
+                <button class="delete is-small"></button>
+          </span>-->
           <div class="control">
             <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
           </div>
@@ -170,7 +174,7 @@ export default {
         this.selectOptionsRow.split(',').forEach(option => {
           this.newContent[fieldName].push(`${option.trim()}`)
         });
-        this.selectOptionsRow = ''
+        this.selectOptionsRow = '' // maybe should not delete this
       }
     }
   }

@@ -34,12 +34,13 @@
           <label class="label">{{ field.name }}</label>
           <div class="select margin-select">
             <select>
-              <option v-for="(option, optionKey) in newContent[field.name]">{{ option }}</option>
+              <option v-for="option in newContent[field.name]" :key="option">{{ option }}</option>
             </select>
           </div>
           <div class="control">
             <!--v-model - have a wrong content!-->
-            <input type="text" class="input" :placeholder="field.name" v-model="newContent[field.name]" maxlength="25">
+            <!--<input type="text" class="input" :placeholder="field.name" v-model="newContent[field.name]" maxlength="25">-->
+            <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
           </div>
           <p>Separate options with commas</p>
         </div>
@@ -120,7 +121,7 @@ export default {
       },
       inputData: '',
       editorOptions,
-      selectOptions: []
+      selectOptionsRow: ''
     }
   },
   methods: {
@@ -162,6 +163,18 @@ export default {
     },
     removeTag (index, fieldName) {
       this.newContent[fieldName].splice(index, 1)
+    },
+    /*function to create Select Options from input area */
+    styleOptions(fieldName) {
+      if (this.selectOptionsRow !== '') {
+        if (!this.newContent[fieldName]) {
+          this.newContent[fieldName] = []
+        }
+        this.selectOptionsRow.split(',').forEach(option => {
+          this.newContent[fieldName].push(`${option.trim()}`)
+        });
+        this.selectOptionsRow = ''
+      }
     }
   }
 }

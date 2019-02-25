@@ -28,19 +28,28 @@
           <input type="file" id="getImage" style="display: none;" @change="uploadImage">
         </div>
 
-        <!-- Category fields -->
+        <!-- Category (select) fields -->
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>
-          <div class="select margin-select">
-            <select>
-              <option v-for="option in newContent[field.name]" :key="option">{{ option }}</option>
-            </select>
-          </div>
-          <!-- maybe I should make something like this
-          <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in newContent[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}
+          <div class="columns">
+            <div class="column">
+              <div class="select margin-select">
+                <select>
+                  <option v-for="(selectOption, selectIndex) in newContent[field.name]" :key="selectIndex">{{ selectOption }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="column">
+              <!--area to delete options-->
+              <div v-for="(option, optionKey) in newContent[field.name]" :key="optionKey" >
+                <span @click="removeOptions(optionKey, field.name)" class="tag is-info pointer">{{option}}
                 <button class="delete is-small"></button>
-          </span>-->
+              </span>
+              </div>
+            </div>
+          </div>
+          <!--area to enter options-->
           <div class="control">
             <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
           </div>
@@ -158,12 +167,15 @@ export default {
         }
         this.inputData.split(',').forEach(tag => {
           this.newContent[fieldName].push(`${tag.trim()}`)
-        })
+        });
         this.inputData = ''
       }
     },
     removeTag (index, fieldName) {
-      this.newContent[fieldName].splice(index, 1)
+      this.newContent[fieldName].splice(index, 1);
+    },
+    removeOptions (index, fieldName) {
+      this.newContent[fieldName].splice(index, 1);
     },
     /*function to create Select Options from input area */
     styleOptions(fieldName) {
@@ -171,10 +183,10 @@ export default {
         if (!this.newContent[fieldName]) {
           this.newContent[fieldName] = []
         }
-        this.selectOptionsRow.split(',').forEach(option => {
-          this.newContent[fieldName].push(`${option.trim()}`)
+        this.selectOptionsRow.split(',').forEach(tag => {
+          this.newContent[fieldName].push(`${tag.trim()}`)
         });
-        this.selectOptionsRow = '' // maybe should not delete this
+        this.selectOptionsRow = ''
       }
     }
   }

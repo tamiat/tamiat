@@ -44,7 +44,7 @@
             <div class="column">
               <!--area to delete options-->
               <div v-for="(option, optionKey) in newContent[field.name]" :key="optionKey" >
-                <span @click="removeOptions(optionKey, field.name)" class="tag is-info pointer">{{option}}
+                <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">{{option}}
                 <button class="delete is-small"></button>
               </span>
               </div>
@@ -173,10 +173,13 @@ export default {
       }
     },
     removeTag (index, fieldName) {
-      this.newContent[fieldName].splice(index, 1);
-    },
-    removeOptions (index, fieldName) {
-      this.newContent[fieldName].splice(index, 1);
+      // function to remove tags and options
+      // cloning object (to make Vue reactive)
+      let currentContent = Object.assign({}, this.newContent);
+      // delete element from arr
+      currentContent[fieldName].splice(index, 1);
+      // return cloned object Back
+      this.newContent = Object.assign({}, currentContent);
     },
     /*function to create Select Options from input area */
     styleOptions(fieldName) {

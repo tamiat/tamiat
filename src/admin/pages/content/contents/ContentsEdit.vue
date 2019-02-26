@@ -162,7 +162,25 @@ export default {
       }
     },
     removeTag (index, fieldName) {
-      this.content[fieldName].splice(index, 1)
+      // function to remove tags and options
+      // cloning object (to make Vue reactive)
+      let currentContent = Object.assign({}, this.newContent);
+      // delete element from arr
+      currentContent[fieldName].splice(index, 1);
+      // return cloned object Back
+      this.newContent = Object.assign({}, currentContent);
+    },
+    /*function to create Select Options from input area */
+    styleOptions(fieldName) {
+      if (this.selectOptionsRow !== '') {
+        if (!this.newContent[fieldName]) {
+          this.newContent[fieldName] = []
+        }
+        this.selectOptionsRow.split(',').forEach(tag => {
+          this.newContent[fieldName].push(`${tag.trim()}`)
+        });
+        this.selectOptionsRow = ''
+      }
     }
   }
 }

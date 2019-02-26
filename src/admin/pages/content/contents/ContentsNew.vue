@@ -29,6 +29,7 @@
         </div>
 
         <!-- Category (select) fields -->
+        
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>

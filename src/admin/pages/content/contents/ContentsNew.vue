@@ -62,7 +62,7 @@
           <label class="label">{{ field.name }}</label>
           <div class="columns">
             <div class="column is-one-third">
-              <input  type="number" :placeholder="field.name" class="input" v-model="inputData">
+              <input  type="number" :placeholder="field.name" class="input"> <!--v-model="inputData"?-->
             </div>
           </div>
         </div>

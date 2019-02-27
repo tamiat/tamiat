@@ -27,15 +27,33 @@
           <input type="file" id="getImage" style="display: none;" @change="uploadImage">
         </div>
 
-        <!-- Category fields -->
+        <!-- Category (select) fields -->
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>
-          <div class="control">
-            <input type="text" class="input" :placeholder="field.name" v-model="content[field.name]" maxlength="25">
+          <div class="columns">
+            <div class="column">
+              <div class="select margin-select">
+                <select>
+                  <option v-for="(selectOption, selectIndex) in content[field.name]" :key="selectIndex">{{ selectOption }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="column">
+              <!--area to delete options-->
+              <div v-for="(option, optionKey) in content[field.name]" :key="optionKey" >
+                <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">{{option}}
+                <button class="delete is-small"></button>
+              </span>
+              </div>
+            </div>
           </div>
+          <!--area to enter options-->
+          <div class="control">
+            <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
+          </div>
+          <p>Separate options with commas</p>
         </div>
-
       </div>
 
       <!-- Right sidebar -->
@@ -46,7 +64,9 @@
           <label class="label">{{ field.name }}</label>
           <div class="control">
             <div class="tags tagscontainer">
-              <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in content[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}<button class="delete is-small"></button></span>
+              <span @click="removeTag(tagKey, field.name)" v-for="(tag, tagKey) in content[field.name]" :key="tagKey" class="tag is-info pointer">{{tag}}
+                <button class="delete is-small"></button>
+              </span>
               <input :placeholder="field.name" @blur="styleTags(field.name)" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
             <p>Separate tags with commas</p>
@@ -105,6 +125,7 @@ export default {
        * we are using Object.assign to copy the post by value not by reference
        * to prevent updating the post when typing */
       inputData: '',
+      selectOptionsRow: '',
       content: Object.assign(
         {},
         (this.contents.filter((c) => {
@@ -154,7 +175,25 @@ export default {
       }
     },
     removeTag (index, fieldName) {
-      this.content[fieldName].splice(index, 1)
+      // function to remove tags and options
+      // cloning object (to make Vue reactive)
+      let currentContent = Object.assign({}, this.content)
+      // delete element from arr
+      currentContent[fieldName].splice(index, 1)
+      // return cloned object Back
+      this.content = Object.assign({}, currentContent)
+    },
+    // function to create Select Options from input area
+    styleOptions (fieldName) {
+      if (this.selectOptionsRow !== '') {
+        if (!this.content[fieldName]) {
+          this.content[fieldName] = []
+        }
+        this.selectOptionsRow.split(',').forEach(tag => {
+          this.content[fieldName].push(`${tag.trim()}`)
+        })
+        this.selectOptionsRow = ''
+      }
     }
   }
 }

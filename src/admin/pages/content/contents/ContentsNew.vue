@@ -29,7 +29,6 @@
         </div>
 
         <!-- Category (select) fields -->
-
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>
@@ -168,28 +167,28 @@ export default {
         }
         this.inputData.split(',').forEach(tag => {
           this.newContent[fieldName].push(`${tag.trim()}`)
-        });
+        })
         this.inputData = ''
       }
     },
     removeTag (index, fieldName) {
       // function to remove tags and options
       // cloning object (to make Vue reactive)
-      let currentContent = Object.assign({}, this.newContent);
+      let currentContent = Object.assign({}, this.newContent)
       // delete element from arr
-      currentContent[fieldName].splice(index, 1);
+      currentContent[fieldName].splice(index, 1)
       // return cloned object Back
-      this.newContent = Object.assign({}, currentContent);
+      this.newContent = Object.assign({}, currentContent)
     },
-    /*function to create Select Options from input area */
-    styleOptions(fieldName) {
+    // function to create Select Options from input area
+    styleOptions (fieldName) {
       if (this.selectOptionsRow !== '') {
         if (!this.newContent[fieldName]) {
           this.newContent[fieldName] = []
         }
         this.selectOptionsRow.split(',').forEach(tag => {
           this.newContent[fieldName].push(`${tag.trim()}`)
-        });
+        })
         this.selectOptionsRow = ''
       }
     }

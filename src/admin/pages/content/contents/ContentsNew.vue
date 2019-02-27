@@ -28,15 +28,33 @@
           <input type="file" id="getImage" style="display: none;" @change="uploadImage">
         </div>
 
-        <!-- Category fields -->
+        <!-- Category (select) fields -->
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>
-          <div class="control">
-            <input type="text" class="input" :placeholder="field.name" v-model="newContent[field.name]" maxlength="25">
+          <div class="columns">
+            <div class="column">
+              <div class="select margin-select">
+                <select>
+                  <option v-for="(selectOption, selectIndex) in newContent[field.name]" :key="selectIndex">{{ selectOption }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="column">
+              <!--area to delete options-->
+              <div v-for="(option, optionKey) in newContent[field.name]" :key="optionKey" >
+                <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">{{option}}
+                <button class="delete is-small"></button>
+              </span>
+              </div>
+            </div>
           </div>
+          <!--area to enter options-->
+          <div class="control">
+            <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
+          </div>
+          <p>Separate options with commas</p>
         </div>
-
       </div>
 
       <!-- Right sidebar -->
@@ -52,7 +70,7 @@
               </span>
               <input :placeholder="field.name" @blur="styleTags(field.name)" @keyup.enter="styleTags(field.name)" type="text" class="input" maxlength="25" v-model="inputData">
             </div>
-            <p>Seperate tags with commas</p>
+            <p>Separate tags with commas</p>
           </div>
         </div>
 
@@ -112,7 +130,8 @@ export default {
         tags: []
       },
       inputData: '',
-      editorOptions
+      editorOptions,
+      selectOptionsRow: ''
     }
   },
   methods: {
@@ -153,7 +172,25 @@ export default {
       }
     },
     removeTag (index, fieldName) {
-      this.newContent[fieldName].splice(index, 1)
+      // function to remove tags and options
+      // cloning object (to make Vue reactive)
+      let currentContent = Object.assign({}, this.newContent)
+      // delete element from arr
+      currentContent[fieldName].splice(index, 1)
+      // return cloned object Back
+      this.newContent = Object.assign({}, currentContent)
+    },
+    // function to create Select Options from input area
+    styleOptions (fieldName) {
+      if (this.selectOptionsRow !== '') {
+        if (!this.newContent[fieldName]) {
+          this.newContent[fieldName] = []
+        }
+        this.selectOptionsRow.split(',').forEach(tag => {
+          this.newContent[fieldName].push(`${tag.trim()}`)
+        })
+        this.selectOptionsRow = ''
+      }
     }
   }
 }
@@ -169,8 +206,10 @@ export default {
 .pointer {
   cursor: pointer;
 }
-
 .ql-container {
   min-height: 200px;
+}
+.margin-select {
+  margin-bottom: 25px;
 }
 </style>

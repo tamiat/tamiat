@@ -27,15 +27,28 @@
           <input type="file" id="getImage" style="display: none;" @change="uploadImage">
         </div>
 
-        <!-- Category fields -->
+        <!-- Category (select) fields -->
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'select'">
           <label class="label">{{ field.name }}</label>
-          <div class="select margin-select">
-            <select>
-              <option v-for="option in content[field.name]" :key="option">{{ option }}</option>
-            </select>
+          <div class="columns">
+            <div class="column">
+              <div class="select margin-select">
+                <select>
+                  <option v-for="(selectOption, selectIndex) in content[field.name]" :key="selectIndex">{{ selectOption }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="column">
+              <!--area to delete options-->
+              <div v-for="(option, optionKey) in content[field.name]" :key="optionKey" >
+                <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">{{option}}
+                <button class="delete is-small"></button>
+              </span>
+              </div>
+            </div>
           </div>
+          <!--area to enter options-->
           <div class="control">
             <input type="text" class="input" :placeholder="field.name" @blur="styleOptions(field.name)" @keyup.enter="styleOptions(field.name)" v-model="selectOptionsRow" maxlength="25">
           </div>
@@ -164,21 +177,21 @@ export default {
     removeTag (index, fieldName) {
       // function to remove tags and options
       // cloning object (to make Vue reactive)
-      let currentContent = Object.assign({}, this.newContent);
+      let currentContent = Object.assign({}, this.content)
       // delete element from arr
-      currentContent[fieldName].splice(index, 1);
+      currentContent[fieldName].splice(index, 1)
       // return cloned object Back
-      this.newContent = Object.assign({}, currentContent);
+      this.content = Object.assign({}, currentContent)
     },
-    /*function to create Select Options from input area */
-    styleOptions(fieldName) {
+    // function to create Select Options from input area
+    styleOptions (fieldName) {
       if (this.selectOptionsRow !== '') {
-        if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = []
+        if (!this.content[fieldName]) {
+          this.content[fieldName] = []
         }
         this.selectOptionsRow.split(',').forEach(tag => {
-          this.newContent[fieldName].push(`${tag.trim()}`)
-        });
+          this.content[fieldName].push(`${tag.trim()}`)
+        })
         this.selectOptionsRow = ''
       }
     }

@@ -62,11 +62,34 @@
           <label class="label">{{ field.name }}</label>
           <div class="columns">
             <div class="column is-one-third">
-              <input  type="number" :placeholder="field.name" class="input"> <!--v-model="inputData"?-->
+              <input type="number" :placeholder="field.name" class="input"> <!--v-model="newContent[field.name]"?-->
             </div>
           </div>
         </div>
+
+      <!-- Url fields -->
+      <br>
+      <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'url'">
+        <label class="label">{{ field.name }}</label>
+        <div class="columns">
+          <div class="column is-two-fifths">
+            <span>Name</span>
+            <input :placeholder="field.name + ' name'" class="input" v-model="urlContentData.name" @blur="styleUrl(field.name)" @keyup.enter="styleUrl(field.name)">
+          </div>
+          <div class="column is-two-fifths">
+            <span>Link</span>
+            <input :placeholder="field.name + ' link'" class="input" v-model="urlContentData.link" @blur="styleUrl(field.name)" @keyup.enter="styleUrl(field.name)">
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <span>Preview: </span>
+            <a :href="urlContentData.link">{{ urlContentData.name }}</a>
+          </div>
+        </div>
       </div>
+        <!---->
+    </div>
 
       <!-- Right sidebar -->
       <div class="column is-one-third">
@@ -142,7 +165,11 @@ export default {
       },
       inputData: '',
       editorOptions,
-      selectOptionsRow: ''
+      selectOptionsRow: '',
+      urlContentData: {
+        name: '',
+        link: ''
+      }
     }
   },
   methods: {
@@ -170,6 +197,15 @@ export default {
           })
         })
       })
+    },
+    styleUrl (fieldName) {
+      if (this.urlContentData.name !== '') {
+        if (!this.newContent[fieldName]) {
+          this.newContent[fieldName] = { name: '', link: '' }
+        }
+        this.newContent[fieldName].name = this.urlContentData.name
+        this.newContent[fieldName].link = this.urlContentData.link
+      }
     },
     styleTags (fieldName) {
       if (this.inputData !== '') {

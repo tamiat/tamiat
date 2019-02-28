@@ -54,6 +54,17 @@
           </div>
           <p>Separate options with commas</p>
         </div>
+
+        <!-- Integer fields -->
+        <br>
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'integer'">
+          <label class="label">{{ field.name }}</label>
+          <div class="columns">
+            <div class="column is-one-third">
+              <input type="number" :placeholder="field.name" class="input">
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Right sidebar -->

@@ -74,11 +74,11 @@
         <div class="columns">
           <div class="column is-two-fifths">
             <span>Name</span>
-            <input :placeholder="field.name + ' name'" class="input" v-model="urlContentData.name" @blur="styleUrl(field.name)" @keyup.enter="styleUrl(field.name)">
+            <input :placeholder="field.name + ' name'" class="input" v-model="urlContentData.name" @blur="createUrlnewContent(field.name)" @keyup.enter="createUrlnewContent(field.name)">
           </div>
           <div class="column is-two-fifths">
             <span>Link</span>
-            <input :placeholder="field.name + ' link'" class="input" v-model="urlContentData.link" @blur="styleUrl(field.name)" @keyup.enter="styleUrl(field.name)">
+            <input :placeholder="field.name + ' link'" class="input" v-model="urlContentData.link" @blur="createUrlnewContent(field.name)" @keyup.enter="createUrlnewContent(field.name)">
           </div>
         </div>
         <div class="columns">
@@ -198,7 +198,7 @@ export default {
         })
       })
     },
-    styleUrl (fieldName) {
+    createUrlnewContent (fieldName) {
       if (this.urlContentData.name !== '') {
         if (!this.newContent[fieldName]) {
           this.newContent[fieldName] = { name: '', link: '' }

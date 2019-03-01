@@ -54,7 +54,43 @@
           </div>
           <p>Separate options with commas</p>
         </div>
+
+        <!-- Integer fields -->
+        <br>
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'integer'">
+          <label class="label">{{ field.name }}</label>
+          <div class="columns">
+            <div class="column is-one-third">
+              <input type="number" :placeholder="field.name" class="input">
+            </div>
+          </div>
+        </div>
+
+        <!-- Url fields -->
+        <br>
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'url'">
+          <label class="label">{{ field.name }}</label>
+          <div class="columns">
+            <div class="column is-two-fifths">
+              <span>Name</span>
+              <input :placeholder="field.name + ' name'" class="input" v-model="content.url.name">
+            </div>
+            <div class="column is-two-fifths">
+              <span>Link</span>
+              <input :placeholder="field.name + ' link'" class="input" v-model="content.url.link">
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <span>Preview: </span>
+              <a :href="content.url.link">{{ content.url.name }}</a>
+            </div>
+          </div>
+        </div>
+        <!---->
       </div>
+
+
 
       <!-- Right sidebar -->
       <div class="column is-one-third">

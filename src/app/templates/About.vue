@@ -2,8 +2,8 @@
   <!-- this is an example of a static template. No dynamic content here -->
   <div class="template">
     <h1>About us</h1>
-    <p>{{ textarea1 }}</p>
-    <p>{{ textarea2 }}</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, corporis alias ullam fugiat fuga laudantium, provident omnis aperiam voluptatum reprehenderit, accusamus a magni! Velit obcaecati quidem, similique nulla adipisci sapiente!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, corporis alias ullam fugiat fuga laudantium, provident omnis aperiam voluptatum reprehenderit, accusamus a magni! Velit obcaecati quidem, similique nulla adipisci sapiente!</p>
   </div>
 </template>
 
@@ -16,18 +16,16 @@ export default {
   },
   computed: {
     currentContent () {
-      return this.content.filter(obj => {
-        return obj['.key'] === this.$route.params.id || obj.slug === this.$route.params.id
-      })[0]
-    },
-    textarea1 () {
-      return this.currentContent['textarea']
-    },
-    textarea2 () {
-      return this.currentContent['2textarea']
+      // filters content arr and returns content that attached to this route
+      return this.content.filter(obj => { return obj['.key'] === this.routes.find(this.isCurrentPath)['content'] })[0]
     }
   },
-  methods: {}
+  methods: {
+    // function for find - returns element if it has similar route
+    isCurrentPath: function (element) {
+      if (element.path === this.$router.currentRoute.path) return element
+    }
+  }
 }
 </script>
 

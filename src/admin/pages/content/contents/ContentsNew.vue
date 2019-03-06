@@ -67,6 +67,26 @@
           </div>
         </div>
 
+        <!-- Boolean fields -->
+        <br>
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'boolean'">
+          <label class="label">{{ field.name }}</label>
+          <div class="columns">
+            <div class="column is-one-third">
+              <span>Name</span>
+              <input :placeholder="field.name + ' name'" class="input" v-model="booleanName" @blur="createNewBoolContent(field.name)" @keyup.enter="createNewBoolContent(field.name)">
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <label class="checkbox">
+                <input type="checkbox">
+                {{ booleanName }}
+              </label>
+            </div>
+          </div>
+        </div>
+
       <!-- Url fields -->
       <br>
       <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'url'">
@@ -164,6 +184,7 @@ export default {
         tags: []
       },
       inputData: '',
+      booleanName: 'name',
       editorOptions,
       selectOptionsRow: '',
       urlContentData: {
@@ -205,6 +226,14 @@ export default {
         }
         this.newContent[fieldName].name = this.urlContentData.name
         this.newContent[fieldName].link = this.urlContentData.link
+      }
+    },
+    createNewBoolContent (fieldName) {
+      if (this.booleanName !== '') {
+        if (!this.newContent[fieldName]) {
+          this.newContent[fieldName] = ''
+        }
+        this.newContent[fieldName] = this.booleanName
       }
     },
     styleTags (fieldName) {

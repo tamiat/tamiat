@@ -110,8 +110,6 @@
         <!---->
       </div>
 
-
-
       <!-- Right sidebar -->
       <div class="column is-one-third">
 

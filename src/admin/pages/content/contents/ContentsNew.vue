@@ -184,7 +184,7 @@ export default {
         tags: []
       },
       inputData: '',
-      booleanName: 'name',
+      booleanName: '',
       editorOptions,
       selectOptionsRow: '',
       urlContentData: {

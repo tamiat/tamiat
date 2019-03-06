@@ -7,6 +7,28 @@
   </div>
 </template>
 
+<script>
+import LoadContent from './LoadContent'
+export default {
+  mixins: [LoadContent],
+  data () {
+    return {}
+  },
+  computed: {
+    currentContent () {
+      // filters content arr and returns content that attached to this route
+      return this.content.filter(obj => { return obj['.key'] === this.routes.find(this.isCurrentPath)['content'] })[0]
+    }
+  },
+  methods: {
+    // function for find - returns element if it has similar route
+    isCurrentPath: function (element) {
+      if (element.path === this.$router.currentRoute.path) return element
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 @import '@/app/styles/index.scss';
 </style>

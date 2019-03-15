@@ -6,10 +6,25 @@
         <p class="modal-card-title">{{ header }}</p>
         <button class="delete is-medium" aria-label="close" @click="$emit('close')"></button>
       </header>
-      <section class="modal-card-body" v-if="kind == 'addField' || kind == 'addPage' || kind == 'addSetting'">
+      <section class="modal-card-body" v-if="kind == 'addField' || kind == 'addPage' || kind == 'addSetting' || kind == 'addContentField'">
         <input type="text" class="input" v-if="kind == 'addField'" :placeholder="'Property'" v-model="fieldName">
         <input type="text" class="input" v-if="kind == 'addPage'" :placeholder="'Page'" v-model="pageName">
         <input type="text" class="input" v-if="kind == 'addSetting'" :placeholder="'Setting'" v-model="settingName">
+        <div v-if="kind == 'addContentField'" >
+          <div class="field">
+            <label class="label">Name of the content field</label>
+            <input type="text" class="input" :placeholder="'Name'" v-model="fieldName">
+          </div>
+          <label class="label">Type of the content field</label>
+          <div class="select">
+            <select>
+              <!-- Modal Slot - made for adding content type fields -->
+              <slot>
+                <option>There are no options</option>
+              </slot>
+            </select>
+          </div>
+        </div>
       </section>
       <footer class="modal-card-foot" v-if="kind == 'logout'">
         <button class="button is-success" @click="$emit('confirmLogout')">Logout</button>

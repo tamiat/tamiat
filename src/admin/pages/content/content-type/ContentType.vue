@@ -24,6 +24,16 @@
                     <input v-else class="input" type="text" placeholder="e.g. Movies" v-model="selectedContent.name">
                   </div>
                 </div>
+                <div class="field">
+                  <button type="submit" class="button is-info"  @click="callModal">Add new field</button>
+                  <!-- Modal -->
+                  <modal class="modal" @close="showModal = false" v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
+                    <!-- Modal Slot - made for adding content type fields -->
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </modal>
+                </div>
                 <!-- Custom Fields -->
                 <label class="label">Fields</label>
                 <label class="has-text-danger is-size-7" v-if="fields.length">Select the fields you want to be shown in content lists</label>
@@ -119,6 +129,7 @@ import checkbox from '@/admin/components/shared/Checkbox'
 import dropdown from '@/admin/components/shared/Dropdown'
 import { contentsRef, fieldsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
+import modal from '@/admin/components/shared/Modal'
 
 export default {
   name: 'content-type',
@@ -146,7 +157,8 @@ export default {
       dropdownActive: false,
       selectedContent: null,
       contentsLoaded: false,
-      selectedContntFields: null
+      selectedContntFields: null,
+      showModal: false
     }
   },
   created () {
@@ -161,6 +173,9 @@ export default {
     }
   },
   methods: {
+    callModal () {
+      this.showModal = true
+    },
     loadContentTypes () {
       this.contentsLoaded = false
       this.selectedContentType = {
@@ -312,7 +327,8 @@ export default {
   },
   components: {
     checkbox,
-    dropdown
+    dropdown,
+    modal
   }
 }
 
@@ -333,6 +349,10 @@ export default {
 
   .nav-preview > li:hover .link-actions {
     display: inline;
+  }
+
+  .modal {
+    z-index: 1024;
   }
 }
 </style>

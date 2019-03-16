@@ -24,16 +24,23 @@
                     <input v-else class="input" type="text" placeholder="e.g. Movies" v-model="selectedContent.name">
                   </div>
                 </div>
+                <!-- area to add new field (variables) to the Content -->
+                <div class="field">
+                  <!-- textarea field -->
+                  <div class="field" v-if="contentFields.textArea.length !== 0" v-for="textArea in contentFields.textArea">
+                    <label class="label">{{ textArea.name }}</label>
+                    <input class="input" type="text" :placeholder="textArea.name" v-model="textArea.text">
+                  </div>
+                </div>
                 <div class="field">
                   <button type="submit" class="button is-info"  @click="callModal">Add new field</button>
                   <!-- Modal -->
-                  <modal class="modal" @close="showModal = false" v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
+                  <modal class="modal" @close="showModal = false"  @addContentField='addNewContentField($event)' v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
                     <!-- Modal Slot - made for adding content type fields -->
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option v-for="contentOption in contentFieldOptions">{{ contentOption }}</option>
                   </modal>
                 </div>
+
                 <!-- Custom Fields -->
                 <label class="label">Fields</label>
                 <label class="has-text-danger is-size-7" v-if="fields.length">Select the fields you want to be shown in content lists</label>
@@ -147,6 +154,12 @@ export default {
   data () {
     return {
       name: '',
+      contentFieldOptions: ['textArea'],
+      contentFields: {
+        /*this obj will contain all new fields for Content
+        * every array contains its area objects (with names and etc.) */
+        textArea: []
+      },
       slug: '',
       showDesc: false,
       createdContentTypes: null,
@@ -175,6 +188,16 @@ export default {
   methods: {
     callModal () {
       this.showModal = true
+    },
+    addNewContentField (contentFieldArrParams) {
+      // contentFieldArrParams is arr that contains two elements 0 - name of Field 1 - type of Field
+      const fieldName = contentFieldArrParams[0]
+      const fieldType = contentFieldArrParams[1]
+      console.log(contentFieldArrParams)
+      if (fieldType === 'textArea') {
+        this.contentFields.textArea.push({name: fieldName, text: ''})
+      }
+      this.showModal = false
     },
     loadContentTypes () {
       this.contentsLoaded = false

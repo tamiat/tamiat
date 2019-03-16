@@ -27,7 +27,7 @@
                 <!-- area to add new field (variables) to the Content -->
                 <div class="field">
                   <!-- textarea field -->
-                  <div class="field" v-if="contentFields.textArea.length !== 0" v-for="textArea in contentFields.textArea">
+                  <div class="field" v-if="contentFields.textArea.length !== 0" v-for="textArea in contentFields.textArea" :key="textArea.name">
                     <label class="label">{{ textArea.name }}</label>
                     <input class="input" type="text" :placeholder="textArea.name" v-model="textArea.text">
                   </div>
@@ -37,7 +37,7 @@
                   <!-- Modal -->
                   <modal class="modal" @close="showModal = false"  @addContentField='addNewContentField($event)' v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
                     <!-- Modal Slot - made for adding content type fields -->
-                    <option v-for="contentOption in contentFieldOptions">{{ contentOption }}</option>
+                    <option v-for="contentOption in contentFieldOptions" :key="contentOption">{{ contentOption }}</option>
                   </modal>
                 </div>
 
@@ -156,7 +156,7 @@ export default {
       name: '',
       contentFieldOptions: ['textArea'],
       contentFields: {
-        /*this obj will contain all new fields for Content
+        /* this obj will contain all new fields for Content
         * every array contains its area objects (with names and etc.) */
         textArea: []
       },
@@ -194,9 +194,7 @@ export default {
       const fieldName = contentFieldArrParams[0]
       const fieldType = contentFieldArrParams[1]
       console.log(contentFieldArrParams)
-      if (fieldType === 'textArea') {
-        this.contentFields.textArea.push({name: fieldName, text: ''})
-      }
+      if (fieldType === 'textArea') { this.contentFields.textArea.push({ name: fieldName, text: '' }) }
       this.showModal = false
     },
     loadContentTypes () {

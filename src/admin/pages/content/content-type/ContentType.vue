@@ -30,7 +30,7 @@
                   <div class="field" v-if="contentFields.textArea.length !== 0" v-for="(textArea, index) in contentFields.textArea" :key="textArea.name">
                     <span class="label">{{ textArea.name }}
                       <span class="icon has-text-danger cursor-pointer">
-                        <i class="fa fa-trash" @click="deleteContentField(textArea, index)"></i>
+                        <i class="fa fa-trash" @click="deleteContentField('textArea', index)"></i>
                       </span>
                     </span>
                     <input class="input" type="text" :placeholder="textArea.name" v-model="textArea.text">
@@ -197,14 +197,11 @@ export default {
       // contentFieldArrParams is arr that contains two elements 0 - name of Field 1 - type of Field
       const fieldName = contentFieldArrParams[0]
       const fieldType = contentFieldArrParams[1]
-      console.log(contentFieldArrParams)
       if (fieldType === 'textArea') { this.contentFields.textArea.push({ name: fieldName, text: '' }) }
       this.showModal = false
     },
     deleteContentField (fieldType, index) {
-      ///////////////////
-      console.log(fieldType)
-      console.log(index)
+      this.contentFields[fieldType].splice(index, 1)
     },
     loadContentTypes () {
       this.contentsLoaded = false

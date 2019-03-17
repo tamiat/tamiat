@@ -237,6 +237,7 @@ export default {
 
       let item = {
         name: this.name,
+        contentFields: this.contentFields,
         slug: this.slug,
         path: `/admin/content/${path}`,
         icon: 'fa-file-text',
@@ -270,6 +271,9 @@ export default {
     },
     resetForm () {
       this.name = ''
+      this.contentFields = {
+        textArea: []
+      }
       this.slug = ''
       this.selectedContent = null
       for (var fieldKey in this.fields) {

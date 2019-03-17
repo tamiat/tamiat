@@ -27,8 +27,12 @@
                 <!-- area to add new field (variables) to the Content -->
                 <div class="field">
                   <!-- textarea field -->
-                  <div class="field" v-if="contentFields.textArea.length !== 0" v-for="textArea in contentFields.textArea" :key="textArea.name">
-                    <label class="label">{{ textArea.name }}</label>
+                  <div class="field" v-if="contentFields.textArea.length !== 0" v-for="(textArea, index) in contentFields.textArea" :key="textArea.name">
+                    <span class="label">{{ textArea.name }}
+                      <span class="icon has-text-danger cursor-pointer">
+                        <i class="fa fa-trash" @click="deleteContentField(textArea, index)"></i>
+                      </span>
+                    </span>
                     <input class="input" type="text" :placeholder="textArea.name" v-model="textArea.text">
                   </div>
                 </div>
@@ -196,6 +200,11 @@ export default {
       console.log(contentFieldArrParams)
       if (fieldType === 'textArea') { this.contentFields.textArea.push({ name: fieldName, text: '' }) }
       this.showModal = false
+    },
+    deleteContentField (fieldType, index) {
+      ///////////////////
+      console.log(fieldType)
+      console.log(index)
     },
     loadContentTypes () {
       this.contentsLoaded = false
@@ -366,6 +375,9 @@ export default {
     span {
       cursor: pointer;
     }
+  }
+  .cursor-pointer {
+    cursor: pointer;
   }
 
   .nav-preview > li:hover .link-actions {

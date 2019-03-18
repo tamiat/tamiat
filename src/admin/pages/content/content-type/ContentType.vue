@@ -222,7 +222,7 @@ export default {
       // contentFieldArrParams is arr that contains two elements 0 - name of Field 1 - type of Field
       const fieldName = contentFieldArrParams[0]
       const fieldType = contentFieldArrParams[1]
-      if (fieldName === '' || fieldType  === '') return
+      if (fieldName === '' || fieldType === '') return
       // create arr for Field
       this.contentFields[fieldType] = []
       this.contentFields[fieldType].push({ name: fieldName })

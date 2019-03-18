@@ -26,22 +26,11 @@
                 </div>
                 <!-- area to add new field (variables) to the Content -->
                 <div class="field">
-                  <!-- textarea field -->
-                  <div class="field" v-if="contentFields.textArea.length !== 0" v-for="(textArea, index) in contentFields.textArea" :key="textArea.name">
-                    <span class="label">{{ textArea.name }}
-                      <span class="icon has-text-danger cursor-pointer">
-                        <i class="fa fa-trash" @click="deleteContentField('textArea', index)"></i>
-                      </span>
-                    </span>
-                    <input class="input" type="text" :placeholder="textArea.name" v-model="textArea.text">
-                  </div>
-                </div>
-                <div class="field">
                   <button type="submit" class="button is-info"  @click="callModal">Add new field</button>
                   <!-- Modal -->
                   <modal class="modal" @close="showModal = false"  @addContentField='addNewContentField($event)' v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
                     <!-- Modal Slot - made for adding content type fields -->
-                    <option v-for="contentOption in contentFieldOptions" :key="contentOption">{{ contentOption }}</option>
+                    <option v-for="field in fieldTypes" :key="field.id">{{ field.label }}</option>
                   </modal>
                 </div>
 
@@ -158,11 +147,47 @@ export default {
   data () {
     return {
       name: '',
-      contentFieldOptions: ['textArea'],
+      fieldTypes: [
+        {
+          id: 'textarea',
+          label: 'Textarea'
+        },
+        {
+          id: 'textbox',
+          label: 'Textbox'
+        },
+        {
+          id: 'integer',
+          label: 'Integer'
+        },
+        {
+          id: 'boolean',
+          label: 'Boolean'
+        },
+        {
+          id: 'url',
+          label: 'Url'
+        },
+        {
+          id: 'richtextbox',
+          label: 'Richtextbox'
+        },
+        {
+          id: 'tags',
+          label: 'Tags'
+        },
+        {
+          id: 'select',
+          label: 'Select'
+        },
+        {
+          id: 'image',
+          label: 'Image'
+        }
+      ],
       contentFields: {
         /* this obj will contain all new fields for Content
         * every array contains its area objects (with names and etc.) */
-        textArea: []
       },
       slug: '',
       showDesc: false,
@@ -197,7 +222,10 @@ export default {
       // contentFieldArrParams is arr that contains two elements 0 - name of Field 1 - type of Field
       const fieldName = contentFieldArrParams[0]
       const fieldType = contentFieldArrParams[1]
-      if (fieldType === 'textArea') { this.contentFields.textArea.push({ name: fieldName, text: '' }) }
+      if (fieldName === '' || fieldType  === '') return
+      // create arr for Field
+      this.contentFields[fieldType] = []
+      this.contentFields[fieldType].push({ name: fieldName })
       this.showModal = false
     },
     deleteContentField (fieldType, index) {

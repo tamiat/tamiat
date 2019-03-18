@@ -66,6 +66,26 @@
           </div>
         </div>
 
+        <!-- Boolean fields -->
+        <br>
+        <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'boolean'">
+          <label class="label">{{ field.name }}</label>
+          <div class="columns">
+            <div class="column is-one-third">
+              <span>Name</span>
+              <input :placeholder="field.name + ' name'" class="input" v-model="content.bool">
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <label class="checkbox">
+                <input type="checkbox">
+                {{ content.bool }}
+              </label>
+            </div>
+          </div>
+        </div>
+
         <!-- Url fields -->
         <br>
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'url'">
@@ -89,8 +109,6 @@
         </div>
         <!---->
       </div>
-
-
 
       <!-- Right sidebar -->
       <div class="column is-one-third">
@@ -218,6 +236,14 @@ export default {
       currentContent[fieldName].splice(index, 1)
       // return cloned object Back
       this.content = Object.assign({}, currentContent)
+    },
+    updateBoolContent (fieldName) {
+      if (this.booleanName !== '') {
+        if (!this.newContent[fieldName]) {
+          this.newContent[fieldName] = ''
+        }
+        this.newContent[fieldName] = this.booleanName
+      }
     },
     // function to create Select Options from input area
     styleOptions (fieldName) {

@@ -6,10 +6,25 @@
         <p class="modal-card-title">{{ header }}</p>
         <button class="delete is-medium" aria-label="close" @click="$emit('close')"></button>
       </header>
-      <section class="modal-card-body" v-if="kind == 'addField' || kind == 'addPage' || kind == 'addSetting'">
+      <section class="modal-card-body" v-if="kind == 'addField' || kind == 'addPage' || kind == 'addSetting' || kind == 'addContentField'">
         <input type="text" class="input" v-if="kind == 'addField'" :placeholder="'Property'" v-model="fieldName">
         <input type="text" class="input" v-if="kind == 'addPage'" :placeholder="'Page'" v-model="pageName">
         <input type="text" class="input" v-if="kind == 'addSetting'" :placeholder="'Setting'" v-model="settingName">
+        <div v-if="kind == 'addContentField'">
+          <div class="field">
+            <label class="label">Name of the content field</label>
+            <input type="text" class="input" :placeholder="'Name'" v-model="contentFieldName">
+          </div>
+          <label class="label">Type of the content field</label>
+          <div class="select">
+            <select v-model="contentFieldType">
+              <!-- Modal Slot - made for adding content type fields -->
+              <slot>
+                <option>There are no options</option>
+              </slot>
+            </select>
+          </div>
+        </div>
       </section>
       <footer class="modal-card-foot" v-if="kind == 'logout'">
         <button class="button is-success" @click="$emit('confirmLogout')">Logout</button>
@@ -35,7 +50,9 @@ export default {
     return {
       fieldName: '',
       pageName: '',
-      settingName: ''
+      settingName: '',
+      contentFieldName: '',
+      contentFieldType: ''
     }
   },
   methods: {
@@ -43,6 +60,7 @@ export default {
       if (this.kind === 'addField') { this.$emit('addField', this.fieldName) }
       if (this.kind === 'addPage') { this.$emit('addPage', this.pageName) }
       if (this.kind === 'addSetting') { this.$emit('addSetting', this.settingName) }
+      if (this.kind === 'addContentField') { this.$emit('addContentField', [this.contentFieldName, this.contentFieldType]) }
     },
     deleteObj () {
       if (this.kind === 'deleteField') { this.$emit('confirmDeleteField') }

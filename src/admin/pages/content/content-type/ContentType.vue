@@ -24,6 +24,16 @@
                     <input v-else class="input" type="text" placeholder="e.g. Movies" v-model="selectedContent.name">
                   </div>
                 </div>
+                <!-- area to add new field (variables) to the Content -->
+                <div class="field">
+                  <button type="submit" class="button is-info"  @click="callModal">Add new field</button>
+                  <!-- Modal -->
+                  <modal class="modal" @close="showModal = false"  @addContentField='addNewContentField($event)' v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
+                    <!-- Modal Slot - made for adding content type fields -->
+                    <option v-for="field in fieldTypes" :key="field.id">{{ field.label }}</option>
+                  </modal>
+                </div>
+
                 <!-- Custom Fields -->
                 <label class="label">Fields</label>
                 <label class="has-text-danger is-size-7" v-if="fields.length">Select the fields you want to be shown in content lists</label>
@@ -119,6 +129,7 @@ import checkbox from '@/admin/components/shared/Checkbox'
 import dropdown from '@/admin/components/shared/Dropdown'
 import { contentsRef, fieldsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
+import modal from '@/admin/components/shared/Modal'
 
 export default {
   name: 'content-type',
@@ -136,6 +147,48 @@ export default {
   data () {
     return {
       name: '',
+      fieldTypes: [
+        {
+          id: 'textarea',
+          label: 'Textarea'
+        },
+        {
+          id: 'textbox',
+          label: 'Textbox'
+        },
+        {
+          id: 'integer',
+          label: 'Integer'
+        },
+        {
+          id: 'boolean',
+          label: 'Boolean'
+        },
+        {
+          id: 'url',
+          label: 'Url'
+        },
+        {
+          id: 'richtextbox',
+          label: 'Richtextbox'
+        },
+        {
+          id: 'tags',
+          label: 'Tags'
+        },
+        {
+          id: 'select',
+          label: 'Select'
+        },
+        {
+          id: 'image',
+          label: 'Image'
+        }
+      ],
+      contentFields: {
+        /* this obj will contain all new fields for Content
+        * every array contains its area objects (with names and etc.) */
+      },
       slug: '',
       showDesc: false,
       createdContentTypes: null,
@@ -146,7 +199,8 @@ export default {
       dropdownActive: false,
       selectedContent: null,
       contentsLoaded: false,
-      selectedContntFields: null
+      selectedContntFields: null,
+      showModal: false
     }
   },
   created () {
@@ -161,6 +215,22 @@ export default {
     }
   },
   methods: {
+    callModal () {
+      this.showModal = true
+    },
+    addNewContentField (contentFieldArrParams) {
+      // contentFieldArrParams is arr that contains two elements 0 - name of Field 1 - type of Field
+      const fieldName = contentFieldArrParams[0]
+      const fieldType = contentFieldArrParams[1]
+      if (fieldName === '' || fieldType === '') return
+      // create arr for Field
+      this.contentFields[fieldType] = []
+      this.contentFields[fieldType].push({ name: fieldName })
+      this.showModal = false
+    },
+    deleteContentField (fieldType, index) {
+      this.contentFields[fieldType].splice(index, 1)
+    },
     loadContentTypes () {
       this.contentsLoaded = false
       this.selectedContentType = {
@@ -195,6 +265,7 @@ export default {
 
       let item = {
         name: this.name,
+        contentFields: this.contentFields,
         slug: this.slug,
         path: `/admin/content/${path}`,
         icon: 'fa-file-text',
@@ -228,6 +299,9 @@ export default {
     },
     resetForm () {
       this.name = ''
+      this.contentFields = {
+        textArea: []
+      }
       this.slug = ''
       this.selectedContent = null
       for (var fieldKey in this.fields) {
@@ -312,7 +386,8 @@ export default {
   },
   components: {
     checkbox,
-    dropdown
+    dropdown,
+    modal
   }
 }
 
@@ -330,9 +405,16 @@ export default {
       cursor: pointer;
     }
   }
+  .cursor-pointer {
+    cursor: pointer;
+  }
 
   .nav-preview > li:hover .link-actions {
     display: inline;
+  }
+
+  .modal {
+    z-index: 1024;
   }
 }
 </style>

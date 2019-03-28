@@ -97,7 +97,7 @@ export default {
         let hashKey = _.find(this.contents, { name: key })[".key"];
 
         this.demoContentsData[key].map(content => {
-          let imageName = `work-${content.title}.png`;
+          let imageName = content.title ? `tamiat-${content.title}.png` : `tamiat-${content.author}.png`;
           let ImageRef = storageRef.child("images/" + imageName);
           let imgDownloadURL = "";
 
@@ -127,6 +127,161 @@ export default {
         });
       });
     },
+
+// this is the old code
+    // addDemoServices() {
+    //   let i = this.demoServices.length;
+    //   this.demoServices.forEach(service => {
+    //     const key = _.find(this.contents, { name: "Services" })[".key"];
+    //     service.created = Date.now();
+    //     this.$firebaseRefs.contents
+    //       .child(key + "/data")
+    //       .push(service)
+    //       .then(() => {
+    //         i--;
+    //         if (i === 0) {
+    //           this.showNotification(
+    //             "success",
+    //             "Demo Services added successfully"
+    //           );
+    //         }
+    //       });
+    //   });
+    // },
+    // addDemoWorks() {
+    //   let storageRef = firebase.storage().ref();
+    //   const key = _.find(this.contents, { name: "Works" })[".key"];
+
+    //   this.demoWorks.forEach(work => {
+    //     // let imageName = `work-${work.title}.jpg`
+    //     // let workImageRef = storageRef.child('images/' + imageName)
+    //     // let imgDownloadURL = ''
+
+    //     this.fetchBlob(work.img)
+    //       // .then(blob => {
+    //       //   return workImageRef.put(blob)
+    //       // })
+    //       // .then(snapshot => {
+    //       //   return snapshot.ref.getDownloadURL()
+    //       // })
+    //       .then(downloadURL => {
+    //         // imgDownloadURL = downloadURL
+    //         // work.created = Date.now()
+    //         // work.img = imgDownloadURL
+
+    //         return this.$firebaseRefs.contents.child(key + "/data").push(work);
+    //       })
+    //       .then(() => {
+    //         return this.$firebaseRefs.media.push({
+    //           name: imageName,
+    //           path: workImageRef.fullPath,
+    //           src: imgDownloadURL
+    //         });
+    //       });
+    //   });
+    // },
+    // addDemoReviews() {
+    //   let storageRef = firebase.storage().ref();
+    //   const key = _.find(this.contents, { name: "Reviews" })[".key"];
+
+    //   this.demoReviews.forEach(review => {
+    //     let imageName = `review-author-${review.author}.png`;
+    //     let reviewImageRef = storageRef.child("images/" + imageName);
+    //     let imgDownloadURL = "";
+
+    //     this.fetchBlob(review.img)
+    //       .then(blob => {
+    //         return reviewImageRef.put(blob);
+    //       })
+    //       .then(snapshot => {
+    //         return snapshot.ref.getDownloadURL();
+    //       })
+    //       .then(downloadURL => {
+    //         imgDownloadURL = downloadURL;
+    //         review.created = Date.now();
+    //         review.img = imgDownloadURL;
+
+    //         return this.$firebaseRefs.contents
+    //           .child(key + "/data")
+    //           .push(review);
+    //       })
+    //       .then(() => {
+    //         return this.$firebaseRefs.media.push({
+    //           name: imageName,
+    //           path: reviewImageRef.fullPath,
+    //           src: imgDownloadURL
+    //         });
+    //       });
+    //   });
+    // },
+    // addDemoPost() {
+    //   let storageRef = firebase.storage().ref();
+    //   let postImageRef = storageRef.child("images/demo-post-img.png");
+    //   let imgDownloadURL = "";
+
+    //   this.fetchLogoBlob()
+    //     .then(blob => {
+    //       return postImageRef.put(blob);
+    //     })
+    //     .then(snapshot => {
+    //       return snapshot.ref.getDownloadURL();
+    //     })
+    //     .then(downloadURL => {
+    //       imgDownloadURL = downloadURL;
+    //       let demoPost = { ...this.demoPost };
+    //       demoPost.created = Date.now();
+    //       demoPost.img = imgDownloadURL;
+    //       demoPost.body += `<p><img src="${imgDownloadURL}"></p>`;
+    //       const key = _.find(this.contents, { name: "Posts" })[".key"];
+    //       return this.$firebaseRefs.contents
+    //         .child(key + "/data")
+    //         .push(demoPost);
+    //     })
+    //     .then(() => {
+    //       return this.$firebaseRefs.media.push({
+    //         name: "demo-post-img.png",
+    //         path: postImageRef.fullPath,
+    //         src: imgDownloadURL
+    //       });
+    //     })
+    //     .then(() => {
+    //       // this.showNotification('success', 'Demo Content added successfully')
+    //     });
+    // },
+    // addDemoNews() {
+    //   let storageRef = firebase.storage().ref();
+    //   let postImageRef = storageRef.child("images/demo-post-img.png");
+    //   let imgDownloadURL = "";
+    //   const key = _.find(this.contents, { name: "News" })[".key"];
+
+    //   this.fetchLogoBlob()
+    //     .then(blob => {
+    //       return postImageRef.put(blob);
+    //     })
+    //     .then(snapshot => {
+    //       return snapshot.ref.getDownloadURL();
+    //     })
+    //     .then(downloadURL => {
+    //       imgDownloadURL = downloadURL;
+    //       let demoNews = { ...this.demoNews };
+    //       demoNews.created = Date.now();
+    //       demoNews.img = imgDownloadURL;
+    //       return this.$firebaseRefs.contents
+    //         .child(key + "/data")
+    //         .push(demoNews);
+    //     })
+    //     .then(() => {
+    //       return this.$firebaseRefs.media.push({
+    //         name: "demo-post-img.png",
+    //         path: postImageRef.fullPath,
+    //         src: imgDownloadURL
+    //       });
+    //     })
+    //     .then(() => {
+    //       this.addDemoRoutesForNews();
+    //       this.showNotification("success", "Demo Content added successfully");
+    //     });
+    // },
     addDemoRoutesForNews() {
       let i = this.demoRoutes.length;
       this.demoRoutes.forEach(route => {
@@ -205,6 +360,10 @@ export default {
           i--;
           if (i === 0) {
             this.con = c.key;
+            //   this.addDemoPost()
+            //   this.addDemoNews()
+            //   this.addDemoServices()
+            //   this.addDemoReviews()
             this.addDemoContentsData();
           }
         });

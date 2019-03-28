@@ -1,7 +1,7 @@
 {
   "demoData": {
     "demoContentsData": {
-      "demoPost": [
+      "Posts": [
         {
           "title": "Demo post",
           "body": "this is a demo post",
@@ -13,7 +13,7 @@
           "slug": "demo-post"
         }
       ],
-      "demoNews": [
+      "News": [
         {
           "title": "Demo news",
           "subheadline": "you can see here, how new news sections can be implemented easily",
@@ -24,7 +24,7 @@
           "state": "published"
         }
       ],
-      "demoServices": [
+      "Services": [
         {
           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices vitae pulvinar velit.",
           "icon": "fa fa-camera-retro",
@@ -47,7 +47,7 @@
           "state": "published"
         }
       ],
-      "demoWorks": [
+      "Works": [
         {
           "img": "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/balloon.jpg",
           "title": "Work 1",
@@ -79,7 +79,7 @@
           "state": "published"
         }
       ],
-      "demoReviews": [
+      "Reviews": [
         {
           "author": "Patrick Farrell",
           "description": "Mauris sit amet mauris a arcu eleifend ultricies eget ut dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",

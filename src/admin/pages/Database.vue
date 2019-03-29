@@ -97,7 +97,7 @@ export default {
         let hashKey = _.find(this.contents, { name: key })[".key"];
 
         this.demoContentsData[key].map(content => {
-          let imageName = `work-${content.title}.png`;
+          let imageName = content.title ? `tamiat-${content.title}.png` : `tamiat-${content.author}.png`;
           let ImageRef = storageRef.child("images/" + imageName);
           let imgDownloadURL = "";
 
@@ -128,6 +128,7 @@ export default {
       });
     },
 
+// this is the old code
     // addDemoServices() {
     //   let i = this.demoServices.length;
     //   this.demoServices.forEach(service => {

@@ -132,7 +132,7 @@
         <div class="field" v-for="(field, index) in fields" :key="index" v-if="field.type === 'image'">
           <label class="label">{{ field.name }}</label>
           <div class="control">
-            <img :src="newContent[field.name]">
+            <img v-if="imagePreview" :src="imagePreview">
             <div class="file">
               <label class="file-label">
                 <input @change="uploadFeaturedImage($event, field.name)" class="file-input" type="file" name="resume">
@@ -180,6 +180,7 @@ export default {
   mixins: [imageLoader, notifier],
   data () {
     return {
+      imagePreview: null,
       newContent: {
         tags: []
       },
@@ -208,6 +209,7 @@ export default {
 
       storageRef.put(file).then((snapshot) => {
         snapshot.ref.getDownloadURL().then(downloadURL => {
+          this.$set(this, "imagePreview", URL.createObjectURL(file))
           this.newContent[fieldName] = ''
           this.newContent[fieldName] = downloadURL
           if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return // this prevents duplicate entries in the media object

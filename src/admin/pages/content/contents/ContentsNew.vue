@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
+    <loading color="#3b9169" :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
 
     <div class="columns">
       <div class="column is-two-thirds">

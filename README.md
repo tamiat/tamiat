@@ -18,7 +18,7 @@
 
 <p>
   <sub>Made with ❤︎ by
-    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and 
+    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and
     <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
   </sub>
 </p>
@@ -61,12 +61,13 @@ git clone https://github.com/tamiat/tamiat.git
 # install the dependencies
 npm install
 # or
-yarn
+yarn install
 ```
 
-2. Log in to firebase console using your google account and create a new firebase project.
+2. Log in to firebase console using your google account and create a new firebase project.<br/>you can follow this video here and get your config data<br/><a href="https://www.google.com/search?q=creating+firebase+web+project&oq=creating+firebase+web+project&aqs=chrome..69i57j69i60l2.10413j0j4&sourceid=chrome&ie=UTF-8#kpvalbx=1">create firebase project</a><br/>and get your config informations, we will use it later.<br/>![firebase config](./firebase.png)
 
-3) In the authentication section, add a new user by providing an email and a password.
+
+3) In the authentication section, add a new user by providing an email and a password.<br/>and get your &nbsp;<strong>UID</strong>&nbsp; we will use it later 😉<br/>![uid number](./uid.png)
 
 4. Rename `database.rules.json.tmp` file in root folder to `database.rules.json`
 
@@ -75,7 +76,15 @@ yarn
 ```js
 {
   "rules": {
-    ".write": "(auth.uid === yourUID) || (auth.uid === anOtherUID)" // you can chain these together like so
+    ".write": "auth.uid === 'v9hmvn2yzOTA7*********'",
+      ...
+
+    "media": {
+      "$id": {
+        ".write": "(auth.uid === v9hmvn2yzOTA7*******) || (auth.uid === anOtherUID)"
+      }
+    }, // you can chain these together like so
+    ...
 ```
 
 > yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
@@ -87,14 +96,18 @@ yarn
 ```js
 // replace the existing config object below with your configurations
 const config = {
-  apiKey: 'AIzaSyCnxuLX6AgMduDMLtSJVDNJhR8xuMNvs4Y',
-  authDomain: 'tamiat-demo.firebaseapp.com',
-  databaseURL: 'https://tamiat-demo.firebaseio.com/',
-  projectId: 'tamiat-demo',
-  storageBucket: '',
-  messagingSenderId: '188459960333'
+  apiKey: "AIzaSyCnxuLX6AgM**********",
+  authDomain: "tamiat-demo.firebaseapp.com",
+  databaseURL: "https://tamiat-demo.firebaseio.com/",
+  projectId: "tamiat-demo",
+  storageBucket: "",
+  messagingSenderId: "18845******"
 }
 ```
+
+<strong>you can neglecate the 3 next steps {8 ,9 ,10} if you had installed firebase before.</strong>
+
+<strong>if not you can follow all steps on this <a href="https://firebase.google.com/docs/cli/">" install firebase "</a> <br/> or you can follow these next 3 steps</strong>.
 
 8. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
 

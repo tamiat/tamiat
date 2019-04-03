@@ -15,6 +15,7 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.22.2",
     "vue": "^2.5.17",
+    "vue-loading-overlay": "^3.2.0",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1",
     "vuefire": "^1.4.5",

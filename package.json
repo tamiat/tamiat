@@ -8,8 +8,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest --config=./jest.config.json --coverage",
-    "int-test": "mocha --require babel-core/register --recursive test"
+    "test": "jest"
   },
   "dependencies": {
     "bulma": "^0.7.2",
@@ -29,6 +28,7 @@
     "@vue/cli-plugin-eslint": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
     "@vue/eslint-config-standard": "^3.0.5",
+    "jest": "^24.7.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.17"

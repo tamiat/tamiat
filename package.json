@@ -8,7 +8,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest"
+    "test": " echo 'Error: no test specified'"
   },
   "dependencies": {
     "bulma": "^0.7.2",

@@ -8,7 +8,8 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config=./jest.config.json --coverage",
+    "int-test": "mocha --require babel-core/register --recursive test"
   },
   "dependencies": {
     "bulma": "^0.7.2",

@@ -64,54 +64,37 @@ npm install
 yarn
 ```
 
-2. go to <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a> then login with your google account.<br/>- then add your project following the steps in the image.<br/>![posts section](./public/static/img/tamiat-col-1.jpg)
+2. Go to <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a> then login with your google account.<br/>- then add your project following the steps in the image.<br/>![posts section](./public/static/img/tamiat-col-1.jpg)
 
 
-3) go to Authentication section and set up your sign-in method<br/>after that you will find "add user" Button is active you can now add your <strong>Email</strong> and <strong>Password</strong>.<br/> *you will need them later to login in tamiat*.<br/>![posts section](./public/static/img/tamiat-col-2.jpg)
+3) Go to Authentication section and set up your sign-in method<br/>after that you will find "add user" Button is active you can now add your <strong>Email</strong> and <strong>Password</strong>.<br/> *you will need them later to login in tamiat*.<br/>![posts section](./public/static/img/tamiat-col-2.jpg)
 
-4. Rename `database.rules.json.tmp` file in root folder to `database.rules.json`
-
-5) Setup your database basic security rules by going to the `database.rules.json` file in your project and fill in your UID.
-
+4. You now see your <strong>UID</strong> copy it.<br/>now Rename `database.rules.json.tmp` file in root folder to `database.rules.json`<br/>![posts section](./public/static/img/tamiat-col-3.jpg)<br/>then add your <strong>UID</strong> in here...<br/>
 ```js
-{
-  "rules": {
-    ".write": "(auth.uid === yourUID) || (auth.uid === anOtherUID)" // you can chain these together like so
+"rules": {
+    ".write": "auth.uid === 'kkw4UkvxU8UmIDuMInYTh*****'",
+
 ```
 
-> yourUID and anOtherUID are the uids of users with permission to write to the database. They look something like this "Lxgqp3FmcPVU6UYO6gNdkn1i0ok1". You can obtain a user uid from the authentication section in the firebase console.
+5. Navigate to `/src/admin/firebase_config` and rename `config.js.tmp` to `config.js`<br/> then get your project configurations from WEB SETUP (_in Authentication section of firebase console_) and paste them in `config.js` file by replacing the existing ones.<br/>![posts section](./public/static/img/tamiat-col-4.jpg)
 
-6. Navigate to `/src/admin/firebase_config` and rename `config.js.tmp` to `config.js`
+6. Now make these two steps to add storage and Realtime database.<br/>![posts section](./public/static/img/tamiat-col-5.jpg)
 
-7) Copy your project configurations from WEB SETUP (_in Authentication section of firebase console_) and paste them in `config.js` file by replacing the existing ones.
+7. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
 
-```js
-// replace the existing config object below with your configurations
-const config = {
-  apiKey: 'AIzaSyCnxuLX6AgMduDMLtSJVDNJhR8xuMNvs4Y',
-  authDomain: 'tamiat-demo.firebaseapp.com',
-  databaseURL: 'https://tamiat-demo.firebaseio.com/',
-  projectId: 'tamiat-demo',
-  storageBucket: '',
-  messagingSenderId: '188459960333'
-}
-```
+8) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
 
-8. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
+9. You can now use `firebase deploy` to deploy the security rules you just entered (to deploy the actual web app you must first use `npm run build` or `yarn build`).
 
-9) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
+10) Run the local dev server with `npm run dev` or `yarn dev`.
 
-10. You can now use `firebase deploy` to deploy the security rules you just entered (to deploy the actual web app you must first use `npm run build` or `yarn build`).
+11. Access the admin interface by navigating to `localhost:8080/admin`.
 
-11) Run the local dev server with `npm run dev` or `yarn dev`.
+12) Sign in with your previous email and password.
 
-12. Access the admin interface by navigating to `localhost:8080/admin`.
+13. (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
 
-13) Sign in with your previous email and password.
-
-14. (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
-
-15) Enjoy!
+14) Enjoy!
 
 <br>
 

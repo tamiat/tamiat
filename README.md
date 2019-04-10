@@ -78,13 +78,14 @@ yarn
 
 5. Navigate to `/src/admin/firebase_config` and rename `config.js.tmp` to `config.js`<br/> then get your project configurations from WEB SETUP (_in Authentication section of firebase console_) and paste them in `config.js` file by replacing the existing ones.<br/>![posts section](./public/static/img/tamiat-col-4.jpg)
 
-6. Now make these two steps to add storage and Realtime database.<br/>![posts section](./public/static/img/tamiat-col-5.jpg)
+6. Now make these two steps to add storage and Realtime database<br/>![posts section](./public/static/img/tamiat-col-5.jpg)
 
-7. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
+7. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.<br/> you can follow this steps here<br/>![posts section](./public/static/img/firebase-init.jpg)
 
 8) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
 
-9. You can now use `firebase deploy` to deploy the security rules you just entered (to deploy the actual web app you must first use `npm run build` or `yarn build`).
+9. Now you should first create the dist folder by making
+`npm run build` or `yarn build` then `firebase deploy` to deploy the security rules you just entered.<br/><strong>*every time you make changes in the code you should to make this steps again*</strong>
 
 10) Run the local dev server with `npm run dev` or `yarn dev`.
 

@@ -100,7 +100,11 @@ export default {
           let imageName = content.title ? `tamiat-${content.title}.png` : `tamiat-${content.author}.png`;
           let ImageRef = storageRef.child("images/" + imageName);
           let imgDownloadURL = "";
-
+          //if condition prevents the function from uploading an empty file when demo content does not have img property(Post, News...) Othervise it will upload a text/html file instead of an image since the promise returned undefined and the browser will say that the image was blocked by CORB (since it is a text/html file)
+          
+          if(!content.img){
+            content.img = "https://raw.githubusercontent.com/tamiat/tamiat/master/src/app/assets/img/coast.jpg"
+            }
           this.fetchBlob(content.img)
             .then(blob => {
               return ImageRef.put(blob);
@@ -112,7 +116,6 @@ export default {
               imgDownloadURL = downloadURL;
               content.created = Date.now();
               content.img = imgDownloadURL;
-
               return this.$firebaseRefs.contents
                 .child(hashKey + "/data")
                 .push(content);

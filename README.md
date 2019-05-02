@@ -220,6 +220,15 @@ After you fill in the form and click the `add` button, the dynamic route will be
 
 After the creation of the new route, you will have options to edit all it's components (path, template, content type & content) in addition to completely deleting it. You just need to hove over the created route to see those control buttons.
 
+
+![Routing section](https://i.imgur.com/2iH5fpJ.png)
+
+
+In order to create a route that lists content of a certain type and has the ability to display instances of it dynamically two dynamic routes need to be created (one that uses a template that displays a list of all instances and one that uses a template that can fetch only a certain instance
+based on route params)
+
+![Routing section](https://i.imgur.com/CYeXMuZ.png)
+
 ### What about creating new templates
 
 Creating new templates is very easy. All you have to do is:

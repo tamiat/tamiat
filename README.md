@@ -18,7 +18,7 @@
 
 <p>
   <sub>Made with ❤︎ by
-    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and 
+    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and
     <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
   </sub>
 </p>
@@ -64,6 +64,7 @@ npm install
 yarn
 ```
 
+
 2) Log in to firebase console and create a new firebase project.
 
 3) Add a new user and copy the provided UID.
@@ -79,6 +80,7 @@ yarn
 
 8) Initialize firebase in project root (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules in `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
 
+
 9) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
 
 10) You can now use `firebase deploy` to deploy the security rules you just entered.
@@ -87,7 +89,7 @@ yarn
 
 12) Access the admin interface by navigating to `localhost:8080/admin`.
 
-13) Sign in with your previous email and password.
+13) Sign in with your firebase users email and password.
 
 14) (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
 

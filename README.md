@@ -18,7 +18,7 @@
 
 <p>
   <sub>Made with ❤︎ by
-    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and 
+    <a href="https://github.com/mahnouman">Mahmoud Nouman</a> and
     <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
   </sub>
 </p>
@@ -64,34 +64,38 @@ npm install
 yarn
 ```
 
-2) Log in to firebase console and create a new firebase project.
-
-3) Add a new user and copy the provided UID.
-
-4) Rename `database.rules.json.tmp` file in root folder of the project to `database.rules.json`
-
-5) Setup your database basic security rules by going to the `database.rules.json` file and replace the `yourUID` with the one you copied.
+2. Go to <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a> then login with your google account.<br/>- then add your project following the steps in the image.<br/>![posts section](./public/static/img/tamiat-col-1.jpg)
 
 
-6) Navigate to `/src/admin/firebase_config` and rename `config.js.tmp` to `config.js`
+3) Go to Authentication section and set up your sign-in method<br/>after that you will find "add user" Button is active you can now add your <strong>Email</strong> and <strong>Password</strong>.<br/> *you will need them later to login in tamiat*.<br/>![posts section](./public/static/img/tamiat-col-2.jpg)
 
-7) Copy your project configurations from WEB SETUP (and paste them in `config.js` file .
+4. You now see your <strong>UID</strong> copy it.<br/>now Rename `database.rules.json.tmp` file in root folder to `database.rules.json`<br/>![posts section](./public/static/img/tamiat-col-3.jpg)<br/>then add your <strong>UID</strong> in here...<br/>
+```js
+"rules": {
+    ".write": "auth.uid === 'kkw4UkvxU8UmIDuMInYTh*****'",
 
-8) Initialize firebase in project root (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules in `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.
+```
 
-9) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
+5. Navigate to `/src/admin/firebase_config` and rename `config.js.tmp` to `config.js`<br/> then get your project configurations from WEB SETUP (_in Authentication section of firebase console_) and paste them in `config.js` file by replacing the existing ones.<br/>![posts section](./public/static/img/tamiat-col-4.jpg)
 
-10) You can now use `firebase deploy` to deploy the security rules you just entered.
+6. Now make these two steps to add storage and Realtime database<br/>![posts section](./public/static/img/tamiat-col-5.jpg)
 
-11) Run the local dev server with `npm run dev` or `yarn dev`.
+7. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.<br/> you can follow this steps here<br/>![posts section](./public/static/img/firebase-init.jpg)
 
-12) Access the admin interface by navigating to `localhost:8080/admin`.
+8) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
 
-13) Sign in with your previous email and password.
+9. Now you should first create the dist folder by making
+`npm run build` or `yarn build` then `firebase deploy` to deploy the security rules you just entered.<br/><strong>*every time you make changes in the code you should to make this steps again*</strong>
 
-14) (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
+10) Run the local dev server with `npm run dev` or `yarn dev`.
 
-15) Enjoy!
+11. Access the admin interface by navigating to `localhost:8080/admin`.
+
+12) Sign in with your previous email and password.
+
+13. (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
+
+14) Enjoy!
 
 <br>
 
@@ -200,9 +204,6 @@ The only required fields in the form are `path` & `template`. The other fileds: 
 After you fill in the form and click the `add` button, the dynamic route will be created and added to the _Dynamic routes_ on the right hand side. There, you can test it by clicking on the path link that will open the new route in a new browser tab.
 
 After the creation of the new route, you will have options to edit all it's components (path, template, content type & content) in addition to completely deleting it. You just need to hove over the created route to see those control buttons.
-
-
-![Routing section](https://i.imgur.com/2iH5fpJ.png)
 
 
 In order to create a route that lists content of a certain type and has the ability to display instances of it dynamically two dynamic routes need to be created (one that uses a template that displays a list of all instances and one that uses a template that can fetch only a certain instance

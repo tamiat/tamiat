@@ -67,6 +67,7 @@ yarn
 2. Go to <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a> then login with your google account.<br/>- then add your project following the steps in the image.<br/>![posts section](./public/static/img/tamiat-col-1.jpg)
 
 
+
 3) Go to Authentication section and set up your sign-in method<br/>after that you will find "add user" Button is active you can now add your <strong>Email</strong> and <strong>Password</strong>.<br/> *you will need them later to login in tamiat*.<br/>![posts section](./public/static/img/tamiat-col-2.jpg)
 
 4. You now see your <strong>UID</strong> copy it.<br/>now Rename `database.rules.json.tmp` file in root folder to `database.rules.json`<br/>![posts section](./public/static/img/tamiat-col-3.jpg)<br/>then add your <strong>UID</strong> in here...<br/>
@@ -84,6 +85,7 @@ yarn
 
 8) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
 
+
 9. Now you should first create the dist folder by making
 `npm run build` or `yarn build` then `firebase deploy` to deploy the security rules you just entered.<br/><strong>*every time you make changes in the code you should to make this steps again*</strong>
 
@@ -91,7 +93,10 @@ yarn
 
 11. Access the admin interface by navigating to `localhost:8080/admin`.
 
+
 12) Sign in with your previous email and password.
+
+
 
 13. (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
 

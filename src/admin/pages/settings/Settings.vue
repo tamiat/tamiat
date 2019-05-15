@@ -196,6 +196,7 @@ export default {
       while (i--) {
         if (this.media[i].name === 'WebsiteLogo') {
           currentLogo = this.media[i]
+          break
         }
       }
       storageRef.put(file).then((snapshot) => {
@@ -208,7 +209,17 @@ export default {
             name: 'WebsiteLogo'
           }
           // let tempLogo = {...currentLogo}
-
+          //making sure that the image is uploaded into the media object and is registered in tamiat regerdless if it remains a logo or not so it can be used nonetheless
+          if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return
+          else {
+            this.$firebaseRefs.media.push({
+              src: downloadURL,
+              path: snapshot.ref.fullPath,
+              name: snapshot.metadata.name
+            })
+          }
+          
+          // the uploaded image either overrides the current logo or is set in a new media object as such
           if (currentLogo) {
           // delete tempLogo[key]
             this.$firebaseRefs.media.child(currentLogo['.key']).set(logo)
@@ -216,7 +227,6 @@ export default {
                 this.showNotification('success', 'Logo uploaded successfully')
               })
           } else {
-            if (Object.values(this.media).find(e => e.path === snapshot.ref.fullPath)) return
             this.$firebaseRefs.media.push({
               src: downloadURL,
               path: snapshot.ref.fullPath,

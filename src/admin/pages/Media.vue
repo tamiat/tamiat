@@ -38,10 +38,16 @@ export default {
       let storageRef = firebase.storage().ref(path)
       var that = this
       storageRef.delete().then(function () {
-        that.$firebaseRefs.media.child(key).remove()
+      that.$firebaseRefs.media.orderByValue().on("value", function(snapshot) {
+        snapshot.forEach(e => {
+          if (e.val().path === path)
+          that.$firebaseRefs.media.child(e.key).remove()
+        });
+      })
+        
       }).catch(function (error) {
         console.error(error)
-      })
+      }) 
     }
   }
 }

@@ -47,7 +47,7 @@
                         <!-- <span @mouseover="showDesc = !showDesc">
                           <checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
                         <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span> -->
-                        <span><checkbox v-if="field.type  != 'textarea'" v-model="field.sortable" /></span>
+                        <span><checkbox v-if="field.type  != 'textarea'" v-model="field.listable" /></span>
                       </span>
                     </li>
                   </ul>
@@ -273,7 +273,7 @@ export default {
           name: field.name,
           type: field.type,
           multiValue: field.multiValue
-        }, field.sortable ? { sortable: true } : null)
+        }, field.listable ? { listable: true } : null)
       })
 
       let item = {

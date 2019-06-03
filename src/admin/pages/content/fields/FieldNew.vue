@@ -22,9 +22,9 @@
             <div class="control">
               <checkbox v-model="multiValue" />
             </div>
-            <label class="label">Sortable</label>
+            <label class="label">Listable</label>
             <div class="control">
-              <checkbox v-model="sortable" />
+              <checkbox v-model="listable" />
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default {
         label: 'Field type'
       },
       multiValue: false,
-      sortable: false,
+      listable: false,
       fieldTypes: [
         {
           id: 'textarea',
@@ -105,9 +105,9 @@ export default {
         name: this.fieldName,
         type: this.fieldType.id,
         multiValue: this.multiValue,
-        sortable: this.sortable
+        listable: this.listable
       }
-      if (f.sortable && f.type === 'textarea') {
+      if (f.listable && f.type === 'textarea') {
         this.$notify({
           title: 'Important message',
           text: 'Field type must be other than \'textarea\' to apply sorting',
@@ -122,7 +122,7 @@ export default {
         label: 'Field type'
       }
       this.multiValue = false
-      this.sortable = false
+      this.listable = false
       this.$router.push({ path: '/admin/content' })
     },
     resetForm () {

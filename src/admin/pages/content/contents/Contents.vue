@@ -157,7 +157,7 @@ export default {
   methods: {
     findField (field) {
       for (var key in this.content.fields) {
-        if (this.content.fields[key].name.toLowerCase() === field) {
+        if (this.content.fields[key].name.toLowerCase() === field.toLowerCase()) {
           if (this.content.fields[key].sortable) {
             return true
           }

@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router/index'
 import VueFire from 'vuefire'
 import VueQuillEditor from 'vue-quill-editor'
+import Notifications from 'vue-notification'
 
 // import external stylesheets
 import 'font-awesome/css/font-awesome.min.css'
@@ -15,6 +16,7 @@ import store from '@/admin/store'
 
 Vue.use(VueFire)
 Vue.use(VueQuillEditor)
+Vue.use(Notifications)
 Vue.config.productionTip = false
 
 new Vue({

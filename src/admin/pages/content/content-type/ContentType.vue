@@ -26,9 +26,9 @@
                 </div>
                 <!-- area to add new field (variables) to the Content -->
                 <div class="field">
-                  <button type="submit" class="button is-info"  @click="callModal">Add new field</button>
+                  <button type="submit" class="button is-info"  @click="callModal('add')">Add new field</button>
                   <!-- Modal -->
-                  <modal class="modal" @close="showModal = false"  @addContentField='addNewContentField($event)' v-if="showModal" :kind="'addContentField'" :header="'Add content field'">
+                  <modal class="modal" @close="showModal.add = false"  @addContentField='addNewContentField($event)' v-if="showModal.add" :kind="'addContentField'" :header="'Add content field'">
                     <!-- Modal Slot - made for adding content type fields -->
                     <option v-for="field in fieldTypes" :key="field.id">{{ field.label }}</option>
                   </modal>
@@ -47,7 +47,7 @@
                         <!-- <span @mouseover="showDesc = !showDesc">
                           <checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
                         <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span> -->
-                        <span><checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /></span>
+                        <span><checkbox v-if="field.type  != 'textarea'" v-model="field.listable" /></span>
                       </span>
                     </li>
                   </ul>
@@ -79,7 +79,10 @@
                       <span class="field">
                         <checkbox :label="field.name" v-model="field.checked" />
                         <span class="link-actions">
-                          <span class="has-text-danger fa fa-trash" @click="removeField(field)"></span>
+                          <span class="has-text-danger fa fa-trash" @click="callModal('del')"></span>
+                          <modal class="modal" @close="showModal.del = false"  @confirmDeleteField='removeField(field)' v-if="showModal.del" :kind="'deleteField'" :header="'Are you sure you want do delete this content type?'">
+                          <!-- Modal Slot - made for adding content type fields -->
+                          </modal>
                           <router-link :to="'/admin/content/fieldEdit/' + field['.key']"><span class="has-text-info fa fa-edit"></span></router-link>
                         </span>
                       </span>
@@ -130,6 +133,7 @@ import dropdown from '@/admin/components/shared/Dropdown'
 import { contentsRef, fieldsRef } from '@/admin/firebase_config'
 import notifier from '@/admin/mixins/notifier'
 import modal from '@/admin/components/shared/Modal'
+import { switchCase } from '@babel/types'
 
 export default {
   name: 'content-type',
@@ -200,7 +204,7 @@ export default {
       selectedContent: null,
       contentsLoaded: false,
       selectedContntFields: null,
-      showModal: false
+      showModal: { add: false, del: false }
     }
   },
   created () {
@@ -215,8 +219,17 @@ export default {
     }
   },
   methods: {
-    callModal () {
-      this.showModal = true
+    callModal (type) {
+      switch (type) {
+        case 'add':
+          this.showModal.add = true
+          break
+        case 'del':
+          this.showModal.del = true
+          break
+        default:
+          break
+      }
     },
     addNewContentField (contentFieldArrParams) {
       // contentFieldArrParams is arr that contains two elements 0 - name of Field 1 - type of Field
@@ -226,7 +239,7 @@ export default {
       // create arr for Field
       this.contentFields[fieldType] = []
       this.contentFields[fieldType].push({ name: fieldName })
-      this.showModal = false
+      this.showModal.add = false
     },
     deleteContentField (fieldType, index) {
       this.contentFields[fieldType].splice(index, 1)
@@ -260,7 +273,7 @@ export default {
           name: field.name,
           type: field.type,
           multiValue: field.multiValue
-        }, field.sortable ? { sortable: true } : null)
+        }, field.listable ? { listable: true } : null)
       })
 
       let item = {
@@ -326,6 +339,7 @@ export default {
         .then(() => {
           this.showNotification('success', 'Field removed successfully')
         })
+        this.showModal.del = false
     },
     moveFieldUp (field, previousField) {
       let itemCopy = Object.assign({}, field)

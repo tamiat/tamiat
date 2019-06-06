@@ -346,4 +346,13 @@ From this point, we can Create (Save/Publish), Edit, Delete, Bulk delete, Select
 Those contents will be displayed later in the app.
 
 In the picture above we can see that we have newly created content type, ex. `Posts`, which has an actual data that is displayed in the table.<br>
-Notice that only `author` and `title` fields are displayed - because those are the `textbox` fields we previously marked to be shown in content list when we were creating content type.
+Notice that only `author` and `title` fields are displayed - because those are the fields we previously marked to be shown in content list when we were creating content type.<br>
+It is omportant to note that in order to be able to mark a field to be visible in the content list we must make sure that when creating or editing that field we set the `Listable` checkbox to true like shown below.
+![Content section](https://i.imgur.com/YbXFyKt.png)
+
+It is important to note that in order to be able to mark a field to be visible in the content list we must make sure that when creating or editing that field we set the `Listable` checkbox to true like shown below.
+
+![Content section](https://i.imgur.com/YbXFyKt.png)
+This setting lets Tamiat know that this field can be made listable in any content type that uses it. This will make a small checkbox appear next to a field that was selected as part of a content type you are creating/editing.
+![Content section](https://i.imgur.com/OfJt0C5.png)
+If the checkbox is present it means that we have successfully defined that field as listable. If the checkbox is checked that means that the field will be visible in contents list for this specific content type. Notice how the `img` field has a checkbox but it is not checked, that means that the `img` field has been globally defined as listable when it was created or edited, but for this specific content type this field will not be listed, since in this instance we do not want that. However, if you decide you want the `img` field to be listable in another content type the checkbox will always be present, since whether a field is listable or not for a content type is stored within that content types section in the database and will never interfere with the global definition of a field or how it is set in another content type. 

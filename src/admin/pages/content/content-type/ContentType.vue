@@ -47,7 +47,7 @@
                         <!-- <span @mouseover="showDesc = !showDesc">
                           <checkbox v-if="field.type === 'textbox'" v-model="field.sortable" /> </span>
                         <span v-if="showDesc && field.type === 'textbox'" class="has-text-danger is-size-7">Check if you want this field to be shown in the table</span> -->
-                        <span><checkbox v-if="field.type  != 'textarea'" v-model="field.listable" /></span>
+                        <span><checkbox v-if="(field.type  !== 'textarea') && field.listable" v-model="field.listable" /></span>
                       </span>
                     </li>
                   </ul>
@@ -213,9 +213,46 @@ export default {
   },
   computed: {
     checkedFields () {
-      return this.fields.filter(field => {
-        return field.checked
-      })
+      let fieldInContntType = false
+      if(!this.selectedContent){
+        return this.fields.filter(field => {
+          return field.checked
+        })
+      } else { 
+        this.fields.filter(field => {
+          //going through every checked field and adding them into fields array of the selected content type if not allready present
+          if (field.checked){
+            this.selectedContntFields.forEach(element => {
+              if (field.name.toLowerCase() == element.name.toLowerCase()){
+                fieldInContntType = true
+              }
+            })
+            if(!fieldInContntType){
+              this.selectedContntFields.push(field)
+              fieldInContntType = false
+            }
+            fieldInContntType = false
+          }//going through every unchecked field and removing them from fields array of the selected content type if they are present 
+          else if(!field.checked){
+            let removedIndex = undefined
+            this.selectedContntFields.forEach((element, index) => {
+              if (field.name.toLowerCase() == element.name.toLowerCase()){
+                fieldInContntType = true
+                if(removedIndex) {}
+                else {
+                  removedIndex = index
+                }
+              }
+            })
+            if(fieldInContntType){
+              this.selectedContntFields.splice(removedIndex,1)
+              fieldInContntType = false
+            }
+            fieldInContntType = false
+          }
+        })
+        return this.selectedContntFields
+      }
     }
   },
   methods: {
@@ -339,27 +376,43 @@ export default {
         .then(() => {
           this.showNotification('success', 'Field removed successfully')
         })
-        this.showModal.del = false
+      this.showModal.del = false
     },
     moveFieldUp (field, previousField) {
       let itemCopy = Object.assign({}, field)
       let previousItemCopy = Object.assign({}, previousField)
-
-      delete itemCopy['.key']
-      delete previousItemCopy['.key']
-
-      this.$firebaseRefs.fields.child(field['.key']).set(previousItemCopy)
-      this.$firebaseRefs.fields.child(previousField['.key']).set(itemCopy)
+      let itemCopyIndex = 0
+      let previousItemCopyIndex = 0
+      let selectedContntKey = this.selectedContent['.key']
+      this.selectedContntFields.forEach((elem,index) => {
+        if(itemCopy.name.toLowerCase() === elem.name.toLowerCase()) {
+          itemCopyIndex = index
+        } 
+        else if(previousItemCopy.name.toLowerCase() === elem.name.toLowerCase()) {
+          previousItemCopyIndex = index
+        } 
+      })
+      this.selectedContntFields[itemCopyIndex] = previousItemCopy
+      this.selectedContntFields[previousItemCopyIndex] = itemCopy
+      this.$forceUpdate()
     },
     moveFieldDown (field, nextField) {
       let itemCopy = Object.assign({}, field)
       let nextItemCopy = Object.assign({}, nextField)
-
-      delete itemCopy['.key']
-      delete nextItemCopy['.key']
-
-      this.$firebaseRefs.fields.child(field['.key']).set(nextItemCopy)
-      this.$firebaseRefs.fields.child(nextField['.key']).set(itemCopy)
+      let itemCopyIndex = 0
+      let nextItemCopyIndex = 0
+      let selectedContntKey = this.selectedContent['.key']
+      this.selectedContntFields.forEach((elem,index) => {
+        if(itemCopy.name.toLowerCase() === elem.name.toLowerCase()) {
+          itemCopyIndex = index
+        } 
+        else if(nextItemCopy.name.toLowerCase() === elem.name.toLowerCase()) {
+          nextItemCopyIndex = index
+        } 
+      })
+      this.selectedContntFields[itemCopyIndex] = nextItemCopy
+      this.selectedContntFields[nextItemCopyIndex] = itemCopy
+      this.$forceUpdate()
     },
     clearChecked () {
       for (var key in this.fields) {
@@ -375,6 +428,7 @@ export default {
           return content
         }
       })[0]
+      this.selectedContntFields = this.selectedContent.fields
       this.slug = this.selectedContent.slug
       this.clearChecked()
       if (option.id) {

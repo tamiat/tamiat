@@ -85,7 +85,17 @@
               </div>
             </td>
             <td class="post-title-cell" v-for="(field, fieldKey) in filteredContent[index]" :key="fieldKey" v-if="findField(fieldKey)">
-              {{ field }}
+              <!-- formatting how each field type is displayed -->
+              <figure class="websiteLogo" v-if="findFieldType(fieldKey) === 'image'">
+                <img :src="field" alt="logo" style="max-height: 80px;">
+              </figure>
+              <span v-else-if="findFieldType(fieldKey) === 'textbox' && findFieldType(fieldKey) === 'integer'">{{ field }}</span>
+              <span v-else-if="findFieldType(fieldKey) === 'boolean'" class="tag is-info pointer">{{ field }}</span>
+              <a v-else-if="findFieldType(fieldKey) === 'url'" :href="field.link">{{ field.name }}</a>
+              <span v-else-if="findFieldType(fieldKey) === 'tags'" v-for="tag in field" class="tag is-info pointer">{{ tag }}</span>
+              <span v-else-if="findFieldType(fieldKey) === 'select'" class="tag is-primary" > {{ field.selected }}</span>
+              <input v-else-if="findFieldType(fieldKey) === 'integer'" type="number" :value="field" class="input" readonly/>
+              <p v-else>{{ field }}</p>
             </td>
           </tr>
         </tbody>
@@ -165,6 +175,13 @@ export default {
       }
       return false
     },
+    findFieldType (field) {
+      let fieldtype = ''
+      this.content.fields.forEach(e => {
+        fieldtype = e.name === field ? e.type : fieldtype
+      })
+      return fieldtype
+    },
     formatDate (epoch) {
       if (!epoch) return // if no time return nothing
       return moment(epoch).format('MM/DD/YY | hh:mm')
@@ -241,7 +258,7 @@ export default {
 <style lang="scss">
 #posts {
   .post-title-cell {
-    width: 40%;
+    width: 30%;
   }
   .post-category-cell {
     width: 20%;

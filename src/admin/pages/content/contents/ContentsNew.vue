@@ -60,9 +60,9 @@
           <div class="columns">
             <div class="column">
               <div class="select margin-select">
-                <select>
+                <select v-model="select.selected">
                   <option
-                    v-for="(selectOption, selectIndex) in newContent[field.name]"
+                    v-for="(selectOption, selectIndex) in select.options"
                     :key="selectIndex"
                   >{{ selectOption }}</option>
                 </select>
@@ -70,7 +70,7 @@
             </div>
             <div class="column">
               <!--area to delete options-->
-              <div v-for="(option, optionKey) in newContent[field.name]" :key="optionKey">
+              <div v-for="(option, optionKey) in select.options" :key="optionKey">
                 <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">
                   {{option}}
                   <button class="delete is-small"></button>
@@ -104,8 +104,12 @@
           <label class="label">{{ field.name }}</label>
           <div class="columns">
             <div class="column is-one-third">
-              <input type="number" :placeholder="field.name" class="input">
-              <!--v-model="newContent[field.name]"?-->
+              <input 
+                type="number" 
+                :placeholder="field.name" 
+                class="input"
+                v-model="newContent[field.name]"
+              >
             </div>
           </div>
         </div>
@@ -289,13 +293,17 @@ export default {
       newContent: {
         tags: []
       },
-      inputData: "",
-      booleanName: "",
+      inputData: '',
+      booleanName: '',
       editorOptions,
-      selectOptionsRow: "",
+      select: {
+        selected:'',
+        options:[]
+      },
+      selectOptionsRow: '',
       urlContentData: {
-        name: "",
-        link: ""
+        name: '',
+        link: ''
       },
       isLoading: false,
       fullPage: true
@@ -303,25 +311,25 @@ export default {
   },
   methods: {
     add(state) {
-      this.newContent.created = Date.now();
-      this.newContent.selected = false;
-      this.newContent.state = state;
+      this.newContent.created = Date.now()
+      this.newContent.selected = false
+      this.newContent.state = state
 
-      this.addContent(this.newContent);
-      this.$router.push({ path: "/admin/content/" + this.$route.params.key });
+      this.addContent(this.newContent)
+      this.$router.push({ path: "/admin/content/" + this.$route.params.key })
     },
     uploadFeaturedImage(e, fieldName) {
       this.isLoading = true;
       let file = e.target.files[0];
-      let storageRef = firebase.storage().ref("images/" + file.name);
+      let storageRef = firebase.storage().ref("images/" + file.name)
 
       storageRef.put(file).then(snapshot => {
         snapshot.ref
           .getDownloadURL()
           .then(downloadURL => {
-            this.$set(this, "imagePreview", URL.createObjectURL(file));
-            this.newContent[fieldName] = "";
-            this.newContent[fieldName] = downloadURL;
+            this.$set(this, "imagePreview", URL.createObjectURL(file))
+            this.newContent[fieldName] = ""
+            this.newContent[fieldName] = downloadURL
             if (
               Object.values(this.media).find(
                 e => e.path === snapshot.ref.fullPath
@@ -335,14 +343,14 @@ export default {
             });
           })
           .then(() => {
-            this.isLoading = false;
+            this.isLoading = false
           });
       });
     },
     createUrlnewContent(fieldName) {
       if (this.urlContentData.name !== "") {
         if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = { name: "", link: "" };
+          this.newContent[fieldName] = { name: "", link: "" }
         }
         this.newContent[fieldName].name = this.urlContentData.name;
         this.newContent[fieldName].link = this.urlContentData.link;
@@ -351,45 +359,47 @@ export default {
     createNewBoolContent(fieldName) {
       if (this.booleanName !== "") {
         if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = "";
+          this.newContent[fieldName] = ""
         }
-        this.newContent[fieldName] = this.booleanName;
+        this.newContent[fieldName] = this.booleanName
       }
     },
     styleTags(fieldName) {
       if (this.inputData !== "") {
         if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = [];
+          this.newContent[fieldName] = []
         }
         this.inputData.split(",").forEach(tag => {
-          this.newContent[fieldName].push(`${tag.trim()}`);
+          this.newContent[fieldName].push(`${tag.trim()}`)
         });
-        this.inputData = "";
+        this.inputData = ""
       }
     },
     removeTag(index, fieldName) {
       // function to remove tags and options
       // cloning object (to make Vue reactive)
-      let currentContent = Object.assign({}, this.newContent);
+      let currentContent = Object.assign({}, this.newContent)
       // delete element from arr
-      currentContent[fieldName].splice(index, 1);
+      currentContent[fieldName].splice(index, 1)
       // return cloned object Back
-      this.newContent = Object.assign({}, currentContent);
+      this.newContent = Object.assign({}, currentContent)
     },
     // function to create Select Options from input area
     styleOptions(fieldName) {
       if (this.selectOptionsRow !== "") {
         if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = [];
+           this.newContent[fieldName] = this.select;
         }
         this.selectOptionsRow.split(",").forEach(tag => {
-          this.newContent[fieldName].push(`${tag.trim()}`);
-        });
-        this.selectOptionsRow = "";
+          this.select.options.push(`${tag.trim()}`)
+        })
+        this.newContent[fieldName] = this.select
+
+        this.selectOptionsRow = ""
       }
     }
   }
-};
+}
 </script>
 
 <style>

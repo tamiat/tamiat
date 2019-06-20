@@ -35,14 +35,14 @@
             <div class="column">
               <div class="select margin-select">
                 <select>
-                  <option v-for="(selectOption, selectIndex) in content[field.name]" :key="selectIndex">{{ selectOption }}</option>
+                  <option v-for="(selectOption, selectIndex) in content[field.name.options]" :key="selectIndex">{{ selectOption }}</option>
                 </select>
               </div>
             </div>
             <div class="column">
               <!--area to delete options-->
-              <div v-for="(option, optionKey) in content[field.name]" :key="optionKey" >
-                <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">{{option}}
+              <div v-for="(option, optionKey) in content[field.name.options]" :key="optionKey" >
+                <span @click="removeTag(optionKey, field.name.options)" class="tag is-info pointer">{{option}}
                 <button class="delete is-small"></button>
               </span>
               </div>
@@ -93,17 +93,17 @@
           <div class="columns">
             <div class="column is-two-fifths">
               <span>Name</span>
-              <input :placeholder="field.name + ' name'" class="input" v-model="content.url.name">
+              <input :placeholder="field.name + ' name'" class="input" v-model="content[field.name].name">
             </div>
             <div class="column is-two-fifths">
               <span>Link</span>
-              <input :placeholder="field.name + ' link'" class="input" v-model="content.url.link">
+              <input :placeholder="field.name + ' link'" class="input" v-model="content[field.name].link">
             </div>
           </div>
           <div class="columns">
             <div class="column">
               <span>Preview: </span>
-              <a :href="content.url.link">{{ content.url.name }}</a>
+              <a :href="content[field.name].link">{{ content[field.name].name }}</a>
             </div>
           </div>
         </div>

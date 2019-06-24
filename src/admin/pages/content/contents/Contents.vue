@@ -67,34 +67,34 @@
                 <i :class="{ 'fa fa-sort-down': !sortOptions.created.reverse, 'fa fa-sort-up': sortOptions.created.reverse }"></i>
               </span>
             </th>
-            <th v-for="(field, fieldKey) in contentData[0]" :key="fieldKey" v-if="findField(fieldKey)">
-              {{ fieldKey }}
+            <th v-for="(field, fieldKey) in content.fields" :key="fieldKey" v-if="findField(field.name)">
+              {{ field.name }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(content, index) in filteredContent" :key="index">
+          <tr v-for="(contentInstance, index) in filteredContent" :key="index">
             <td class="post-title-cell">
-              <checkbox v-model="content.selected" />
-              {{ formatDate(content.created) }}
+              <checkbox v-model="contentInstance.selected" />
+              {{ formatDate(contentInstance.created) }}
               <div class="actions">
-                <router-link :to="'/admin/content/' + $route.params.key + '/edit/' + content['.key']">
+                <router-link :to="'/admin/content/' + $route.params.key + '/edit/' + contentInstance['.key']">
                   <span class="has-text-info">Edit</span>
                 </router-link>
-                <span @click="deleteContent(content)" class="has-text-danger">Delete</span>
+                <span @click="deleteContent(contentInstance)" class="has-text-danger">Delete</span>
               </div>
             </td>
-            <td class="post-title-cell" v-for="(field, fieldKey) in filteredContent[index]" :key="fieldKey" v-if="findField(fieldKey)">
+            <td class="post-title-cell" v-for="(field, fieldKey) in contentFields" :key="fieldKey" v-if="findField(field.name)">
               <!-- formatting how each field type is displayed -->
-              <figure class="websiteLogo" v-if="findFieldType(fieldKey) === 'image'">
-                <img :src="field" alt="logo" style="max-height: 80px;">
+              <figure class="websiteLogo" v-if="findFieldType(field.name) === 'image'">
+                <img :src="filteredContent[index][field.name]" alt="logo" style="max-height: 80px;">
               </figure>
-              <span v-else-if="findFieldType(fieldKey) === 'textbox' && findFieldType(fieldKey) === 'integer'">{{ field }}</span>
-              <span v-else-if="findFieldType(fieldKey) === 'boolean'" class="tag is-info pointer">{{ field }}</span>
-              <a v-else-if="findFieldType(fieldKey) === 'url'" :href="field.link">{{ field.name }}</a>
-              <span v-else-if="findFieldType(fieldKey) === 'tags'" v-for="tag in field" class="tag is-info pointer">{{ tag }}</span>
-              <span v-else-if="findFieldType(fieldKey) === 'select'" class="tag is-primary" > {{ field.selected }}</span>
-              <input v-else-if="findFieldType(fieldKey) === 'integer'" type="number" :value="field" class="input" readonly/>
+              <span v-else-if="findFieldType(field.name) === 'textbox' ">{{ filteredContent[index][field.name] }}</span>
+              <span v-else-if="findFieldType(field.name) === 'boolean'" class="tag is-info pointer">{{ filteredContent[index][field.name] }}</span>
+              <a v-else-if="findFieldType(field.name) === 'url'" :href="filteredContent[index][field.name].link">{{ filteredContent[index][field.name].name }}</a>
+              <span v-else-if="findFieldType(field.name) === 'tags'" v-for="tag in filteredContent[index][field.name]" class="tag is-info pointer">{{ tag }}</span>
+              <span v-else-if="findFieldType(field.name) === 'select'" class="tag is-primary" > {{ filteredContent[index][field.name].selected }}</span>
+              <input v-else-if="findFieldType(field.name) === 'integer'" type="number" :value="filteredContent[index][field.name]" class="input" readonly/>
               <p v-else>{{ field }}</p>
             </td>
           </tr>
@@ -132,7 +132,7 @@ export default {
     contents: contentsRef
   },
   mixins: [notifier, contentFilters],
-  mounted () {
+  created () {
     this.content = Object.assign(
       {},
       (this.contents.filter((content) => {
@@ -162,6 +162,9 @@ export default {
             return true
           }
         })
+    },
+    contentFields () {  //must order by content.fields since data in each instance of content.data is ordered by alphabet and not by field order set for that content type
+      return this.content.fields
     }
   },
   methods: {
@@ -182,8 +185,8 @@ export default {
       })
       return fieldtype
     },
-    formatDate (epoch) {
-      if (!epoch) return // if no time return nothing
+    formatDate (epoch) {  
+      if (!epoch) return // if no time return nothing            
       return moment(epoch).format('MM/DD/YY | hh:mm')
     },
     addContent (content) {

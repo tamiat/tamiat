@@ -71,7 +71,7 @@
             <div class="column">
               <!--area to delete options-->
               <div v-for="(option, optionKey) in select.options" :key="optionKey">
-                <span @click="removeTag(optionKey, field.name)" class="tag is-info pointer">
+                <span @click="removeTag(optionKey, field.name, true)" class="tag is-info pointer">
                   {{option}}
                   <button class="delete is-small"></button>
                 </span>
@@ -266,16 +266,16 @@
 </template>
 
 <script>
-import firebase from "firebase/app";
-import "firebase/storage";
-import { mediaRef } from "@/admin/firebase_config";
-import editorOptions from "@/admin/utils/editor-options";
-import imageLoader from "@/admin/mixins/image-loader";
-import notifier from "@/admin/mixins/notifier";
+import firebase from "firebase/app"
+import "firebase/storage"
+import { mediaRef } from "@/admin/firebase_config"
+import editorOptions from "@/admin/utils/editor-options"
+import imageLoader from "@/admin/mixins/image-loader"
+import notifier from "@/admin/mixins/notifier"
 // Import component
-import Loading from "vue-loading-overlay";
+import Loading from "vue-loading-overlay"
 // Import stylesheet
-import "vue-loading-overlay/dist/vue-loading.css";
+import "vue-loading-overlay/dist/vue-loading.css"
 
 export default {
   name: "content-new",
@@ -359,43 +359,48 @@ export default {
     createNewBoolContent(fieldName) {
       if (this.booleanName !== "") {
         if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = ""
+          this.newContent[fieldName] = ''
         }
         this.newContent[fieldName] = this.booleanName
       }
     },
     styleTags(fieldName) {
-      if (this.inputData !== "") {
+      if (this.inputData !== '') {
         if (!this.newContent[fieldName]) {
           this.newContent[fieldName] = []
         }
-        this.inputData.split(",").forEach(tag => {
+        this.inputData.split(',').forEach(tag => {
           this.newContent[fieldName].push(`${tag.trim()}`)
         });
-        this.inputData = ""
+        this.inputData = ''
       }
     },
-    removeTag(index, fieldName) {
+    removeTag(index, fieldName,isSelect) {
       // function to remove tags and options
       // cloning object (to make Vue reactive)
       let currentContent = Object.assign({}, this.newContent)
-      // delete element from arr
-      currentContent[fieldName].splice(index, 1)
+      if(isSelect) {
+        // delete element from select options
+        currentContent[fieldName].options.splice(index, 1)
+      } else {
+        // delete element from arr
+        currentContent[fieldName].splice(index, 1)
+      }
       // return cloned object Back
       this.newContent = Object.assign({}, currentContent)
     },
     // function to create Select Options from input area
-    styleOptions(fieldName) {
-      if (this.selectOptionsRow !== "") {
+    styleOptions (fieldName) {
+      if (this.selectOptionsRow !== '') {
         if (!this.newContent[fieldName]) {
-           this.newContent[fieldName] = this.select;
+          this.newContent[fieldName] = this.select
         }
-        this.selectOptionsRow.split(",").forEach(tag => {
+        this.selectOptionsRow.split(',').forEach(tag => {
           this.select.options.push(`${tag.trim()}`)
         })
         this.newContent[fieldName] = this.select
 
-        this.selectOptionsRow = ""
+        this.selectOptionsRow = ''
       }
     }
   }

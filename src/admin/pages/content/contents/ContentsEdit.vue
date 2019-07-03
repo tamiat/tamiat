@@ -34,8 +34,8 @@
           <div class="columns">
             <div class="column">
               <div class="select margin-select">
-                <select>
-                  <option v-for="(selectOption, selectIndex) in content[field.name.options]" :key="selectIndex">{{ selectOption }}</option>
+                <select v-model="content[field.name].selected">
+                  <option v-for="(selectOption, selectIndex) in content[field.name].options" :key="selectIndex">{{ selectOption }}</option>
                 </select>
               </div>
             </div>
@@ -61,7 +61,7 @@
           <label class="label">{{ field.name }}</label>
           <div class="columns">
             <div class="column is-one-third">
-              <input type="number" :placeholder="field.name" class="input">
+              <input type="number" :placeholder="field.name" class="input" v-model="content[field.name]">
             </div>
           </div>
         </div>

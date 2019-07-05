@@ -125,7 +125,7 @@ export default {
       header: '',
       kind: '',
       sortKey: 'tittle',
-      loaded: false
+      loaded: false,
     }
   },
   firebase: {
@@ -133,12 +133,15 @@ export default {
   },
   mixins: [notifier, contentFilters],
   created () {
-    this.content = Object.assign(
-      {},
-      (this.contents.filter((content) => {
-        return (content['.key'] === this.$route.params.key)
-      }))[0]
-    )
+    contentsRef.once('value',snapshot => {
+      this.content = Object.assign(
+        {},
+        (this.contents.filter((content) => {
+          return (content['.key'] === this.$route.params.key)
+        }))[0]
+      )
+    })
+    
     this.$bindAsArray('contentData', db.ref('contents/' + this.$route.params.key + '/data'))
 
     this.loaded = true

@@ -179,6 +179,10 @@ export default {
        * we are using Object.assign to copy the post by value not by reference
        * to prevent updating the post when typing */
       inputData: '',
+      select: {
+        selected:'',
+        options:[]
+      },
       selectOptionsRow: '',
       content: Object.assign(
         {},
@@ -249,14 +253,17 @@ export default {
     styleOptions (fieldName) {
       if (this.selectOptionsRow !== '') {
         if (!this.content[fieldName]) {
-          this.content[fieldName] = []
+          this.content[fieldName] = this.select
         }
         this.selectOptionsRow.split(',').forEach(tag => {
-          this.content[fieldName].push(`${tag.trim()}`)
+          this.select.options.push(`${tag.trim()}`)
         })
+        this.content[fieldName].options = [...this.content[fieldName].options, ...this.select.options]
+
         this.selectOptionsRow = ''
       }
     }
+    
   }
 }
 

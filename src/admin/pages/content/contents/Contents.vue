@@ -93,7 +93,10 @@
               <span v-else-if="findFieldType(field.name) === 'boolean'" class="tag is-info pointer">{{ filteredContent[index][field.name] }}</span>
               <a v-else-if="findFieldType(field.name) === 'url'" :href="filteredContent[index][field.name].link">{{ filteredContent[index][field.name].name }}</a>
               <span v-else-if="findFieldType(field.name) === 'tags'" v-for="tag in filteredContent[index][field.name]" class="tag is-info pointer">{{ tag }}</span>
-              <span v-else-if="findFieldType(field.name) === 'select'" class="tag is-primary" > {{ filteredContent[index][field.name].selected }}</span>
+              <span v-else-if="findFieldType(field.name) === 'select' && field.name !== 'category'" class="tag is-primary" > {{ filteredContent[index][field.name].selected }}</span>
+              <span v-else-if="findFieldType(field.name) === 'select' && field.name === 'category'" class="tags" >
+                <span class="tag is-primary" v-for="(option, index) in filteredContent[index][field.name].options" :key="index"> {{option}}</span>
+              </span>
               <input v-else-if="findFieldType(field.name) === 'integer'" type="number" :value="filteredContent[index][field.name]" class="input" readonly/>
               <p v-else>{{ field }}</p>
             </td>

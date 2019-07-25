@@ -8,7 +8,7 @@
 
     <!-- the navbar brand -->
     <div class="navbar-brand">
-      <router-link class="navbar-item logo" to="/admin">
+      <router-link class="navbar-item logo" to="/">
         <img :src="`${baseUrl}static/img/tamiat-admin-logo-1.png`" alt="logo">
       </router-link>
       <div class="navbar-burger burger" data-target="navbar" @click="toggleMenu">

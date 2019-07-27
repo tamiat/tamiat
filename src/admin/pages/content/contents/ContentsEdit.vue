@@ -244,14 +244,14 @@ export default {
         currentContent[fieldName].splice(index, 1)
       }
       // return cloned object Back
-      this.newContent = Object.assign({}, currentContent)
+      this.content = Object.assign({}, currentContent)
     },
     updateBoolContent (fieldName) {
       if (this.booleanName !== '') {
-        if (!this.newContent[fieldName]) {
-          this.newContent[fieldName] = ''
+        if (!this.content[fieldName]) {
+          this.content[fieldName] = ''
         }
-        this.newContent[fieldName] = this.booleanName
+        this.content[fieldName] = this.booleanName
       }
     },
     // function to create Select Options from input area
@@ -263,7 +263,7 @@ export default {
         this.selectOptionsRow.split(',').forEach(tag => {
           this.select.options.push(`${tag.trim()}`)
         })
-        this.content[fieldName].options = [...this.content[fieldName].options, ...this.select.options]
+        this.content[fieldName].options ? [...this.content[fieldName].options, ...this.select.options] : [...this.select.options]
 
         this.selectOptionsRow = ''
       }

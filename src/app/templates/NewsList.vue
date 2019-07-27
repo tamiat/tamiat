@@ -78,7 +78,11 @@ import contentFetch from '@/admin/mixins/contentFetch'
 import _ from 'lodash'
 
 const stringContains = (search, string) => {
-  return string.toLowerCase().includes(search.toLowerCase())
+  let strContains = false
+  stringArr.forEach(string => {
+    strContains = string.toLowerCase().includes(search.toLowerCase()) && true
+  })
+  return strContains
 }
 
 export default {
@@ -132,14 +136,36 @@ export default {
 
       return _.filter(this.news, function (o) {
         return (!searchQuery || (stringContains(searchQuery, o.title) || stringContains(searchQuery, o.subheadline))) &&
-               (!category || (stringContains(category, o.category)))
+               (!category || (stringContains(category, o.category.options)))
       })
     },
     currentPageNews () {
       return _.slice(this.filteredNews, this.filter.currentPage - 1, (this.filter.currentPage - 1) + this.perPage)
     },
     categories () {
-      return _.countBy(this.news, 'category')
+      let found_categories = {}
+      this.news.forEach(news => {
+        if(_.isEmpty(found_categories)) {
+          found_categories = _.countBy(news.category.options, function(option){
+            return option
+          })
+        } else {
+          let currNewsCat =  _.countBy(news.category.options, function(option){
+            return option
+          })
+          //comparing current categories with the new posts categories and makes chages accordingly
+          Object.keys(found_categories).forEach(keyCat => {
+            Object.keys(currNewsCat).forEach(keyCurCat => {
+              if(keyCat === keyCurCat){
+                found_categories[keyCat] = found_categories[keyCat] + currNewsCat[keyCurCat]
+              } else if(!(keyCurCat in found_categories)){
+                found_categories[keyCurCat] = currNewsCat[keyCurCat]
+              }
+            })
+          })
+        }
+      })
+      return found_categories
     },
     query () {
       return this.$route.query

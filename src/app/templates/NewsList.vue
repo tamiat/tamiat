@@ -1,12 +1,3 @@
-<!-- this is an example of a dynamic template. -->
-<!-- To use this template you will need a content type which has following fields
-    img
-    title
-    subheadline
-    body
-    category
-    date
-  -->
 <template>
   <div class="page-news-list">
     <app-header></app-header>
@@ -36,10 +27,11 @@
             </div>
             <div v-else-if="currentPageNews && currentPageNews.length > 0">
               <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
-                <img :src="newsItem.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
+                <content-image :src="newsItem.img" :field_class="'responsive-image'"/>
                 <div class="news-preview-content">
-                  <h2 class="news-title" v-if="newsItem.title" v-text="newsItem.title"></h2>
-                  <p v-if="newsItem.subheadline" v-text="newsItem.subheadline"></p>
+                  <content-title :field_class="'news-title'" v-if="newsItem.title" :text="newsItem.title"/>
+                  <content-tags :tags="newsItem.tags" />
+                  <content-body v-if="newsItem.body" :field_class="'news-body'" :body="newsItem.body"/>
                   <router-link :to="$route.path + '/' + (newsItem.slug ? newsItem.slug : newsItem['.key'])" class="btn is-small">Read more</router-link>
                 </div>
               </div>
@@ -73,6 +65,10 @@
 import appHeader from '@/app/components/appHeader'
 import appFooter from '@/app/components/appFooter'
 import pagination from '@/app/components/pagination'
+import Body from '@/admin/field_templates/Body.vue'
+import Title from '@/admin/field_templates/Title.vue'
+import Image from '@/admin/field_templates/Image.vue'
+import Tags from '@/admin/field_templates/Tags.vue'
 import { contentsRef, routesRef } from '@/admin/firebase_config/index'
 import contentFetch from '@/admin/mixins/contentFetch'
 import _ from 'lodash'
@@ -90,7 +86,11 @@ export default {
   components: {
     appHeader,
     appFooter,
-    pagination
+    pagination,
+    contentBody: Body,
+    contentTitle: Title,
+    contentImage: Image,
+    contentTags: Tags
   },
   firebase: {
     routes: routesRef,

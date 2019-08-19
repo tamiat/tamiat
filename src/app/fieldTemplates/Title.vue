@@ -1,5 +1,5 @@
 <template>
-  <h2 :class="field_class">{{contentTitle}}</h2>
+  <h2 :class="fieldClass">{{contentTitle}}</h2>
 </template>
 <script>
 export default {
@@ -7,7 +7,7 @@ export default {
     text: {
       type: String
     },
-    field_class:''
+    fieldClass:''
   },
   computed:{
     contentTitle: function() {

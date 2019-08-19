@@ -9,7 +9,7 @@ export default {
     categories:{
       type:Array
     },
-    field_class:''
+    fieldClass:''
   },
   computed:{
     contentCategories: function() {

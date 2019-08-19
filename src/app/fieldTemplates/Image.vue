@@ -1,11 +1,11 @@
 <template>
-  <img :src="imageSrc" :class="field_class"/>
+  <img :src="imageSrc" :class="fieldClass"/>
 </template>
 <script>
 export default {
   props:{
     src:'',
-    field_class:''
+    fieldClass:''
   },
   computed:{
     imageSrc:function(){

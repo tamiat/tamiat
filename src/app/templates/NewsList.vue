@@ -27,12 +27,13 @@
             </div>
             <div v-else-if="currentPageNews && currentPageNews.length > 0">
               <div v-for="newsItem in currentPageNews" :key="newsItem['.key']" class="news">
-                <content-image :src="newsItem.img" :field_class="'responsive-image'"/>
+                <content-image :src="newsItem.img" :fieldClass="'responsive-image'"/>
                 <div class="news-preview-content">
-                  <content-title :field_class="'news-title'" v-if="newsItem.title" :text="newsItem.title"/>
+                  <content-title :fieldClass="'news-title'" v-if="newsItem.title" :text="newsItem.title"/>
                   <content-tags :tags="newsItem.tags" />
-                  <content-body v-if="newsItem.body" :field_class="'news-body'" :body="newsItem.body"/>
+                  <content-body v-if="newsItem.body" :fieldClass="'news-body'" :body="newsItem.body"/>
                   <router-link :to="$route.path + '/' + (newsItem.slug ? newsItem.slug : newsItem['.key'])" class="btn is-small">Read more</router-link>
+                  <content-categories :categories="newsItem.category.options" />
                 </div>
               </div>
 
@@ -65,10 +66,11 @@
 import appHeader from '@/app/components/appHeader'
 import appFooter from '@/app/components/appFooter'
 import pagination from '@/app/components/pagination'
-import Body from '@/admin/field_templates/Body.vue'
-import Title from '@/admin/field_templates/Title.vue'
-import Image from '@/admin/field_templates/Image.vue'
-import Tags from '@/admin/field_templates/Tags.vue'
+import Body from '@/app/fieldTemplates/Body.vue'
+import Title from '@/app/fieldTemplates/Title.vue'
+import Image from '@/app/fieldTemplates/Image.vue'
+import Tags from '@/app/fieldTemplates/Tags.vue'
+import Categories from '@/app/fieldTemplates/Categories.vue'
 import { contentsRef, routesRef } from '@/admin/firebase_config/index'
 import contentFetch from '@/admin/mixins/contentFetch'
 import _ from 'lodash'
@@ -90,7 +92,8 @@ export default {
     contentBody: Body,
     contentTitle: Title,
     contentImage: Image,
-    contentTags: Tags
+    contentTags: Tags,
+    contentCategories: Categories
   },
   firebase: {
     routes: routesRef,

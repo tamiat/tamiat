@@ -1,11 +1,11 @@
 <template>
-  <p v-html="contentBody" :class="field_class"></p>
+  <p v-html="contentBody" :class="fieldClass"></p>
 </template>
 <script>
 export default {
   props: {
     body: '',
-    field_class:''
+    fieldClass:''
   },
   computed: {
     contentBody: function() {

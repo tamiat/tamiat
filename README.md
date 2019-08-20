@@ -1,7 +1,6 @@
 <div align="center">
 
 <p><img src="https://github.com/tamiat/tamiat/blob/master/tamiat-new-logo.png" width="48%"></p>
-
 <p align="center">
   <a href="https://www.tamiat.org"><img src="https://img.shields.io/badge/dynamic/json.svg?uri=https://raw.githubusercontent.com/tamiat/tamiat/master/package.json&query=$.version&label=Version&prefix=v&colorB=orange" alt="Version"></a>
   <a href="https://travis-ci.org/tamiat/tamiat"><img src="https://travis-ci.org/tamiat/tamiat.svg?branch=master" alt="Build Status"></a>
@@ -11,7 +10,6 @@
 </p>
 
 <h1>Tamiat CMS</h1>
-
 <p>
   <strong>Tamiat headless CMS</strong>
 </p>
@@ -38,7 +36,6 @@
 ---
 
 <h1 text-align="center"> What It Looks Like </h1>
-
 ![posts section](https://i.imgur.com/6sfuFOv.png)
 ![settings section](https://i.imgur.com/gHzekpP.png)
 ![media section](https://i.imgur.com/gkYFzcC.png)
@@ -280,6 +277,41 @@ The vue mixin `LoadContent` will expose your content as a data object called `co
 
 <br>
 
+## Field templates
+
+In order to give users more control over their content we have introduced **Field templates**. Found in the `src/app/fieldTemplates` folder, a field template will allow users to customize each and every field in their content as much as they wish without creating a single, large template file that is hard to manage and navigate. Just like content templates, field templates can be static and dynamic but for the most part they are envisoned for implementing dynamic content. 
+
+Every field template has at least  one prop:
+
+- field_class - prop that contains a class/classes tah the user wants to use on their field in some manor that requires the class to be passed dynamically
+- content prop - prop whose name will vary from field to field. This prop contains all data that the component will use and is usualy exposed to the template through a computed property.  
+
+Here is an example of a template using their content prop and field_class prop:
+
+```html
+<template>
+	<p :class="field_class">{{content}}</p>
+</template>
+<script>
+export default {
+  props: {
+   body: '',
+   field_class:''
+  },
+  computed: {
+   content: function() {
+    return this.body
+  }
+ }
+}
+</script>
+<style lang="scss">
+// here you can add custom styles for your field
+</style>
+```
+
+<br>
+
 ## Content types/Contents/Fields
 
 First, we have to understand the basic concepts and the DB structure.
@@ -353,6 +385,14 @@ It is omportant to note that in order to be able to mark a field to be visible i
 It is important to note that in order to be able to mark a field to be visible in the content list we must make sure that when creating or editing that field we set the `Listable` checkbox to true like shown below.
 
 ![Content section](https://i.imgur.com/YbXFyKt.png)
+
 This setting lets Tamiat know that this field can be made listable in any content type that uses it. This will make a small checkbox appear next to a field that was selected as part of a content type you are creating/editing.
+
 ![Content section](https://i.imgur.com/OfJt0C5.png)
-If the checkbox is present it means that we have successfully defined that field as listable. If the checkbox is checked that means that the field will be visible in contents list for this specific content type. Notice how the `img` field has a checkbox but it is not checked, that means that the `img` field has been globally defined as listable when it was created or edited, but for this specific content type this field will not be listed, since in this instance we do not want that. However, if you decide you want the `img` field to be listable in another content type the checkbox will always be present, since whether a field is listable or not for a content type is stored within that content types section in the database and will never interfere with the global definition of a field or how it is set in another content type. 
+
+If the checkbox is present it means that we have successfully defined that field as listable. If the checkbox is checked that means that the field will be visible in contents list for this specific content type. Notice how the `img` field has a checkbox but it is not checked, that means that the `img` field has been globally defined as listable when it was created or edited, but for this specific content type this field will not be listed, since in this instance we do not want that. However, if you decide you want the `img` field to be listable in another content type the checkbox will always be present, since whether a field is listable or not for a content type is stored within that content types section in the database and will never interfere with the global definition of a field or how it is set in another content type.
+
+
+
+
+

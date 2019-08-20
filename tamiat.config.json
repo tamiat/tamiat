@@ -7,7 +7,9 @@
           "body": "this is a demo post",
           "author": "Some author",
           "tags": ["tag1", "tag2"],
-          "category": "category1",
+          "category": { 
+            "options":["Demo", "Content"],
+            "selected": "Demo"},
           "selected": false,
           "state": "published",
           "slug": "demo-post"
@@ -17,7 +19,9 @@
         {
           "title": "Demo news",
           "subheadline": "you can see here, how new news sections can be implemented easily",
-          "category": "vuejs",
+          "category": { 
+            "options":["VueJS", "CMS", "Firebase"],
+            "selected": "Firebase"},
           "date": "10/18/2018",
           "body": "<p>Taimat CMS news integration.</p><br><p>This is an example news<br/>",
           "selected": false,
@@ -210,7 +214,7 @@
           {
             "multiValue": false,
             "name": "category",
-            "type": "textarea"
+            "type": "select"
           },
           {
             "multiValue": false,
@@ -326,7 +330,7 @@
       {
         "multiValue": false,
         "name": "category",
-        "type": "textbox"
+        "type": "select"
       },
       {
         "multiValue": false,

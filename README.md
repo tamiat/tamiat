@@ -36,6 +36,7 @@
 ---
 
 <h1 text-align="center"> What It Looks Like </h1>
+
 ![posts section](https://i.imgur.com/6sfuFOv.png)
 ![settings section](https://i.imgur.com/gHzekpP.png)
 ![media section](https://i.imgur.com/gkYFzcC.png)

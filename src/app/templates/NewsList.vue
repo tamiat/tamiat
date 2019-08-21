@@ -73,6 +73,7 @@ import Tags from '@/app/fieldTemplates/Tags.vue'
 import Categories from '@/app/fieldTemplates/Categories.vue'
 import { contentsRef, routesRef } from '@/admin/firebase_config/index'
 import contentFetch from '@/admin/mixins/contentFetch'
+import categoryFilter from '@/admin/mixins/categoryFilter'
 import _ from 'lodash'
 
 const stringContains = (search, string) => {
@@ -84,7 +85,7 @@ const stringContains = (search, string) => {
 }
 
 export default {
-  mixins: [contentFetch],
+  mixins: [contentFetch, categoryFilter],
   components: {
     appHeader,
     appFooter,

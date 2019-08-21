@@ -1,6 +1,6 @@
 <!-- for customizing tags it is recommended to use either Bulma.io classes or follow Bulma.io process for customization-->
 <template>
-  <div class="tags" v-if="contentTags">
+  <div class="tags" v-if="contentTags.length != 0">
     <span v-for="(tag, tagIndex) in contentTags" :key="tagIndex" class="tag">{{tag}}</span>
   </div>
 </template>
@@ -9,7 +9,10 @@ export default {
   props:{
     tags:{
       type:Array,
-      required: true
+      required: true,
+      default:() => {
+        return []
+      }
     }
   },
   computed:{

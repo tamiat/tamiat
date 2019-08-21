@@ -83,12 +83,13 @@
 
 <script>
 import LoadContent from './LoadContent'
+import categoryFilter from '@/admin/mixins/categoryFilter'
 import appHeader from '@/app/components/appHeader'
 import appFooter from '@/app/components/appFooter'
 import _ from 'lodash'
 
 export default {
-  mixins: [LoadContent],
+  mixins: [LoadContent, categoryFilter],
   components: {
     appHeader,
     appFooter
@@ -98,22 +99,6 @@ export default {
       return this.news.filter(obj => {
         return obj['.key'] === this.$route.params.id || obj.slug === this.$route.params.id
       })[0]
-    },
-    news () {
-      const params = this.$route.params
-      let path = this.$route.path
-      if (params) {
-        _.forIn(params, (value, key) => {
-          path = path.replace(value, ':' + key)
-        })
-      }
-      let currentRoute = this.routes.filter((route) => {
-        return route.path === path
-      })[0]
-      return this.getContentsByType(currentRoute.contentType, true)
-    },
-    categories () {
-      return _.countBy(this.news, 'category')
     }
   },
   data () {

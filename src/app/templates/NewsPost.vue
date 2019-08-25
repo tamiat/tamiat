@@ -15,15 +15,15 @@
       <div class="clearfix news-content">
         <div class="leftbar">
           <div class="news-preview-content">
-            <h1 class="news-title" v-text="currentNews.title"></h1>
+
+            <content-title :fieldClass="'news-title'" v-if="currentNews.title" :text="currentNews.title"/>
             <p class="date" v-text="currentNews.date"></p>
             <!-- Load default image if not available -->
-            <img :src="currentNews.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
+            <content-image :src="currentNews.img" :fieldClass="'responsive-image'"/>
 
-            <p class="subheadline" v-text="currentNews.subheadline"></p>
+            <content-subheadline :subHeadline="currentNews.subheadline" :fieldClass="'subheadline'"/>
 
-            <div class="news-body" v-html="currentNews.body"></div>
-
+            <content-body v-if="currentNews.body" :fieldClass="'news-body'" :body="currentNews.body"/>
             <hr />
 
             <div class="share-box">
@@ -85,6 +85,10 @@
 import LoadContent from './LoadContent'
 import categoryFilter from '@/admin/mixins/categoryFilter'
 import appHeader from '@/app/components/appHeader'
+import Title from '@/app/fieldTemplates/Title.vue'
+import Subheadline from '@/app/fieldTemplates/Subheadline.vue'
+import Image from '@/app/fieldTemplates/Image.vue'
+import Body from '@/app/fieldTemplates/Body.vue'
 import appFooter from '@/app/components/appFooter'
 import _ from 'lodash'
 
@@ -92,7 +96,11 @@ export default {
   mixins: [LoadContent, categoryFilter],
   components: {
     appHeader,
-    appFooter
+    appFooter,
+    contentTitle: Title,
+    contentSubheadline: Subheadline,
+    contentImage: Image,
+    contentBody: Body,
   },
   computed: {
     currentNews () {

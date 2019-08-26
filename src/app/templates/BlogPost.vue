@@ -10,10 +10,14 @@
             <div class="news-body">Loading...</div>
           </div>
           <div v-else class="news-preview-content">
-            <h1 class="news-title" v-text="currentContent.title"></h1>
+            <content-title :fieldClass="'news-title'" v-if="currentNews.title" :text="currentNews.title"/>
+            
+            <p class="date" v-text="currentNews.date"></p>
             <!-- Load default image if not available -->
-            <img :src="currentContent.img || require('@/app/assets/img/coast.jpg')" class="responsive-image">
-            <div class="news-body" v-html="currentContent.body"></div>
+            <content-image :src="currentNews.img" :fieldClass="'responsive-image'"/>
+
+            <content-body v-if="currentNews.body" :fieldClass="'news-body'" :body="currentNews.body"/>
+
             <hr />
             <div class="share-box">
               <h4 class="is-subheading">Share this:</h4>
@@ -72,6 +76,9 @@
 <script>
 import LoadContent from './LoadContent'
 import appHeader from '@/app/components/appHeader'
+import Title from '@/app/fieldTemplates/Title.vue'
+import Image from '@/app/fieldTemplates/Image.vue'
+import Body from '@/app/fieldTemplates/Body.vue'
 import appFooter from '@/app/components/appFooter'
 import _ from 'lodash'
 
@@ -79,6 +86,9 @@ export default {
   mixins: [LoadContent],
   components: {
     appHeader,
+    contentTitle: Title,
+    contentImage: Image,
+    contentBody: Body,
     appFooter
   },
   computed: {

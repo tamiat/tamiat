@@ -1,5 +1,5 @@
 <template>
-  <p v-html="contentBody" :class="fieldClass"></p>
+  <div v-html="contentBody" :class="fieldClass"></div>
 </template>
 <script>
 export default {

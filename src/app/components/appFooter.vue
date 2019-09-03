@@ -1,31 +1,5 @@
 <template>
   <div>
-    <section class="contact">
-      <div class="container">
-        <div class="icon-box">
-          <img src="@/app/assets/img/footer-icon.png" alt="footer-icon">
-        </div>
-
-        <div class="content">
-          <h3 class="is-heading">Join our newsletter</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices. Morbi vitae pulvinar velit. Sed aliquam dictum sapien, id sagittis augue malesuada eu.</p>
-
-          <div class="alert-subscription" v-if="isSubscribed">
-            Thanks for your subscription.
-          </div>
-          <form v-else v-on:submit.prevent="subscribeNewsLetter">
-            <div class="form-icon-wrapper is-large m-y-md">
-              <input type="email" class="form-control is-large" ref="input-subscriber-email" v-model="subscriberEmail" placeholder="Your e-mail">
-
-              <button type="submit">
-                <i class="fa fa-arrow-right"></i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-
     <footer>
       <div class="container">
         <ul>

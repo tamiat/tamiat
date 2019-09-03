@@ -6,8 +6,10 @@
       <ul class="quote-box" v-if="reviews">
         <li v-for="review in reviews" :key="review['.key']">
           <p class="quote" v-text="review.description"></p>
-          <img :src="review.img" :alt="review.author">
-          <p class="author" v-text="review.author"></p>
+          <div>
+            <img class="picture" :src="review.img" :alt="review.author">
+            <p class="author" v-text="review.author"></p>
+          </div>
         </li>
       </ul>
     </div>
@@ -54,6 +56,9 @@ export default {
       width: 33.33%;
       @include border-radius(5px);
       box-shadow: 0px 0px 9px 0px lightgray;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       p {
         text-align: left;
       }
@@ -65,6 +70,7 @@ export default {
         color: #000000;
         font-weight: 700;
       }
+      
     }
   }
 }

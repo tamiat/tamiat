@@ -1,5 +1,5 @@
 <template>
-  <img :src="imageSrc" :class="fieldClass"/>
+  <img :src="imageSrc || require('@/app/assets/img/coast.jpg')" :class="fieldClass"/>
 </template>
 <script>
 export default {
@@ -9,8 +9,7 @@ export default {
   },
   computed:{
     imageSrc:function(){
-      let providedSrc = this.src === '' ? '@/app/assets/img/coast.jpg' : this.src
-      return providedSrc
+     return this.src
     }
   }
 }

@@ -46,8 +46,10 @@
           </div>
 
           <div class="rightbar">
-            <h3 class="is-subheading">Search By Topic</h3>
-
+            <div class="level">
+              <h3 class="is-subheading level-left">Search By Topic</h3>
+              <a @click="clearCategories()" class="button is-info is-outlined level-right" style="padding:10px">Clear</a>
+            </div>
             <ul v-if="categories" class="topic-list">
               <li v-for="(count, category) in categories" :key="category">
                 <a @click="changeCategory(category)">{{ category }} <span class="count">({{ count }})</span></a>
@@ -76,10 +78,10 @@ import contentFetch from '@/admin/mixins/contentFetch'
 import categoryFilter from '@/admin/mixins/categoryFilter'
 import _ from 'lodash'
 
-const stringContains = (search, string) => {
+const stringContains = (search, stringArr) => {
   let strContains = false
   stringArr.forEach(string => {
-    strContains = string.toLowerCase().includes(search.toLowerCase()) && true
+    if (string.toLowerCase().includes(search.toLowerCase())) strContains = true
   })
   return strContains
 }
@@ -127,13 +129,7 @@ export default {
     }
   },
   computed: {
-    news () {
-      let currentRoute = this.routes.filter((route) => {
-        return route.path === this.$route.path
-      })[0]
-
-      return this.getContentsByType(currentRoute.contentType, true)
-    },
+   
     filteredNews () {
       const searchQuery = this.filter.q
       const category = this.filter.category
@@ -146,31 +142,7 @@ export default {
     currentPageNews () {
       return _.slice(this.filteredNews, this.filter.currentPage - 1, (this.filter.currentPage - 1) + this.perPage)
     },
-    categories () {
-      let found_categories = {}
-      this.news.forEach(news => {
-        if(_.isEmpty(found_categories)) {
-          found_categories = _.countBy(news.category.options, function(option){
-            return option
-          })
-        } else {
-          let currNewsCat =  _.countBy(news.category.options, function(option){
-            return option
-          })
-          //comparing current categories with the new posts categories and makes chages accordingly
-          Object.keys(found_categories).forEach(keyCat => {
-            Object.keys(currNewsCat).forEach(keyCurCat => {
-              if(keyCat === keyCurCat){
-                found_categories[keyCat] = found_categories[keyCat] + currNewsCat[keyCurCat]
-              } else if(!(keyCurCat in found_categories)){
-                found_categories[keyCurCat] = currNewsCat[keyCurCat]
-              }
-            })
-          })
-        }
-      })
-      return found_categories
-    },
+    
     query () {
       return this.$route.query
     }
@@ -193,6 +165,9 @@ export default {
     },
     updateRoute () {
       this.$router.replace({ query: { q: this.filter.q, category: this.filter.category, page: this.filter.currentPage } })
+    },
+    clearCategories () {
+      this.filter.category = undefined
     }
   }
 }

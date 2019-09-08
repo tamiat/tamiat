@@ -140,7 +140,19 @@ export default {
       })
     },
     currentPageNews () {
-      return _.slice(this.filteredNews, this.filter.currentPage - 1, (this.filter.currentPage - 1) + this.perPage)
+      let pageNumber = Math.floor(this.filteredNews.length / this.perPage)
+      let lastPageContentNum
+      if (this.filteredNews.length % this.perPage !== 0) {
+        lastPageContentNum = this.filteredNews.length % this.perPage
+        pageNumber += 1
+      }
+      if(this.filter.currentPage === 1) {
+        return _.slice(this.filteredNews, this.filter.currentPage - 1, ((this.filter.currentPage - 1) + this.perPage))
+      } else if (this.filter.currentPage === pageNumber && lastPageContentNum) {
+        return _.slice(this.filteredNews, ((this.filter.currentPage -1) * this.perPage), (((this.filter.currentPage -1) * this.perPage)) + lastPageContentNum)
+      } else {
+        return _.slice(this.filteredNews, (this.filter.currentPage - 1) * this.perPage, (((this.filter.currentPage - 1) * this.perPage) + this.perPage))
+      }
     },
     
     query () {

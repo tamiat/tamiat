@@ -20,7 +20,6 @@
     <a href="https://github.com/tamiat/tamiat/graphs/contributors">contributors</a>
   </sub>
 </p>
-
 </div>
 
 ---
@@ -29,371 +28,117 @@
   <strong>Support our development with </strong>
   <a href="https://patreon.com/tamiatcms" target="_blank"><img src="https://s3.amazonaws.com/patreon_public_assets/toolbox/patreon.png" target="_blank" alt-text="patreon link" width="15%" margin-left="1.5em"></a>
 </p>
-
-[vue]: http://vuejs.org/
-[firebase]: https://firebase.google.com/
-
 ---
-
-<h1 text-align="center"> What It Looks Like </h1>
-
-![posts section](https://i.imgur.com/6sfuFOv.png)
-![settings section](https://i.imgur.com/gHzekpP.png)
-![media section](https://i.imgur.com/gkYFzcC.png)
 
 # Getting Started
 
-To get started with Tamiat CMS, you have two options:
+#### Backend development instructions
 
-- Making Tamiat your starting point.
-- Integrating Tamiat into an existing project.
+- If you want to add a new type of errors, You can add it in [errs package](pkg/errs/errors.go).
 
-## Making Tamiat Your Starting Point
+#### Running instructions
 
-1. Clone the CMS repository and install the dependencies.
+- You should export environment variables from terminal 
+  before running main.go
+  ex: export HOST=localhost. 
+- To test  the endpoints, import the [collection](postman%20collection/backend.postman_collection.json) in [Postman](https://www.postman.com/) and you can check how to import it from [here](https://kb.datamotion.com/?ht_kb=postman-instructions-for-exporting-and-importing).
 
-```bash
-# clone the repo
-git clone https://github.com/tamiat/tamiat.git
+#### Database on local
 
-# install the dependencies
-npm install
-# or
-yarn
-```
+1. Create postgresql database  from terminal by doing:
 
-2. Go to <a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a> then login with your google account.<br/>- then add your project following the steps in the image.<br/>![posts section](./public/static/img/tamiat-col-1.jpg)
-
-
-
-3) Go to Authentication section and set up your sign-in method<br/>after that you will find "add user" Button is active you can now add your <strong>Email</strong> and <strong>Password</strong>.<br/> *you will need them later to login in tamiat*.<br/>![posts section](./public/static/img/tamiat-col-2.jpg)
-
-4. You now see your <strong>UID</strong> copy it.<br/>now Rename `database.rules.json.tmp` file in root folder to `database.rules.json`<br/>![posts section](./public/static/img/tamiat-col-3.jpg)<br/>then add your <strong>UID</strong> in here...<br/>
-```js
-"rules": {
-    ".write": "auth.uid === 'kkw4UkvxU8UmIDuMInYTh*****'",
+ ```
+sudo -i -u postgres
+ ```
 
 ```
-
-5. Navigate to `/src/admin/firebase_config` and rename `config.js.tmp` to `config.js`<br/> then get your project configurations from WEB SETUP (_in Authentication section of firebase console_) and paste them in `config.js` file by replacing the existing ones.<br/>![posts section](./public/static/img/tamiat-col-4.jpg)
-
-6. Now make these two steps to add storage and Realtime database<br/>![posts section](./public/static/img/tamiat-col-5.jpg)
-
-7. Run the `firebase init` command (if you haven't installed firebase yet, do so by `npm install -g firebase-tools`), select your firebase project from the list, use the default database rules already present `database.rules.json`, choose `dist` as your public directory and configure the project as a single-page app.<br/> you can follow this steps here<br/>![posts section](./public/static/img/firebase-init.jpg)
-
-8) Make sure `.firebaserc` is created in your project root directory and the file contains the project id of firebase project you created earlier
-
-
-9. Now you should first create the dist folder by making
-`npm run build` or `yarn build` then `firebase deploy` to deploy the security rules you just entered.<br/><strong>*every time you make changes in the code you should to make this steps again*</strong>
-
-10) Run the local dev server with `npm run dev` or `yarn dev`.
-
-11. Access the admin interface by navigating to `localhost:8080/admin`.
-
-
-12) Sign in with your previous email and password.
-
-
-
-13. (Optional) Navigate to Database menu from sidebar to add demo contents from `tamiat.config.json`
-
-14) Enjoy!
-
-<br>
-
-## Integrating Tamiat Into an Existing Project
-
-1. Create a new vue.js project based on webpack template.
-
-```bash
-vue init webpack my-project
-# install webpack template dependencies
-npm install
+psql
 ```
 
-2. Install the required dependencies by Tamiat.
-
-```bash
-cd my-project
-
-# install development dependencies
-npm install node-sass sass-loader --save-dev
-
-# install production dependencies
-npm install moment vue-router bulma firebase vuefire font-awesome vue-quill-editor
+```
+CREATE DATABSE cms;
 ```
 
-3. In `main.js` file, import the external stylesheets and the necessary plugins and activate them.
+  2. Add datasource to goland:
+     leave all settings and just add the postgres username as shown in the picture.
+      ![1](https://user-images.githubusercontent.com/49435053/132143481-3b7f28da-55da-4d48-adca-affa7afb02b8.png)
 
-```js
-import router from './router'
-import VueFire from 'vuefire'
-import VueQuillEditor from 'vue-quill-editor'
+  3. Environment variables:
 
-// import external stylesheets
-import fontAwesome from '../node_modules/font-awesome/css/font-awesome.css'
-import bulma from '../node_modules/bulma/css/bulma.css'
+ - open .bashrc file.
+- we will add 6 environment variables using the following format: </br>
 
-Vue.use(VueFire) // activate vuefire plugin
-Vue.use(VueQuillEditor) // activate vue-quill-editor
+PASS=< value for password> ; export PASS </br>
+
+HOST=localhost ; export HOST </br>
+
+DBNAME=cms ; export DBNAME // the same name of database that was created in postgres </br>
+
+DBPORT=5432 ; export DBPORT </br>
+
+PORT=8080 ; export PORT </br>
+
+SECRET=< value for jwt secret > ; export SECRET </br>
+
+
+then run this command in the project root directory:
+
+```
+source ~/.bashrc
 ```
 
-> **Remember, don't forget to add the `router` property to the vue instance.**
+4. Install soda migration tool:
 
-```js
-new Vue({
-  el: '#app',
-  router, // this property should be added to the vue instance
-  template: '<App/>',
-  components: { App }
-})
+- In linux:
+
+```
+cd ..
 ```
 
-4. Clean up your `App.vue` file by deleting the extra content and making it similar to that:
-
-```html
-<template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
-</template>
+```
+nano .profile
 ```
 
-5. Now, open the Tamiat CMS repo and copy the following folders and files:
+add this at the end of the file: <\br>
 
-##### Folders to be copied:
-
-| Source            | Target                | Description                                |
-| ----------------- | --------------------- | ------------------------------------------ |
-| Tamiat/src/admin  | my-project/src/admin  | The building blocks of the admin interface |
-| Tamiat/src/app    | my-project/src/app    | The building blocks of the app interface   |
-| Tamiat/src/router | my-project/src/router | The routing logic of the CMS               |
-
-6. Once this is done, you can just follow the same instructions of the first option above starting from `step 2`.
-
-7. Enjoy!
-
-# Features
-
-- Front end focused CMS
-- Powered by [Vue][] **2.0** & [Firebase]
-
-## Routing
-
-In **Tamiat CMS**, there are reserved routes that are built in the CMS itself as well as dynamic routes that you can create yourself.
-
-### What benefit it offers
-
-With dynamic routes you are in complete control and have the total freedom about the presentation of your content. You can associate the content that you want with the template that you want and give them the url that you want.
-
-### How to create a dynamic route
-
-In order to create a dynamic route you have to go to the `Routing` section in **Tamiat** admin area.
-
-![Routing section](https://i.imgur.com/2iH5fpJ.png)
-
-On the right side, you can see the reserved routes in the CMS (you can not create dynamic routes with these paths).
-
-On the left side you see the form that you need to fill in to create a new dynamic route. This form consists of 4 inputs:
-
-- The route path
-- The route template
-- The route content type
-- The route content
-
-The only required fields in the form are `path` & `template`. The other fileds: `Content type` & `Content` are optional since some templates are static and don't accept any dynamic content to show. This type of templates shows static content instead (like the default `About us` template).
-
-After you fill in the form and click the `add` button, the dynamic route will be created and added to the _Dynamic routes_ on the right hand side. There, you can test it by clicking on the path link that will open the new route in a new browser tab.
-
-After the creation of the new route, you will have options to edit all it's components (path, template, content type & content) in addition to completely deleting it. You just need to hove over the created route to see those control buttons.
-
-
-In order to create a route that lists content of a certain type and has the ability to display instances of it dynamically two dynamic routes need to be created (one that uses a template that displays a list of all instances and one that uses a template that can fetch only a certain instance
-based on route params)
-
-![Routing section](https://i.imgur.com/CYeXMuZ.png)
-
-### What about creating new templates
-
-Creating new templates is very easy. All you have to do is:
-
-- Create a new `MyTemplate.vue` file in `/src/app/templates` folder.
-
-```html
-<template>
-  <div class="template">
-    <h1>Hello, I am a new template</h1>
-  </div>
-</template>
+```
+export PATH=$HOME/go/bin:$PATH
 ```
 
-- Add some info about the new template to `/src/app/templates/templates.json` as in the following snippet of code:
-
-```javascript
-[
-  ...
-  {
-    "filename": "MyTemplate", // the name of the file you created without ".vue" extension
-    "displayName": "My New Template" // The name you want your template to be called in the Routing page
-  }
-  ...
-]
+```
+source .profile
 ```
 
-### Static vs dynamic templates
+- In mac:
+  same instructions as linux but open .zprofile
 
-Static templates are templates that contains only hard coded content. They can not be used to show dynamic content (ex: the AboutUs default template).
+- In windows:
+  follow the instructions in this link https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ to add new env variable, and add this:
 
-here is the minimal code for a static template:
-
-```html
-<template>
-  <div class="template">
-    <h1>Hello, I am a static template</h1>
-  </div>
-</template>
+```
+C:\Users\<your_username>\go\bin
 ```
 
-On the other side, dynamic templates are used to show dynamic content in a given layout defined by the template (ex: the BlogPost default template)
+then in the working directory of the project:
 
-Here is the minimal code for a dynamic template:
-
-```html
-<template>
-  <div class="template">
-    <h1>{{content.title}}</h1>
-  </div>
-</template>
-
-<script>
-import LoadContent from './LoadContent'
-export default {
-  mixins: [LoadContent]
-}
-</script>
+```
+cd pkg
 ```
 
-The vue mixin `LoadContent` will expose your content as a data object called `content`. There, you can access all the fields of the content you assigned to that route.
-
-<br>
-
-## Field templates
-
-In order to give users more control over their content we have introduced **Field templates**. Found in the `src/app/fieldTemplates` folder, a field template will allow users to customize each and every field in their content as much as they wish without creating a single, large template file that is hard to manage and navigate. Just like content templates, field templates can be static and dynamic but for the most part they are envisoned for implementing dynamic content. 
-
-Every field template has at least  one prop:
-
-- field_class - prop that contains a class/classes tah the user wants to use on their field in some manor that requires the class to be passed dynamically
-- content prop - prop whose name will vary from field to field. This prop contains all data that the component will use and is usualy exposed to the template through a computed property.  
-
-Here is an example of a template using their content prop and field_class prop:
-
-```html
-<template>
-	<p :class="field_class">{{content}}</p>
-</template>
-<script>
-export default {
-  props: {
-   body: '',
-   field_class:''
-  },
-  computed: {
-   content: function() {
-    return this.body
-  }
- }
-}
-</script>
-<style lang="scss">
-// here you can add custom styles for your field
-</style>
+```
+soda migrate
 ```
 
-<br>
+### Get packages and run the server
 
-## Content types/Contents/Fields
+- In your cloned directory.
+- open your terminal and run:
 
-First, we have to understand the basic concepts and the DB structure.
+```
+go build -o server ./cmd
+./server
+```
 
-- Content type - type from which we create specific contents - every content type has it's own `name`, `icon`, `path`, `fields` and `data`(Contents)
-- Content - actual contents created as `data` in Content types
-- Fields - used as properties for Contents and can be created as one of the available input types (`textarea`, `textbox`, `integer`, `boolean`, `url`, `richtextbox`, `tags`, `select`, `input`)
+The server will start at:
 
-### Why do we need this?
-
-This way, everything we create is custom made. We don't have any restrictions in sense of how our content should be named, what properties(inputs) should it have, on what path should our contents be, etc.
-
-### **_ For users who have used previous version of Tamiat CMS _**
-
-In order for this new feature to work, you have to do the following:
-
-- Delete everything from DB except `media`, `nav` and `settings`
-- Go to the `Database` section in **Tamiat** admin area and add `Demo Content` and `Demo Fields`
-- After this, you have successfully added the demo data and initialized the DB. Now you can continue on working with contents and fields.
-
-### How to create Content types and Fields?
-
-In order to create content types and fields we have to go to the `Content` section in **Tamiat** admin area.
-
-#### Content types
-
-![Content type section](https://i.imgur.com/8QNUIef.png)
-
-##### Create
-
-To be able to create new content type we have to define the name and select one or more fields from available fields list.
-On the right side we have a list of available fields. Those are the fields that are currently available in the DB.
-By checking a field from that list, we decide to include it in the creation of content type.
-If we want some fields to be shown later in the UI, we have to check a field from `Fields` list (only `textbox` type fields are available). Also, we can reorder fields so that they are stored in the DB as we want.
-
-##### Edit/Delete
-
-Lets look at the right section.
-By selecting a content type from dropdown menu, section on the left is populated with data of selected content type.
-From that point, we can choose to edit or to delete it.
-
-#### Fields
-
-![Fields section](https://i.imgur.com/8IDPTjn.png)
-
-##### Create
-
-By clicking on `Add new field` button, this block is displayed.
-Field name and field type are mandatory, but multi value isn't.
-
-##### Edit/Delete
-
-Next to every fields name in the available fields list, we have two icons - delete and edit.
-The same block is displayed just now it's populated with selected fields data.
-
-### We created a new content type, what now?
-
-After successfull creation, content types are displayed in the dropdown menu `Content` in **Tamiat** admin area.
-By clicking on a specific content type, this page is displayed:
-
-![Content section](https://i.imgur.com/n6wRkuh.png)
-
-From this point, we can Create (Save/Publish), Edit, Delete, Bulk delete, Select, Filter and Sort contents.
-Those contents will be displayed later in the app.
-
-In the picture above we can see that we have newly created content type, ex. `Posts`, which has an actual data that is displayed in the table.<br>
-Notice that only `author` and `title` fields are displayed - because those are the fields we previously marked to be shown in content list when we were creating content type.<br>
-It is omportant to note that in order to be able to mark a field to be visible in the content list we must make sure that when creating or editing that field we set the `Listable` checkbox to true like shown below.
-![Content section](https://i.imgur.com/YbXFyKt.png)
-
-It is important to note that in order to be able to mark a field to be visible in the content list we must make sure that when creating or editing that field we set the `Listable` checkbox to true like shown below.
-
-![Content section](https://i.imgur.com/YbXFyKt.png)
-
-This setting lets Tamiat know that this field can be made listable in any content type that uses it. This will make a small checkbox appear next to a field that was selected as part of a content type you are creating/editing.
-
-![Content section](https://i.imgur.com/OfJt0C5.png)
-
-If the checkbox is present it means that we have successfully defined that field as listable. If the checkbox is checked that means that the field will be visible in contents list for this specific content type. Notice how the `img` field has a checkbox but it is not checked, that means that the `img` field has been globally defined as listable when it was created or edited, but for this specific content type this field will not be listed, since in this instance we do not want that. However, if you decide you want the `img` field to be listable in another content type the checkbox will always be present, since whether a field is listable or not for a content type is stored within that content types section in the database and will never interfere with the global definition of a field or how it is set in another content type.
-
-
-
-
-
+- Local: http://localhost:8000

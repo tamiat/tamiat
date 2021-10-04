@@ -133,3 +133,14 @@ cd pkg
 soda migrate
 ```
 
+### Get packages and run the server
+
+- In your cloned directory.
+- open your terminal and run:
+
+```
+go build -o server ./cmd
+./server
+```
+
+The server will start at:

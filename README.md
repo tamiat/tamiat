@@ -28,6 +28,10 @@
   <strong>Support our development with </strong>
   <a href="https://patreon.com/tamiatcms" target="_blank"><img src="https://s3.amazonaws.com/patreon_public_assets/toolbox/patreon.png" target="_blank" alt-text="patreon link" width="15%" margin-left="1.5em"></a>
 </p>
+
+[vue]: http://vuejs.org/
+[golang]: https://golang.org/
+
 ---
 
 # Getting Started

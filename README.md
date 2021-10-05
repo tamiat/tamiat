@@ -8,11 +8,8 @@
   <a href="https://www.tamiat.org"><img src="https://img.shields.io/website-up-down-green-red/https/www.tamiat.org.svg?label=tamiat.org" alt="Tamiat.org"></a>
   <a href="https://demo.tamiat.org"><img src="https://img.shields.io/website-up-down-green-red/https/demo.tamiat.org.svg?label=Online-Demo" alt="Online Demo"></a>
 </p>
-
 <h1>Tamiat CMS</h1>
-<p>
-  <strong>Tamiat headless CMS</strong>
-</p>
+
 
 <p>
   <sub>Made with ❤︎ by
@@ -31,126 +28,35 @@
 </p>
 
 [vue]: http://vuejs.org/
-[firebase]: https://firebase.google.com/
+[golang]: https://golang.org/
 
 ---
 
+<h1 text-align="center"> What It Looks Like </h1>
+
+​	screenshots will be here with explaination
+
 - # Getting Started
 
-  ### - [Backend](https://github.com/tamiat/backend)
+  To get started with Tamiat CMS, you will find the src code of frontend and backend here:
 
-  ### - [Frontend](https://github.com/tamiat/frontend)
+  - [Frontend](https://github.com/tamiat/frontend)
+  - [Backend](https://github.com/tamiat/backend)
 
-  ### - Backend development instructions
+  You will find the development instructions inside the both repositories.
 
-  - If you want to add a new type of errors, You can add it in [errs package](https://github.com/tamiat/backend/blob/main/pkg/errs/errors.go).
+  
 
-  ####     - Running instructions
+- # Features
 
-  - You should export environment variables from terminal 
-    before running main.go
-    ex: export HOST=localhost. 
+  - Creating content types with your own attributes, for example: You can create a car content type wich contains car photo, car type, car model .. etc.
+  - Creating contents.
+  - There are many roles in the application:
+    - SuperAdmin: Create, Update, Delete, Read content types.
+    - Admin: Create, Update, Read content types.
+    - Others: Update, Read content types.
+  - Ability for creating new roles in the application.
 
-  - To test  the endpoints, import the [collection](https://github.com/tamiat/backend/blob/main/postman%20collection/backend.postman_collection.json) in [Postman](https://www.postman.com/) and you can check how to import it from [here](https://kb.datamotion.com/?ht_kb=postman-instructions-for-exporting-and-importing).
+- # Testing
 
-    
-
-    #### - Database on local
-
-  1. Create postgresql database  from terminal by doing:
-
-   ```
-  sudo -i -u postgres
-   ```
-
-  ```
-  psql
-  ```
-
-  ```
-  CREATE DATABSE cms;
-  ```
-
-    2. Add datasource to goland:
-       leave all settings and just add the postgres username as shown in the picture.
-         ![1](https://user-images.githubusercontent.com/49435053/132143481-3b7f28da-55da-4d48-adca-affa7afb02b8.png)
-
-    3. Environment variables:
-
-   - open .bashrc file.
-  - we will add 6 environment variables using the following format: </br>
-
-  PASS=< value for password> ; export PASS </br>
-
-  HOST=localhost ; export HOST </br>
-
-  DBNAME=cms ; export DBNAME // the same name of database that was created in postgres </br>
-
-  DBPORT=5432 ; export DBPORT </br>
-
-  PORT=8080 ; export PORT </br>
-
-  SECRET=< value for jwt secret > ; export SECRET </br>
-
-
-  then run this command in the project root directory:
-
-  ```
-  source ~/.bashrc
-  ```
-
-  4. Install soda migration tool:
-
-  - In linux:
-
-  ```
-  cd ..
-  ```
-
-  ```
-  nano .profile
-  ```
-
-  add this at the end of the file: <\br>
-
-  ```
-  export PATH=$HOME/go/bin:$PATH
-  ```
-
-  ```
-  source .profile
-  ```
-
-  - In mac:
-    same instructions as linux but open .zprofile
-
-  - In windows:
-    follow the instructions in this link https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ to add new env variable, and add this:
-
-  ```
-  C:\Users\<your_username>\go\bin
-  ```
-
-  then in the working directory of the project:
-
-  ```
-  cd pkg
-  ```
-
-  ```
-  soda migrate
-  ```
-
-  ### Get packages and run the server
-
-  - In your cloned directory.
-  - open your terminal and run:
-
-  ```
-  go build -o application ./cmd
-  ./application
-  ```
-
-  The app will start at:
-
-  - Local: http://localhost:8080
+  You can test the application using [postman collection](), You will find it in the [backend]() repository.

@@ -1,5 +1,0 @@
-# COMMENT: This a rule for Single Page Applications
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
